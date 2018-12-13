@@ -7,9 +7,20 @@
 //
 
 import Cocoa
+import RxGoogleMusic
 
-final class MainController: BaseViewController<MainCoordinator>, ApplicationController {   
+final class MainController: BaseViewController<MainCoordinator>, ApplicationController {
+    var client: GMusicClient {
+        return GMusicClient(token: Global.current.gMusicToken!)
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        _ = client.radioStations().subscribe(onNext: { print($0.items.count) })
+    }
+    
     @IBAction func logOff(_ sender: Any) {
+        Global.current.clearKeychainToken()
         coordinator.showLogIn()
     }
     

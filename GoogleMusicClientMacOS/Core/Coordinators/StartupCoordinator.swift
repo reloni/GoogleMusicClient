@@ -16,8 +16,14 @@ final class StartupCoordinator {
     }
     
     func show() {
-        let controller = LogInController.instantiate()
-        controller.coordinator = LogInCoordinator(windowController: windowController)
-        windowController.replaceContentController(controller)
+        if Global.current.hasGMusicToken {
+            let controller = MainController.instantiate()
+            controller.coordinator = MainCoordinator(windowController: windowController)
+            windowController.replaceContentController(controller)
+        } else {
+            let controller = LogInController.instantiate()
+            controller.coordinator = LogInCoordinator(windowController: windowController)
+            windowController.replaceContentController(controller)
+        }
     }
 }

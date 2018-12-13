@@ -13,7 +13,9 @@ final class LogInController: BaseViewController<LogInCoordinator>, ApplicationCo
     @IBAction func logIn(_ sender: Any) {
         let authController = GMusicAuthenticationController { [weak self] result in
             switch result {
-            case .authenticated(let token): self?.coordinator.showMainController(accessToken: token)
+            case .authenticated(let token):
+                Global.current.saveInKeychain(token: token)
+                self?.coordinator.showMainController(accessToken: token)
             case .error(let e):
                 print("error: \(e)")
             case .userAborted:
