@@ -5,6 +5,6 @@
       location = "group:../RxGoogleMusic/RxGoogleMusic.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:GoogleMusicClient.xcodeproj">
+      location = "group:GoogleMusicClientMacOS.xcodeproj">
    </FileRef>
 </Workspace>
