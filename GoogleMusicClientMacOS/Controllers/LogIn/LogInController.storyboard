@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Log In-->
+        <scene sceneID="kBz-nk-Pt6">
+            <objects>
+                <viewController title="Log In" identifier="LogInController" storyboardIdentifier="LogInController" id="Uvv-VS-ith" customClass="LogInController" customModule="GoogleMusicClientMacOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="3ku-9n-alz">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TnF-EL-oqG">
+                                <rect key="frame" x="155" y="117" width="141" height="66"/>
+                                <buttonCell key="cell" type="bevel" title="Log In" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rQK-rb-gJk">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system" size="45"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="logIn:" target="Uvv-VS-ith" id="gWR-Lb-t9b"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="TnF-EL-oqG" firstAttribute="centerX" secondItem="3ku-9n-alz" secondAttribute="centerX" id="Jp5-IX-uIO"/>
+                            <constraint firstItem="TnF-EL-oqG" firstAttribute="centerY" secondItem="3ku-9n-alz" secondAttribute="centerY" id="LfF-HU-Kaq"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="d1a-KN-UXg" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
