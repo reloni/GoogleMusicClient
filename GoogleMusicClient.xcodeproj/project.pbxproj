@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E3ACE3721C28B22000944F3 /* RxGoogleMusic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3421C28B22000944F3 /* RxGoogleMusic.framework */; };
+		6E3ACE3821C28B22000944F3 /* RxGoogleMusic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3421C28B22000944F3 /* RxGoogleMusic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6E3ACE3921C28B22000944F3 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3521C28B22000944F3 /* RxCocoa.framework */; };
+		6E3ACE3A21C28B22000944F3 /* RxCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3521C28B22000944F3 /* RxCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6E3ACE3B21C28B22000944F3 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3621C28B22000944F3 /* RxSwift.framework */; };
+		6E3ACE3C21C28B22000944F3 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3621C28B22000944F3 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94665621C282D200126BB7 /* AppDelegate.swift */; };
 		6E94665921C282D200126BB7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94665821C282D200126BB7 /* ViewController.swift */; };
 		6E94665B21C282D200126BB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E94665A21C282D200126BB7 /* Assets.xcassets */; };
@@ -24,7 +30,26 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		6E3ACE3D21C28B22000944F3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6E3ACE3A21C28B22000944F3 /* RxCocoa.framework in Embed Frameworks */,
+				6E3ACE3821C28B22000944F3 /* RxGoogleMusic.framework in Embed Frameworks */,
+				6E3ACE3C21C28B22000944F3 /* RxSwift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		6E3ACE3421C28B22000944F3 /* RxGoogleMusic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxGoogleMusic.framework; path = Carthage/Build/Mac/RxGoogleMusic.framework; sourceTree = "<group>"; };
+		6E3ACE3521C28B22000944F3 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/Mac/RxCocoa.framework; sourceTree = "<group>"; };
+		6E3ACE3621C28B22000944F3 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
 		6E94665321C282D200126BB7 /* GoogleMusicClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoogleMusicClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E94665621C282D200126BB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E94665821C282D200126BB7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -42,6 +67,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E3ACE3921C28B22000944F3 /* RxCocoa.framework in Frameworks */,
+				6E3ACE3721C28B22000944F3 /* RxGoogleMusic.framework in Frameworks */,
+				6E3ACE3B21C28B22000944F3 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +86,9 @@
 		6E94664A21C282D200126BB7 = {
 			isa = PBXGroup;
 			children = (
+				6E3ACE3521C28B22000944F3 /* RxCocoa.framework */,
+				6E3ACE3421C28B22000944F3 /* RxGoogleMusic.framework */,
+				6E3ACE3621C28B22000944F3 /* RxSwift.framework */,
 				6E94665521C282D200126BB7 /* GoogleMusicClient */,
 				6E94666821C282D300126BB7 /* GoogleMusicClientTests */,
 				6E94665421C282D200126BB7 /* Products */,
@@ -105,6 +136,7 @@
 				6E94664F21C282D200126BB7 /* Sources */,
 				6E94665021C282D200126BB7 /* Frameworks */,
 				6E94665121C282D200126BB7 /* Resources */,
+				6E3ACE3D21C28B22000944F3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -145,6 +177,11 @@
 				TargetAttributes = {
 					6E94665221C282D200126BB7 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					6E94666421C282D300126BB7 = {
 						CreatedOnToolsVersion = 10.1;
@@ -353,6 +390,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = SJMSRXG797;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = GoogleMusicClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -372,6 +413,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = SJMSRXG797;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = GoogleMusicClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import RxGoogleMusic
 
 class ViewController: NSViewController {
 
@@ -14,6 +15,12 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        let c = GMusicAuthenticationController() { r in
+            print(r)
+        }
+        
+        presentAsModalWindow(c)
     }
 
     override var representedObject: Any? {
