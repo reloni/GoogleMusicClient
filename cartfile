@@ -1,3 +1,3 @@
 github "ReactiveX/RxSwift" == 4.4.0
 github "reloni/RxGoogleMusic" "master"
-github "reloni/RxDataFlow" "macOS"
+github "reloni/RxDataFlow" == 1.0.1

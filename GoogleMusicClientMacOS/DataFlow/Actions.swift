@@ -10,12 +10,8 @@ import RxDataFlow
 import RxSwift
 import RxGoogleMusic
 
-extension RxActionType {
-    var isSerial: Bool { return true }
-    var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
-}
-
 enum UIAction : RxActionType {
+    var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
     case startup(ApplicationWindowController)
     case showMain
     case logOff
