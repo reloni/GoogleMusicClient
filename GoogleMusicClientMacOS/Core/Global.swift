@@ -11,16 +11,17 @@ import RxGoogleMusic
 import RxSwift
 import RxDataFlow
 
+private func initialState() -> AppState {
+    return AppState(coordinator: StartupCoordinator(), keychain: Keychain())
+}
+
 struct Global {
     static var current: Global = Global()    
-    var dataFlowController = RxDataFlowController(reducer: rootReducer,
-                                                  initialState: AppState(coordinator: StartupCoordinator(), keychain: Keychain()))
+    var dataFlowController = RxDataFlowController(reducer: rootReducer, initialState: initialState())
 }
 
 extension Global {
-    var authenticated: Bool {
-        return dataFlowController.currentState.state.keychain.accessToken != nil
-    }
+    var authenticated: Bool { return dataFlowController.currentState.state.keychain.accessToken != nil }
     
     var gMusicToken: GMusicToken? {
         let keychain = dataFlowController.currentState.state.keychain
