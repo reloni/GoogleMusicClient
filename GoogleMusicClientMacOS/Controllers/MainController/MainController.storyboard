@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main-->
+        <scene sceneID="vTa-XT-qQu">
+            <objects>
+                <viewController title="Main" identifier="MainController" storyboardIdentifier="MainController" id="cDM-Pm-fIS" customClass="MainController" customModule="GoogleMusicClientMacOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="fNf-Uk-khK">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Shh-3D-OuM">
+                                <rect key="frame" x="14" y="252" width="83" height="32"/>
+                                <buttonCell key="cell" type="push" title="Log off" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="W86-LC-JEh">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="logOff:" target="cDM-Pm-fIS" id="3Rr-gB-NmK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Shh-3D-OuM" firstAttribute="leading" secondItem="fNf-Uk-khK" secondAttribute="leading" constant="20" id="1gf-dU-Sb6"/>
+                            <constraint firstItem="Shh-3D-OuM" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" constant="20" id="dax-ch-1KO"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="xlo-eS-pZE" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
