@@ -8,17 +8,32 @@
 
 import Cocoa
 import RxGoogleMusic
+import RxSwift
+import RxDataFlow
 
-final class LogInCoordinator {
-    private unowned let windowController: NSWindowController
+final class LogInCoordinator: ApplicationCoordinator {
+    private unowned let windowController: ApplicationWindowController
     
-    init(windowController: NSWindowController) {
+    init(windowController: ApplicationWindowController) {
         self.windowController = windowController
     }
     
-    func showMainController(accessToken token: GMusicToken) {
-        let controller = MainController.instantiate()
-        controller.coordinator = MainCoordinator(windowController: windowController)
-        windowController.replaceContentController(controller)
+    func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>> {
+        switch action {
+        case UIAction.showMain:
+            let controller = MainController.instantiate()
+            windowController.replaceContentController(controller)
+            return .just({ state in
+                var newState = state
+                newState.coordinator = MainCoordinator(windowController: self.windowController)
+                return newState
+            })
+        default:
+            return .just({ $0 })
+        }   
+    }
+    
+    deinit {
+        print("LogInCoordinator deinit")
     }
 }

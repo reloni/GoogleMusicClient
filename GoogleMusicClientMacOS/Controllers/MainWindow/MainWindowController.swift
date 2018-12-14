@@ -7,12 +7,12 @@
 //
 
 import Cocoa
+import RxDataFlow
 
 final class MainWindowController: NSWindowController, ApplicationController {
-    lazy var startupCoordinator: StartupCoordinator = { StartupCoordinator(windowController: self) }()
     override func windowDidLoad() {
         super.windowDidLoad()
-
-        startupCoordinator.show()
+        
+        Global.current.dataFlowController.dispatch(UIAction.startup(self))
     }
 }

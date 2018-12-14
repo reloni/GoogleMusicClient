@@ -7,15 +7,16 @@
 //
 
 import Cocoa
+import RxDataFlow
 import RxGoogleMusic
 
-final class LogInController: BaseViewController<LogInCoordinator>, ApplicationController {    
+final class LogInController: NSViewController {    
     @IBAction func logIn(_ sender: Any) {
-        let authController = GMusicAuthenticationController { [weak self] result in
+        let authController = GMusicAuthenticationController { result in
             switch result {
             case .authenticated(let token):
-                Global.current.saveInKeychain(token: token)
-                self?.coordinator.showMainController(accessToken: token)
+                Global.current.dataFlowController.dispatch(RxCompositeAction(SystemAction.saveKeychainToken(token),
+                                                                             UIAction.showMain))
             case .error(let e):
                 print("error: \(e)")
             case .userAborted:

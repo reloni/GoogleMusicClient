@@ -8,21 +8,22 @@
 
 import Cocoa
 
-extension NSWindowController {
-    func replaceContentController(_ newController: NSViewController) {
+protocol ApplicationWindowController: class {
+    func replaceContentController(_ newController: ApplicationController)
+}
+
+extension NSWindowController: ApplicationWindowController {
+    func replaceContentController(_ newController: ApplicationController) {
+        guard let controller = newController as? NSViewController else { return }
         NSAnimationContext.runAnimationGroup({ _ in
             contentViewController?.view.animator().alphaValue = 0
         }, completionHandler: {
-            newController.view.alphaValue = 0
-            self.contentViewController = newController
-            newController.view.animator().alphaValue = 1.0
+            controller.view.alphaValue = 0
+            self.contentViewController = controller
+            controller.view.animator().alphaValue = 1.0
         })
-        window?.title = newController.title ?? ""
+        window?.title = controller.title ?? ""
     }
-}
-
-class BaseViewController<Coordinator>: NSViewController {
-    var coordinator: Coordinator!
 }
 
 protocol ApplicationController {
@@ -30,6 +31,8 @@ protocol ApplicationController {
     static var storyboard: NSStoryboard { get }
     static func instantiate() -> Self
 }
+
+extension NSViewController: ApplicationController { }
 
 extension ApplicationController {
     static var controllerName: String {

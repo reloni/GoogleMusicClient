@@ -7,23 +7,40 @@
 //
 
 import Cocoa
+import RxDataFlow
+import RxSwift
 
-final class StartupCoordinator {
-    private unowned let windowController: NSWindowController
-    
-    init(windowController: NSWindowController) {
-        self.windowController = windowController
+protocol ApplicationCoordinator {
+    func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>>
+}
+
+final class StartupCoordinator: ApplicationCoordinator {
+    func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>> {
+        switch action {
+        case UIAction.startup(let windowController):
+            return startup(in: windowController)
+        default:
+            break
+        }
+        return .just({ $0 })
     }
     
-    func show() {
-        if Global.current.hasGMusicToken {
-            let controller = MainController.instantiate()
-            controller.coordinator = MainCoordinator(windowController: windowController)
-            windowController.replaceContentController(controller)
-        } else {
-            let controller = LogInController.instantiate()
-            controller.coordinator = LogInCoordinator(windowController: windowController)
-            windowController.replaceContentController(controller)
-        }
+    func startup(in windowController: ApplicationWindowController) -> Observable<RxStateMutator<AppState>> {
+        let newCoordinator: ApplicationCoordinator =
+            Global.current.hasGMusicToken ? MainCoordinator(windowController: windowController) : LogInCoordinator(windowController: windowController)
+        
+        let controller = Global.current.hasGMusicToken ? MainController.instantiate() : LogInController.instantiate()
+        
+        windowController.replaceContentController(controller)
+
+        return .just({ state in
+            var newState = state
+            newState.coordinator = newCoordinator
+            return newState
+        })
+    }
+    
+    deinit {
+        print("StartupCoordinator deinit")
     }
 }

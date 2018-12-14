@@ -7,17 +7,32 @@
 //
 
 import Cocoa
+import RxDataFlow
+import RxSwift
 
-final class MainCoordinator {
-    private unowned let windowController: NSWindowController
+final class MainCoordinator: ApplicationCoordinator {
+    private unowned let windowController: ApplicationWindowController
     
-    init(windowController: NSWindowController) {
+    init(windowController: ApplicationWindowController) {
         self.windowController = windowController
     }
     
-    func showLogIn() {
-        let controller = LogInController.instantiate()
-        controller.coordinator = LogInCoordinator(windowController: windowController)
-        windowController.replaceContentController(controller)
+    func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>> {
+        switch action {
+        case UIAction.logOff:
+            let controller = LogInController.instantiate()
+            windowController.replaceContentController(controller)
+            return .just({ state in
+                var newState = state
+                newState.coordinator = LogInCoordinator(windowController: self.windowController)
+                return newState
+            })
+        default:
+            return .just({ $0 })
+        }
+    }
+    
+    deinit {
+        print("MainCoordinator deinit")
     }
 }

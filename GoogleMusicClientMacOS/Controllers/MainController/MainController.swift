@@ -7,9 +7,10 @@
 //
 
 import Cocoa
+import RxDataFlow
 import RxGoogleMusic
 
-final class MainController: BaseViewController<MainCoordinator>, ApplicationController {
+final class MainController: NSViewController {
     var client: GMusicClient {
         return GMusicClient(token: Global.current.gMusicToken!)
     }
@@ -20,8 +21,8 @@ final class MainController: BaseViewController<MainCoordinator>, ApplicationCont
     }
     
     @IBAction func logOff(_ sender: Any) {
-        Global.current.clearKeychainToken()
-        coordinator.showLogIn()
+        Global.current.dataFlowController.dispatch(RxCompositeAction(SystemAction.clearKeychainToken,
+                                                                     UIAction.logOff))
     }
     
     deinit {

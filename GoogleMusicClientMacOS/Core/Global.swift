@@ -8,33 +8,25 @@
 
 import Foundation
 import RxGoogleMusic
+import RxSwift
+import RxDataFlow
 
 struct Global {
-    static var current: Global = Global()
-    var keychain: KeychainType = Keychain()
+    static var current: Global = Global()    
+    var dataFlowController = RxDataFlowController(reducer: rootReducer,
+                                                  initialState: AppState(coordinator: StartupCoordinator(), keychain: Keychain()))
 }
 
 extension Global {
     var hasGMusicToken: Bool {
-        return keychain.accessToken != nil
+        return dataFlowController.currentState.state.keychain.accessToken != nil
     }
     
     var gMusicToken: GMusicToken? {
+        let keychain = dataFlowController.currentState.state.keychain
         guard let token = keychain.accessToken else { return nil }
         return GMusicToken(accessToken: token,
                            expiresIn: keychain.expiresIn,
                            refreshToken: keychain.refreshToken)
-    }
-    
-    func saveInKeychain(token: GMusicToken) {
-        keychain.accessToken = token.accessToken
-        keychain.expiresIn = token.expiresIn ?? 0
-        keychain.refreshToken = token.refreshToken
-    }
-    
-    func clearKeychainToken() {
-        keychain.accessToken = nil
-        keychain.expiresIn = 0
-        keychain.refreshToken = nil
     }
 }
