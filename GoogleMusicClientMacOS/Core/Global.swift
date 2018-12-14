@@ -18,7 +18,7 @@ struct Global {
 }
 
 extension Global {
-    var hasGMusicToken: Bool {
+    var authenticated: Bool {
         return dataFlowController.currentState.state.keychain.accessToken != nil
     }
     

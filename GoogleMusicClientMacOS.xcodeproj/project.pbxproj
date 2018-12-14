@@ -157,8 +157,6 @@
 		6E38A75521C2990000983339 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				6EB27ACD21C3D4A60013479C /* DataFlow */,
-				6E38A75A21C29C7A00983339 /* Coordinators */,
 				6E38A75821C29A4000983339 /* ApplicationController.swift */,
 				6E3DD68521C2B07400C1F49F /* Keychain.swift */,
 				6E3DD68721C2B18000C1F49F /* Global.swift */,
@@ -210,6 +208,8 @@
 		6E94665521C282D200126BB7 /* GoogleMusicClientMacOS */ = {
 			isa = PBXGroup;
 			children = (
+				6EB27ACD21C3D4A60013479C /* DataFlow */,
+				6E38A75A21C29C7A00983339 /* Coordinators */,
 				6E38A75521C2990000983339 /* Core */,
 				6E38A74B21C293AB00983339 /* Controllers */,
 				6E38A74921C292B300983339 /* Resources */,

@@ -27,9 +27,9 @@ final class StartupCoordinator: ApplicationCoordinator {
     
     func startup(in windowController: ApplicationWindowController) -> Observable<RxStateMutator<AppState>> {
         let newCoordinator: ApplicationCoordinator =
-            Global.current.hasGMusicToken ? MainCoordinator(windowController: windowController) : LogInCoordinator(windowController: windowController)
+            Global.current.authenticated ? MainCoordinator(windowController: windowController) : LogInCoordinator(windowController: windowController)
         
-        let controller = Global.current.hasGMusicToken ? MainController.instantiate() : LogInController.instantiate()
+        let controller = Global.current.authenticated ? MainController.instantiate() : LogInController.instantiate()
         
         windowController.replaceContentController(controller)
 
