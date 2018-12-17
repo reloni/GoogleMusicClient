@@ -12,7 +12,7 @@ import Foundation
 protocol KeychainType: class {
     var accessToken: String? { get set }
     var refreshToken: String? { get set }
-    var expiresIn: Int { get set }
+    var expiresAt: Date? { get set }
 }
 
 extension Keychain {
@@ -32,9 +32,15 @@ extension Keychain: KeychainType {
         set { self.setString(string: newValue, forAccount: "refreshToken") }
     }
     
-    var expiresIn: Int {
-        get { return Int(stringForAccount(account: "expiresIn") ?? "") ?? 0 }
-        set { self.setString(string: String(newValue), forAccount: "expiresIn") }
+    var expiresAt: Date? {
+        get {
+            guard let value = TimeInterval(stringForAccount(account: "expiresAt") ?? "") else { return nil }
+            return Date(timeIntervalSince1970: value)
+        }
+        set {
+            let value = newValue.flatMap { "\($0.timeIntervalSince1970)" } ?? ""
+            self.setString(string: value, forAccount: "expiresAt")
+        }
     }
 }
 

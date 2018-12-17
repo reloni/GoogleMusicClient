@@ -27,12 +27,12 @@ func systemReducer(_ action: RxActionType, currentState: AppState) -> Observable
 
 private func saveInKeychain(token: GMusicToken, keychain: KeychainType) {
     keychain.accessToken = token.accessToken
-    keychain.expiresIn = token.expiresIn ?? 0
+    keychain.expiresAt = token.expiresAt
     keychain.refreshToken = token.refreshToken
 }
 
 private func clearKeychainToken(keychain: KeychainType) {
     keychain.accessToken = nil
-    keychain.expiresIn = 0
+    keychain.expiresAt = nil
     keychain.refreshToken = nil
 }

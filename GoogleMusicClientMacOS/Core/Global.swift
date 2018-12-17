@@ -27,7 +27,7 @@ extension Global {
         let keychain = dataFlowController.currentState.state.keychain
         guard let token = keychain.accessToken else { return nil }
         return GMusicToken(accessToken: token,
-                           expiresIn: keychain.expiresIn,
+                           expiresAt: keychain.expiresAt,
                            refreshToken: keychain.refreshToken)
     }
 }
