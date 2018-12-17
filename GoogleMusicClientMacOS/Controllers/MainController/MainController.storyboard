@@ -23,7 +23,7 @@
                                     <action selector="logOff:" target="cDM-Pm-fIS" id="3Rr-gB-NmK"/>
                                 </connections>
                             </button>
-                            <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLw-cD-pMH">
+                            <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="bLw-cD-pMH">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="239"/>
                                 <clipView key="contentView" drawsBackground="NO" id="gO6-yS-wS0">
                                     <rect key="frame" x="1" y="0.0" width="448" height="238"/>

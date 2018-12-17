@@ -21,7 +21,7 @@ final class MainController: NSViewController {
     
     @IBOutlet weak var tableView: ApplicationTableView!
     
-    var stations = GMusicCollection<GMusicRadioStation>(kind: "") {
+    var stations: [GMusicRadioStation] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -35,6 +35,7 @@ final class MainController: NSViewController {
         
         client
             .radioStations()
+            .map { $0.items }
             .asDriver(onErrorJustReturn: stations)
             .do(onNext: { [weak self] in self?.stations = $0 })
             .drive()
@@ -53,19 +54,19 @@ final class MainController: NSViewController {
 
 extension MainController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return stations.items.count
+        return stations.count
     }
 }
 
 extension MainController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Cell"), owner: nil) as! NSTableCellView
-        cell.textField?.stringValue = stations.items[row].name
+        cell.textField?.stringValue = stations[row].name
         return cell
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        let station = stations.items[tableView.selectedRow]
+        let station = stations[tableView.selectedRow]
         client.radioStationFeed(for: station)
             .do(onNext: { result in print(result.items.first!.tracks.map { "\($0.id?.uuidString ?? "") | \($0.title)" }) })
             .subscribe()
