@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E31EC3321C7DBA5009B9742 /* ApplicationTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */; };
 		6E38A74D21C293BC00983339 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E38A74C21C293BC00983339 /* MainWindowController.swift */; };
 		6E38A74E21C2943000983339 /* MainWindowController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E94665C21C282D200126BB7 /* MainWindowController.storyboard */; };
 		6E38A75221C2988C00983339 /* LogInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E38A75121C2988C00983339 /* LogInController.swift */; };
@@ -64,6 +65,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationTableView.swift; sourceTree = "<group>"; };
 		6E38A74A21C2933900983339 /* GoogleMusicClientMacOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoogleMusicClientMacOS.entitlements; sourceTree = "<group>"; };
 		6E38A74C21C293BC00983339 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		6E38A75121C2988C00983339 /* LogInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInController.swift; sourceTree = "<group>"; };
@@ -116,6 +118,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E31EC3121C7DB80009B9742 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		6E38A74921C292B300983339 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +167,7 @@
 		6E38A75521C2990000983339 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				6E31EC3121C7DB80009B9742 /* Views */,
 				6E38A75821C29A4000983339 /* ApplicationController.swift */,
 				6E3DD68521C2B07400C1F49F /* Keychain.swift */,
 				6E3DD68721C2B18000C1F49F /* Global.swift */,
@@ -349,6 +360,7 @@
 				6E38A76121C2A64B00983339 /* MainController.swift in Sources */,
 				6E3DD68821C2B18000C1F49F /* Global.swift in Sources */,
 				6E38A74D21C293BC00983339 /* MainWindowController.swift in Sources */,
+				6E31EC3321C7DBA5009B9742 /* ApplicationTableView.swift in Sources */,
 				6E38A75221C2988C00983339 /* LogInController.swift in Sources */,
 				6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */,
 				6EB27AD521C3D6450013479C /* SystemReducer.swift in Sources */,
