@@ -20,18 +20,36 @@ final class MainController: NSViewController {
     let bag = DisposeBag()
     
     @IBOutlet weak var tableView: ApplicationTableView!
+    @IBOutlet weak var leftContainerView: NSView!
+    @IBOutlet weak var mainContainerView: NSView!
     
     var stations: [GMusicRadioStation] = [] {
         didSet {
-            tableView.reloadData()
+//            tableView.reloadData()
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let left = LeftMenuController.instantiate()
+        addChild(left)
+        leftContainerView.addSubview(left.view)
+        left.view.translatesAutoresizingMaskIntoConstraints = false
+        left.view.leftAnchor.constraint(equalTo: leftContainerView.leftAnchor).isActive = true
+        left.view.rightAnchor.constraint(equalTo: leftContainerView.rightAnchor).isActive = true
+        left.view.topAnchor.constraint(equalTo: leftContainerView.topAnchor).isActive = true
+        left.view.bottomAnchor.constraint(equalTo: leftContainerView.bottomAnchor).isActive = true
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        
+        
+        
+//        tableView.delegate = self
+//        tableView.dataSource = self
         
         client
             .radioStations()
