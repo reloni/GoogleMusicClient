@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
-        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,42 +11,80 @@
             <objects>
                 <viewController title="Main" identifier="MainController" storyboardIdentifier="MainController" id="cDM-Pm-fIS" customClass="MainController" customModule="GoogleMusicClientMacOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="fNf-Uk-khK">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="382"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="C9d-hh-iLv">
-                                <rect key="frame" x="0.0" y="0.0" width="100" height="300"/>
+                                <rect key="frame" x="0.0" y="71" width="100" height="311"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="eTm-xf-wTF"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                        <color key="value" name="alternatingContentBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="value" name="LeftMenuBackgroundColor"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </containerView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="bgq-eG-AUu">
-                                <rect key="frame" x="100" y="0.0" width="350" height="300"/>
+                                <rect key="frame" x="100" y="71" width="350" height="311"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" name="MainBackgroundColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </containerView>
+                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="RzJ-qC-MfL">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="U4o-QG-Kyj"/>
+                                    <constraint firstAttribute="height" constant="70" id="Ylg-fH-P2o"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" name="BottomBarBackgroundColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </containerView>
+                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="lm6-QH-u0V">
+                                <rect key="frame" x="0.0" y="68" width="450" height="5"/>
+                            </box>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="bgq-eG-AUu" secondAttribute="bottom" id="BcB-am-Rii"/>
-                            <constraint firstItem="C9d-hh-iLv" firstAttribute="leading" secondItem="fNf-Uk-khK" secondAttribute="leading" id="Syr-t9-o4j"/>
-                            <constraint firstAttribute="bottom" secondItem="C9d-hh-iLv" secondAttribute="bottom" id="bl8-wI-L4R"/>
-                            <constraint firstItem="bgq-eG-AUu" firstAttribute="leading" secondItem="C9d-hh-iLv" secondAttribute="trailing" id="epE-r0-beF"/>
-                            <constraint firstItem="C9d-hh-iLv" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" id="fKe-Ui-Mqf"/>
-                            <constraint firstAttribute="trailing" secondItem="bgq-eG-AUu" secondAttribute="trailing" id="m6k-mL-joT"/>
-                            <constraint firstItem="bgq-eG-AUu" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" id="yGZ-Iz-8KV"/>
+                            <constraint firstAttribute="trailing" secondItem="lm6-QH-u0V" secondAttribute="trailing" id="4PK-Lg-YfN"/>
+                            <constraint firstItem="bgq-eG-AUu" firstAttribute="leading" secondItem="C9d-hh-iLv" secondAttribute="trailing" id="8zS-Qs-9RA"/>
+                            <constraint firstAttribute="trailing" secondItem="bgq-eG-AUu" secondAttribute="trailing" id="ACw-xv-dfn"/>
+                            <constraint firstItem="lm6-QH-u0V" firstAttribute="leading" secondItem="fNf-Uk-khK" secondAttribute="leading" id="Cjb-yD-E9p"/>
+                            <constraint firstAttribute="trailing" secondItem="RzJ-qC-MfL" secondAttribute="trailing" id="IIL-uv-E2k"/>
+                            <constraint firstItem="lm6-QH-u0V" firstAttribute="top" secondItem="bgq-eG-AUu" secondAttribute="bottom" id="Laa-DY-CwF"/>
+                            <constraint firstAttribute="bottom" secondItem="RzJ-qC-MfL" secondAttribute="bottom" id="MPd-df-j0v"/>
+                            <constraint firstItem="C9d-hh-iLv" firstAttribute="leading" secondItem="fNf-Uk-khK" secondAttribute="leading" id="Q7E-Zd-CCr"/>
+                            <constraint firstItem="RzJ-qC-MfL" firstAttribute="top" secondItem="lm6-QH-u0V" secondAttribute="bottom" id="VSy-ta-qR0"/>
+                            <constraint firstItem="bgq-eG-AUu" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" id="YKb-6C-vHp"/>
+                            <constraint firstItem="lm6-QH-u0V" firstAttribute="top" secondItem="C9d-hh-iLv" secondAttribute="bottom" id="bmd-vA-Aku"/>
+                            <constraint firstItem="C9d-hh-iLv" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" id="dKf-RL-QyV"/>
+                            <constraint firstItem="RzJ-qC-MfL" firstAttribute="leading" secondItem="fNf-Uk-khK" secondAttribute="leading" id="jrJ-DH-vbo"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomContainerView" destination="RzJ-qC-MfL" id="Qnr-pl-shr"/>
                         <outlet property="leftContainerView" destination="C9d-hh-iLv" id="YqV-Qw-A2t"/>
                         <outlet property="mainContainerView" destination="bgq-eG-AUu" id="qsR-xB-dQB"/>
                     </connections>
                 </viewController>
                 <customObject id="xlo-eS-pZE" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="135" y="131"/>
+            <point key="canvasLocation" x="135" y="172"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="BottomBarBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="LeftMenuBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="MainBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>
