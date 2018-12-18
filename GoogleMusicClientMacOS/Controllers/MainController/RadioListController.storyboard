@@ -19,7 +19,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="3Br-Av-tDt" viewBased="YES" id="YIa-Re-mq3" customClass="ApplicationTableView" customModule="GoogleMusicClientMacOS" customModuleProvider="target">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="3Br-Av-tDt" viewBased="YES" id="YIa-Re-mq3" customClass="ApplicationTableView" customModule="GoogleMusicClientMacOS" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="450" height="275"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
