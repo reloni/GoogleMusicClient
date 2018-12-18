@@ -14,13 +14,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="37" horizontalPageScroll="10" verticalLineScroll="37" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X8Y-Iu-9nj">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="275"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="4Km-aa-lYN">
-                                    <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="450" height="275"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="35" usesAutomaticRowHeights="YES" viewBased="YES" id="oE6-fV-2G2" customClass="ApplicationTableView" customModule="GoogleMusicClientMacOS" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="450" height="275"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -82,7 +82,7 @@
                         <constraints>
                             <constraint firstItem="X8Y-Iu-9nj" firstAttribute="leading" secondItem="9w9-nc-Djg" secondAttribute="leading" id="Dvy-tI-SCg"/>
                             <constraint firstAttribute="trailing" secondItem="X8Y-Iu-9nj" secondAttribute="trailing" id="fq0-Vy-c1L"/>
-                            <constraint firstItem="X8Y-Iu-9nj" firstAttribute="top" secondItem="9w9-nc-Djg" secondAttribute="top" id="fxd-Hl-VqB"/>
+                            <constraint firstItem="X8Y-Iu-9nj" firstAttribute="top" secondItem="9w9-nc-Djg" secondAttribute="top" constant="25" id="fxd-Hl-VqB"/>
                             <constraint firstAttribute="bottom" secondItem="X8Y-Iu-9nj" secondAttribute="bottom" id="tCS-ff-njW"/>
                         </constraints>
                     </view>

@@ -14,10 +14,15 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="C9d-hh-iLv">
-                                <rect key="frame" x="0.0" y="10" width="100" height="280"/>
+                                <rect key="frame" x="0.0" y="0.0" width="100" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="eTm-xf-wTF"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </containerView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="bgq-eG-AUu">
                                 <rect key="frame" x="100" y="0.0" width="350" height="290"/>
@@ -26,9 +31,9 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="bgq-eG-AUu" secondAttribute="bottom" id="BcB-am-Rii"/>
                             <constraint firstItem="C9d-hh-iLv" firstAttribute="leading" secondItem="fNf-Uk-khK" secondAttribute="leading" id="Syr-t9-o4j"/>
-                            <constraint firstAttribute="bottom" secondItem="C9d-hh-iLv" secondAttribute="bottom" constant="10" id="bl8-wI-L4R"/>
+                            <constraint firstAttribute="bottom" secondItem="C9d-hh-iLv" secondAttribute="bottom" id="bl8-wI-L4R"/>
                             <constraint firstItem="bgq-eG-AUu" firstAttribute="leading" secondItem="C9d-hh-iLv" secondAttribute="trailing" id="epE-r0-beF"/>
-                            <constraint firstItem="C9d-hh-iLv" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" constant="10" id="fKe-Ui-Mqf"/>
+                            <constraint firstItem="C9d-hh-iLv" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" id="fKe-Ui-Mqf"/>
                             <constraint firstAttribute="trailing" secondItem="bgq-eG-AUu" secondAttribute="trailing" id="m6k-mL-joT"/>
                             <constraint firstItem="bgq-eG-AUu" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" constant="10" id="yGZ-Iz-8KV"/>
                         </constraints>
