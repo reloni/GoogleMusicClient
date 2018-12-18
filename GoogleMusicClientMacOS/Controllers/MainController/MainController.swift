@@ -41,18 +41,13 @@ final class MainController: NSViewController {
 //        tableView.delegate = self
 //        tableView.dataSource = self
         
-        client
-            .radioStations()
-            .map { $0.items }
-            .asDriver(onErrorJustReturn: stations)
-            .do(onNext: { [weak self] in self?.stations = $0 })
-            .drive()
-            .disposed(by: bag)
-    }
-    
-    @IBAction func logOff(_ sender: Any) {
-        Global.current.dataFlowController.dispatch(RxCompositeAction(SystemAction.clearKeychainToken,
-                                                                     UIAction.logOff))
+//        client
+//            .radioStations()
+//            .map { $0.items }
+//            .asDriver(onErrorJustReturn: stations)
+//            .do(onNext: { [weak self] in self?.stations = $0 })
+//            .drive()
+//            .disposed(by: bag)
     }
     
     deinit {
@@ -74,10 +69,10 @@ extension MainController: NSTableViewDelegate {
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        let station = stations[tableView.selectedRow]
-        client.radioStationFeed(for: station)
-            .do(onNext: { result in print(result.items.first!.tracks.map { "\($0.id?.uuidString ?? "") | \($0.title)" }) })
-            .subscribe()
-            .disposed(by: bag)
+//        let station = stations[tableView.selectedRow]
+//        client.radioStationFeed(for: station)
+//            .do(onNext: { result in print(result.items.first!.tracks.map { "\($0.id?.uuidString ?? "") | \($0.title)" }) })
+//            .subscribe()
+//            .disposed(by: bag)
     }
 }

@@ -13,10 +13,12 @@ import RxSwift
 final class MainCoordinator {
     private unowned let windowController: ApplicationWindowController
     let controller: MainController
+    let leftMenuController: LeftMenuController
     
     init(windowController: ApplicationWindowController, controller: MainController) {
         self.windowController = windowController
         self.controller = controller
+        self.leftMenuController = LeftMenuController.instantiate()
     }
 
     deinit {
@@ -27,10 +29,15 @@ final class MainCoordinator {
 extension MainCoordinator: ApplicationCoordinator {
     func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>> {
         switch action {
-        case UIAction.logOff:
+        case UIAction.showLogIn:
             return logOff()
         case UIAction.initMainController:
             initLeftMenu()
+            break
+        case UIAction.showArtists:
+//            leftMenuController.tableView.selectRowIndexes(IndexSet([]), byExtendingSelection: false)
+            break
+        case UIAction.showRadio:
             break
         default:
             break
@@ -52,9 +59,8 @@ private extension MainCoordinator {
     }
     
     func initLeftMenu() {
-        let left = LeftMenuController.instantiate()
-        controller.addChild(left)
-        controller.leftContainerView.addSubview(left.view)
-        left.view.lt.edges(to: controller.leftContainerView)
+        controller.addChild(leftMenuController)
+        controller.leftContainerView.addSubview(leftMenuController.view)
+        leftMenuController.view.lt.edges(to: controller.leftContainerView)
     }
 }

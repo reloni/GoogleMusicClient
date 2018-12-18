@@ -15,7 +15,11 @@ import RxGoogleMusic
 final class LeftMenuController: NSViewController {
     @IBOutlet weak var tableView: ApplicationTableView!
     
-    let rows = ["First", "Second", "Third"]
+    let rows: [(String, RxActionType)] = [("Radio", UIAction.showRadio),
+                                          ("Artists", UIAction.showArtists),
+                                          ("Albums", UIAction.showAlbums),
+                                          ("Playlists", UIAction.showPlaylists),
+                                          ("Log off", CompositeActions.logOff)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +44,7 @@ extension LeftMenuController: NSTableViewDataSource {
 extension LeftMenuController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Cell"), owner: nil) as! NSTableCellView
-        cell.textField?.stringValue = rows[row]
+        cell.textField?.stringValue = rows[row].0
         return cell
     }
     
@@ -50,5 +54,7 @@ extension LeftMenuController: NSTableViewDelegate {
     
     func tableViewSelectionDidChange(_ notification: Notification) {
         print("select: \(tableView.selectedRow)")
+        guard tableView.selectedRow >= 0 && tableView.selectedRow < rows.count else { return }
+        Global.current.dataFlowController.dispatch(rows[tableView.selectedRow].1)
     }
 }
