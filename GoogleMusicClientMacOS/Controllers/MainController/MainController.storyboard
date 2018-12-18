@@ -24,20 +24,22 @@
                                 </connections>
                             </button>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="C9d-hh-iLv">
-                                <rect key="frame" x="0.0" y="0.0" width="135" height="300"/>
+                                <rect key="frame" x="0.0" y="10" width="100" height="280"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="eTm-xf-wTF"/>
+                                </constraints>
                             </containerView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="bgq-eG-AUu">
-                                <rect key="frame" x="135" y="0.0" width="315" height="239"/>
+                                <rect key="frame" x="100" y="0.0" width="350" height="239"/>
                             </containerView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="bgq-eG-AUu" secondAttribute="bottom" id="BcB-am-Rii"/>
                             <constraint firstItem="C9d-hh-iLv" firstAttribute="leading" secondItem="fNf-Uk-khK" secondAttribute="leading" id="Syr-t9-o4j"/>
-                            <constraint firstItem="C9d-hh-iLv" firstAttribute="width" secondItem="fNf-Uk-khK" secondAttribute="width" multiplier="0.3" id="WQw-xE-uVs"/>
-                            <constraint firstAttribute="bottom" secondItem="C9d-hh-iLv" secondAttribute="bottom" id="bl8-wI-L4R"/>
+                            <constraint firstAttribute="bottom" secondItem="C9d-hh-iLv" secondAttribute="bottom" constant="10" id="bl8-wI-L4R"/>
                             <constraint firstItem="Shh-3D-OuM" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" constant="20" id="dax-ch-1KO"/>
                             <constraint firstItem="bgq-eG-AUu" firstAttribute="leading" secondItem="C9d-hh-iLv" secondAttribute="trailing" id="epE-r0-beF"/>
-                            <constraint firstItem="C9d-hh-iLv" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" id="fKe-Ui-Mqf"/>
+                            <constraint firstItem="C9d-hh-iLv" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" constant="10" id="fKe-Ui-Mqf"/>
                             <constraint firstAttribute="trailing" secondItem="Shh-3D-OuM" secondAttribute="trailing" constant="20" id="lbF-cC-M9A"/>
                             <constraint firstAttribute="trailing" secondItem="bgq-eG-AUu" secondAttribute="trailing" id="m6k-mL-joT"/>
                             <constraint firstItem="bgq-eG-AUu" firstAttribute="top" secondItem="Shh-3D-OuM" secondAttribute="bottom" constant="20" id="rMa-lf-bQs"/>

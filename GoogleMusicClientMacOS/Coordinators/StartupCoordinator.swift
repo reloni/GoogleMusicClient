@@ -26,10 +26,12 @@ final class StartupCoordinator: ApplicationCoordinator {
     }
     
     func startup(in windowController: ApplicationWindowController) -> Observable<RxStateMutator<AppState>> {
-        let newCoordinator: ApplicationCoordinator =
-            Global.current.authenticated ? MainCoordinator(windowController: windowController) : LogInCoordinator(windowController: windowController)
-        
         let controller = Global.current.authenticated ? MainController.instantiate() : LogInController.instantiate()
+        
+        let newCoordinator: ApplicationCoordinator =
+            Global.current.authenticated
+                ? MainCoordinator(windowController: windowController, controller: controller as! MainController)
+                : LogInCoordinator(windowController: windowController)
         
         windowController.replaceContentController(controller)
 

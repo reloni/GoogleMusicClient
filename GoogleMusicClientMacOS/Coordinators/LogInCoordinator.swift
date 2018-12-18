@@ -25,7 +25,7 @@ final class LogInCoordinator: ApplicationCoordinator {
             windowController.replaceContentController(controller)
             return .just({ state in
                 var newState = state
-                newState.coordinator = MainCoordinator(windowController: self.windowController)
+                newState.coordinator = MainCoordinator(windowController: self.windowController, controller: controller)
                 return newState
             })
         default:

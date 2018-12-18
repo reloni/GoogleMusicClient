@@ -15,6 +15,7 @@ enum UIAction : RxActionType {
     case startup(ApplicationWindowController)
     case showMain
     case logOff
+    case initMainController
 }
 
 enum SystemAction: RxActionType {

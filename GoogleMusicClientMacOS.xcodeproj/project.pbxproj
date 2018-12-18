@@ -29,6 +29,7 @@
 		6E3DD68621C2B07400C1F49F /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3DD68521C2B07400C1F49F /* Keychain.swift */; };
 		6E3DD68821C2B18000C1F49F /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3DD68721C2B18000C1F49F /* Global.swift */; };
 		6E7F608921C8F71B00C1D30C /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F608821C8F71B00C1D30C /* Constraints.swift */; };
+		6E7F608B21C9128700C1D30C /* LeftHighlightTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F608A21C9128700C1D30C /* LeftHighlightTableRowView.swift */; };
 		6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94665621C282D200126BB7 /* AppDelegate.swift */; };
 		6E94665B21C282D200126BB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E94665A21C282D200126BB7 /* Assets.xcassets */; };
 		6E94666A21C282D300126BB7 /* GoogleMusicClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94666921C282D300126BB7 /* GoogleMusicClientTests.swift */; };
@@ -87,6 +88,7 @@
 		6E3DD68521C2B07400C1F49F /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		6E3DD68721C2B18000C1F49F /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		6E7F608821C8F71B00C1D30C /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
+		6E7F608A21C9128700C1D30C /* LeftHighlightTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftHighlightTableRowView.swift; sourceTree = "<group>"; };
 		6E94665321C282D200126BB7 /* GoogleMusicClientMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoogleMusicClientMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E94665621C282D200126BB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E94665A21C282D200126BB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			children = (
 				6E7F608821C8F71B00C1D30C /* Constraints.swift */,
 				6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */,
+				6E7F608A21C9128700C1D30C /* LeftHighlightTableRowView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				6E38A74D21C293BC00983339 /* MainWindowController.swift in Sources */,
 				6E31EC3321C7DBA5009B9742 /* ApplicationTableView.swift in Sources */,
 				6E38A75221C2988C00983339 /* LogInController.swift in Sources */,
+				6E7F608B21C9128700C1D30C /* LeftHighlightTableRowView.swift in Sources */,
 				6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */,
 				6EB27AD521C3D6450013479C /* SystemReducer.swift in Sources */,
 				6E31EC3721C7E208009B9742 /* LeftMenuController.swift in Sources */,

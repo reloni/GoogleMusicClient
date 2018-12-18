@@ -10,29 +10,51 @@ import Cocoa
 import RxDataFlow
 import RxSwift
 
-final class MainCoordinator: ApplicationCoordinator {
+final class MainCoordinator {
     private unowned let windowController: ApplicationWindowController
+    let controller: MainController
     
-    init(windowController: ApplicationWindowController) {
+    init(windowController: ApplicationWindowController, controller: MainController) {
         self.windowController = windowController
+        self.controller = controller
     }
-    
+
+    deinit {
+        print("MainCoordinator deinit")
+    }
+}
+
+extension MainCoordinator: ApplicationCoordinator {
     func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>> {
         switch action {
         case UIAction.logOff:
-            let controller = LogInController.instantiate()
-            windowController.replaceContentController(controller)
-            return .just({ state in
-                var newState = state
-                newState.coordinator = LogInCoordinator(windowController: self.windowController)
-                return newState
-            })
+            return logOff()
+        case UIAction.initMainController:
+            initLeftMenu()
+            break
         default:
-            return .just({ $0 })
+            break
         }
+        
+        return .just({ $0 })
+    }
+}
+
+private extension MainCoordinator {
+    func logOff() -> Observable<RxStateMutator<AppState>> {
+        let controller = LogInController.instantiate()
+        windowController.replaceContentController(controller)
+        return .just({ state in
+            var newState = state
+            newState.coordinator = LogInCoordinator(windowController: self.windowController)
+            return newState
+        })
     }
     
-    deinit {
-        print("MainCoordinator deinit")
+    func initLeftMenu() {
+        let left = LeftMenuController.instantiate()
+        controller.addChild(left)
+        controller.leftContainerView.addSubview(left.view)
+        left.view.lt.edges(to: controller.leftContainerView)
     }
 }

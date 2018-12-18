@@ -13,21 +13,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X8Y-Iu-9nj">
+                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="37" horizontalPageScroll="10" verticalLineScroll="37" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X8Y-Iu-9nj">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                                <clipView key="contentView" id="4Km-aa-lYN">
-                                    <rect key="frame" x="1" y="1" width="448" height="298"/>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="4Km-aa-lYN">
+                                    <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="oE6-fV-2G2" customClass="ApplicationTableView" customModule="GoogleMusicClientMacOS" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="448" height="298"/>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="35" usesAutomaticRowHeights="YES" viewBased="YES" id="oE6-fV-2G2" customClass="ApplicationTableView" customModule="GoogleMusicClientMacOS" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
+                                            <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="445" minWidth="40" maxWidth="1000" id="f3Z-Kz-L5O">
+                                                <tableColumn width="447" minWidth="40" maxWidth="1000" id="f3Z-Kz-L5O">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -41,19 +40,24 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="Cell" id="f8c-hn-wE4">
-                                                            <rect key="frame" x="1" y="1" width="445" height="17"/>
+                                                            <rect key="frame" x="1" y="1" width="447" height="27"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UzL-1X-Hq0">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="445" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="CAE-Zl-1xb">
-                                                                        <font key="font" metaFont="system"/>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="UzL-1X-Hq0">
+                                                                    <rect key="frame" x="13" y="5" width="431" height="17"/>
+                                                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="CAE-Zl-1xb">
+                                                                        <font key="font" metaFont="systemBold"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="UzL-1X-Hq0" firstAttribute="leading" secondItem="f8c-hn-wE4" secondAttribute="leading" constant="15" id="Ifl-o7-dW4"/>
+                                                                <constraint firstItem="UzL-1X-Hq0" firstAttribute="top" secondItem="f8c-hn-wE4" secondAttribute="top" constant="5" id="WZt-3h-Rt7"/>
+                                                                <constraint firstAttribute="trailing" secondItem="UzL-1X-Hq0" secondAttribute="trailing" constant="5" id="cOO-sA-VdZ"/>
+                                                                <constraint firstAttribute="bottom" secondItem="UzL-1X-Hq0" secondAttribute="bottom" constant="5" id="zia-0g-Z1O"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="UzL-1X-Hq0" id="zk3-YU-KRu"/>
                                                             </connections>
@@ -63,6 +67,7 @@
                                             </tableColumns>
                                         </tableView>
                                     </subviews>
+                                    <nil key="backgroundColor"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="C5e-vY-iV5">
                                     <rect key="frame" x="1" y="119" width="223" height="15"/>

@@ -17,11 +17,13 @@ final class LeftMenuController: NSViewController {
     
     let rows = ["First", "Second", "Third"]
     
-    override func viewDidAppear() {
-        super.viewDidAppear()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.selectRowIndexes(IndexSet([0]), byExtendingSelection: false)
     }
     
     deinit {
@@ -42,7 +44,11 @@ extension LeftMenuController: NSTableViewDelegate {
         return cell
     }
     
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return LeftHighlightTableRowView()
+    }
+    
     func tableViewSelectionDidChange(_ notification: Notification) {
-
+        print("select: \(tableView.selectedRow)")
     }
 }

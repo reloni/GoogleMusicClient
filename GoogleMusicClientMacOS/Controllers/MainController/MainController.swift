@@ -32,18 +32,12 @@ final class MainController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let left = LeftMenuController.instantiate()
-        addChild(left)
-        leftContainerView.addSubview(left.view)
-        left.view.lt.edges(to: leftContainerView)
+        Global.current.dataFlowController.dispatch(UIAction.initMainController)
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        
-        
-        
-        
+
 //        tableView.delegate = self
 //        tableView.dataSource = self
         
