@@ -35,11 +35,7 @@ final class MainController: NSViewController {
         let left = LeftMenuController.instantiate()
         addChild(left)
         leftContainerView.addSubview(left.view)
-        left.view.translatesAutoresizingMaskIntoConstraints = false
-        left.view.leftAnchor.constraint(equalTo: leftContainerView.leftAnchor).isActive = true
-        left.view.rightAnchor.constraint(equalTo: leftContainerView.rightAnchor).isActive = true
-        left.view.topAnchor.constraint(equalTo: leftContainerView.topAnchor).isActive = true
-        left.view.bottomAnchor.constraint(equalTo: leftContainerView.bottomAnchor).isActive = true
+        left.view.lt.edges(to: leftContainerView)
     }
     
     override func viewDidAppear() {
