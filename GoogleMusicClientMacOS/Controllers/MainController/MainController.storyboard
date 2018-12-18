@@ -25,7 +25,7 @@
                                 </userDefinedRuntimeAttributes>
                             </containerView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="bgq-eG-AUu">
-                                <rect key="frame" x="100" y="0.0" width="350" height="290"/>
+                                <rect key="frame" x="100" y="0.0" width="350" height="300"/>
                             </containerView>
                         </subviews>
                         <constraints>
@@ -35,7 +35,7 @@
                             <constraint firstItem="bgq-eG-AUu" firstAttribute="leading" secondItem="C9d-hh-iLv" secondAttribute="trailing" id="epE-r0-beF"/>
                             <constraint firstItem="C9d-hh-iLv" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" id="fKe-Ui-Mqf"/>
                             <constraint firstAttribute="trailing" secondItem="bgq-eG-AUu" secondAttribute="trailing" id="m6k-mL-joT"/>
-                            <constraint firstItem="bgq-eG-AUu" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" constant="10" id="yGZ-Iz-8KV"/>
+                            <constraint firstItem="bgq-eG-AUu" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" id="yGZ-Iz-8KV"/>
                         </constraints>
                     </view>
                     <connections>
