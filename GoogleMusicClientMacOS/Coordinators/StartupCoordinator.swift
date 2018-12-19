@@ -11,21 +11,21 @@ import RxDataFlow
 import RxSwift
 
 protocol ApplicationCoordinator {
-    func handle(_ action: RxActionType) -> RxStateMutator<AppState>
+    func handle(_ action: RxActionType) -> RxReduceResult<AppState>
 }
 
 final class StartupCoordinator: ApplicationCoordinator {
-    func handle(_ action: RxActionType) -> RxStateMutator<AppState> {
+    func handle(_ action: RxActionType) -> RxReduceResult<AppState> {
         switch action {
         case UIAction.startup(let windowController):
             return startup(in: windowController)
         default:
             break
         }
-        return AppState.noStateMutator
+        return RxReduceResult.empty
     }
     
-    func startup(in windowController: ApplicationWindowController) -> RxStateMutator<AppState> {
+    func startup(in windowController: ApplicationWindowController) -> RxReduceResult<AppState> {
         let hasGmusicToken = Global.current.dataFlowController.currentState.state.hasGmusicToken
         
         let controller = hasGmusicToken ? MainController.instantiate() : LogInController.instantiate()
@@ -36,7 +36,7 @@ final class StartupCoordinator: ApplicationCoordinator {
         
         windowController.replaceContentController(controller)
 
-        return { $0.mutate(\.coordinator, newCoordinator) }
+        return RxReduceResult.single({ $0.mutate(\.coordinator, newCoordinator) })
     }
     
     deinit {

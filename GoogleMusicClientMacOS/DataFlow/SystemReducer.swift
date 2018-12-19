@@ -25,7 +25,7 @@ func systemReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
         break
     }
     
-    return RxReduceResult.single(AppState.noStateMutator)
+    return RxReduceResult.empty
 }
 
 private func saveInKeychain(token: GMusicToken, keychain: KeychainType) {
