@@ -10,7 +10,7 @@ import RxSwift
 import RxDataFlow
 import RxGoogleMusic
 
-func systemReducer(_ action: RxActionType, currentState: AppState) -> Observable<RxStateMutator<AppState>> {
+func systemReducer(_ action: RxActionType, currentState: AppState) -> RxReduceResult<AppState> {
     switch action {
     case SystemAction.clearKeychainToken:
         clearKeychainToken(keychain: currentState.keychain)
@@ -22,7 +22,7 @@ func systemReducer(_ action: RxActionType, currentState: AppState) -> Observable
         break
     }
     
-    return .just( { $0 } )
+    return RxReduceResult.single(AppState.noStateMutator)
 }
 
 private func saveInKeychain(token: GMusicToken, keychain: KeychainType) {

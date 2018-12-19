@@ -34,7 +34,7 @@ final class MainCoordinator {
 }
 
 extension MainCoordinator: ApplicationCoordinator {
-    func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>> {
+    func handle(_ action: RxActionType) -> RxStateMutator<AppState> {
         switch action {
         case UIAction.showLogIn: return logOff()
         case UIAction.showArtists: removeCurrentMainController()
@@ -44,19 +44,17 @@ extension MainCoordinator: ApplicationCoordinator {
         default: break
         }
         
-        return .just({ $0 })
+        return AppState.noStateMutator
     }
 }
 
 private extension MainCoordinator {
-    func logOff() -> Observable<RxStateMutator<AppState>> {
+    func logOff() -> RxStateMutator<AppState> {
         let controller = LogInController.instantiate()
         windowController.replaceContentController(controller)
-        return .just({ state in
-            var newState = state
-            newState.coordinator = LogInCoordinator(windowController: self.windowController)
-            return newState
-        })
+        let coordinator = LogInCoordinator(windowController: self.windowController)
+        
+        return { $0.mutate(\AppState.coordinator, coordinator) }
     }
     
     func initLeftMenu() {

@@ -11,21 +11,21 @@ import RxDataFlow
 import RxSwift
 
 protocol ApplicationCoordinator {
-    func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>>
+    func handle(_ action: RxActionType) -> RxStateMutator<AppState>
 }
 
 final class StartupCoordinator: ApplicationCoordinator {
-    func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>> {
+    func handle(_ action: RxActionType) -> RxStateMutator<AppState> {
         switch action {
         case UIAction.startup(let windowController):
             return startup(in: windowController)
         default:
             break
         }
-        return .just({ $0 })
+        return AppState.noStateMutator
     }
     
-    func startup(in windowController: ApplicationWindowController) -> Observable<RxStateMutator<AppState>> {
+    func startup(in windowController: ApplicationWindowController) -> RxStateMutator<AppState> {
         let controller = Global.current.authenticated ? MainController.instantiate() : LogInController.instantiate()
         
         let newCoordinator: ApplicationCoordinator =
@@ -35,7 +35,7 @@ final class StartupCoordinator: ApplicationCoordinator {
         
         windowController.replaceContentController(controller)
 
-        return .just({ $0.mutate(\.coordinator, newCoordinator) })
+        return { $0.mutate(\.coordinator, newCoordinator) }
     }
     
     deinit {

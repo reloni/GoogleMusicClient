@@ -18,14 +18,15 @@ final class LogInCoordinator: ApplicationCoordinator {
         self.windowController = windowController
     }
     
-    func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>> {
+    func handle(_ action: RxActionType) -> RxStateMutator<AppState> {
         switch action {
         case UIAction.showMain:
             let controller = MainController.instantiate()
             windowController.replaceContentController(controller)
-            return .just({ $0.mutate(\.coordinator, MainCoordinator(windowController: self.windowController, controller: controller)) })
+            let coordinator = MainCoordinator(windowController: self.windowController, controller: controller)
+            return { $0.mutate(\.coordinator, coordinator) }
         default:
-            return .just({ $0 })
+            return AppState.noStateMutator
         }   
     }
     

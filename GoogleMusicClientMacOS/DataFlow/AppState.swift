@@ -19,6 +19,8 @@ extension AppState {
         let mutator = prop( { _ in v } )
         return mutator(self)
     }
+    
+    static let noStateMutator: RxStateMutator<AppState> = { $0 }
 }
 
 private func property<Object, Value> (_ kp: WritableKeyPath<Object, Value>) -> (@escaping (Value) -> Value) -> (Object) -> Object {
