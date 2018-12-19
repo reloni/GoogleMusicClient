@@ -35,11 +35,7 @@ final class StartupCoordinator: ApplicationCoordinator {
         
         windowController.replaceContentController(controller)
 
-        return .just({ state in
-            var newState = state
-            newState.coordinator = newCoordinator
-            return newState
-        })
+        return .just({ $0.mutate(\.coordinator, newCoordinator) })
     }
     
     deinit {

@@ -15,14 +15,17 @@ final class MainCoordinator {
     let controller: MainController
     let leftMenuController: LeftMenuController
     weak var mainController: NSViewController? = nil
+    let playerController: PlayerController
     
     init(windowController: ApplicationWindowController, controller: MainController) {
         self.windowController = windowController
         self.controller = controller
         self.leftMenuController = LeftMenuController.instantiate()
+        self.playerController = PlayerController.instantiate()
         
         _ = controller.view
         initLeftMenu()
+        initPlayer()
     }
 
     deinit {
@@ -60,6 +63,12 @@ private extension MainCoordinator {
         controller.addChild(leftMenuController)
         controller.leftContainerView.addSubview(leftMenuController.view)
         leftMenuController.view.lt.edges(to: controller.leftContainerView)
+    }
+    
+    func initPlayer() {
+        controller.addChild(playerController)
+        controller.bottomContainerView.addSubview(playerController.view)
+        playerController.view.lt.edges(to: controller.bottomContainerView)
     }
     
     private func removeCurrentMainController() {

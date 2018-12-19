@@ -10,5 +10,23 @@ import RxDataFlow
 
 struct AppState: RxStateType {
     var coordinator: ApplicationCoordinator
-    let keychain: KeychainType
+    var keychain: KeychainType
+}
+
+extension AppState {
+    func mutate<Value>(_ kp: WritableKeyPath<AppState, Value>, _ v: Value) -> AppState {
+        let prop = property(kp)
+        let mutator = prop( { _ in v } )
+        return mutator(self)
+    }
+}
+
+private func property<Object, Value> (_ kp: WritableKeyPath<Object, Value>) -> (@escaping (Value) -> Value) -> (Object) -> Object {
+    return { value in
+        return { object in
+            var copy = object
+            copy[keyPath: kp] = value(copy[keyPath: kp])
+            return copy
+        }
+    }
 }

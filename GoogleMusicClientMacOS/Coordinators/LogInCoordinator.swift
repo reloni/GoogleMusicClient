@@ -23,11 +23,7 @@ final class LogInCoordinator: ApplicationCoordinator {
         case UIAction.showMain:
             let controller = MainController.instantiate()
             windowController.replaceContentController(controller)
-            return .just({ state in
-                var newState = state
-                newState.coordinator = MainCoordinator(windowController: self.windowController, controller: controller)
-                return newState
-            })
+            return .just({ $0.mutate(\.coordinator, MainCoordinator(windowController: self.windowController, controller: controller)) })
         default:
             return .just({ $0 })
         }   
