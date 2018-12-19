@@ -37,3 +37,7 @@ enum SystemAction: RxActionType {
     case initializeMusicClient
     case clearKeychainToken
 }
+
+enum PlayerAction: RxActionType {
+    case loadRadioStation(GMusicRadioStation)
+}

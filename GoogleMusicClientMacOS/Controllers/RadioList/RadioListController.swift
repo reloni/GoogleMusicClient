@@ -65,9 +65,6 @@ extension RadioListController: NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
         guard 0..<stations.count ~= tableView.selectedRow else { return }
         let station = stations[tableView.selectedRow]
-        client.radioStationFeed(for: station)
-            .do(onNext: { result in print(result.items.first!.tracks.map { "\($0.id?.uuidString ?? "") | \($0.title)" }) })
-            .subscribe()
-            .disposed(by: bag)
+        Global.current.dataFlowController.dispatch(PlayerAction.loadRadioStation(station))
     }
 }

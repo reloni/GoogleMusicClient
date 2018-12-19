@@ -1,3 +1,3 @@
 github "ReactiveX/RxSwift" "4.4.0"
-github "reloni/RxDataFlow" "10c3eb2c0dc97b5147a540a28eff24d6547507e1"
+github "reloni/RxDataFlow" "1c644bcbedf38b186d9f6dbf7057181b51277791"
 github "reloni/RxGoogleMusic" "aa0a6d69c41c52b658035fa2c93ebbc55d7780ed"

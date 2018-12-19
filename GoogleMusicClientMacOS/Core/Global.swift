@@ -12,7 +12,7 @@ import RxSwift
 import RxDataFlow
 
 private func initialState() -> AppState {
-    return AppState(coordinator: StartupCoordinator(), keychain: Keychain(), client: nil)
+    return AppState(coordinator: StartupCoordinator(), keychain: Keychain(), client: nil, tracks: [])
 }
 
 struct Global {
