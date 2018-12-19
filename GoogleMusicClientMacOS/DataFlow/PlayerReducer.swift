@@ -24,5 +24,5 @@ private func loadRadioStation(_ station: GMusicRadioStation, currentState: AppSt
     guard let client = currentState.client else { return RxReduceResult.empty }
     
     return RxReduceResult.create(from: client.radioStationFeed(for: station),
-                                 with: { $0.mutate(\AppState.tracks, $1.items.first!.tracks) })
+                                 transform: { $0.mutate(\AppState.tracks, $1.items.first!.tracks) })
 }
