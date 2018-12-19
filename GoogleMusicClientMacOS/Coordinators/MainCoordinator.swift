@@ -20,6 +20,9 @@ final class MainCoordinator {
         self.windowController = windowController
         self.controller = controller
         self.leftMenuController = LeftMenuController.instantiate()
+        
+        _ = controller.view
+        initLeftMenu()
     }
 
     deinit {
@@ -31,7 +34,6 @@ extension MainCoordinator: ApplicationCoordinator {
     func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>> {
         switch action {
         case UIAction.showLogIn: return logOff()
-        case UIAction.initMainController: initLeftMenu()
         case UIAction.showArtists: removeCurrentMainController()
         case UIAction.showAlbums: removeCurrentMainController()
         case UIAction.showRadio: showMainController(RadioListController.instantiate())

@@ -17,12 +17,6 @@ final class MainController: NSViewController {
     @IBOutlet weak var mainContainerView: NSView!
     @IBOutlet weak var bottomContainerView: NSView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        Global.current.dataFlowController.dispatch(UIAction.initMainController)
-    }
-    
     deinit {
         print("MainController deinit")
     }

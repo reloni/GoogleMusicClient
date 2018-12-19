@@ -24,7 +24,6 @@ enum UIAction : RxActionType {
     case showMain
     case showLogIn
     
-    case initMainController
     case showRadio
     case showArtists
     case showAlbums
