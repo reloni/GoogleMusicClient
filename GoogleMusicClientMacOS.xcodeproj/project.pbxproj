@@ -155,7 +155,9 @@
 			children = (
 				6E38A74F21C2983900983339 /* MainWindow */,
 				6E38A75021C2986700983339 /* LogIn */,
-				6E38A75F21C2A62400983339 /* MainController */,
+				6E38A75F21C2A62400983339 /* Main */,
+				6EFDC59F21CA227500E93699 /* RadioList */,
+				6EFDC59E21CA226300E93699 /* LeftMenu */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -199,17 +201,13 @@
 			path = Coordinators;
 			sourceTree = "<group>";
 		};
-		6E38A75F21C2A62400983339 /* MainController */ = {
+		6E38A75F21C2A62400983339 /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				6E38A76021C2A64B00983339 /* MainController.swift */,
 				6E38A76221C2A68200983339 /* MainController.storyboard */,
-				6E31EC3421C7E1C5009B9742 /* LeftMenuController.storyboard */,
-				6E31EC3621C7E208009B9742 /* LeftMenuController.swift */,
-				6E7F608C21C9278400C1D30C /* RadioListController.swift */,
-				6E7F608E21C9279500C1D30C /* RadioListController.storyboard */,
 			);
-			path = MainController;
+			path = Main;
 			sourceTree = "<group>";
 		};
 		6E94664A21C282D200126BB7 = {
@@ -265,6 +263,24 @@
 				6EB27AD421C3D6450013479C /* SystemReducer.swift */,
 			);
 			path = DataFlow;
+			sourceTree = "<group>";
+		};
+		6EFDC59E21CA226300E93699 /* LeftMenu */ = {
+			isa = PBXGroup;
+			children = (
+				6E31EC3421C7E1C5009B9742 /* LeftMenuController.storyboard */,
+				6E31EC3621C7E208009B9742 /* LeftMenuController.swift */,
+			);
+			path = LeftMenu;
+			sourceTree = "<group>";
+		};
+		6EFDC59F21CA227500E93699 /* RadioList */ = {
+			isa = PBXGroup;
+			children = (
+				6E7F608C21C9278400C1D30C /* RadioListController.swift */,
+				6E7F608E21C9279500C1D30C /* RadioListController.storyboard */,
+			);
+			path = RadioList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
