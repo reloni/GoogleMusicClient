@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Left Menu Controller-->
+        <scene sceneID="uR1-A4-2R7">
+            <objects>
+                <viewController storyboardIdentifier="LeftMenuController" id="lBc-0H-uev" customClass="LeftMenuController" customModule="GoogleMusicClientMacOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="9w9-nc-Djg">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="37" horizontalPageScroll="10" verticalLineScroll="37" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X8Y-Iu-9nj">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="275"/>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="4Km-aa-lYN">
+                                    <rect key="frame" x="0.0" y="0.0" width="450" height="275"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="35" usesAutomaticRowHeights="YES" viewBased="YES" id="oE6-fV-2G2" customClass="ApplicationTableView" customModule="GoogleMusicClientMacOS" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="450" height="275"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <size key="intercellSpacing" width="3" height="2"/>
+                                            <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                            <tableColumns>
+                                                <tableColumn width="447" minWidth="40" maxWidth="1000" id="f3Z-Kz-L5O">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="lvZ-5j-1ai">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <prototypeCellViews>
+                                                        <tableCellView identifier="Cell" id="f8c-hn-wE4">
+                                                            <rect key="frame" x="1" y="1" width="447" height="27"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="UzL-1X-Hq0">
+                                                                    <rect key="frame" x="13" y="5" width="431" height="17"/>
+                                                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="CAE-Zl-1xb">
+                                                                        <font key="font" metaFont="systemSemibold" size="13"/>
+                                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="UzL-1X-Hq0" firstAttribute="leading" secondItem="f8c-hn-wE4" secondAttribute="leading" constant="15" id="Ifl-o7-dW4"/>
+                                                                <constraint firstItem="UzL-1X-Hq0" firstAttribute="top" secondItem="f8c-hn-wE4" secondAttribute="top" constant="5" id="WZt-3h-Rt7"/>
+                                                                <constraint firstAttribute="trailing" secondItem="UzL-1X-Hq0" secondAttribute="trailing" constant="5" id="cOO-sA-VdZ"/>
+                                                                <constraint firstAttribute="bottom" secondItem="UzL-1X-Hq0" secondAttribute="bottom" constant="5" id="zia-0g-Z1O"/>
+                                                            </constraints>
+                                                            <connections>
+                                                                <outlet property="textField" destination="UzL-1X-Hq0" id="zk3-YU-KRu"/>
+                                                            </connections>
+                                                        </tableCellView>
+                                                    </prototypeCellViews>
+                                                </tableColumn>
+                                            </tableColumns>
+                                        </tableView>
+                                    </subviews>
+                                    <nil key="backgroundColor"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="C5e-vY-iV5">
+                                    <rect key="frame" x="1" y="119" width="223" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="yRI-tF-4Sa">
+                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="X8Y-Iu-9nj" firstAttribute="leading" secondItem="9w9-nc-Djg" secondAttribute="leading" id="Dvy-tI-SCg"/>
+                            <constraint firstAttribute="trailing" secondItem="X8Y-Iu-9nj" secondAttribute="trailing" id="fq0-Vy-c1L"/>
+                            <constraint firstItem="X8Y-Iu-9nj" firstAttribute="top" secondItem="9w9-nc-Djg" secondAttribute="top" constant="25" id="fxd-Hl-VqB"/>
+                            <constraint firstAttribute="bottom" secondItem="X8Y-Iu-9nj" secondAttribute="bottom" id="tCS-ff-njW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="oE6-fV-2G2" id="KRX-Fe-WjM"/>
+                    </connections>
+                </viewController>
+                <customObject id="A7N-cs-Ftb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>

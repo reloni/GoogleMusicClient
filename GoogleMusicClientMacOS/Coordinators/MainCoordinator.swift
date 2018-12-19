@@ -10,29 +10,77 @@ import Cocoa
 import RxDataFlow
 import RxSwift
 
-final class MainCoordinator: ApplicationCoordinator {
+final class MainCoordinator {
     private unowned let windowController: ApplicationWindowController
+    let controller: MainController
+    let leftMenuController: LeftMenuController
+    weak var mainController: NSViewController? = nil
+    let playerController: PlayerController
     
-    init(windowController: ApplicationWindowController) {
+    init(windowController: ApplicationWindowController, controller: MainController) {
         self.windowController = windowController
+        self.controller = controller
+        self.leftMenuController = LeftMenuController.instantiate()
+        self.playerController = PlayerController.instantiate()
+        
+        _ = controller.view
+        initLeftMenu()
+        initPlayer()
     }
-    
-    func handle(_ action: RxActionType) -> Observable<RxStateMutator<AppState>> {
-        switch action {
-        case UIAction.logOff:
-            let controller = LogInController.instantiate()
-            windowController.replaceContentController(controller)
-            return .just({ state in
-                var newState = state
-                newState.coordinator = LogInCoordinator(windowController: self.windowController)
-                return newState
-            })
-        default:
-            return .just({ $0 })
-        }
-    }
-    
+
     deinit {
         print("MainCoordinator deinit")
+    }
+}
+
+extension MainCoordinator: ApplicationCoordinator {
+    func handle(_ action: RxActionType) -> RxReduceResult<AppState> {
+        switch action {
+        case UIAction.showLogIn: return logOff()
+        case UIAction.showArtists: removeCurrentMainController()
+        case UIAction.showAlbums: removeCurrentMainController()
+        case UIAction.showRadio: showMainController(RadioListController.instantiate())
+        case UIAction.showPlaylists: removeCurrentMainController()
+        default: break
+        }
+        
+        return RxReduceResult.empty
+    }
+}
+
+private extension MainCoordinator {
+    func logOff() -> RxReduceResult<AppState> {
+        let controller = LogInController.instantiate()
+        windowController.replaceContentController(controller)
+        let coordinator = LogInCoordinator(windowController: self.windowController)
+        
+        return RxReduceResult.single({ $0.mutate(\AppState.coordinator, coordinator) })
+    }
+    
+    func initLeftMenu() {
+        controller.addChild(leftMenuController)
+        controller.leftContainerView.addSubview(leftMenuController.view)
+        leftMenuController.view.lt.edges(to: controller.leftContainerView)
+    }
+    
+    func initPlayer() {
+        controller.addChild(playerController)
+        controller.bottomContainerView.addSubview(playerController.view)
+        playerController.view.lt.edges(to: controller.bottomContainerView)
+    }
+    
+    private func removeCurrentMainController() {
+        mainController?.view.removeFromSuperview()
+        mainController?.removeFromParent()
+    }
+    
+    private func showMainController(_ newController: NSViewController) {
+        removeCurrentMainController()
+        
+        controller.addChild(newController)
+        controller.mainContainerView.addSubview(newController.view)
+        newController.view.lt.edges(to: controller.mainContainerView)
+        
+        mainController = newController
     }
 }

@@ -10,14 +10,34 @@ import RxDataFlow
 import RxSwift
 import RxGoogleMusic
 
+struct CompositeActions {
+    static let logOff = RxCompositeAction(SystemAction.clearKeychainToken, UIAction.showLogIn)
+    static func logIn(token: GMusicToken) -> RxCompositeAction {
+        return RxCompositeAction(SystemAction.saveKeychainToken(token),
+                                 SystemAction.initializeMusicClient,
+                                 UIAction.showMain)
+    }
+}
+
 enum UIAction : RxActionType {
     var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
     case startup(ApplicationWindowController)
+   
     case showMain
-    case logOff
+    case showLogIn
+    
+    case showRadio
+    case showArtists
+    case showAlbums
+    case showPlaylists
 }
 
 enum SystemAction: RxActionType {
     case saveKeychainToken(GMusicToken)
+    case initializeMusicClient
     case clearKeychainToken
+}
+
+enum PlayerAction: RxActionType {
+    case loadRadioStation(GMusicRadioStation)
 }

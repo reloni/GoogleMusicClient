@@ -13,6 +13,7 @@ final class MainWindowController: NSWindowController, ApplicationController {
     override func windowDidLoad() {
         super.windowDidLoad()
         
+        Global.current.dataFlowController.dispatch(SystemAction.initializeMusicClient)
         Global.current.dataFlowController.dispatch(UIAction.startup(self))
     }
 }

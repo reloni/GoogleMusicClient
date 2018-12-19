@@ -21,3 +21,4 @@ final class ApplicationTableView: NSTableView {
         insertRows(at: IndexSet(0..<rows), withAnimation: NSTableView.AnimationOptions.slideDown)
     }
 }
+
