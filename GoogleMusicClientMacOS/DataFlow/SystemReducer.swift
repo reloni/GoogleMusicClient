@@ -18,6 +18,9 @@ func systemReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
     case SystemAction.saveKeychainToken(let token):
         saveInKeychain(token: token, keychain: currentState.keychain)
         break
+    case SystemAction.initializeMusicClient:
+        guard let token = currentState.gMusicToken else { return RxReduceResult.single(AppState.noStateMutator) }
+        return RxReduceResult.single({ $0.mutate(\.client, GMusicClient(token: token)) })
     default:
         break
     }

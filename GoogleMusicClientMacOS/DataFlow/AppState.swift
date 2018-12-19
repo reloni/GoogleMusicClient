@@ -7,28 +7,29 @@
 //
 
 import RxDataFlow
+import RxGoogleMusic
 
 struct AppState: RxStateType {
-    var coordinator: ApplicationCoordinator
-    var keychain: KeychainType
+    private(set) var coordinator: ApplicationCoordinator
+    let keychain: KeychainType
+    private(set) var client: GMusicClient?
 }
 
 extension AppState {
     func mutate<Value>(_ kp: WritableKeyPath<AppState, Value>, _ v: Value) -> AppState {
-        let prop = property(kp)
-        let mutator = prop( { _ in v } )
-        return mutator(self)
+        var copy = self
+        copy[keyPath: kp] = v
+        return copy
     }
     
     static let noStateMutator: RxStateMutator<AppState> = { $0 }
-}
-
-private func property<Object, Value> (_ kp: WritableKeyPath<Object, Value>) -> (@escaping (Value) -> Value) -> (Object) -> Object {
-    return { value in
-        return { object in
-            var copy = object
-            copy[keyPath: kp] = value(copy[keyPath: kp])
-            return copy
-        }
+    
+    var gMusicToken: GMusicToken? {
+        guard let token = keychain.accessToken else { return nil }
+        return GMusicToken(accessToken: token,
+                           expiresAt: keychain.expiresAt,
+                           refreshToken: keychain.refreshToken)
     }
+    
+    var hasGmusicToken: Bool { return keychain.accessToken != nil }
 }

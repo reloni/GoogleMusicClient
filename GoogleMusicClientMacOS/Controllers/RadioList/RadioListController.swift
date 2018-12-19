@@ -14,11 +14,10 @@ final class RadioListController: NSViewController {
     @IBOutlet weak var tableView: ApplicationTableView!
     
     var client: GMusicClient {
-        return GMusicClient(token: Global.current.gMusicToken!)
+        return Global.current.dataFlowController.currentState.state.client!
     }
     
     let bag = DisposeBag()
-    
     
     var stations: [GMusicRadioStation] = [] {
         didSet {

@@ -13,7 +13,9 @@ import RxGoogleMusic
 struct CompositeActions {
     static let logOff = RxCompositeAction(SystemAction.clearKeychainToken, UIAction.showLogIn)
     static func logIn(token: GMusicToken) -> RxCompositeAction {
-        return RxCompositeAction(SystemAction.saveKeychainToken(token), UIAction.showMain)
+        return RxCompositeAction(SystemAction.saveKeychainToken(token),
+                                 SystemAction.initializeMusicClient,
+                                 UIAction.showMain)
     }
 }
 
@@ -32,5 +34,6 @@ enum UIAction : RxActionType {
 
 enum SystemAction: RxActionType {
     case saveKeychainToken(GMusicToken)
+    case initializeMusicClient
     case clearKeychainToken
 }
