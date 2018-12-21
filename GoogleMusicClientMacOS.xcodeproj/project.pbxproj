@@ -35,7 +35,6 @@
 		6E7F608F21C9279500C1D30C /* RadioListController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E7F608E21C9279500C1D30C /* RadioListController.storyboard */; };
 		6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94665621C282D200126BB7 /* AppDelegate.swift */; };
 		6E94665B21C282D200126BB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E94665A21C282D200126BB7 /* Assets.xcassets */; };
-		6E94666A21C282D300126BB7 /* GoogleMusicClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94666921C282D300126BB7 /* GoogleMusicClientTests.swift */; };
 		6EB27ACA21C3C7E80013479C /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB27AC921C3C7E80013479C /* RxDataFlow.framework */; };
 		6EB27ACB21C3C7E80013479C /* RxDataFlow.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB27AC921C3C7E80013479C /* RxDataFlow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6EB27ACF21C3D4B60013479C /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB27ACE21C3D4B60013479C /* AppState.swift */; };
@@ -439,7 +438,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E94666A21C282D300126BB7 /* GoogleMusicClientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
