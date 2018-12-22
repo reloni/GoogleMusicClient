@@ -14,6 +14,7 @@ struct AppState: RxStateType {
     let keychain: KeychainType
     private(set) var client: GMusicClient?
     private(set) var tracks: [GMusicTrack]
+    private(set) var radioStations: [GMusicRadioStation]
 }
 
 extension AppState {

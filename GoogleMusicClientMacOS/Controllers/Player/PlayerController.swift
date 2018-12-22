@@ -19,7 +19,7 @@ final class PlayerController: NSViewController {
         super.viewDidLoad()
         
         Global.current.dataFlowController.state.observeOn(MainScheduler.instance).do(onNext: { result in
-            if case PlayerAction.loadRadioStation = result.setBy {
+            if case PlayerAction.loadRadioStationFeed = result.setBy {
                 self.update()
             }
         })
@@ -30,6 +30,8 @@ final class PlayerController: NSViewController {
     func update() {
         guard let track = Global.current.dataFlowController.currentState.state.tracks.first else { return }
         songTitleLabel.stringValue = track.title
+        
+        print(Global.current.dataFlowController.currentState.state.tracks.map { "nid: \($0.nid ?? "") title: \($0.title)" })
     }
     
     deinit {

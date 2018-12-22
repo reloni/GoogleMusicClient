@@ -8,12 +8,24 @@
 
 import Cocoa
 import RxDataFlow
+import RxSwift
 
 final class MainWindowController: NSWindowController, ApplicationController {
+    let bag = DisposeBag()
     override func windowDidLoad() {
         super.windowDidLoad()
         
+        Global.current.dataFlowController.errors.subscribe(onNext: { error in
+            print("ERROR: \(error.error) Action: \(error.action)")
+        }).disposed(by: bag)
+        
         Global.current.dataFlowController.dispatch(SystemAction.initializeMusicClient)
         Global.current.dataFlowController.dispatch(UIAction.startup(self))
+        
+        
+    }
+    
+    deinit {
+        print("MainWindowController deinit")
     }
 }
