@@ -33,13 +33,23 @@ final class PlayerController: NSViewController {
         
         print(Global.current.dataFlowController.currentState.state.tracks.map { "nid: \($0.nid ?? "") title: \($0.title)" })
         
-//        let client = Global.current.dataFlowController.currentState.state.client!
-//        guard let nid = track.nid else { return }
-//        client.downloadTrack(id: nid)
-//            .do(onSuccess: { print("data len: \($0.count)") })
-//            .do(onError: { print("error: \($0)") })
-//            .subscribe()
-//            .disposed(by: bag)
+        let music = getMusicDirectory()
+        
+        let client = Global.current.dataFlowController.currentState.state.client!
+        guard let nid = track.nid else { return }
+        client.downloadTrack(id: nid)
+            .do(onSuccess: { try $0.write(to: music.appendingPathComponent(UUID().uuidString)) })
+            .do(onError: { print("error: \($0)") })
+            .subscribe()
+            .disposed(by: bag)
+    }
+    
+    func getMusicDirectory() -> URL {
+        let music = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!.appendingPathComponent("test")
+        
+        guard !FileManager.default.fileExists(atPath: music.path) else { return music }
+        try! FileManager.default.createDirectory(at: music, withIntermediateDirectories: false, attributes: nil)
+        return music
     }
     
     deinit {
