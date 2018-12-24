@@ -29,6 +29,8 @@ private func loadRadioStation(_ station: GMusicRadioStation, currentState: AppSt
 }
 
 private func loadRadioStations(client: GMusicClient) -> RxReduceResult<AppState> {
-    return RxReduceResult.create(from: client.radioStations(maxResults: 25, recursive: true).map { $0.items }.reduce([GMusicRadioStation](), accumulator: { $0 + $1 }),
-                                 transform: { $0.mutate(\AppState.radioStations, $1) })
+    let request = client.radioStations(maxResults: 100, recursive: true)
+        .map { $0.items.filter { $0.inLibrary } }
+        .reduce([GMusicRadioStation](), accumulator: { $0 + $1 })
+    return RxReduceResult.create(from: request, transform: { $0.mutate(\AppState.radioStations, $1) })
 }

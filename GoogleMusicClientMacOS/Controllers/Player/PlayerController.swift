@@ -32,6 +32,14 @@ final class PlayerController: NSViewController {
         songTitleLabel.stringValue = track.title
         
         print(Global.current.dataFlowController.currentState.state.tracks.map { "nid: \($0.nid ?? "") title: \($0.title)" })
+        
+//        let client = Global.current.dataFlowController.currentState.state.client!
+//        guard let nid = track.nid else { return }
+//        client.downloadTrack(id: nid)
+//            .do(onSuccess: { print("data len: \($0.count)") })
+//            .do(onError: { print("error: \($0)") })
+//            .subscribe()
+//            .disposed(by: bag)
     }
     
     deinit {

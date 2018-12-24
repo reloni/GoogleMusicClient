@@ -21,8 +21,6 @@ final class MainWindowController: NSWindowController, ApplicationController {
         
         Global.current.dataFlowController.dispatch(SystemAction.initializeMusicClient)
         Global.current.dataFlowController.dispatch(UIAction.startup(self))
-        
-        
     }
     
     deinit {
