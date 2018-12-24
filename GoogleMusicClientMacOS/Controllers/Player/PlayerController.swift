@@ -9,9 +9,14 @@
 import Cocoa
 import RxGoogleMusic
 import RxSwift
+import AVFoundation
 
 final class PlayerController: NSViewController {
     @IBOutlet weak var songTitleLabel: NSTextField!
+    
+    var asset: AVURLAsset? = nil
+    var item: AVPlayerItem? = nil
+    var player: AVPlayer? = nil
     
     let bag = DisposeBag()
     
@@ -38,10 +43,28 @@ final class PlayerController: NSViewController {
         let client = Global.current.dataFlowController.currentState.state.client!
         guard let nid = track.nid else { return }
         client.downloadTrack(id: nid)
-            .do(onSuccess: { try $0.write(to: music.appendingPathComponent(UUID().uuidString)) })
+            .do(onSuccess: { [weak self] data in try self?.saveAndPlay(data, to: music.appendingPathComponent("\(UUID().uuidString).aac")) })
             .do(onError: { print("error: \($0)") })
             .subscribe()
             .disposed(by: bag)
+    }
+    
+    func saveAndPlay(_ data: Data, to url: URL) throws {
+        print(url)
+        try data.write(to: url)
+        
+        asset = AVURLAsset(url: url)
+        item = AVPlayerItem(asset: asset!)
+        player = AVPlayer(playerItem: item!)
+        player?.volume = 1.0
+        player?.rate = 1.0
+        
+//        self.player!.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1), queue: DispatchQueue.main) { time in
+//            print(self.player?.currentItem?.status)
+//            if self.player?.currentItem?.status == .readyToPlay {
+//
+//            }
+//        }
     }
     
     func getMusicDirectory() -> URL {
