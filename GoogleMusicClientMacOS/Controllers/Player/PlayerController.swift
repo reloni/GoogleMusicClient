@@ -85,14 +85,6 @@ final class PlayerController: NSViewController {
 //        }
     }
     
-    func getMusicDirectory() -> URL {
-        let music = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!.appendingPathComponent("test")
-        
-        guard !FileManager.default.fileExists(atPath: music.path) else { return music }
-        try! FileManager.default.createDirectory(at: music, withIntermediateDirectories: false, attributes: nil)
-        return music
-    }
-    
     deinit {
         print("PlayerController deinit")
     }
