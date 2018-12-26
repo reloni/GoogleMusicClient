@@ -42,6 +42,9 @@ final class PlayerController: NSViewController {
     @objc dynamic var currentDuration: String? = nil
     @objc dynamic var palyPauseImage: NSImage = NSImage(imageLiteralResourceName: "Pause")
     
+    let isPlayingRelay = BehaviorRelay(value: false)
+    lazy var isPlaying: Observable<Bool> = { return isPlayingRelay.asObservable().share() }()
+    
     let bag = DisposeBag()
     
     override func viewDidLoad() {
@@ -55,17 +58,38 @@ final class PlayerController: NSViewController {
             if case PlayerAction.loadRadioStationFeed = result.setBy { self?.resetQueue() }
         }) .subscribe().disposed(by: bag)
         
+        isPlaying
+            .observeOn(MainScheduler.instance)
+            .do(onNext: { [weak self] in
+                self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play
+                self?.playPauseButon.state = $0 ? NSControl.StateValue.off : NSControl.StateValue.on
+            })
+            .subscribe()
+            .disposed(by: bag)
+
+//        playPauseButon.rx.tap
+//            .do(onNext: { [weak self] in self?.togglePlayPause() })
+//            .subscribe()
+//            .disposed(by: bag)
         playPauseButon.rx.tap
-            .flatMap { [weak player] in player?.playNext().asObservable() ?? .empty() }
-            .do(onError: PlayerController.onError)
-            .retry()
+            .do(onNext: { [weak player] in player?.playNext() })
             .subscribe()
             .disposed(by: bag)
         
-//        player.currentItemStatus
-//            .do(onNext: { print("ItemStatus: \($0)") })
-//            .subscribe()
-//            .disposed(by: bag)
+        nextButton.rx.tap
+            .do(onNext: { [weak player] in player?.resume() })
+            .subscribe()
+            .disposed(by: bag)
+        
+        previousButton.rx.tap
+            .do(onNext: { [weak player] in player?.pause() })
+            .subscribe()
+            .disposed(by: bag)
+        
+        player.currentItemStatus
+            .do(onNext: { print("ItemStatus: \($0)") })
+            .subscribe()
+            .disposed(by: bag)
         
         player.currentTrack
             .observeOn(MainScheduler.instance)
@@ -92,7 +116,9 @@ final class PlayerController: NSViewController {
             .disposed(by: bag)
     }
     
-    
+    func togglePlayPause() {
+        isPlayingRelay.accept(!isPlayingRelay.value)
+    }
     
     static func onError(_ error: Error) {
         print(error)

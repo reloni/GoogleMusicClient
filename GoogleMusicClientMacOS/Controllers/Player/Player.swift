@@ -21,41 +21,45 @@ private func writeData(_ data: Data, to url: URL) throws {
     try data.write(to: url)
 }
 
-private func saveTrack(to path: URL) -> (Single<Data>) -> Single<URL> {
+private func saveTrack(to path: URL) -> (Data) throws -> URL {
     return { data in
-        return data.flatMap { data in try writeData(data, to: path); return .just(path) }
+        try writeData(data, to: path)
+        return path
     }
 }
 
-private func setAsset(for player: AVPlayer) -> (Single<URL>) -> Completable {
-    return { request in
-        return request.flatMapCompletable { [weak player] file in
-            guard let p = player else { return .empty() }
-            let asset = AVURLAsset(url: file)
-            let item = AVPlayerItem(asset: asset)
-            p.replaceCurrentItem(with: item)
-            return .empty()
-        }
-    }
-}
-
-extension PrimitiveSequence where Trait == CompletableTrait {
-    static func doAfter(_ completion: Completable) -> (Completable) -> Completable {
-        return { work in
-            return work.andThen(completion)
-        }
+private func setAsset(for player: AVPlayer) -> (URL) -> AVPlayer {
+    return { file in
+        let asset = AVURLAsset(url: file)
+        let item = AVPlayerItem(asset: asset)
+        player.replaceCurrentItem(with: item)
+        return player
     }
 }
 
 extension AVPlayer {
+    enum ItemStatus {
+        case failed
+        case readyToPlay
+        case unknown
+        
+        init(raw: AVPlayerItem.Status) {
+            switch raw {
+            case .failed: self = .failed
+            case .readyToPlay: self = .readyToPlay
+            case .unknown: self = .unknown
+            }
+        }
+    }
+    
     enum Rate: Float {
         case pause = 0
         case play = 1
     }
     
-    var currentItemStatus: Player.Status? {
+    var currentItemStatus: AVPlayer.ItemStatus? {
         guard let s = currentItem?.status else { return nil }
-        return Player.Status(raw: s)
+        return AVPlayer.ItemStatus(raw: s)
     }
     
     func set(rate: AVPlayer.Rate) {
@@ -75,19 +79,7 @@ extension GMusicTrack {
 }
 
 final class Player {
-    enum Status {
-        case failed
-        case readyToPlay
-        case unknown
-        
-        init(raw: AVPlayerItem.Status) {
-            switch raw {
-            case .failed: self = .failed
-            case .readyToPlay: self = .readyToPlay
-            case .unknown: self = .unknown
-            }
-        }
-    }
+    private let bag = DisposeBag()
     
     private var queue: [GMusicTrack]
     private let avPlayer: AVPlayer
@@ -96,30 +88,11 @@ final class Player {
     private let loadRequest: (GMusicTrack) -> Single<Data>
     
     private let currentTrackSubject = BehaviorSubject<GMusicTrack?>(value: nil)
-    var currentTrack: Observable<GMusicTrack?> {
-        return currentTrackSubject.distinctUntilChanged { $0?.identifier == $1?.identifier }
-    }
+    var currentTrack: Observable<GMusicTrack?> { return currentTrackSubject.distinctUntilChanged { $0?.identifier == $1?.identifier } }
     
-    let timerSubject = PublishSubject<Void>()
-    lazy var timer: Observable<Void> = { return timerSubject.asObservable().share() }()
-    var timerDisposable: Disposable? = nil
-    var currentItemTime: Observable<Double?> {
-        return timer.map { [weak avPlayer] _ in avPlayer?.currentTime().seconds }
-    }
-    var currentItemStatus: Observable<Player.Status?> {
-        return timer.map { [weak avPlayer] _ in avPlayer?.currentItemStatus }.distinctUntilChanged()
-    }
-    var currentItemDuration: Observable<Double?> {
-        return timer.map { [weak avPlayer] _ in avPlayer?.currentItem?.duration.seconds }
-        
-    }
-    var currentItemProgress: Observable<Int?> {
-        return currentItemTime.withLatestFrom(currentItemDuration) { time, duration -> Int? in
-            guard let t = time, !t.isNaN, !t.isInfinite else { return nil }
-            guard let d = duration, !d.isNaN, !d.isInfinite else { return nil }
-            return Int((t / d) * 100)
-        }.distinctUntilChanged()
-    }
+    private let timerSubject = PublishSubject<Void>()
+    lazy private(set) var timer: Observable<Void> = { return timerSubject.asObservable().share() }()
+    private var timerDisposable: Disposable? = nil
     
     init(rootPath: URL, loadRequest: @escaping (GMusicTrack) -> Single<Data>, queue: [GMusicTrack]) {
         self.rootPath = rootPath
@@ -128,11 +101,11 @@ final class Player {
         self.avPlayer = AVPlayer(playerItem: nil)
     }
     
-    func playNext() -> Completable {
+    func playNext() {
         currentTrackIndex += 1
         guard currentTrackIndex < queue.count else {
             currentTrackSubject.onNext(nil)
-            return .empty()
+            return
         }
         
         let track = queue[currentTrackIndex]
@@ -140,16 +113,23 @@ final class Player {
         
         startTimer()
         
-        return track
-            |> loadRequest
-            >>> saveTrack(to: rootPath.randomAac)
-            >>> setAsset(for: avPlayer)
-            >>> Completable.doAfter(set(rate: .play))
+        loadRequest(track)
+            .map(saveTrack(to: rootPath.randomAac))
+            .map(setAsset(for: avPlayer))
+            .do(onSuccess: { $0.set(rate: .play) })
+            .do(onError: { print("player error: \($0)") })
+            .subscribe()
+            .disposed(by: bag)
     }
     
-    private func set(rate: AVPlayer.Rate) -> Completable {
-        avPlayer.set(rate: rate)
-        return .empty()
+    func pause() {
+        avPlayer.set(rate: .pause)
+        stopTimer()
+    }
+    
+    func resume() {
+        avPlayer.set(rate: .pause)
+        startTimer()
     }
     
     func resetQueue(new items: [GMusicTrack]) {
@@ -159,6 +139,20 @@ final class Player {
     
     deinit {
         print("Player deinit")
+    }
+}
+
+extension Player {
+    var currentItemTime: Observable<Double?> { return timer.map { [weak avPlayer] _ in avPlayer?.currentTime().seconds } }
+    var currentItemStatus: Observable<AVPlayer.ItemStatus?> { return timer.map { [weak avPlayer] _ in avPlayer?.currentItemStatus }.startWith(nil).distinctUntilChanged() }
+    var currentItemDuration: Observable<Double?> { return timer.map { [weak avPlayer] _ in avPlayer?.currentItem?.duration.seconds } }
+    
+    var currentItemProgress: Observable<Int?> {
+        return currentItemTime.withLatestFrom(currentItemDuration) { time, duration -> Int? in
+            guard let t = time, !t.isNaN, !t.isInfinite else { return nil }
+            guard let d = duration, !d.isNaN, !d.isInfinite else { return nil }
+            return Int((t / d) * 100)
+            }.distinctUntilChanged()
     }
 }
 

@@ -10,7 +10,7 @@
             <objects>
                 <viewController storyboardIdentifier="PlayerController" id="y3d-EB-w5r" customClass="PlayerController" customModule="GoogleMusicClientMacOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="TYL-Nq-HCf">
-                        <rect key="frame" x="0.0" y="0.0" width="1156" height="68"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1162" height="68"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tuq-cu-SQY">
@@ -86,10 +86,10 @@
                                 </customSpacing>
                             </stackView>
                             <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zHl-k0-FT7">
-                                <rect key="frame" x="218" y="38" width="738" height="20"/>
+                                <rect key="frame" x="218" y="38" width="744" height="20"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="1" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LwG-xm-9fL">
-                                        <rect key="frame" x="3" y="2" width="243" height="17"/>
+                                        <rect key="frame" x="3" y="2" width="246" height="17"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" id="doG-KJ-3I5">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -97,23 +97,23 @@
                                         </textFieldCell>
                                     </textField>
                                     <button horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="b2b-Om-n8S">
-                                        <rect key="frame" x="244" y="0.0" width="50" height="20"/>
+                                        <rect key="frame" x="247" y="0.0" width="50" height="20"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Shuffle" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ag5-rO-raJ">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <button horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Qjd-9b-0qi">
-                                        <rect key="frame" x="294" y="0.0" width="50" height="20"/>
+                                        <rect key="frame" x="297" y="0.0" width="50" height="20"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Previous" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yNZ-oD-a9e">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <button horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="WUy-CC-EmZ">
-                                        <rect key="frame" x="344" y="0.0" width="50" height="20"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Play" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Zg2-sl-kZh">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <rect key="frame" x="347" y="0.0" width="50" height="20"/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Play" imagePosition="only" alignment="center" allowsMixedState="YES" imageScaling="proportionallyUpOrDown" inset="2" id="Zg2-sl-kZh">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
@@ -121,21 +121,21 @@
                                         </connections>
                                     </button>
                                     <button horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ec3-YL-ohw">
-                                        <rect key="frame" x="394" y="0.0" width="50" height="20"/>
+                                        <rect key="frame" x="397" y="0.0" width="50" height="20"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Next" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="1mL-DX-LfM">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <button horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ghG-SW-YTo">
-                                        <rect key="frame" x="444" y="0.0" width="50" height="20"/>
+                                        <rect key="frame" x="447" y="0.0" width="50" height="20"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Repeat" imagePosition="only" alignment="center" scrollable="YES" lineBreakMode="clipping" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="6Vv-5X-Pc3">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <textField horizontalHuggingPriority="2" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UL9-zC-2mR">
-                                        <rect key="frame" x="492" y="2" width="243" height="17"/>
+                                        <rect key="frame" x="495" y="2" width="246" height="17"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" id="eS6-6u-Jg3">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -168,7 +168,7 @@
                                 </customSpacing>
                             </stackView>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jTd-fk-pjk">
-                                <rect key="frame" x="216" y="12" width="147" height="14"/>
+                                <rect key="frame" x="216" y="12" width="148" height="14"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="0:12" id="Xot-9Q-XYt">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -183,7 +183,7 @@
                                 </connections>
                             </textField>
                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="hJy-5N-kWs">
-                                <rect key="frame" x="366" y="11" width="442" height="16"/>
+                                <rect key="frame" x="367" y="11" width="446" height="16"/>
                                 <connections>
                                     <binding destination="y3d-EB-w5r" name="value" keyPath="self.currentProgress" id="2Lt-V5-pWc">
                                         <dictionary key="options">
@@ -193,7 +193,7 @@
                                 </connections>
                             </progressIndicator>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kiA-Bc-oTy">
-                                <rect key="frame" x="811" y="12" width="147" height="14"/>
+                                <rect key="frame" x="816" y="12" width="148" height="14"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="5:11" id="fXh-XG-Y9q">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -208,7 +208,7 @@
                                 </connections>
                             </textField>
                             <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="5" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IND-kA-2fh">
-                                <rect key="frame" x="956" y="24" width="200" height="20"/>
+                                <rect key="frame" x="962" y="24" width="200" height="20"/>
                                 <subviews>
                                     <button horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ctP-DC-t0C">
                                         <rect key="frame" x="5" y="0.0" width="27" height="20"/>
