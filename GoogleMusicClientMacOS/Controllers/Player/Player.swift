@@ -27,24 +27,36 @@ private func saveTrack(to path: URL) -> (Single<Data>) -> Single<URL> {
     }
 }
 
-private func playTrack(with player: AVPlayer) -> (Single<URL>) -> Completable {
+private func setAsset(for player: AVPlayer) -> (Single<URL>) -> Completable {
     return { request in
         return request.flatMapCompletable { [weak player] file in
             guard let p = player else { return .empty() }
-            setAsset(from: file, with: p)
-            p.rate = 1.0
+            let asset = AVURLAsset(url: file)
+            let item = AVPlayerItem(asset: asset)
+            p.replaceCurrentItem(with: item)
             return .empty()
         }
     }
 }
 
-private func setAsset(from file: URL, with player: AVPlayer) {
-    let asset = AVURLAsset(url: file)
-    let item = AVPlayerItem(asset: asset)
-    player.replaceCurrentItem(with: item)
+extension PrimitiveSequence where Trait == CompletableTrait {
+    static func doAfter(_ completion: Completable) -> (Completable) -> Completable {
+        return { work in
+            return work.andThen(completion)
+        }
+    }
 }
 
 extension AVPlayer {
+    enum Rate: Float {
+        case pause = 0
+        case play = 1
+    }
+    
+    func set(rate: AVPlayer.Rate) {
+        self.rate = rate.rawValue
+    }
+
     static var timer = Observable<Int>.timer(1, period: 0.5, scheduler: SerialDispatchQueueScheduler(qos: DispatchQoS.userInitiated)).share()
     
     var currentItemTime: Observable<Double?> {
@@ -103,8 +115,8 @@ final class Player {
     var currentItemDuration: Observable<Double?> { return avPlayer.currentItemDuration.share() }
     var currentItemProgress: Observable<Int?> {
         return currentItemTime.withLatestFrom(currentItemDuration) { time, duration -> Int? in
-            guard let t = time else { return nil }
-            guard let d = duration else { return nil }
+            guard let t = time, !t.isNaN, !t.isInfinite else { return nil }
+            guard let d = duration, !d.isNaN, !d.isInfinite else { return nil }
             return Int((t / d) * 100)
         }.distinctUntilChanged()
     }
@@ -129,11 +141,21 @@ final class Player {
         return track
             |> loadRequest
             >>> saveTrack(to: rootPath.randomAac)
-            >>> playTrack(with: avPlayer)
+            >>> setAsset(for: avPlayer)
+            >>> Completable.doAfter(set(rate: .play))
+    }
+    
+    private func set(rate: AVPlayer.Rate) -> Completable {
+        avPlayer.set(rate: rate)
+        return .empty()
     }
     
     func resetQueue(new items: [GMusicTrack]) {
         currentTrackIndex = -1
         queue = items
+    }
+    
+    deinit {
+        print("Player deinit")
     }
 }
