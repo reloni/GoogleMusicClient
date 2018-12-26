@@ -40,6 +40,7 @@ final class PlayerController: NSViewController {
     @objc dynamic var currentTime: String? = nil
     @objc dynamic var currentProgress: NSDecimalNumber? = nil
     @objc dynamic var currentDuration: String? = nil
+    @objc dynamic var palyPauseImage: NSImage = NSImage(imageLiteralResourceName: "Pause")
     
     let bag = DisposeBag()
     
@@ -61,10 +62,10 @@ final class PlayerController: NSViewController {
             .subscribe()
             .disposed(by: bag)
         
-        player.currentItemStatus
-            .do(onNext: { print("ItemStatus: \($0)") })
-            .subscribe()
-            .disposed(by: bag)
+//        player.currentItemStatus
+//            .do(onNext: { print("ItemStatus: \($0)") })
+//            .subscribe()
+//            .disposed(by: bag)
         
         player.currentTrack
             .observeOn(MainScheduler.instance)

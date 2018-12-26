@@ -44,26 +44,6 @@ private func setAsset(from file: URL, with player: AVPlayer) {
     player.replaceCurrentItem(with: item)
 }
 
-extension Double {    
-    var timeString: String? {
-        guard !isInfinite, !isNaN else { return nil }
-       
-        let int = Int(self)
-        let minutes = int / 60
-        let seconds = int - (minutes * 60)
-        
-        guard let date = Calendar.current.date(from: DateComponents(minute: minutes, second: seconds)) else { return nil }
-        
-        return Global.trackTimeFormatter.string(from: date)
-    }
-}
-
-extension Int {
-    var asNsDecimalNumber: NSDecimalNumber? {
-        return NSDecimalNumber(value: self)
-    }
-}
-
 extension AVPlayer {
     static var timer = Observable<Int>.timer(1, period: 0.5, scheduler: SerialDispatchQueueScheduler(qos: DispatchQoS.userInitiated)).share()
     
