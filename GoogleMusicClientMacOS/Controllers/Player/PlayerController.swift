@@ -35,6 +35,12 @@ final class PlayerController: NSViewController {
                         loadRequest: Global.current.dataFlowController.currentState.state.client!.downloadTrack,
                         queue: [])
     
+    @objc dynamic var currentTrackTitle: String? = nil
+    @objc dynamic var currentArtistAndAlbum: String? = nil
+    @objc dynamic var currentTime: String? = nil
+    @objc dynamic var currentProgress: NSDecimalNumber? = nil
+    @objc dynamic var currentDuration: String? = nil
+    
     let bag = DisposeBag()
     
     override func viewDidLoad() {
@@ -54,7 +60,38 @@ final class PlayerController: NSViewController {
             .retry()
             .subscribe()
             .disposed(by: bag)
+        
+        player.currentItemStatus
+            .do(onNext: { print("ItemStatus: \($0)") })
+            .subscribe()
+            .disposed(by: bag)
+        
+        player.currentTrack
+            .observeOn(MainScheduler.instance)
+            .do(onNext: { [weak self] in self?.update(with: $0) })
+            .subscribe()
+            .disposed(by: bag)
+        
+        player.currentItemTime
+            .observeOn(MainScheduler.instance)
+            .do(onNext: { [weak self] in self?.currentTime = $0?.timeString })
+            .subscribe()
+            .disposed(by: bag)
+        
+        player.currentItemDuration
+            .observeOn(MainScheduler.instance)
+            .do(onNext: { [weak self] in self?.currentDuration = $0?.timeString })
+            .subscribe()
+            .disposed(by: bag)
+        
+        player.currentItemProgress
+            .observeOn(MainScheduler.instance)
+            .do(onNext: { [weak self] in self?.currentProgress = $0?.asNsDecimalNumber })
+            .subscribe()
+            .disposed(by: bag)
     }
+    
+    
     
     static func onError(_ error: Error) {
         print(error)
@@ -64,11 +101,10 @@ final class PlayerController: NSViewController {
         player.resetQueue(new: Global.current.dataFlowController.currentState.state.tracks)
     }
     
-//    func update() {
-//        guard let track = Global.current.dataFlowController.currentState.state.tracks.first else { return }
-//        songTitleLabel.stringValue = track.title
-//        artistAndAlbumLabel.stringValue = "\(track.album) (\(track.artist))"
-//    }
+    func update(with track: GMusicTrack?) {
+        currentTrackTitle = track?.title
+        currentArtistAndAlbum = track == nil ? nil : "\(track!.album) (\(track!.artist))"
+    }
     
     deinit {
         print("PlayerController deinit")

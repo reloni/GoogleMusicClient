@@ -35,6 +35,13 @@
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="y3d-EB-w5r" name="value" keyPath="self.currentTrackTitle" id="BIV-1I-9XG">
+                                                <dictionary key="options">
+                                                    <string key="NSNullPlaceholder">Album name</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="mRw-wi-Vak">
                                         <rect key="frame" x="-2" y="22" width="91" height="14"/>
@@ -43,6 +50,13 @@
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="y3d-EB-w5r" name="value" keyPath="self.currentArtistAndAlbum" id="DN8-NZ-ia3">
+                                                <dictionary key="options">
+                                                    <string key="NSNullPlaceholder">Artist and album</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="eHD-pl-ACm">
                                         <rect key="frame" x="-2" y="5" width="54" height="17"/>
@@ -167,9 +181,23 @@
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="y3d-EB-w5r" name="value" keyPath="self.currentTime" id="Lin-iR-fQk">
+                                                <dictionary key="options">
+                                                    <string key="NSNullPlaceholder">-:--</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
                                     </textField>
-                                    <progressIndicator wantsLayer="YES" maxValue="100" doubleValue="30" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="hJy-5N-kWs">
+                                    <progressIndicator wantsLayer="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="hJy-5N-kWs">
                                         <rect key="frame" x="341" y="13" width="680" height="20"/>
+                                        <connections>
+                                            <binding destination="y3d-EB-w5r" name="value" keyPath="self.currentProgress" id="2Lt-V5-pWc">
+                                                <dictionary key="options">
+                                                    <integer key="NSNullPlaceholder" value="0"/>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
                                     </progressIndicator>
                                     <textField horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kiA-Bc-oTy">
                                         <rect key="frame" x="1027" y="16" width="25" height="14"/>
@@ -178,6 +206,13 @@
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="y3d-EB-w5r" name="value" keyPath="self.currentDuration" id="quC-xU-1o8">
+                                                <dictionary key="options">
+                                                    <string key="NSNullPlaceholder">-:--</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="2" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LnI-14-egE">
                                         <rect key="frame" x="1056" y="14" width="301" height="17"/>
@@ -281,6 +316,7 @@
                     </connections>
                 </viewController>
                 <customObject id="R6V-CU-UFd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="hh2-xX-zFC"/>
             </objects>
             <point key="canvasLocation" x="401.5" y="130.5"/>
         </scene>

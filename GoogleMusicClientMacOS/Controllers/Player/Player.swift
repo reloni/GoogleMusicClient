@@ -44,15 +44,43 @@ private func setAsset(from file: URL, with player: AVPlayer) {
     player.replaceCurrentItem(with: item)
 }
 
+extension Double {    
+    var timeString: String? {
+        guard !isInfinite, !isNaN else { return nil }
+       
+        let int = Int(self)
+        let minutes = int / 60
+        let seconds = int - (minutes * 60)
+        
+        guard let date = Calendar.current.date(from: DateComponents(minute: minutes, second: seconds)) else { return nil }
+        
+        return Global.trackTimeFormatter.string(from: date)
+    }
+}
+
+extension Int {
+    var asNsDecimalNumber: NSDecimalNumber? {
+        return NSDecimalNumber(value: self)
+    }
+}
+
 extension AVPlayer {
+    static var timer = Observable<Int>.timer(1, period: 0.5, scheduler: SerialDispatchQueueScheduler(qos: DispatchQoS.userInitiated)).share()
+    
     var currentItemTime: Observable<Double?> {
-        return Observable<Int>.timer(1, scheduler: MainScheduler.instance).flatMap { [weak player = self] _ -> Observable<Double?> in
+        return AVPlayer.timer.flatMap { [weak player = self] _ -> Observable<Double?> in
             return .just(player?.currentTime().seconds)
         }
     }
     
+    var currentItemDuration: Observable<Double?> {
+        return AVPlayer.timer.flatMap { [weak player = self] _ -> Observable<Double?> in
+            return .just(player?.currentItem?.duration.seconds)
+        }
+    }
+    
     var currentItemStatus: Observable<Player.Status?> {
-        return Observable<Int>.timer(1, scheduler: MainScheduler.instance).flatMap { [weak player = self] _ -> Observable<Player.Status?>  in
+        return AVPlayer.timer.flatMap { [weak player = self] _ -> Observable<Player.Status?>  in
             guard let i = player?.currentItem else { return .just(nil) }
             return .just(Player.Status(raw: i.status))
         }.distinctUntilChanged()
@@ -90,8 +118,16 @@ final class Player {
     var currentTrack: Observable<GMusicTrack?> {
         return currentTrackSubject.distinctUntilChanged { $0?.identifier == $1?.identifier }
     }
-    var currentItemTime: Observable<Double?> { return avPlayer.currentItemTime }
-    var currentItemStatus: Observable<Player.Status?> { return avPlayer.currentItemStatus }
+    var currentItemTime: Observable<Double?> { return avPlayer.currentItemTime.share() }
+    var currentItemStatus: Observable<Player.Status?> { return avPlayer.currentItemStatus.share() }
+    var currentItemDuration: Observable<Double?> { return avPlayer.currentItemDuration.share() }
+    var currentItemProgress: Observable<Int?> {
+        return currentItemTime.withLatestFrom(currentItemDuration) { time, duration -> Int? in
+            guard let t = time else { return nil }
+            guard let d = duration else { return nil }
+            return Int((t / d) * 100)
+        }.distinctUntilChanged()
+    }
     
     init(rootPath: URL, loadRequest: @escaping (GMusicTrack) -> Single<Data>, queue: [GMusicTrack]) {
         self.rootPath = rootPath
