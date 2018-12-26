@@ -53,29 +53,18 @@ extension AVPlayer {
         case play = 1
     }
     
+    var currentItemStatus: Player.Status? {
+        guard let s = currentItem?.status else { return nil }
+        return Player.Status(raw: s)
+    }
+    
     func set(rate: AVPlayer.Rate) {
         self.rate = rate.rawValue
     }
-
-    static var timer = Observable<Int>.timer(1, period: 0.5, scheduler: SerialDispatchQueueScheduler(qos: DispatchQoS.userInitiated)).share()
     
-    var currentItemTime: Observable<Double?> {
-        return AVPlayer.timer.flatMap { [weak player = self] _ -> Observable<Double?> in
-            return .just(player?.currentTime().seconds)
-        }
-    }
-    
-    var currentItemDuration: Observable<Double?> {
-        return AVPlayer.timer.flatMap { [weak player = self] _ -> Observable<Double?> in
-            return .just(player?.currentItem?.duration.seconds)
-        }
-    }
-    
-    var currentItemStatus: Observable<Player.Status?> {
-        return AVPlayer.timer.flatMap { [weak player = self] _ -> Observable<Player.Status?>  in
-            guard let i = player?.currentItem else { return .just(nil) }
-            return .just(Player.Status(raw: i.status))
-        }.distinctUntilChanged()
+    func flush() {
+        set(rate: .pause)
+        replaceCurrentItem(with: nil)
     }
 }
 
@@ -110,9 +99,20 @@ final class Player {
     var currentTrack: Observable<GMusicTrack?> {
         return currentTrackSubject.distinctUntilChanged { $0?.identifier == $1?.identifier }
     }
-    var currentItemTime: Observable<Double?> { return avPlayer.currentItemTime.share() }
-    var currentItemStatus: Observable<Player.Status?> { return avPlayer.currentItemStatus.share() }
-    var currentItemDuration: Observable<Double?> { return avPlayer.currentItemDuration.share() }
+    
+    let timerSubject = PublishSubject<Void>()
+    lazy var timer: Observable<Void> = { return timerSubject.asObservable().share() }()
+    var timerDisposable: Disposable? = nil
+    var currentItemTime: Observable<Double?> {
+        return timer.map { [weak avPlayer] _ in avPlayer?.currentTime().seconds }
+    }
+    var currentItemStatus: Observable<Player.Status?> {
+        return timer.map { [weak avPlayer] _ in avPlayer?.currentItemStatus }.distinctUntilChanged()
+    }
+    var currentItemDuration: Observable<Double?> {
+        return timer.map { [weak avPlayer] _ in avPlayer?.currentItem?.duration.seconds }
+        
+    }
     var currentItemProgress: Observable<Int?> {
         return currentItemTime.withLatestFrom(currentItemDuration) { time, duration -> Int? in
             guard let t = time, !t.isNaN, !t.isInfinite else { return nil }
@@ -138,6 +138,8 @@ final class Player {
         let track = queue[currentTrackIndex]
         currentTrackSubject.onNext(track)
         
+        startTimer()
+        
         return track
             |> loadRequest
             >>> saveTrack(to: rootPath.randomAac)
@@ -157,5 +159,18 @@ final class Player {
     
     deinit {
         print("Player deinit")
+    }
+}
+
+private extension Player {
+    func startTimer() {
+        stopTimer()
+        let scheduler = SerialDispatchQueueScheduler(qos: .userInitiated)
+        timerDisposable = Observable<Int>.timer(1.0, period: 0.5, scheduler: scheduler).map { _ in return () }.bind(to: timerSubject)
+    }
+    
+    func stopTimer() {
+        timerDisposable?.dispose()
+        timerDisposable = nil
     }
 }
