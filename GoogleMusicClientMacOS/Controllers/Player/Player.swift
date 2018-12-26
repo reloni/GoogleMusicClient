@@ -78,6 +78,74 @@ extension GMusicTrack {
     }
 }
 
+final class Queue<Element> {
+    enum Index: Equatable {
+        case notStarted
+        case index(Int)
+        case completed
+        
+        var value: Int? {
+            guard case let .index(i) = self else { return nil }
+            return i
+        }
+        
+        func incremented(maxValue: Int) -> Index {
+            switch self {
+            case .notStarted: return .index(0)
+            case .completed: return .completed
+            case .index(let i):
+                if i < maxValue - 1 {
+                    return .index(i + 1)
+                } else {
+                    return .completed
+                }
+            }
+        }
+        
+        static func == (lhs: Index, rhs: Index) -> Bool {
+            switch (lhs, rhs) {
+            case (.notStarted, .notStarted): return true
+            case (.completed, .completed): return true
+            case let (.index(l), .index(r)): return l == r
+            default: return false
+            }
+        }
+    }
+    
+    var items: [Element]
+    var currentIndex = Index.notStarted
+    
+    init(items: [Element]) {
+        self.items = items
+    }
+    
+    var current: Element? {
+        guard let index = currentIndex.value else { return nil }
+        return items[index]
+    }
+    
+    private func incrementIndex() {
+        currentIndex = currentIndex.incremented(maxValue: items.count)
+    }
+    
+    func next() -> Element? {
+        incrementIndex()
+        return current
+    }
+    
+    func shuffle() {
+        items = items.shuffled()
+        currentIndex = .notStarted
+    }
+    
+    func append(items: [Element]) {
+        self.items += items
+        if currentIndex == .completed {
+            currentIndex = .index(self.items.count - items.count)
+        }
+    }
+}
+
 final class Player {
     private let bag = DisposeBag()
     
