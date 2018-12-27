@@ -22,4 +22,18 @@ private func initialState() -> AppState {
 struct Global {
     static var current: Global = Global()    
     var dataFlowController = RxDataFlowController(reducer: rootReducer, initialState: initialState())
+    
+    var musicDirectory: URL {
+        let music = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!.appendingPathComponent("GoogleMusicPlayer")
+        
+        guard !FileManager.default.fileExists(atPath: music.path) else { return music }
+        try! FileManager.default.createDirectory(at: music, withIntermediateDirectories: false, attributes: nil)
+        return music
+    }
+    
+    static var trackTimeFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "mm:ss"
+        return f
+    }()
 }
