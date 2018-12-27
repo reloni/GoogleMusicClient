@@ -40,6 +40,11 @@ final class PlayerController: NSViewController {
     @objc dynamic var currentArtistAndAlbum: String? = nil
     @objc dynamic var currentTime: String? = nil
     @objc dynamic var currentProgress: NSDecimalNumber? = nil
+    @objc dynamic var currentVolume: NSDecimalNumber = 100 {
+        didSet {
+            player.volume = currentVolume.floatValue / 100
+        }
+    }
     @objc dynamic var currentDuration: String? = nil
     @objc dynamic var palyPauseImage: NSImage = NSImage(imageLiteralResourceName: "Pause")
     
@@ -47,6 +52,8 @@ final class PlayerController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        player.volume = currentVolume.floatValue / 100
 
         bag.insert(bind())
     }

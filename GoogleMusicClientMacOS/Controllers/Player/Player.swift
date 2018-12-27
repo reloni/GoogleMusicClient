@@ -196,6 +196,11 @@ final class Player {
     private let isPlayingSubject = BehaviorSubject(value: false)
     private(set) lazy var isPlaying: Observable<Bool> = { return isPlayingSubject.asObservable().distinctUntilChanged().share() }()
     
+    var volume: Float {
+        get { return avPlayer.volume }
+        set { avPlayer.volume = newValue }
+    }
+    
     init(rootPath: URL, loadRequest: @escaping (GMusicTrack) -> Single<Data>, items: [GMusicTrack]) {
         self.rootPath = rootPath
         self.loadRequest = loadRequest

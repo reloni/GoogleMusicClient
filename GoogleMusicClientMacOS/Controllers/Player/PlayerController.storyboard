@@ -223,7 +223,16 @@
                                     </imageView>
                                     <slider horizontalHuggingPriority="1" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uh4-xd-1rU">
                                         <rect key="frame" x="70" y="3" width="120" height="15"/>
-                                        <sliderCell key="cell" controlSize="small" state="on" alignment="left" maxValue="100" doubleValue="75" tickMarkPosition="above" sliderType="linear" id="lwh-aS-f7X"/>
+                                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="lwh-aS-f7X"/>
+                                        <connections>
+                                            <binding destination="y3d-EB-w5r" name="value" keyPath="self.currentVolume" id="lpl-bl-qLZ">
+                                                <dictionary key="options">
+                                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                    <bool key="NSAlwaysPresentsApplicationModalAlerts" value="YES"/>
+                                                    <integer key="NSNullPlaceholder" value="100"/>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
                                     </slider>
                                 </subviews>
                                 <edgeInsets key="edgeInsets" left="5" right="10" top="5" bottom="5"/>
