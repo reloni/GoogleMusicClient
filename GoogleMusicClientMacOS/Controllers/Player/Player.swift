@@ -92,7 +92,7 @@ final private class Queue<Element> {
         
         func incremented(maxValue: Int) -> Index {
             switch self {
-            case .notStarted: return .index(0)
+            case .notStarted: return maxValue > 0 ? .index(0) : .notStarted
             case .completed: return .completed
             case .index(let i):
                 if i < maxValue - 1 {
