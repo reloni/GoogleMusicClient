@@ -10,6 +10,7 @@ import Cocoa
 import RxGoogleMusic
 import RxSwift
 import RxCocoa
+import RxDataFlow
 import AVFoundation
 
 final class PlayerController: NSViewController {
@@ -47,81 +48,34 @@ final class PlayerController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bind()
+        bag.insert(bind())
     }
     
-    func bind() {
-        Global.current.dataFlowController.state.observeOn(MainScheduler.instance).do(onNext: { [weak self] result in
-            if case PlayerAction.loadRadioStationFeed = result.setBy { self?.resetQueue() }
-        }) .subscribe().disposed(by: bag)
-        
-        shuffleButton.rx.tap
-            .do(onNext: { [weak player] in player?.pause() })
-            .subscribe()
-            .disposed(by: bag)
-        
-        previousButton.rx.tap
-            .do(onNext: { [weak player] in player?.playPrevious() })
-            .subscribe()
-            .disposed(by: bag)
-        
-        playPauseButon.rx.tap
-            .do(onNext: { [weak player] in player?.playNext() })
-            .subscribe()
-            .disposed(by: bag)
-        
-        nextButton.rx.tap
-            .do(onNext: { [weak player] in player?.playNext() })
-            .subscribe()
-            .disposed(by: bag)
-        
-        repeatModeButton.rx.tap
-            .do(onNext: { [weak player] in player?.resume() })
-            .subscribe()
-            .disposed(by: bag)
-        
-        player.currentItemStatus
-            .do(onNext: { print("ItemStatus: \($0)") })
-            .subscribe()
-            .disposed(by: bag)
-        
-        player.currentTrack
-            .observeOn(MainScheduler.instance)
-            .do(onNext: { [weak self] in self?.update(with: $0) })
-            .subscribe()
-            .disposed(by: bag)
-        
-        player.currentItemTime
-            .observeOn(MainScheduler.instance)
-            .do(onNext: { [weak self] in self?.currentTime = $0?.timeString })
-            .subscribe()
-            .disposed(by: bag)
-        
-        player.currentItemDuration
-            .observeOn(MainScheduler.instance)
-            .do(onNext: { [weak self] in self?.currentDuration = $0?.timeString })
-            .subscribe()
-            .disposed(by: bag)
-        
-        player.currentItemProgress
-            .observeOn(MainScheduler.instance)
-            .do(onNext: { [weak self] in self?.currentProgress = $0?.asNsDecimalNumber })
-            .subscribe()
-            .disposed(by: bag)
-        
-        player.isPlaying
-            .observeOn(MainScheduler.instance)
-            .do(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play })
-            .subscribe()
-            .disposed(by: bag)
+    func bind() -> [Disposable] {
+        return [
+            Global.current.dataFlowController.state.subscribe(onNext: { [weak self] in self?.handle($0.setBy) }),
+            shuffleButton.rx.tap.subscribe(onNext: { [weak player] in player?.pause() }),
+            previousButton.rx.tap.subscribe(onNext: { [weak player] in player?.playPrevious() }),
+            playPauseButon.rx.tap.subscribe(onNext: { [weak player] in player?.playNext() }),
+            nextButton.rx.tap.subscribe(onNext: { [weak player] in player?.playNext() }),
+            repeatModeButton.rx.tap.subscribe(onNext: { [weak player] in player?.resume() }),
+            player.currentItemStatus.subscribe(onNext: { print("ItemStatus: \($0)") }),
+            player.currentTrack.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.update(with: $0) }),
+            player.currentItemTime.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentTime = $0?.timeString }),
+            player.currentItemDuration.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentDuration = $0?.timeString }),
+            player.currentItemProgress.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentProgress = $0?.asNsDecimalNumber }),
+            player.isPlaying.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play })
+        ]
+    }
+    
+    func handle(_ action: RxActionType) {
+        if case PlayerAction.loadRadioStationFeed = action {
+            player.resetQueue(new: Global.current.dataFlowController.currentState.state.tracks)
+        }
     }
     
     static func onError(_ error: Error) {
         print(error)
-    }
-    
-    func resetQueue() {
-        player.resetQueue(new: Global.current.dataFlowController.currentState.state.tracks)
     }
     
     func update(with track: GMusicTrack?) {
