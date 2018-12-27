@@ -193,6 +193,9 @@ final class Player {
     lazy private(set) var timer: Observable<Void> = { return timerSubject.asObservable().share() }()
     private var timerDisposable: Disposable? = nil
     
+    private let isPlayingSubject = BehaviorSubject(value: false)
+    private(set) lazy var isPlaying: Observable<Bool> = { return isPlayingSubject.asObservable().distinctUntilChanged().share() }()
+    
     init(rootPath: URL, loadRequest: @escaping (GMusicTrack) -> Single<Data>, items: [GMusicTrack]) {
         self.rootPath = rootPath
         self.loadRequest = loadRequest
@@ -204,12 +207,14 @@ final class Player {
     func playNext() {
         let track = queue.next()
         currentTrackSubject.onNext(track)
+        isPlayingSubject.onNext(track != nil)
         play(track)
     }
     
     func playPrevious() {
         let track = queue.previous()
         currentTrackSubject.onNext(track)
+        isPlayingSubject.onNext(track != nil)
         play(track)
     }
     
@@ -229,11 +234,13 @@ final class Player {
     
     func pause() {
         avPlayer.set(rate: .pause)
+        isPlayingSubject.onNext(false)
         stopTimer()
     }
     
     func resume() {
-        avPlayer.set(rate: .pause)
+        avPlayer.set(rate: .play)
+        isPlayingSubject.onNext(queue.current != nil)
         startTimer()
     }
     
@@ -269,14 +276,12 @@ private extension Player {
     }
     
     @objc func didPlayToEnd() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-            self.playNext()
-        }
-        
+        playNext()
         print("didPlayToEnd")
     }
     
     @objc func playbackStalled() {
+        pause()
         print("playbackStalled")
     }
     

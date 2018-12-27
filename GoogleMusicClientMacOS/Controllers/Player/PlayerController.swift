@@ -42,14 +42,11 @@ final class PlayerController: NSViewController {
     @objc dynamic var currentDuration: String? = nil
     @objc dynamic var palyPauseImage: NSImage = NSImage(imageLiteralResourceName: "Pause")
     
-    let isPlayingRelay = BehaviorRelay(value: false)
-    lazy var isPlaying: Observable<Bool> = { return isPlayingRelay.asObservable().share() }()
-    
     let bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         bind()
     }
     
@@ -58,19 +55,16 @@ final class PlayerController: NSViewController {
             if case PlayerAction.loadRadioStationFeed = result.setBy { self?.resetQueue() }
         }) .subscribe().disposed(by: bag)
         
-        isPlaying
-            .observeOn(MainScheduler.instance)
-            .do(onNext: { [weak self] in
-                self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play
-                self?.playPauseButon.state = $0 ? NSControl.StateValue.off : NSControl.StateValue.on
-            })
+        shuffleButton.rx.tap
+            .do(onNext: { [weak player] in player?.pause() })
             .subscribe()
             .disposed(by: bag)
-
-//        playPauseButon.rx.tap
-//            .do(onNext: { [weak self] in self?.togglePlayPause() })
-//            .subscribe()
-//            .disposed(by: bag)
+        
+        previousButton.rx.tap
+            .do(onNext: { [weak player] in player?.playPrevious() })
+            .subscribe()
+            .disposed(by: bag)
+        
         playPauseButon.rx.tap
             .do(onNext: { [weak player] in player?.playNext() })
             .subscribe()
@@ -81,8 +75,8 @@ final class PlayerController: NSViewController {
             .subscribe()
             .disposed(by: bag)
         
-        previousButton.rx.tap
-            .do(onNext: { [weak player] in player?.playPrevious() })
+        repeatModeButton.rx.tap
+            .do(onNext: { [weak player] in player?.resume() })
             .subscribe()
             .disposed(by: bag)
         
@@ -114,10 +108,12 @@ final class PlayerController: NSViewController {
             .do(onNext: { [weak self] in self?.currentProgress = $0?.asNsDecimalNumber })
             .subscribe()
             .disposed(by: bag)
-    }
-    
-    func togglePlayPause() {
-        isPlayingRelay.accept(!isPlayingRelay.value)
+        
+        player.isPlaying
+            .observeOn(MainScheduler.instance)
+            .do(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play })
+            .subscribe()
+            .disposed(by: bag)
     }
     
     static func onError(_ error: Error) {
