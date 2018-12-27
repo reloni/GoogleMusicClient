@@ -33,7 +33,7 @@ final class PlayerController: NSViewController {
     
     let player = Player(rootPath: Global.current.musicDirectory,
                         loadRequest: Global.current.dataFlowController.currentState.state.client!.downloadTrack,
-                        queue: [])
+                        items: [])
     
     @objc dynamic var currentTrackTitle: String? = nil
     @objc dynamic var currentArtistAndAlbum: String? = nil
@@ -77,12 +77,12 @@ final class PlayerController: NSViewController {
             .disposed(by: bag)
         
         nextButton.rx.tap
-            .do(onNext: { [weak player] in player?.resume() })
+            .do(onNext: { [weak player] in player?.playNext() })
             .subscribe()
             .disposed(by: bag)
         
         previousButton.rx.tap
-            .do(onNext: { [weak player] in player?.pause() })
+            .do(onNext: { [weak player] in player?.playPrevious() })
             .subscribe()
             .disposed(by: bag)
         

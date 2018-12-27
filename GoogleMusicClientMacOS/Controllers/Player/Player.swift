@@ -78,7 +78,7 @@ extension GMusicTrack {
     }
 }
 
-final class Queue<Element> {
+final private class Queue<Element> {
     enum Index: Equatable {
         case notStarted
         case index(Int)
@@ -102,6 +102,19 @@ final class Queue<Element> {
             }
         }
         
+        func decremented(maxValue: Int) -> Index {
+            switch self {
+            case .notStarted: return .notStarted
+            case .completed: return .index(maxValue - 1)
+            case .index(let i):
+                if i > 0 {
+                    return .index(i - 1)
+                } else {
+                    return .notStarted
+                }
+            }
+        }
+        
         static func == (lhs: Index, rhs: Index) -> Bool {
             switch (lhs, rhs) {
             case (.notStarted, .notStarted): return true
@@ -112,8 +125,8 @@ final class Queue<Element> {
         }
     }
     
-    var items: [Element]
-    var currentIndex = Index.notStarted
+    private var items: [Element]
+    private var currentIndex = Index.notStarted
     
     init(items: [Element]) {
         self.items = items
@@ -124,12 +137,25 @@ final class Queue<Element> {
         return items[index]
     }
     
+    var count: Int { return items.count }
+    
+    var currentElementIndex: Int? { return currentIndex.value }
+    
     private func incrementIndex() {
         currentIndex = currentIndex.incremented(maxValue: items.count)
     }
     
+    private func decrementIndex() {
+        currentIndex = currentIndex.decremented(maxValue: items.count)
+    }
+    
     func next() -> Element? {
         incrementIndex()
+        return current
+    }
+    
+    func previous() -> Element? {
+        decrementIndex()
         return current
     }
     
@@ -144,14 +170,18 @@ final class Queue<Element> {
             currentIndex = .index(self.items.count - items.count)
         }
     }
+    
+    func replace(withNew items: [Element]) {
+        self.items = items
+        currentIndex = .notStarted
+    }
 }
 
 final class Player {
     private let bag = DisposeBag()
     
-    private var queue: [GMusicTrack]
+    private var queue = Queue<GMusicTrack>(items: [])
     private let avPlayer: AVPlayer
-    private var currentTrackIndex: Int = -1
     private let rootPath: URL
     private let loadRequest: (GMusicTrack) -> Single<Data>
     
@@ -162,22 +192,27 @@ final class Player {
     lazy private(set) var timer: Observable<Void> = { return timerSubject.asObservable().share() }()
     private var timerDisposable: Disposable? = nil
     
-    init(rootPath: URL, loadRequest: @escaping (GMusicTrack) -> Single<Data>, queue: [GMusicTrack]) {
+    init(rootPath: URL, loadRequest: @escaping (GMusicTrack) -> Single<Data>, items: [GMusicTrack]) {
         self.rootPath = rootPath
         self.loadRequest = loadRequest
-        self.queue = queue
-        self.avPlayer = AVPlayer(playerItem: nil)
+        avPlayer = AVPlayer(playerItem: nil)
+        queue.append(items: items)
     }
     
     func playNext() {
-        currentTrackIndex += 1
-        guard currentTrackIndex < queue.count else {
-            currentTrackSubject.onNext(nil)
-            return
-        }
-        
-        let track = queue[currentTrackIndex]
+        let track = queue.next()
         currentTrackSubject.onNext(track)
+        play(track)
+    }
+    
+    func playPrevious() {
+        let track = queue.previous()
+        currentTrackSubject.onNext(track)
+        play(track)
+    }
+    
+    private func play(_ track: GMusicTrack?) {
+        guard let track = track else { return }
         
         startTimer()
         
@@ -201,8 +236,7 @@ final class Player {
     }
     
     func resetQueue(new items: [GMusicTrack]) {
-        currentTrackIndex = -1
-        queue = items
+        queue.replace(withNew: items)
     }
     
     deinit {
