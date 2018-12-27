@@ -30,6 +30,7 @@ private func saveTrack(to path: URL) -> (Data) throws -> URL {
 
 private func setAsset(for player: AVPlayer) -> (URL) -> AVPlayer {
     return { file in
+        player.replaceCurrentItem(with: nil)
         let asset = AVURLAsset(url: file)
         let item = AVPlayerItem(asset: asset)
         player.replaceCurrentItem(with: item)
@@ -197,6 +198,7 @@ final class Player {
         self.loadRequest = loadRequest
         avPlayer = AVPlayer(playerItem: nil)
         queue.append(items: items)
+        subscribeToNotifications()
     }
     
     func playNext() {
@@ -259,6 +261,33 @@ extension Player {
 }
 
 private extension Player {
+    func subscribeToNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEnd), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playbackStalled), name: NSNotification.Name.AVPlayerItemPlaybackStalled, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(errorLogEntry), name: NSNotification.Name.AVPlayerItemNewErrorLogEntry, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(failedToPlayToEnd), name: NSNotification.Name.AVPlayerItemFailedToPlayToEndTime, object: nil)
+    }
+    
+    @objc func didPlayToEnd() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            self.playNext()
+        }
+        
+        print("didPlayToEnd")
+    }
+    
+    @objc func playbackStalled() {
+        print("playbackStalled")
+    }
+    
+    @objc func errorLogEntry() {
+        print("playbackStalled")
+    }
+    
+    @objc func failedToPlayToEnd() {
+        print("playbackStalled")
+    }
+    
     func startTimer() {
         stopTimer()
         let scheduler = SerialDispatchQueueScheduler(qos: .userInitiated)
