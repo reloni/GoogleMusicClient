@@ -46,7 +46,7 @@ final class PlayerController: NSViewController {
         }
     }
     @objc dynamic var currentDuration: String? = nil
-    @objc dynamic var palyPauseImage: NSImage = NSImage(imageLiteralResourceName: "Pause")
+    @objc dynamic var palyPauseImage = NSImage(imageLiteralResourceName: "Pause")
     
     let bag = DisposeBag()
     
@@ -79,10 +79,6 @@ final class PlayerController: NSViewController {
         if case PlayerAction.loadRadioStationFeed = action {
             player.resetQueue(new: Global.current.dataFlowController.currentState.state.tracks)
         }
-    }
-    
-    static func onError(_ error: Error) {
-        print(error)
     }
     
     func update(with track: GMusicTrack?) {
