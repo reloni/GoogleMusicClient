@@ -15,6 +15,7 @@ struct AppState: RxStateType {
     private(set) var client: GMusicClient?
     private(set) var tracks: [GMusicTrack]
     private(set) var radioStations: [GMusicRadioStation]
+    private(set) var player: Player?
 }
 
 extension AppState {
@@ -23,8 +24,6 @@ extension AppState {
         copy[keyPath: kp] = v
         return copy
     }
-    
-    static let noStateMutator: RxStateMutator<AppState> = { $0 }
     
     var gMusicToken: GMusicToken? {
         guard let token = keychain.accessToken else { return nil }

@@ -19,7 +19,7 @@ final class MainWindowController: NSWindowController, ApplicationController {
             print("ERROR: \(error.error) Action: \(error.action)")
         }).disposed(by: bag)
         
-        Global.current.dataFlowController.dispatch(SystemAction.initializeMusicClient)
+        Global.current.dataFlowController.dispatch(CompositeActions.beforeStartup)
         Global.current.dataFlowController.dispatch(UIAction.startup(self))
     }
     

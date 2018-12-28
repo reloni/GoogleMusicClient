@@ -12,10 +12,12 @@ import RxGoogleMusic
 import Cocoa
 
 struct CompositeActions {
+    static let beforeStartup = RxCompositeAction(SystemAction.initializeMusicClient, SystemAction.initializePlayer)
     static let logOff = RxCompositeAction(SystemAction.clearKeychainToken, UIAction.showLogIn)
     static func logIn(token: GMusicToken) -> RxCompositeAction {
         return RxCompositeAction(SystemAction.saveKeychainToken(token),
                                  SystemAction.initializeMusicClient,
+                                 SystemAction.initializePlayer,
                                  UIAction.showMain)
     }
 }
@@ -38,6 +40,7 @@ enum UIAction : RxActionType {
 enum SystemAction: RxActionType {
     case saveKeychainToken(GMusicToken)
     case initializeMusicClient
+    case initializePlayer
     case clearKeychainToken
 }
 

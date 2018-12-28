@@ -16,14 +16,15 @@ private func initialState() -> AppState {
                     keychain: Keychain(),
                     client: nil,
                     tracks: [],
-                    radioStations: [])
+                    radioStations: [],
+                    player: nil)
 }
 
 struct Global {
     static var current: Global = Global()    
     var dataFlowController = RxDataFlowController(reducer: rootReducer, initialState: initialState())
     
-    var musicDirectory: URL {
+    static var musicDirectory: URL {
         let music = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first!.appendingPathComponent("GoogleMusicPlayer")
         
         guard !FileManager.default.fileExists(atPath: music.path) else { return music }
