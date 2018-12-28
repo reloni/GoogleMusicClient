@@ -31,10 +31,4 @@ struct Global {
         try! FileManager.default.createDirectory(at: music, withIntermediateDirectories: false, attributes: nil)
         return music
     }
-    
-    static var trackTimeFormatter: DateFormatter = {
-        let f = DateFormatter()
-        f.dateFormat = "mm:ss"
-        return f
-    }()
 }

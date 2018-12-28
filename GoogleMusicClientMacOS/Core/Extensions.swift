@@ -9,17 +9,18 @@
 import Foundation
 import Cocoa
 
-extension Double {
+extension TimeInterval {
     var timeString: String? {
         guard !isInfinite, !isNaN else { return nil }
-        
-        let int = Int(self)
-        let minutes = int / 60
-        let seconds = int - (minutes * 60)
-        
-        guard let date = Calendar.current.date(from: DateComponents(minute: minutes, second: seconds)) else { return nil }
-        
-        return Global.trackTimeFormatter.string(from: date)
+        return String(format:"%02d:%02d", minute, second)
+    }
+    
+    var minute: Int {
+        return Int((self/60).truncatingRemainder(dividingBy: 60))
+    }
+    
+    var second: Int {
+        return Int(truncatingRemainder(dividingBy: 60))
     }
 }
 

@@ -23,7 +23,7 @@ final class MainController: NSViewController {
         popover.behavior = .semitransient
         popover.animates = true
         
-        popover.contentSize = NSSize(width: 450, height: mainContainerView.frame.height - 15)
+        popover.contentSize = NSSize(width: mainContainerView.frame.width * 0.9, height: mainContainerView.frame.height - 15)
         popover.show(relativeTo: .zero, of: view, preferredEdge: NSRectEdge.minY)
     }
     
