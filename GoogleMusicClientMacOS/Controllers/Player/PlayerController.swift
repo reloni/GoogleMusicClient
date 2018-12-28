@@ -63,7 +63,7 @@ final class PlayerController: NSViewController {
             Global.current.dataFlowController.state.subscribe(onNext: { [weak self] in self?.handle($0.setBy) }),
             shuffleButton.rx.tap.subscribe(onNext: { [weak player] in player?.pause() }),
             previousButton.rx.tap.subscribe(onNext: { [weak player] in player?.playPrevious() }),
-            playPauseButon.rx.tap.subscribe(onNext: { [weak player] in player?.playNext() }),
+            playPauseButon.rx.tap.subscribe(onNext: { [weak player] in player?.toggle() }),
             nextButton.rx.tap.subscribe(onNext: { [weak player] in player?.playNext() }),
             repeatModeButton.rx.tap.subscribe(onNext: { [weak player] in player?.resume() }),
             player.currentItemStatus.subscribe(onNext: { print("ItemStatus: \($0)") }),

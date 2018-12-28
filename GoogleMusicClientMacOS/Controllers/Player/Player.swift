@@ -183,25 +183,27 @@ final class Player {
     private let loadRequest: (GMusicTrack) -> Single<Data>
     
     private let currentTrackSubject = BehaviorSubject<GMusicTrack?>(value: nil)
-    lazy private(set) var currentTrack: Observable<GMusicTrack?> = { return currentTrackSubject.distinctUntilChanged { $0?.identifier == $1?.identifier } }()
+    lazy private(set) var currentTrack: Observable<GMusicTrack?> = {
+        return currentTrackSubject.distinctUntilChanged { $0?.identifier == $1?.identifier }.share(replay: 1, scope: .forever)
+    }()
     
     private let timerSubject = PublishSubject<Void>()
-    lazy private(set) var timer: Observable<Void> = { return timerSubject.asObservable().share() }()
+    lazy private(set) var timer: Observable<Void> = { return timerSubject.asObservable().share(replay: 1, scope: .forever) }()
     private var timerDisposable: Disposable? = nil
     
     private let isPlayingSubject = BehaviorSubject(value: false)
-    private(set) lazy var isPlaying: Observable<Bool> = { return isPlayingSubject.asObservable().distinctUntilChanged().share() }()
+    private(set) lazy var isPlaying: Observable<Bool> = { return isPlayingSubject.asObservable().distinctUntilChanged().share(replay: 1, scope: .forever) }()
     
     lazy private(set) var currentItemTime: Observable<Double?> = {
-        return timer.map { [weak avPlayer = self.avPlayer] _ in avPlayer?.currentTime().seconds }
+        return timer.map { [weak avPlayer = self.avPlayer] _ in avPlayer?.currentTime().seconds }.share(replay: 1, scope: .whileConnected)
     }()
     
     lazy private(set) var currentItemStatus: Observable<AVPlayer.ItemStatus?> = {
-        return timer.map { [weak avPlayer = self.avPlayer] _ in avPlayer?.currentItemStatus }.startWith(nil).distinctUntilChanged()
+        return timer.map { [weak avPlayer = self.avPlayer] _ in avPlayer?.currentItemStatus }.startWith(nil).distinctUntilChanged().share(replay: 1, scope: .forever)
     }()
     
     lazy private(set) var currentItemDuration: Observable<Double?> = {
-        return timer.map { [weak avPlayer = self.avPlayer] _ in avPlayer?.currentItem?.duration.seconds }
+        return timer.map { [weak avPlayer = self.avPlayer] _ in avPlayer?.currentItem?.duration.seconds }.share(replay: 1, scope: .forever)
     }()
     
     lazy private(set) var currentItemProgress: Observable<Int?> = {
@@ -209,7 +211,7 @@ final class Player {
             guard let t = time, !t.isNaN, !t.isInfinite else { return nil }
             guard let d = duration, !d.isNaN, !d.isInfinite else { return nil }
             return Int((t / d) * 100)
-            }.distinctUntilChanged()
+            }.distinctUntilChanged().share(replay: 1, scope: .whileConnected)
     }()
     
     init(rootPath: URL, loadRequest: @escaping (GMusicTrack) -> Single<Data>, items: [GMusicTrack]) {
@@ -252,6 +254,11 @@ extension Player {
     }
     
     func resume() {
+        guard queue.current != nil else {
+            playNext()
+            return
+        }
+        
         avPlayer.set(rate: .play)
         isPlayingSubject.onNext(queue.current != nil)
         startTimer()
@@ -259,6 +266,13 @@ extension Player {
     
     func resetQueue(new items: [GMusicTrack]) {
         queue.replace(withNew: items)
+    }
+    
+    func toggle() {
+        Observable
+            .combineLatest(isPlaying.single(), Observable.just(self), resultSelector: { ($0, $1) })
+            .subscribe(onNext: { $0 ? $1.pause() : $1.resume() })
+            .disposed(by: bag)
     }
 }
 
