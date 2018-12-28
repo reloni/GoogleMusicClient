@@ -32,6 +32,8 @@ final class PlayerController: NSViewController {
     @IBOutlet weak var songProgressIndication: NSProgressIndicator!
     @IBOutlet weak var volumeSlider: NSSlider!
     
+    @IBOutlet weak var showQueueButton: NSButton!
+    
     let player = Player(rootPath: Global.current.musicDirectory,
                         loadRequest: Global.current.dataFlowController.currentState.state.client!.downloadTrack,
                         items: [])
@@ -86,6 +88,10 @@ final class PlayerController: NSViewController {
         currentArtistAndAlbum = track == nil ? nil : "\(track!.album) (\(track!.artist))"
     }
     
+    @IBAction func queueButtonClicked(_ sender: Any) {
+        Global.current.dataFlowController.dispatch(UIAction.showQueuePopover(showQueueButton))
+    }
+
     deinit {
         print("PlayerController deinit")
     }

@@ -9,6 +9,7 @@
 import RxDataFlow
 import RxSwift
 import RxGoogleMusic
+import Cocoa
 
 struct CompositeActions {
     static let logOff = RxCompositeAction(SystemAction.clearKeychainToken, UIAction.showLogIn)
@@ -30,6 +31,8 @@ enum UIAction : RxActionType {
     case showArtists
     case showAlbums
     case showPlaylists
+    
+    case showQueuePopover(NSView)
 }
 
 enum SystemAction: RxActionType {
