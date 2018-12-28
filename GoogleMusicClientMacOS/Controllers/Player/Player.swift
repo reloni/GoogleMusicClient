@@ -314,7 +314,10 @@ private extension Player {
     }
     
     func play(_ track: GMusicTrack?) {
-        guard let track = track else { return }
+        guard let track = track else {
+            avPlayer.flush()
+            return
+        }
         
         startTimer()
         
