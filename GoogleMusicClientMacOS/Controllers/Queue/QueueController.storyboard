@@ -79,7 +79,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="Album" id="wyc-nE-OVk">
-                                                            <rect key="frame" x="284" y="1" width="99" height="27"/>
+                                                            <rect key="frame" x="283.5" y="1" width="99" height="27"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="gVK-fP-Qnc">
