@@ -24,10 +24,18 @@ private func saveData(to path: URL) -> (Data) throws -> URL {
     }
 }
 
-private func setAsset(for player: AVPlayer) -> (URL) -> AVPlayer {
-    return { file in
+private func setAsset(for player: AVPlayer) -> (AVAssetResourceLoaderDelegate) -> AVPlayer {
+    return { assetLoader in
         player.replaceCurrentItem(with: nil)
-        let asset = AVURLAsset(url: file)
+        
+        let asset = AVURLAsset(url: URL(string: "dummy://domain.com/some.file")!)
+        asset.resourceLoader.setDelegate(assetLoader, queue: DispatchQueue.global(qos: .default))
+        
+        // make strong reference between asset and loader delegate
+        // in order to prevent delegate deallocation
+        var handle = 0
+        objc_setAssociatedObject(asset, &handle, assetLoader, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        
         let item = AVPlayerItem(asset: asset)
         player.replaceCurrentItem(with: item)
         return player
@@ -185,9 +193,9 @@ final class Player {
     private let avPlayer: AVPlayer
     private let rootPath: URL
     private let loadRequest: (GMusicTrack) -> Single<Data>
-    
+        
     private let currentItemSubject = BehaviorSubject<(index:Int, item: GMusicTrack)?>(value: nil)
-    lazy private(set) var currentItem: Observable<((index:Int, item: GMusicTrack))?> = {
+    lazy private(set) var currentItem: Observable<(index:Int, item: GMusicTrack)?> = {
         return currentItemSubject.distinctUntilChanged { $0?.index != $1?.index && $0?.item.identifier == $1?.item.identifier }.share(replay: 1, scope: .forever)
     }()
     
@@ -337,7 +345,7 @@ private extension Player {
         startTimer()
         
         loadRequest(track)
-            .map(saveData(to: rootPath.randomAac))
+            .map { DataAssetLoader($0, type: .aac) }
             .map(setAsset(for: avPlayer))
             .do(onSuccess: { $0.set(rate: .play) })
             .do(onError: { print("player error: \($0)") })
@@ -355,3 +363,4 @@ private extension Player {
         isPlayingSubject.onNext(true)
     }
 }
+
