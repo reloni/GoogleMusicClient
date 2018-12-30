@@ -168,6 +168,10 @@ final private class Queue<Element> {
         }
     }
     
+    func resetIndex() {
+        currentIndex = .notStarted
+    }
+    
     func replace(withNew items: [Element]) {
         self.items = items
         currentIndex = .notStarted
@@ -257,6 +261,12 @@ extension Player {
         stopTimer()
     }
     
+    func stop() {
+        queue.resetIndex()
+        avPlayer.flush()
+        notifyObserversOnItemChange()
+    }
+    
     func resume() {
         guard queue.current != nil else {
             playNext()
@@ -270,6 +280,7 @@ extension Player {
     
     func resetQueue(new items: [GMusicTrack]) {
         queue.replace(withNew: items)
+        stop()
     }
     
     func toggle() {

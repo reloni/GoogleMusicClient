@@ -59,7 +59,6 @@ final class PlayerController: NSViewController {
     
     func bind() -> [Disposable] {
         return [
-            Global.current.dataFlowController.state.subscribe(onNext: { [weak self] in self?.handle($0.setBy) }),
             shuffleButton.rx.tap.subscribe(onNext: { [weak player] in player?.pause() }),
             previousButton.rx.tap.subscribe(onNext: { [weak player] in player?.playPrevious() }),
             playPauseButon.rx.tap.subscribe(onNext: { [weak player] in player?.toggle() }),
@@ -72,12 +71,6 @@ final class PlayerController: NSViewController {
             player?.currentItemProgress.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentProgress = $0?.asNsDecimalNumber }),
             player?.isPlaying.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play })
             ].compactMap { $0 }
-    }
-    
-    func handle(_ action: RxActionType) {
-        if case PlayerAction.loadRadioStationFeed = action {
-            player?.resetQueue(new: Global.current.dataFlowController.currentState.state.tracks)
-        }
     }
     
     func update(with track: GMusicTrack?) {

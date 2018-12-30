@@ -25,7 +25,7 @@ func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
 
 private func loadRadioStation(_ station: GMusicRadioStation, currentState: AppState, client: GMusicClient) -> RxReduceResult<AppState> {
     return RxReduceResult.create(from: client.radioStationFeed(for: station),
-                                 transform: { $0.mutate(\AppState.tracks, $1.items.first?.tracks ?? []) })
+                                 transform: { $0.player?.resetQueue(new: $1.items.first?.tracks ?? []); return $0 })
 }
 
 private func loadRadioStations(client: GMusicClient) -> RxReduceResult<AppState> {

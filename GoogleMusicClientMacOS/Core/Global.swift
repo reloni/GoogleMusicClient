@@ -15,7 +15,6 @@ private func initialState() -> AppState {
     return AppState(coordinator: StartupCoordinator(),
                     keychain: Keychain(),
                     client: nil,
-                    tracks: [],
                     radioStations: [],
                     player: nil)
 }
