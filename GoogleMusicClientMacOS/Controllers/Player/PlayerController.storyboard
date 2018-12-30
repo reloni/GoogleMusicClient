@@ -216,6 +216,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="queueButtonClicked:" target="y3d-EB-w5r" id="YMl-EZ-QMc"/>
+                                        </connections>
                                     </button>
                                     <imageView horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="OaA-md-VtK">
                                         <rect key="frame" x="37" y="0.0" width="28" height="20"/>
@@ -289,6 +292,7 @@
                         <outlet property="previousButton" destination="Qjd-9b-0qi" id="NTC-Xg-aKd"/>
                         <outlet property="queueButton" destination="ctP-DC-t0C" id="IY9-Y1-T2A"/>
                         <outlet property="repeatModeButton" destination="ghG-SW-YTo" id="20m-mE-ghk"/>
+                        <outlet property="showQueueButton" destination="ctP-DC-t0C" id="zyv-cK-LDo"/>
                         <outlet property="shuffleButton" destination="b2b-Om-n8S" id="DMJ-ci-aG4"/>
                         <outlet property="songProgressIndication" destination="hJy-5N-kWs" id="rwu-yB-12e"/>
                         <outlet property="songTitleLabel" destination="lkf-Pc-fgK" id="w2X-hV-ZUw"/>

@@ -122,7 +122,7 @@ final private class Queue<Element> {
         }
     }
     
-    private var items: [Element]
+    private(set) var items: [Element]
     private var currentIndex = Index.notStarted
     
     init(items: [Element]) {
@@ -232,6 +232,8 @@ extension Player {
         get { return avPlayer.volume }
         set { avPlayer.volume = newValue }
     }
+    
+    var items: [GMusicTrack] { return queue.items }
     
     func playNext() {
         let track = queue.next()

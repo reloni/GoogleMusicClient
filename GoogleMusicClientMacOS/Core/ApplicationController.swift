@@ -18,9 +18,13 @@ extension NSWindowController: ApplicationWindowController {
         NSAnimationContext.runAnimationGroup({ _ in
             contentViewController?.view.animator().alphaValue = 0
         }, completionHandler: {
+            let frame = self.window!.frame
+            
             controller.view.alphaValue = 0
             self.contentViewController = controller
             controller.view.animator().alphaValue = 1.0
+            
+            self.window?.setFrame(frame, display: true)
         })
         window?.title = controller.title ?? ""
     }

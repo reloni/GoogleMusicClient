@@ -40,13 +40,13 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="Cell" id="f8c-hn-wE4">
-                                                            <rect key="frame" x="1" y="1" width="447" height="27"/>
+                                                            <rect key="frame" x="1" y="1" width="447" height="28"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="UzL-1X-Hq0">
-                                                                    <rect key="frame" x="13" y="5" width="431" height="17"/>
+                                                                    <rect key="frame" x="13" y="5" width="431" height="18"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="CAE-Zl-1xb">
-                                                                        <font key="font" metaFont="systemSemibold" size="13"/>
+                                                                        <font key="font" metaFont="menuBar"/>
                                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>

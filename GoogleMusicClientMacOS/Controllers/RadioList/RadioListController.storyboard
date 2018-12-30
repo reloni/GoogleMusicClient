@@ -19,11 +19,12 @@
                                     <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="3Br-Av-tDt" viewBased="YES" id="YIa-Re-mq3" customClass="ApplicationTableView" customModule="GoogleMusicClientMacOS" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="450" height="275"/>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="3Br-Av-tDt" viewBased="YES" id="YIa-Re-mq3" customClass="ApplicationTableView" customModule="GoogleMusicClientMacOS" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="517" height="275"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
                                                 <tableColumn width="447" minWidth="40" maxWidth="1000" id="PlV-om-ubh">

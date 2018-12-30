@@ -41,6 +41,7 @@ extension MainCoordinator: ApplicationCoordinator {
         case UIAction.showAlbums: removeCurrentMainController()
         case UIAction.showRadio: showMainController(RadioListController.instantiate())
         case UIAction.showPlaylists: removeCurrentMainController()
+        case UIAction.showQueuePopover(let view): showQueuePopover(for: view)
         default: break
         }
         
@@ -82,5 +83,9 @@ private extension MainCoordinator {
         newController.view.lt.edges(to: controller.mainContainerView)
         
         mainController = newController
+    }
+    
+    private func showQueuePopover(for view: NSView) {
+        controller.showQueuePopover(for: view)
     }
 }

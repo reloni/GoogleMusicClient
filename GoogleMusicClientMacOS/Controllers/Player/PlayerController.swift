@@ -32,9 +32,7 @@ final class PlayerController: NSViewController {
     @IBOutlet weak var songProgressIndication: NSProgressIndicator!
     @IBOutlet weak var volumeSlider: NSSlider!
     
-    let player = Player(rootPath: Global.current.musicDirectory,
-                        loadRequest: Global.current.dataFlowController.currentState.state.client!.downloadTrack,
-                        items: [])
+    @IBOutlet weak var showQueueButton: NSButton!
     
     @objc dynamic var currentTrackTitle: String? = nil
     @objc dynamic var currentArtistAndAlbum: String? = nil
@@ -42,18 +40,19 @@ final class PlayerController: NSViewController {
     @objc dynamic var currentProgress: NSDecimalNumber? = nil
     @objc dynamic var currentVolume: NSDecimalNumber = 100 {
         didSet {
-            player.volume = currentVolume.floatValue / 100
+            player?.volume = currentVolume.floatValue / 100
         }
     }
     @objc dynamic var currentDuration: String? = nil
     @objc dynamic var palyPauseImage = NSImage(imageLiteralResourceName: "Pause")
     
     let bag = DisposeBag()
+    var player: Player? { return Global.current.dataFlowController.currentState.state.player }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        player.volume = currentVolume.floatValue / 100
+        player?.volume = currentVolume.floatValue / 100
 
         bag.insert(bind())
     }
@@ -66,18 +65,18 @@ final class PlayerController: NSViewController {
             playPauseButon.rx.tap.subscribe(onNext: { [weak player] in player?.toggle() }),
             nextButton.rx.tap.subscribe(onNext: { [weak player] in player?.playNext() }),
             repeatModeButton.rx.tap.subscribe(onNext: { [weak player] in player?.resume() }),
-            player.currentItemStatus.subscribe(onNext: { print("ItemStatus: \($0)") }),
-            player.currentTrack.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.update(with: $0) }),
-            player.currentItemTime.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentTime = $0?.timeString }),
-            player.currentItemDuration.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentDuration = $0?.timeString }),
-            player.currentItemProgress.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentProgress = $0?.asNsDecimalNumber }),
-            player.isPlaying.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play })
-        ]
+            player?.currentItemStatus.subscribe(onNext: { print("ItemStatus: \($0)") }),
+            player?.currentTrack.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.update(with: $0) }),
+            player?.currentItemTime.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentTime = $0?.timeString }),
+            player?.currentItemDuration.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentDuration = $0?.timeString }),
+            player?.currentItemProgress.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentProgress = $0?.asNsDecimalNumber }),
+            player?.isPlaying.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play })
+            ].compactMap { $0 }
     }
     
     func handle(_ action: RxActionType) {
         if case PlayerAction.loadRadioStationFeed = action {
-            player.resetQueue(new: Global.current.dataFlowController.currentState.state.tracks)
+            player?.resetQueue(new: Global.current.dataFlowController.currentState.state.tracks)
         }
     }
     
@@ -86,6 +85,10 @@ final class PlayerController: NSViewController {
         currentArtistAndAlbum = track == nil ? nil : "\(track!.album) (\(track!.artist))"
     }
     
+    @IBAction func queueButtonClicked(_ sender: Any) {
+        Global.current.dataFlowController.dispatch(UIAction.showQueuePopover(showQueueButton))
+    }
+
     deinit {
         print("PlayerController deinit")
     }
