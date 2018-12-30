@@ -182,9 +182,9 @@ final class Player {
     private let rootPath: URL
     private let loadRequest: (GMusicTrack) -> Single<Data>
     
-    private let currentTrackSubject = BehaviorSubject<GMusicTrack?>(value: nil)
-    lazy private(set) var currentTrack: Observable<GMusicTrack?> = {
-        return currentTrackSubject.distinctUntilChanged { $0?.identifier == $1?.identifier }.share(replay: 1, scope: .forever)
+    private let currentItemSubject = BehaviorSubject<(index:Int, item: GMusicTrack)?>(value: nil)
+    lazy private(set) var currentItem: Observable<((index:Int, item: GMusicTrack))?> = {
+        return currentItemSubject.distinctUntilChanged { $0?.index != $1?.index && $0?.item.identifier == $1?.item.identifier }.share(replay: 1, scope: .forever)
     }()
     
     private let timerSubject = PublishSubject<Void>()
@@ -228,6 +228,10 @@ final class Player {
 }
 
 extension Player {
+    var currentItemIndex: Int? {
+        return queue.currentElementIndex
+    }
+    
     var volume: Float {
         get { return avPlayer.volume }
         set { avPlayer.volume = newValue }
@@ -237,15 +241,13 @@ extension Player {
     
     func playNext() {
         let track = queue.next()
-        currentTrackSubject.onNext(track)
-        isPlayingSubject.onNext(track != nil)
+        notifyObserversOnItemChange()
         play(track)
     }
     
     func playPrevious() {
         let track = queue.previous()
-        currentTrackSubject.onNext(track)
-        isPlayingSubject.onNext(track != nil)
+        notifyObserversOnItemChange()
         play(track)
     }
     
@@ -330,5 +332,15 @@ private extension Player {
             .do(onError: { print("player error: \($0)") })
             .subscribe()
             .disposed(by: bag)
+    }
+    
+    func notifyObserversOnItemChange() {
+        guard let item = queue.current, let index = queue.currentElementIndex else {
+            currentItemSubject.onNext(nil)
+            isPlayingSubject.onNext(false)
+            return
+        }
+        currentItemSubject.onNext((index: index, item: item))
+        isPlayingSubject.onNext(true)
     }
 }

@@ -8,12 +8,19 @@
 
 import Cocoa
 import RxGoogleMusic
+import RxSwift
 
 final class QueueController: NSViewController {
     @IBOutlet weak var tableView: ApplicationTableView!
     
+    let bag = DisposeBag()
+    
+    var player: Player? {
+        return Global.current.dataFlowController.currentState.state.player
+    }
+    
     var queue: [GMusicTrack] {
-        return Global.current.dataFlowController.currentState.state.player?.items ?? []
+        return player?.items ?? []
     }
     
     override func viewDidLoad() {
@@ -21,6 +28,21 @@ final class QueueController: NSViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        player?.currentItem
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in self?.updateTableView(selectedIndex: $0?.index) })
+            .disposed(by: bag)
+        
+    }
+    
+    func updateTableView(selectedIndex: Int?) {
+        guard let index = selectedIndex else {
+            tableView.selectRowIndexes(IndexSet([]), byExtendingSelection: false)
+            return
+        }
+        
+        tableView.selectRowIndexes(IndexSet([index]), byExtendingSelection: false)
     }
     
     deinit {
@@ -47,11 +69,9 @@ extension QueueController: NSTableViewDelegate {
         return c
     }
     
-//    func tableViewSelectionDidChange(_ notification: Notification) {
-//        guard 0..<stations.count ~= tableView.selectedRow else { return }
-//        let station = stations[tableView.selectedRow]
-//        Global.current.dataFlowController.dispatch(PlayerAction.loadRadioStationFeed(station))
-//    }
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        return false
+    }
     
     func cell(in tableView: NSTableView, for column: NSTableColumn?) -> NSTableCellView? {
         if column == tableView.tableColumns[0] {

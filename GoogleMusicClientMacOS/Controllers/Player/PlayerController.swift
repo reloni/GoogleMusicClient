@@ -66,7 +66,7 @@ final class PlayerController: NSViewController {
             nextButton.rx.tap.subscribe(onNext: { [weak player] in player?.playNext() }),
             repeatModeButton.rx.tap.subscribe(onNext: { [weak player] in player?.resume() }),
             player?.currentItemStatus.subscribe(onNext: { print("ItemStatus: \($0)") }),
-            player?.currentTrack.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.update(with: $0) }),
+            player?.currentItem.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.update(with: $0?.item) }),
             player?.currentItemTime.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentTime = $0?.timeString }),
             player?.currentItemDuration.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentDuration = $0?.timeString }),
             player?.currentItemProgress.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentProgress = $0?.asNsDecimalNumber }),
