@@ -105,7 +105,7 @@
 		6E7F608E21C9279500C1D30C /* RadioListController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RadioListController.storyboard; sourceTree = "<group>"; };
 		6E8496D921D6365B00210F36 /* QueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueController.swift; sourceTree = "<group>"; };
 		6E8496DD21D6370A00210F36 /* QueueController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = QueueController.storyboard; sourceTree = "<group>"; };
-		6E94665321C282D200126BB7 /* GoogleMusicClientMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoogleMusicClientMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E94665321C282D200126BB7 /* Google Music Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Google Music Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E94665621C282D200126BB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E94665A21C282D200126BB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6E94665D21C282D200126BB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainWindowController.storyboard; sourceTree = "<group>"; };
@@ -253,7 +253,7 @@
 		6E94665421C282D200126BB7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6E94665321C282D200126BB7 /* GoogleMusicClientMacOS.app */,
+				6E94665321C282D200126BB7 /* Google Music Player.app */,
 				6E94666521C282D300126BB7 /* GoogleMusicClientMacOSTests.xctest */,
 			);
 			name = Products;
@@ -340,7 +340,7 @@
 			);
 			name = GoogleMusicClientMacOS;
 			productName = GoogleMusicClient;
-			productReference = 6E94665321C282D200126BB7 /* GoogleMusicClientMacOS.app */;
+			productReference = 6E94665321C282D200126BB7 /* Google Music Player.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6E94666421C282D300126BB7 /* GoogleMusicClientMacOSTests */ = {
@@ -628,7 +628,7 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.GoogleMusicClient;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Google Music Player";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
@@ -652,7 +652,7 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.GoogleMusicClient;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Google Music Player";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
