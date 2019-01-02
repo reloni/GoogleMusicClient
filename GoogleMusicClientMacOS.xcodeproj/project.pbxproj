@@ -39,6 +39,7 @@
 		6E8496DE21D6370A00210F36 /* QueueController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E8496DD21D6370A00210F36 /* QueueController.storyboard */; };
 		6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94665621C282D200126BB7 /* AppDelegate.swift */; };
 		6E94665B21C282D200126BB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E94665A21C282D200126BB7 /* Assets.xcassets */; };
+		6EA6BC3A21DCFA2200EA3E3E /* export-options.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EA6BC3921DCFA2200EA3E3E /* export-options.plist */; };
 		6EB27ACA21C3C7E80013479C /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB27AC921C3C7E80013479C /* RxDataFlow.framework */; };
 		6EB27ACB21C3C7E80013479C /* RxDataFlow.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB27AC921C3C7E80013479C /* RxDataFlow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6EB27ACF21C3D4B60013479C /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB27ACE21C3D4B60013479C /* AppState.swift */; };
@@ -113,6 +114,7 @@
 		6E94666521C282D300126BB7 /* GoogleMusicClientMacOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoogleMusicClientMacOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E94666921C282D300126BB7 /* GoogleMusicClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMusicClientTests.swift; sourceTree = "<group>"; };
 		6E94666B21C282D300126BB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6EA6BC3921DCFA2200EA3E3E /* export-options.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "export-options.plist"; sourceTree = "<group>"; };
 		6EB27AC921C3C7E80013479C /* RxDataFlow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataFlow.framework; path = Carthage/Build/Mac/RxDataFlow.framework; sourceTree = "<group>"; };
 		6EB27ACE21C3D4B60013479C /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		6EB27AD021C3D4D50013479C /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				6E94665A21C282D200126BB7 /* Assets.xcassets */,
 				6E94665F21C282D200126BB7 /* Info.plist */,
 				6E38A74A21C2933900983339 /* GoogleMusicClientMacOS.entitlements */,
+				6EA6BC3921DCFA2200EA3E3E /* export-options.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 				6E8496DE21D6370A00210F36 /* QueueController.storyboard in Resources */,
 				6E38A76321C2A68200983339 /* MainController.storyboard in Resources */,
 				6EFDC5A221CA231D00E93699 /* PlayerController.storyboard in Resources */,
+				6EA6BC3A21DCFA2200EA3E3E /* export-options.plist in Resources */,
 				6E94665B21C282D200126BB7 /* Assets.xcassets in Resources */,
 				6E38A75421C298A300983339 /* LogInController.storyboard in Resources */,
 				6E31EC3521C7E1C5009B9742 /* LeftMenuController.storyboard in Resources */,
