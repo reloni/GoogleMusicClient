@@ -16,9 +16,9 @@ final class LeftMenuController: NSViewController {
     @IBOutlet weak var tableView: ApplicationTableView!
     
     let rows: [(String, RxActionType)] = [("Radio", UIAction.showRadio),
-                                          ("Artists", UIAction.showArtists),
-                                          ("Albums", UIAction.showAlbums),
-                                          ("Playlists", UIAction.showPlaylists),
+//                                          ("Artists", UIAction.showArtists),
+//                                          ("Albums", UIAction.showAlbums),
+//                                          ("Playlists", UIAction.showPlaylists),
                                           ("Log off", CompositeActions.logOff)]
     
     override func viewDidLoad() {
