@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6E94665221C282D200126BB7"
-               BuildableName = "GoogleMusicClientMacOS.app"
+               BuildableName = "Google Music Player.app"
                BlueprintName = "GoogleMusicClientMacOS"
                ReferencedContainer = "container:GoogleMusicClientMacOS.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6E94665221C282D200126BB7"
-            BuildableName = "GoogleMusicClientMacOS.app"
+            BuildableName = "Google Music Player.app"
             BlueprintName = "GoogleMusicClientMacOS"
             ReferencedContainer = "container:GoogleMusicClientMacOS.xcodeproj">
          </BuildableReference>
@@ -66,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6E94665221C282D200126BB7"
-            BuildableName = "GoogleMusicClientMacOS.app"
+            BuildableName = "Google Music Player.app"
             BlueprintName = "GoogleMusicClientMacOS"
             ReferencedContainer = "container:GoogleMusicClientMacOS.xcodeproj">
          </BuildableReference>
@@ -85,7 +85,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6E94665221C282D200126BB7"
-            BuildableName = "GoogleMusicClientMacOS.app"
+            BuildableName = "Google Music Player.app"
             BlueprintName = "GoogleMusicClientMacOS"
             ReferencedContainer = "container:GoogleMusicClientMacOS.xcodeproj">
          </BuildableReference>
@@ -96,6 +96,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "GoogleMusicPlayer"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
