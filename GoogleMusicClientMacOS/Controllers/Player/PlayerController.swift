@@ -55,6 +55,14 @@ final class PlayerController: NSViewController {
         player?.volume = currentVolume.floatValue / 100
 
         bag.insert(bind())
+        
+        // as workaround subscribe here for loadRadioStationFeed action and start playing after feed loads
+        Global.current.dataFlowController.state.subscribe(onNext: { state in
+            if case PlayerAction.loadRadioStationFeed = state.setBy {
+                state.state.player?.playNext()
+            }
+        })
+        .disposed(by: bag)
     }
     
     func bind() -> [Disposable] {
