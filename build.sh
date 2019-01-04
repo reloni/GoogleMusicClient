@@ -1,6 +1,10 @@
+#!/bin/bash
+
+set -e
+
 NAME='Google Music Player'
 
-rm -r Release 2>/dev/null
+rm -r Release 2>/dev/null || true
 
 xcodebuild archive \
 	-scheme "GoogleMusicClientMacOS" \
@@ -12,16 +16,20 @@ xcodebuild \
 	-exportOptionsPlist GoogleMusicClientMacOS/Resources/export-options.plist \
 	-exportPath Release
 
-	create-dmg \
-	--volname "Google Music Player" \
-	--window-pos 200 120 \
-	--window-size 800 400 \
-	--icon-size 100 \
-	--icon "Google Music Player.app" 200 190 \
-	--hide-extension "Google Music Player.app" \
-	--app-drop-link 600 185 \
-	"Google Music Player.dmg" \
-	"Release"
+	find ./Release -mindepth 1 -maxdepth 1 ! -regex "^./Release/$NAME.app" -exec rm -r "{}" +
+
+# 	create-dmg \
+# 	--volname "$NAME" \
+# 	--window-pos 200 120 \
+# 	--window-size 800 400 \
+# 	--icon-size 100 \
+# 	--icon "$NAME.app" 200 190 \
+# 	--hide-extension "$NAME.app" \
+# 	--app-drop-link 600 185 \
+# 	"$NAME.dmg" \
+# 	"Release"
+#
+# find ./Release -mindepth 1 -maxdepth 1 ! -regex "^./Release/$NAME.dmg" -exec rm -r "{}" +
 
 #for tests
 
