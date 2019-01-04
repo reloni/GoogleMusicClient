@@ -11,19 +11,6 @@ import RxSwift
 import RxGoogleMusic
 import AVFoundation
 
-private extension URL {
-    var randomAac: URL {
-        return appendingPathComponent("\(UUID().uuidString).aac")
-    }
-}
-
-private func saveData(to path: URL) -> (Data) throws -> URL {
-    return { data in
-        try data.write(to: path)
-        return path
-    }
-}
-
 private func setAsset(for player: AVPlayer) -> (AVAssetResourceLoaderDelegate) -> AVPlayer {
     return { assetLoader in
         player.replaceCurrentItem(with: nil)
@@ -191,7 +178,6 @@ final class Player {
     
     private var queue = Queue<GMusicTrack>(items: [])
     private let avPlayer: AVPlayer
-    private let rootPath: URL
     private let loadRequest: (GMusicTrack) -> Single<Data>
         
     private let currentItemSubject = BehaviorSubject<(index:Int, item: GMusicTrack)?>(value: nil)
@@ -226,8 +212,7 @@ final class Player {
             }.distinctUntilChanged().share(replay: 1, scope: .whileConnected)
     }()
     
-    init(rootPath: URL, loadRequest: @escaping (GMusicTrack) -> Single<Data>, items: [GMusicTrack]) {
-        self.rootPath = rootPath
+    init(loadRequest: @escaping (GMusicTrack) -> Single<Data>, items: [GMusicTrack]) {
         self.loadRequest = loadRequest
         avPlayer = AVPlayer(playerItem: nil)
         queue.append(items: items)

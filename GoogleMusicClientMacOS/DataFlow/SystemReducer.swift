@@ -23,7 +23,7 @@ func systemReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
         return RxReduceResult.single({ $0.mutate(\.client, GMusicClient(token: token)) })
     case SystemAction.initializePlayer:
         guard let client = currentState.client else { return RxReduceResult.empty }
-        let player = Player(rootPath: Global.musicDirectory, loadRequest: client.downloadTrack, items: [])
+        let player = Player(loadRequest: client.downloadTrack, items: [])
         return RxReduceResult.single({ $0.mutate(\.player, player) })
     default:
         break
