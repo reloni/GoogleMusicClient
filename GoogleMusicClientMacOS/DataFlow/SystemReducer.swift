@@ -9,6 +9,7 @@
 import RxSwift
 import RxDataFlow
 import RxGoogleMusic
+import Foundation
 
 func systemReducer(_ action: RxActionType, currentState: AppState) -> RxReduceResult<AppState> {
     switch action {
@@ -20,7 +21,7 @@ func systemReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
         break
     case SystemAction.initializeMusicClient:
         guard let token = currentState.gMusicToken else { return RxReduceResult.empty }
-        return RxReduceResult.single({ $0.mutate(\.client, GMusicClient(token: token)) })
+        return RxReduceResult.single({ $0.mutate(\.client, GMusicClient(token: token, session: URLSession(configuration: .default), locale: Locale.current)) })
     case SystemAction.initializePlayer:
         guard let client = currentState.client else { return RxReduceResult.empty }
         let player = Player(loadRequest: client.downloadTrack, items: [])
