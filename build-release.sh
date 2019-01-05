@@ -3,39 +3,38 @@
 set -e
 
 NAME='Google Music Player'
+TAG="$1"
+GITHUB_ACCESS_TOKEN="$2"
 
 rm -r Release 2>/dev/null || true
 
+# archive
 xcodebuild archive \
 	-scheme "GoogleMusicClientMacOS" \
 	-archivePath Release/App.xcarchive
 
+# export
 xcodebuild \
 	-exportArchive \
 	-archivePath Release/App.xcarchive \
 	-exportOptionsPlist GoogleMusicClientMacOS/Resources/export-options.plist \
 	-exportPath Release
 
-	find ./Release -mindepth 1 -maxdepth 1 ! -regex "^./Release/$NAME.app" -exec rm -r "{}" +
+# zip app
+(cd Release && tar -zvc -f "$NAME.tar.gz" "$NAME.app")
 
-# 	create-dmg \
-# 	--volname "$NAME" \
-# 	--window-pos 200 120 \
-# 	--window-size 800 400 \
-# 	--icon-size 100 \
-# 	--icon "$NAME.app" 200 190 \
-# 	--hide-extension "$NAME.app" \
-# 	--app-drop-link 600 185 \
-# 	"$NAME.dmg" \
-# 	"Release"
-#
-# find ./Release -mindepth 1 -maxdepth 1 ! -regex "^./Release/$NAME.dmg" -exec rm -r "{}" +
+# upload to github release
+sh upload-file-to-github.sh "reloni" "GoogleMusicClient" "$GITHUB_ACCESS_TOKEN" "$TAG" "Release/$NAME.tar.gz"
 
 #for tests
 
+#notarize
 #xcrun altool --notarize-app --primary-bundle-id "com.AntonEfimenko.GoogleMusicClient" --username "" --password "" --file "Google Music Client.dmg"
 
+#check notarization copleted
 #xcrun altool --notarization-history 0 --username "" --password ""
+
+# staple
 #xcrun stapler staple "Google Music Client.dmg"
 
 #codesign -dv "Google Music Client.dmg"
