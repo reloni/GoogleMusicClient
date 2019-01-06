@@ -64,12 +64,6 @@ extension AVPlayer {
     }
 }
 
-extension GMusicTrack {
-    var identifier: String {
-        return nid ?? id?.uuidString ?? storeId ?? ""
-    }
-}
-
 struct Queue<Element> {
     enum Index: Equatable {
         case notStarted
@@ -173,11 +167,11 @@ struct Queue<Element> {
     }
 }
 
-final class Player {
+final class Player<Item> {
     private let bag = DisposeBag()
     
     private let avPlayer: AVPlayer
-    private let loadRequest: (GMusicTrack) -> Single<Data>
+    private let loadRequest: (Item) -> Single<Data>
 
     private let timerSubject = PublishSubject<Void>()
     lazy private(set) var timer: Observable<Void> = { return timerSubject.asObservable().share(replay: 1, scope: .forever) }()
@@ -206,7 +200,7 @@ final class Player {
             }.distinctUntilChanged().share(replay: 1, scope: .whileConnected)
     }()
     
-    init(loadRequest: @escaping (GMusicTrack) -> Single<Data>) {
+    init(loadRequest: @escaping (Item) -> Single<Data>) {
         self.loadRequest = loadRequest
         avPlayer = AVPlayer(playerItem: nil)
     }
@@ -251,7 +245,7 @@ extension Player {
             .disposed(by: bag)
     }
     
-    func play(_ track: GMusicTrack?) {
+    func play(_ track: Item?) {
         guard let track = track else {
             avPlayer.flush()
             isPlayingSubject.onNext(false)

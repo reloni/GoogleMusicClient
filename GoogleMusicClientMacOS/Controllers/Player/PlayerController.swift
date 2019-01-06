@@ -47,7 +47,7 @@ final class PlayerController: NSViewController {
     @objc dynamic var palyPauseImage = NSImage(imageLiteralResourceName: "Pause")
     
     let bag = DisposeBag()
-    var player: Player? { return Global.current.dataFlowController.currentState.state.player }
+    var player: Player<GMusicTrack>? { return Global.current.dataFlowController.currentState.state.player }
     
     override func viewDidLoad() {
         super.viewDidLoad()

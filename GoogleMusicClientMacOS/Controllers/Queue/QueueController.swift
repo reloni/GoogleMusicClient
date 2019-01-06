@@ -15,7 +15,7 @@ final class QueueController: NSViewController {
     
     let bag = DisposeBag()
     
-    var player: Player? {
+    var player: Player<GMusicTrack>? {
         return Global.current.dataFlowController.currentState.state.player
     }
     

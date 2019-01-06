@@ -14,7 +14,7 @@ struct AppState: RxStateType {
     let keychain: KeychainType
     private(set) var client: GMusicClient?
     private(set) var radioStations: [GMusicRadioStation]
-    private(set) var player: Player?
+    private(set) var player: Player<GMusicTrack>?
     private(set) var queue: Queue<GMusicTrack>
 }
 
