@@ -18,6 +18,11 @@ func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
     switch action {
     case PlayerAction.loadRadioStationFeed(let station): return loadRadioStationFeed(station, currentState: currentState, client: client)
     case PlayerAction.loadRadioStations: return loadRadioStations(client: client)
+    case PlayerAction.pause: currentState.player?.pause()
+    case PlayerAction.resume: currentState.player?.resume()
+    case PlayerAction.playNext: currentState.player?.playNext()
+    case PlayerAction.playPrevious: currentState.player?.playPrevious()
+    case PlayerAction.toggle: currentState.player?.toggle()
     default: break
     }
     return RxReduceResult.empty

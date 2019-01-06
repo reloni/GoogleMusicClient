@@ -47,4 +47,9 @@ enum SystemAction: RxActionType {
 enum PlayerAction: RxActionType {
     case loadRadioStations
     case loadRadioStationFeed(GMusicRadioStation)
+    case pause
+    case resume
+    case playPrevious
+    case playNext
+    case toggle
 }
