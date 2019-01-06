@@ -20,7 +20,7 @@ final class QueueController: NSViewController {
     }
     
     var queue: [GMusicTrack] {
-        return player?.items ?? []
+        return Global.current.dataFlowController.currentState.state.queue.items
     }
     
     override func viewDidLoad() {
@@ -28,12 +28,11 @@ final class QueueController: NSViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        
-        player?.currentItem
+
+        Global.current.dataFlowController.currentTrack
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] in self?.updateTableView(selectedIndex: $0?.index) })
-            .disposed(by: bag)
-        
+            .disposed(by: bag)        
     }
     
     func updateTableView(selectedIndex: Int?) {

@@ -8,6 +8,20 @@
 
 import Foundation
 import Cocoa
+import RxDataFlow
+import RxSwift
+import RxGoogleMusic
+
+extension RxDataFlowController where State == AppState {
+    var currentTrack: Observable<(track: GMusicTrack, index: Int)?> {
+        return state.filter { result in
+            switch result.setBy {
+            case PlayerAction.playNext, PlayerAction.playPrevious: return true
+            default: return false
+            }
+        }.map { $0.state.currentTrack }.startWith(currentState.state.currentTrack)
+    }
+}
 
 enum WindowSize: Codable {
     case fullScreen

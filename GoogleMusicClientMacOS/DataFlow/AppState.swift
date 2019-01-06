@@ -15,6 +15,7 @@ struct AppState: RxStateType {
     private(set) var client: GMusicClient?
     private(set) var radioStations: [GMusicRadioStation]
     private(set) var player: Player?
+    private(set) var queue: Queue<GMusicTrack>
 }
 
 extension AppState {
@@ -32,4 +33,9 @@ extension AppState {
     }
     
     var hasGmusicToken: Bool { return keychain.accessToken != nil }
+    
+    var currentTrack: (track: GMusicTrack, index: Int)? {
+        guard let t = queue.current, let i = queue.currentElementIndex else { return nil }
+        return (t, i)
+    }
 }

@@ -70,7 +70,7 @@ extension GMusicTrack {
     }
 }
 
-final private class Queue<Element> {
+struct Queue<Element> {
     enum Index: Equatable {
         case notStarted
         case index(Int)
@@ -133,41 +133,41 @@ final private class Queue<Element> {
     
     var currentElementIndex: Int? { return currentIndex.value }
     
-    private func incrementIndex() {
+    private mutating func incrementIndex() {
         currentIndex = currentIndex.incremented(maxValue: items.count)
     }
     
-    private func decrementIndex() {
+    private mutating func decrementIndex() {
         currentIndex = currentIndex.decremented(maxValue: items.count)
     }
     
-    func next() -> Element? {
+    mutating func next() -> Element? {
         incrementIndex()
         return current
     }
     
-    func previous() -> Element? {
+    mutating func previous() -> Element? {
         decrementIndex()
         return current
     }
     
-    func shuffle() {
+    mutating func shuffle() {
         items = items.shuffled()
         currentIndex = .notStarted
     }
     
-    func append(items: [Element]) {
+    mutating func append(items: [Element]) {
         self.items += items
         if currentIndex == .completed {
             currentIndex = .index(self.items.count - items.count)
         }
     }
     
-    func resetIndex() {
+    mutating func resetIndex() {
         currentIndex = .notStarted
     }
     
-    func replace(withNew items: [Element]) {
+    mutating func replace(withNew items: [Element]) {
         self.items = items
         currentIndex = .notStarted
     }
@@ -176,15 +176,9 @@ final private class Queue<Element> {
 final class Player {
     private let bag = DisposeBag()
     
-    private var queue = Queue<GMusicTrack>(items: [])
     private let avPlayer: AVPlayer
     private let loadRequest: (GMusicTrack) -> Single<Data>
-        
-    private let currentItemSubject = BehaviorSubject<(index:Int, item: GMusicTrack)?>(value: nil)
-    lazy private(set) var currentItem: Observable<(index:Int, item: GMusicTrack)?> = {
-        return currentItemSubject.distinctUntilChanged { $0?.index != $1?.index && $0?.item.identifier == $1?.item.identifier }.share(replay: 1, scope: .forever)
-    }()
-    
+
     private let timerSubject = PublishSubject<Void>()
     lazy private(set) var timer: Observable<Void> = { return timerSubject.asObservable().share(replay: 1, scope: .forever) }()
     private var timerDisposable: Disposable? = nil
@@ -212,11 +206,9 @@ final class Player {
             }.distinctUntilChanged().share(replay: 1, scope: .whileConnected)
     }()
     
-    init(loadRequest: @escaping (GMusicTrack) -> Single<Data>, items: [GMusicTrack]) {
+    init(loadRequest: @escaping (GMusicTrack) -> Single<Data>) {
         self.loadRequest = loadRequest
         avPlayer = AVPlayer(playerItem: nil)
-        queue.append(items: items)
-        subscribeToNotifications()
     }
     
     deinit {
@@ -225,27 +217,9 @@ final class Player {
 }
 
 extension Player {
-    var currentItemIndex: Int? {
-        return queue.currentElementIndex
-    }
-    
     var volume: Float {
         get { return avPlayer.volume }
         set { avPlayer.volume = newValue }
-    }
-    
-    var items: [GMusicTrack] { return queue.items }
-    
-    func playNext() {
-        let track = queue.next()
-        notifyObserversOnItemChange()
-        play(track)
-    }
-    
-    func playPrevious() {
-        let track = queue.previous()
-        notifyObserversOnItemChange()
-        play(track)
     }
     
     func pause() {
@@ -255,25 +229,19 @@ extension Player {
     }
     
     func stop() {
-        queue.resetIndex()
         avPlayer.flush()
-        notifyObserversOnItemChange()
+        isPlayingSubject.onNext(true)
     }
     
     func resume() {
-        guard queue.current != nil else {
-            playNext()
+        guard avPlayer.currentItem != nil else {
+            isPlayingSubject.onNext(false)
             return
         }
         
         avPlayer.set(rate: .play)
-        isPlayingSubject.onNext(queue.current != nil)
+        isPlayingSubject.onNext(true)
         startTimer()
-    }
-    
-    func resetQueue(new items: [GMusicTrack]) {
-        queue.replace(withNew: items)
-        stop()
     }
     
     func toggle() {
@@ -282,51 +250,15 @@ extension Player {
             .subscribe(onNext: { $0 ? $1.pause() : $1.resume() })
             .disposed(by: bag)
     }
-}
-
-private extension Player {
-    func subscribeToNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEnd), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(playbackStalled), name: NSNotification.Name.AVPlayerItemPlaybackStalled, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(errorLogEntry), name: NSNotification.Name.AVPlayerItemNewErrorLogEntry, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(failedToPlayToEnd), name: NSNotification.Name.AVPlayerItemFailedToPlayToEndTime, object: nil)
-    }
-    
-    @objc func didPlayToEnd() {
-        playNext()
-        print("didPlayToEnd")
-    }
-    
-    @objc func playbackStalled() {
-        pause()
-        print("playbackStalled")
-    }
-    
-    @objc func errorLogEntry() {
-        print("playbackStalled")
-    }
-    
-    @objc func failedToPlayToEnd() {
-        print("playbackStalled")
-    }
-    
-    func startTimer() {
-        stopTimer()
-        let scheduler = SerialDispatchQueueScheduler(qos: .userInitiated)
-        timerDisposable = Observable<Int>.timer(1.0, period: 0.5, scheduler: scheduler).map { _ in return () }.bind(to: timerSubject)
-    }
-    
-    func stopTimer() {
-        timerDisposable?.dispose()
-        timerDisposable = nil
-    }
     
     func play(_ track: GMusicTrack?) {
         guard let track = track else {
             avPlayer.flush()
+            isPlayingSubject.onNext(false)
             return
         }
         
+        isPlayingSubject.onNext(true)
         startTimer()
         
         loadRequest(track)
@@ -337,15 +269,18 @@ private extension Player {
             .subscribe()
             .disposed(by: bag)
     }
+}
+
+private extension Player {
+    func startTimer() {
+        stopTimer()
+        let scheduler = SerialDispatchQueueScheduler(qos: .userInitiated)
+        timerDisposable = Observable<Int>.timer(1.0, period: 0.5, scheduler: scheduler).map { _ in return () }.bind(to: timerSubject)
+    }
     
-    func notifyObserversOnItemChange() {
-        guard let item = queue.current, let index = queue.currentElementIndex else {
-            currentItemSubject.onNext(nil)
-            isPlayingSubject.onNext(false)
-            return
-        }
-        currentItemSubject.onNext((index: index, item: item))
-        isPlayingSubject.onNext(true)
+    func stopTimer() {
+        timerDisposable?.dispose()
+        timerDisposable = nil
     }
 }
 

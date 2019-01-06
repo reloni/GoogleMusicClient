@@ -20,17 +20,32 @@ func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
     case PlayerAction.loadRadioStations: return loadRadioStations(client: client)
     case PlayerAction.pause: currentState.player?.pause()
     case PlayerAction.resume: currentState.player?.resume()
-    case PlayerAction.playNext: currentState.player?.playNext()
-    case PlayerAction.playPrevious: currentState.player?.playPrevious()
+    case PlayerAction.playNext: return playNext(currentState: currentState)
+    case PlayerAction.playPrevious: return playPrevious(currentState: currentState)
     case PlayerAction.toggle: currentState.player?.toggle()
     default: break
     }
     return RxReduceResult.empty
 }
 
+private func playPrevious(currentState: AppState) -> RxReduceResult<AppState> {
+    var queue = currentState.queue
+    let track = queue.previous()
+    currentState.player?.play(track)
+    return RxReduceResult.single { $0.mutate(\.queue, queue) }
+}
+
+private func playNext(currentState: AppState) -> RxReduceResult<AppState> {
+    var queue = currentState.queue
+    let track = queue.next()
+    currentState.player?.play(track)
+    return RxReduceResult.single { $0.mutate(\.queue, queue) }
+}
+
 private func loadRadioStationFeed(_ station: GMusicRadioStation, currentState: AppState, client: GMusicClient) -> RxReduceResult<AppState> {
+    
     return RxReduceResult.create(from: client.radioStationFeed(for: station, maxResults: 100),
-                                 transform: { $0.player?.resetQueue(new: $1.items.first?.tracks ?? []); return $0 })
+                                 transform: { $0.mutate(\.queue, Queue(items: $1.items.first?.tracks ?? [])) })
 }
 
 private func loadRadioStations(client: GMusicClient) -> RxReduceResult<AppState> {

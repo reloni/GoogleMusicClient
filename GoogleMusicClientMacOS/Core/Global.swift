@@ -16,7 +16,8 @@ private func initialState() -> AppState {
                     keychain: Keychain(),
                     client: nil,
                     radioStations: [],
-                    player: nil)
+                    player: nil,
+                    queue: Queue(items: [GMusicTrack]()))
 }
 
 struct Global {

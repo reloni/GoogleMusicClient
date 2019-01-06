@@ -8,7 +8,7 @@
         <!--Queue Controller-->
         <scene sceneID="VGS-oY-hvR">
             <objects>
-                <viewController storyboardIdentifier="QueueController" id="Z45-bg-s0n" customClass="QueueController" customModule="GoogleMusicClientMacOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QueueController" id="Z45-bg-s0n" customClass="QueueController" customModule="Google_Music_Player" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="C2R-gg-gmi">
                         <rect key="frame" x="0.0" y="0.0" width="543" height="118"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -19,7 +19,7 @@
                                     <rect key="frame" x="1" y="0.0" width="541" height="117"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="27" rowSizeStyle="automatic" usesAutomaticRowHeights="YES" headerView="gFF-or-yKm" viewBased="YES" id="nPw-QJ-MfQ" customClass="ApplicationTableView" customModule="GoogleMusicClientMacOS" customModuleProvider="target">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="27" rowSizeStyle="automatic" usesAutomaticRowHeights="YES" headerView="gFF-or-yKm" viewBased="YES" id="nPw-QJ-MfQ" customClass="ApplicationTableView" customModule="Google_Music_Player" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="541" height="92"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>

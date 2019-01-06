@@ -9,6 +9,7 @@
 import Cocoa
 import RxGoogleMusic
 import RxSwift
+import RxDataFlow
 
 final class RadioListController: NSViewController {
     @IBOutlet weak var tableView: ApplicationTableView!
@@ -68,6 +69,6 @@ extension RadioListController: NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
         guard 0..<stations.count ~= tableView.selectedRow else { return }
         let station = stations[tableView.selectedRow]
-        Global.current.dataFlowController.dispatch(PlayerAction.loadRadioStationFeed(station))
+        Global.current.dataFlowController.dispatch(RxCompositeAction(PlayerAction.loadRadioStationFeed(station), PlayerAction.playNext))
     }
 }

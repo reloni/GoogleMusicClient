@@ -56,24 +56,19 @@ final class PlayerController: NSViewController {
 
         bag.insert(bind())
         
-        // as workaround subscribe here for loadRadioStationFeed action and start playing after feed loads
-        Global.current.dataFlowController.state.subscribe(onNext: { state in
-            if case PlayerAction.loadRadioStationFeed = state.setBy {
-                state.state.player?.playNext()
-            }
-        })
-        .disposed(by: bag)
+        subscribeToNotifications()
     }
     
     func bind() -> [Disposable] {
         return [
+            Global.current.dataFlowController.currentTrack.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.update(with: $0?.track) }),
+            
             shuffleButton.rx.tap.subscribe(onNext: { Global.current.dataFlowController.dispatch(PlayerAction.pause) }),
             previousButton.rx.tap.subscribe(onNext: { Global.current.dataFlowController.dispatch(PlayerAction.playPrevious) }),
             playPauseButon.rx.tap.subscribe(onNext: { Global.current.dataFlowController.dispatch(PlayerAction.toggle) }),
             nextButton.rx.tap.subscribe(onNext: { Global.current.dataFlowController.dispatch(PlayerAction.playNext) }),
             repeatModeButton.rx.tap.subscribe(onNext: { Global.current.dataFlowController.dispatch(PlayerAction.resume) }),
 //            player?.currentItemStatus.subscribe(onNext: { print("ItemStatus: \($0)") }),
-            player?.currentItem.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.update(with: $0?.item) }),
             player?.currentItemTime.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentTime = $0?.timeString }),
             player?.currentItemDuration.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentDuration = $0?.timeString }),
             player?.currentItemProgress.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentProgress = $0?.asNsDecimalNumber }),
@@ -88,6 +83,31 @@ final class PlayerController: NSViewController {
     
     @IBAction func queueButtonClicked(_ sender: Any) {
         Global.current.dataFlowController.dispatch(UIAction.showQueuePopover(showQueueButton))
+    }
+    
+    func subscribeToNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEnd), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playbackStalled), name: NSNotification.Name.AVPlayerItemPlaybackStalled, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(errorLogEntry), name: NSNotification.Name.AVPlayerItemNewErrorLogEntry, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(failedToPlayToEnd), name: NSNotification.Name.AVPlayerItemFailedToPlayToEndTime, object: nil)
+    }
+    
+    @objc func didPlayToEnd() {
+        Global.current.dataFlowController.dispatch(PlayerAction.playNext)
+        print("didPlayToEnd")
+    }
+    
+    @objc func playbackStalled() {
+        Global.current.dataFlowController.dispatch(PlayerAction.pause)
+        print("playbackStalled")
+    }
+    
+    @objc func errorLogEntry() {
+        print("playbackStalled")
+    }
+    
+    @objc func failedToPlayToEnd() {
+        print("playbackStalled")
     }
 
     deinit {
