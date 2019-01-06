@@ -60,7 +60,7 @@ extension RadioListController: NSTableViewDataSource {
 
 extension RadioListController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Cell"), owner: nil) as! NSTableCellView
+        let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Cell"), owner: self) as! NSTableCellView
         cell.textField?.stringValue = stations[row].name
         return cell
     }

@@ -16,15 +16,15 @@ func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
     guard let client = currentState.client else { return RxReduceResult.empty }
     
     switch action {
-    case PlayerAction.loadRadioStationFeed(let station): return loadRadioStation(station, currentState: currentState, client: client)
+    case PlayerAction.loadRadioStationFeed(let station): return loadRadioStationFeed(station, currentState: currentState, client: client)
     case PlayerAction.loadRadioStations: return loadRadioStations(client: client)
     default: break
     }
     return RxReduceResult.empty
 }
 
-private func loadRadioStation(_ station: GMusicRadioStation, currentState: AppState, client: GMusicClient) -> RxReduceResult<AppState> {
-    return RxReduceResult.create(from: client.radioStationFeed(for: station),
+private func loadRadioStationFeed(_ station: GMusicRadioStation, currentState: AppState, client: GMusicClient) -> RxReduceResult<AppState> {
+    return RxReduceResult.create(from: client.radioStationFeed(for: station, maxResults: 100),
                                  transform: { $0.player?.resetQueue(new: $1.items.first?.tracks ?? []); return $0 })
 }
 

@@ -75,13 +75,13 @@ extension QueueController: NSTableViewDelegate {
     
     func cell(in tableView: NSTableView, for column: NSTableColumn?) -> NSTableCellView? {
         if column == tableView.tableColumns[0] {
-            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Title"), owner: nil) as? NSTableCellView
+            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Title"), owner: self) as? NSTableCellView
         } else if column == tableView.tableColumns[1] {
-            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Album"), owner: nil) as? NSTableCellView
+            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Album"), owner: self) as? NSTableCellView
         } else if column == tableView.tableColumns[2] {
-            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Artist"), owner: nil) as? NSTableCellView
+            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Artist"), owner: self) as? NSTableCellView
         } else if column == tableView.tableColumns[3] {
-            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Duration"), owner: nil) as? NSTableCellView
+            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Duration"), owner: self) as? NSTableCellView
         } else {
             return nil
         }
