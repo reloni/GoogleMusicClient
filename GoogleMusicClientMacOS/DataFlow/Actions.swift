@@ -52,4 +52,5 @@ enum PlayerAction: RxActionType {
     case playPrevious
     case playNext
     case toggle
+    case playAtIndex(Int)
 }

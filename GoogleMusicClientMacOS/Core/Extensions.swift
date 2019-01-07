@@ -16,7 +16,7 @@ extension RxDataFlowController where State == AppState {
     var currentTrack: Observable<(track: GMusicTrack, index: Int)?> {
         return state.filter { result in
             switch result.setBy {
-            case PlayerAction.playNext, PlayerAction.playPrevious: return true
+            case PlayerAction.playNext, PlayerAction.playPrevious, PlayerAction.playAtIndex: return true
             default: return false
             }
         }.map { $0.state.currentTrack }.startWith(currentState.state.currentTrack)

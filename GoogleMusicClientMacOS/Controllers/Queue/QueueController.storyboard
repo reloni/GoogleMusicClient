@@ -19,7 +19,7 @@
                                     <rect key="frame" x="1" y="0.0" width="541" height="117"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="27" rowSizeStyle="automatic" usesAutomaticRowHeights="YES" headerView="gFF-or-yKm" viewBased="YES" id="nPw-QJ-MfQ" customClass="ApplicationTableView" customModule="Google_Music_Player" customModuleProvider="target">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="27" rowSizeStyle="automatic" usesAutomaticRowHeights="YES" headerView="bdD-ez-1xY" viewBased="YES" id="nPw-QJ-MfQ" customClass="ApplicationTableView" customModule="Google_Music_Player" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="541" height="92"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -184,7 +184,7 @@
                                     </subviews>
                                     <nil key="backgroundColor"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.97777777777777775" horizontal="YES" id="KX7-s2-fgO">
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="KX7-s2-fgO">
                                     <rect key="frame" x="1" y="102" width="541" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -192,7 +192,7 @@
                                     <rect key="frame" x="224" y="17" width="15" height="102"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <tableHeaderView key="headerView" id="gFF-or-yKm">
+                                <tableHeaderView key="headerView" id="bdD-ez-1xY">
                                     <rect key="frame" x="0.0" y="0.0" width="541" height="25"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>

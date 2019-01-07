@@ -56,6 +56,12 @@ extension QueueController: NSTableViewDataSource {
 }
 
 extension QueueController: NSTableViewDelegate {
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        guard 0..<queue.count ~= tableView.selectedRow else { return }
+        Global.current.dataFlowController.dispatch(PlayerAction.playAtIndex(tableView.selectedRow))
+    }
+    
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let c = cell(in: tableView, for: tableColumn)
         switch c?.identifier?.rawValue {
@@ -66,10 +72,6 @@ extension QueueController: NSTableViewDelegate {
         default: break
         }
         return c
-    }
-    
-    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
-        return false
     }
     
     func cell(in tableView: NSTableView, for column: NSTableColumn?) -> NSTableCellView? {

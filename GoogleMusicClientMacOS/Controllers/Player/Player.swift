@@ -161,6 +161,12 @@ struct Queue<Element> {
         currentIndex = .notStarted
     }
     
+    mutating func setIndex(to newIndex: Int) -> Element? {
+        guard 0..<items.count ~= newIndex else { return nil }
+        currentIndex = .index(newIndex)
+        return current
+    }
+    
     mutating func replace(withNew items: [Element]) {
         self.items = items
         currentIndex = .notStarted

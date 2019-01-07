@@ -23,9 +23,18 @@ func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
     case PlayerAction.playNext: return playNext(currentState: currentState)
     case PlayerAction.playPrevious: return playPrevious(currentState: currentState)
     case PlayerAction.toggle: currentState.player?.toggle()
+    case PlayerAction.playAtIndex(let index): return playAtIndex(currentState: currentState, index: index)
     default: break
     }
     return RxReduceResult.empty
+}
+
+private func playAtIndex(currentState: AppState, index: Int) -> RxReduceResult<AppState> {
+    guard currentState.queue.currentElementIndex != index else { return RxReduceResult.empty }
+    var queue = currentState.queue
+    let track = queue.setIndex(to: index)
+    currentState.player?.play(track)
+    return RxReduceResult.single { $0.mutate(\.queue, queue) }
 }
 
 private func playPrevious(currentState: AppState) -> RxReduceResult<AppState> {
