@@ -28,6 +28,10 @@ final class QueueController: NSViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.didClickRow = { index in
+            Global.current.dataFlowController.dispatch(PlayerAction.playAtIndex(index))
+        }
 
         Global.current.dataFlowController.currentTrack
             .observeOn(MainScheduler.instance)
@@ -56,12 +60,6 @@ extension QueueController: NSTableViewDataSource {
 }
 
 extension QueueController: NSTableViewDelegate {
-    
-    func tableViewSelectionDidChange(_ notification: Notification) {
-        guard 0..<queue.count ~= tableView.selectedRow else { return }
-        Global.current.dataFlowController.dispatch(PlayerAction.playAtIndex(tableView.selectedRow))
-    }
-    
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let c = cell(in: tableView, for: tableColumn)
         switch c?.identifier?.rawValue {
