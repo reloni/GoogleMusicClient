@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E013D2F21E35AAE00BC6F61 /* GoogleMusicClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94666921C282D300126BB7 /* GoogleMusicClientTests.swift */; };
 		6E1E6DF721D277E500937756 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1E6DF621D277E500937756 /* Player.swift */; };
 		6E31EC3321C7DBA5009B9742 /* ApplicationTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */; };
 		6E31EC3521C7E1C5009B9742 /* LeftMenuController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E31EC3421C7E1C5009B9742 /* LeftMenuController.storyboard */; };
@@ -387,7 +388,6 @@
 					};
 					6E94666421C282D300126BB7 = {
 						CreatedOnToolsVersion = 10.1;
-						TestTargetID = 6E94665221C282D200126BB7;
 					};
 				};
 			};
@@ -473,6 +473,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E013D2F21E35AAE00BC6F61 /* GoogleMusicClientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,20 +670,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = SJMSRXG797;
-				INFOPLIST_FILE = GoogleMusicClientTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/GoogleMusicClientMacOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
+					"@loader_path/Frameworks",
+					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.GoogleMusicClientTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoogleMusicClientMacOS.app/Contents/MacOS/GoogleMusicClientMacOS";
 			};
 			name = Debug;
 		};
@@ -690,20 +691,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = SJMSRXG797;
-				INFOPLIST_FILE = GoogleMusicClientTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/GoogleMusicClientMacOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
+					"@loader_path/Frameworks",
+					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AntonEfimenko.GoogleMusicClientTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoogleMusicClientMacOS.app/Contents/MacOS/GoogleMusicClientMacOS";
 			};
 			name = Release;
 		};

@@ -29,6 +29,6 @@
 	<key>NSMainStoryboardFile</key>
 	<string>MainWindowController</string>
 	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
+	<string>Google_Music_Player.Application</string>
 </dict>
 </plist>

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import GoogleMusicClient
+@testable import Google_Music_Player
 
 class GoogleMusicClientTests: XCTestCase {
 
