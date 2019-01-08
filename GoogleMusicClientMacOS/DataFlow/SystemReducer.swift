@@ -13,8 +13,9 @@ import Foundation
 
 func systemReducer(_ action: RxActionType, currentState: AppState) -> RxReduceResult<AppState> {
     switch action {
-    case SystemAction.clearKeychainToken:
+    case SystemAction.creanup:
         clearKeychainToken(keychain: currentState.keychain)
+        return RxReduceResult.single { $0.cleaned() }
     case SystemAction.saveKeychainToken(let token):
         saveInKeychain(token: token, keychain: currentState.keychain)
     case SystemAction.initializeMusicClient:

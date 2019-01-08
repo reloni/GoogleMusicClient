@@ -19,6 +19,15 @@ struct AppState: RxStateType {
 }
 
 extension AppState {
+    func cleaned() -> AppState {
+        return  AppState.init(coordinator: coordinator,
+                              keychain: keychain,
+                              client: nil,
+                              radioStations: [],
+                              player: nil,
+                              queue: Queue(items: []))
+    }
+    
     func mutate<Value>(_ kp: WritableKeyPath<AppState, Value>, _ v: Value) -> AppState {
         var copy = self
         copy[keyPath: kp] = v
