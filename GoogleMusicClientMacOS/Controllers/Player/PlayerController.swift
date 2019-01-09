@@ -79,6 +79,11 @@ final class PlayerController: NSViewController {
     func update(with track: GMusicTrack?) {
         currentTrackTitle = track?.title
         currentArtistAndAlbum = track == nil ? nil : "\(track!.album) (\(track!.artist))"
+        
+        Global.current.image(for: track)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in self?.albumImage.image = $0 })
+            .disposed(by: bag)
     }
     
     @IBAction func queueButtonClicked(_ sender: Any) {

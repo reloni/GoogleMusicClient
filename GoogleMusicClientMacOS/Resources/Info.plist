@@ -30,5 +30,12 @@
 	<string>MainWindowController</string>
 	<key>NSPrincipalClass</key>
 	<string>Google_Music_Player.Application</string>
+	<key>CFBundleDisplayName</key>
+	<string></string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

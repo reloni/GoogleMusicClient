@@ -110,4 +110,12 @@ extension Int {
 extension NSImage {
     static var pause: NSImage { return NSImage(imageLiteralResourceName: "Pause") }
     static var play: NSImage { return NSImage(imageLiteralResourceName: "Play") }
+    static var album: NSImage { return NSImage(imageLiteralResourceName: "Album") }
+    
+    convenience init?(_ optionalData: Data?) {
+        guard let data = optionalData else {
+            return nil
+        }
+        self.init(data: data)
+    }
 }
