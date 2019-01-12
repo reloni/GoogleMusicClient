@@ -53,7 +53,6 @@ extension LeftMenuController: NSTableViewDelegate {
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        print("select: \(tableView.selectedRow)")
         guard tableView.selectedRow >= 0 && tableView.selectedRow < rows.count else { return }
         Global.current.dataFlowController.dispatch(rows[tableView.selectedRow].1)
     }

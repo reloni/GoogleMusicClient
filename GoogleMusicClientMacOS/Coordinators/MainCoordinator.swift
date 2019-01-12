@@ -16,16 +16,19 @@ final class MainCoordinator {
     let leftMenuController: LeftMenuController
     weak var mainController: NSViewController? = nil
     let playerController: PlayerController
+    let systemController: SystemController
     
     init(windowController: ApplicationWindowController, controller: MainController) {
         self.windowController = windowController
         self.controller = controller
         self.leftMenuController = LeftMenuController.instantiate()
         self.playerController = PlayerController.instantiate()
+        self.systemController = SystemController.instantiate()
         
         _ = controller.view
         initLeftMenu()
         initPlayer()
+        initSystemController()
     }
 
     deinit {
@@ -45,7 +48,7 @@ extension MainCoordinator: ApplicationCoordinator {
         default: break
         }
         
-        return RxReduceResult.empty
+        return RxReduceResult.single({ $0 })
     }
 }
 
@@ -68,6 +71,12 @@ private extension MainCoordinator {
         controller.addChild(playerController)
         controller.bottomContainerView.addSubview(playerController.view)
         playerController.view.lt.edges(to: controller.bottomContainerView)
+    }
+    
+    func initSystemController() {
+        controller.addChild(systemController)
+        controller.topContainerView.addSubview(systemController.view)
+        systemController.view.lt.edges(to: controller.topContainerView)
     }
     
     private func removeCurrentMainController() {

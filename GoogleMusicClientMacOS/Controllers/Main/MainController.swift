@@ -16,6 +16,7 @@ final class MainController: NSViewController {
     @IBOutlet weak var leftContainerView: NSView!
     @IBOutlet weak var mainContainerView: NSView!
     @IBOutlet weak var bottomContainerView: NSView!
+    @IBOutlet weak var topContainerView: NSView!
     
     func showQueuePopover(for view: NSView) {
         let popover = NSPopover()

@@ -13,12 +13,22 @@ import Cocoa
 
 struct CompositeActions {
     static let beforeStartup = RxCompositeAction(SystemAction.initializeMusicClient, SystemAction.initializePlayer)
+    
     static let logOff = RxCompositeAction(SystemAction.creanup, UIAction.showLogIn)
+    
     static func logIn(token: GMusicToken) -> RxCompositeAction {
         return RxCompositeAction(SystemAction.saveKeychainToken(token),
                                  SystemAction.initializeMusicClient,
                                  SystemAction.initializePlayer,
                                  UIAction.showMain)
+    }
+    
+    static func play(station: GMusicRadioStation) -> RxCompositeAction {
+        return RxCompositeAction(UIAction.showProgressIndicator,
+                                 PlayerAction.loadRadioStationFeed(station),
+                                 PlayerAction.playNext,
+                                 UIAction.hideProgressIndicator,
+                                 fallbackAction: UIAction.hideProgressIndicator)
     }
 }
 
@@ -34,10 +44,13 @@ enum UIAction : RxActionType {
     case showAlbums
     case showPlaylists
     
+    case showProgressIndicator
+    case hideProgressIndicator
+    
     case showQueuePopover(NSView)
 }
 
-enum SystemAction: RxActionType {
+enum SystemAction: RxActionType {    
     case saveKeychainToken(GMusicToken)
     case initializeMusicClient
     case initializePlayer

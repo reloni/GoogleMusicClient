@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--System Controller-->
+        <scene sceneID="mCq-e5-8tQ">
+            <objects>
+                <viewController storyboardIdentifier="SystemController" id="bb4-TU-cwB" customClass="SystemController" customModule="Google_Music_Player" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="MHK-0m-gvg">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="32"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDf-ph-5It">
+                                <rect key="frame" x="265" y="5" width="180" height="22"/>
+                                <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="DaZ-pJ-r73">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </searchFieldCell>
+                            </searchField>
+                            <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="yQW-fC-Fli">
+                                <rect key="frame" x="5" y="5" width="16" height="22"/>
+                            </progressIndicator>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="yQW-fC-Fli" secondAttribute="bottom" constant="5" id="IHD-jL-o30"/>
+                            <constraint firstItem="yQW-fC-Fli" firstAttribute="top" secondItem="MHK-0m-gvg" secondAttribute="top" constant="5" id="MO1-vr-6Zn"/>
+                            <constraint firstItem="yDf-ph-5It" firstAttribute="width" secondItem="MHK-0m-gvg" secondAttribute="width" multiplier="0.4" id="VlH-TY-zdx"/>
+                            <constraint firstAttribute="trailing" secondItem="yDf-ph-5It" secondAttribute="trailing" constant="5" id="dtc-pl-DIi"/>
+                            <constraint firstItem="yQW-fC-Fli" firstAttribute="leading" secondItem="MHK-0m-gvg" secondAttribute="leading" constant="5" id="m9f-7r-sib"/>
+                            <constraint firstItem="yDf-ph-5It" firstAttribute="top" secondItem="MHK-0m-gvg" secondAttribute="top" constant="5" id="rHt-2N-R01"/>
+                            <constraint firstAttribute="bottom" secondItem="yDf-ph-5It" secondAttribute="bottom" constant="5" id="x2I-eY-xvz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="progressIndicator" destination="yQW-fC-Fli" id="Yrh-KR-4Wb"/>
+                    </connections>
+                </viewController>
+                <customObject id="cd0-SV-aGq" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="vxc-jn-8xx"/>
+            </objects>
+            <point key="canvasLocation" x="49" y="-123.5"/>
+        </scene>
+    </scenes>
+</document>
