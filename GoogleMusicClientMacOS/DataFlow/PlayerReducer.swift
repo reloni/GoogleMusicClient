@@ -16,7 +16,7 @@ func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
     guard let client = currentState.client else { return RxReduceResult.empty }
     
     switch action {
-    case PlayerAction.loadRadioStationFeed(let station): return loadRadioStationFeed(station, currentState: currentState, client: client)
+    case PlayerAction.initializeQueueFromSource: return initializeQueueFromSource(currentState: currentState, client: client)
     case PlayerAction.loadRadioStations: return loadRadioStations(client: client)
     case PlayerAction.pause: currentState.player?.pause()
     case PlayerAction.resume: currentState.player?.resume()
@@ -24,6 +24,7 @@ func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
     case PlayerAction.playPrevious: return playPrevious(currentState: currentState)
     case PlayerAction.toggle: currentState.player?.toggle()
     case PlayerAction.playAtIndex(let index): return playAtIndex(currentState: currentState, index: index)
+    case PlayerAction.setQueueSource(let s): return RxReduceResult.single { $0.mutate(\.queueSource, s) }
     default: break
     }
     return RxReduceResult.empty
@@ -51,8 +52,14 @@ private func playNext(currentState: AppState) -> RxReduceResult<AppState> {
     return RxReduceResult.single { $0.mutate(\.queue, queue) }
 }
 
+private func initializeQueueFromSource(currentState: AppState, client: GMusicClient) -> RxReduceResult<AppState> {
+    guard let source = currentState.queueSource else { return RxReduceResult.single { $0 } }
+    switch source {
+    case .radio(let r): return loadRadioStationFeed(r, currentState: currentState, client: client)
+    }
+}
+
 private func loadRadioStationFeed(_ station: GMusicRadioStation, currentState: AppState, client: GMusicClient) -> RxReduceResult<AppState> {
-    
     return RxReduceResult.create(from: client.radioStationFeed(for: station, maxResults: 100),
                                  transform: { $0.mutate(\.queue, Queue(items: $1.items.first?.tracks ?? [])) })
 }

@@ -9,6 +9,10 @@
 import RxDataFlow
 import RxGoogleMusic
 
+enum QueueSource {
+    case radio(GMusicRadioStation)
+}
+
 struct AppState: RxStateType {
     private(set) var coordinator: ApplicationCoordinator
     let keychain: KeychainType
@@ -16,16 +20,18 @@ struct AppState: RxStateType {
     private(set) var radioStations: [GMusicRadioStation]
     private(set) var player: Player<GMusicTrack>?
     private(set) var queue: Queue<GMusicTrack>
+    private(set) var queueSource: QueueSource?
 }
 
 extension AppState {
     func cleaned() -> AppState {
-        return  AppState.init(coordinator: coordinator,
+        return  AppState(coordinator: coordinator,
                               keychain: keychain,
                               client: nil,
                               radioStations: [],
                               player: nil,
-                              queue: Queue(items: []))
+                              queue: Queue(items: []),
+                              queueSource: nil)
     }
     
     func mutate<Value>(_ kp: WritableKeyPath<AppState, Value>, _ v: Value) -> AppState {

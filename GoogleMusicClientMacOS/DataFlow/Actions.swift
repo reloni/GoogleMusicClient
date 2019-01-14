@@ -25,7 +25,16 @@ struct CompositeActions {
     
     static func play(station: GMusicRadioStation) -> RxCompositeAction {
         return RxCompositeAction(UIAction.showProgressIndicator,
-                                 PlayerAction.loadRadioStationFeed(station),
+                                 PlayerAction.setQueueSource(.radio(station)),
+                                 PlayerAction.initializeQueueFromSource,
+                                 PlayerAction.playNext,
+                                 UIAction.hideProgressIndicator,
+                                 fallbackAction: UIAction.hideProgressIndicator)
+    }
+    
+    static func repeatFromQueueSource() -> RxCompositeAction {
+        return RxCompositeAction(UIAction.showProgressIndicator,
+                                 PlayerAction.initializeQueueFromSource,
                                  PlayerAction.playNext,
                                  UIAction.hideProgressIndicator,
                                  fallbackAction: UIAction.hideProgressIndicator)
@@ -58,8 +67,9 @@ enum SystemAction: RxActionType {
 }
 
 enum PlayerAction: RxActionType {
+    case setQueueSource(QueueSource)
     case loadRadioStations
-    case loadRadioStationFeed(GMusicRadioStation)
+    case initializeQueueFromSource
     case pause
     case resume
     case playPrevious

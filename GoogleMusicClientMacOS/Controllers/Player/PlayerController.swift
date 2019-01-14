@@ -44,7 +44,7 @@ final class PlayerController: NSViewController {
         }
     }
     @objc dynamic var currentDuration: String? = nil
-    @objc dynamic var palyPauseImage = NSImage(imageLiteralResourceName: "Pause")
+    @objc dynamic var palyPauseImage = NSImage.pause
     
     let bag = DisposeBag()
     var player: Player<GMusicTrack>? { return Global.current.dataFlowController.currentState.state.player }
@@ -62,7 +62,6 @@ final class PlayerController: NSViewController {
     func bind() -> [Disposable] {
         return [
             Global.current.dataFlowController.currentTrack.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.update(with: $0?.track) }),
-            
             shuffleButton.rx.tap.subscribe(onNext: { Global.current.dataFlowController.dispatch(PlayerAction.pause) }),
             previousButton.rx.tap.subscribe(onNext: { Global.current.dataFlowController.dispatch(PlayerAction.playPrevious) }),
             playPauseButon.rx.tap.subscribe(onNext: { Global.current.dataFlowController.dispatch(PlayerAction.toggle) }),
@@ -84,6 +83,10 @@ final class PlayerController: NSViewController {
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] in self?.albumImage.image = $0 })
             .disposed(by: bag)
+        
+        if Global.current.dataFlowController.currentState.state.queue.isCompleted {
+            Global.current.dataFlowController.dispatch(CompositeActions.repeatFromQueueSource())
+        }
     }
     
     @IBAction func queueButtonClicked(_ sender: Any) {

@@ -127,6 +127,22 @@ struct Queue<Element> {
     
     var currentElementIndex: Int? { return currentIndex.value }
     
+    var isNotStarted: Bool {
+        if case Index.notStarted = currentIndex {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    var isCompleted: Bool {
+        if case Index.completed = currentIndex {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     private mutating func incrementIndex() {
         currentIndex = currentIndex.incremented(maxValue: items.count)
     }
