@@ -66,7 +66,7 @@ enum SystemAction: RxActionType {
     case creanup
 }
 
-enum PlayerAction: RxActionType {
+enum PlayerAction: RxActionType, Equatable {
     case setQueueSource(QueueSource)
     case loadRadioStations
     case initializeQueueFromSource

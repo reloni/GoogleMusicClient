@@ -36,7 +36,14 @@ final class QueueController: NSViewController {
         Global.current.dataFlowController.currentTrack
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] in self?.updateTableView(selectedIndex: $0?.index) })
-            .disposed(by: bag)        
+            .disposed(by: bag)
+        
+        Global.current.dataFlowController.state
+            .filter { ($0.setBy as? PlayerAction) == PlayerAction.initializeQueueFromSource }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak tableView] _ in tableView?.scrollToBeginningOfDocument(nil); tableView?.reloadData() })
+            .disposed(by: bag)
+        
     }
     
     func updateTableView(selectedIndex: Int?) {

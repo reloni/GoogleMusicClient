@@ -9,7 +9,7 @@
 import RxDataFlow
 import RxGoogleMusic
 
-enum QueueSource {
+enum QueueSource: Equatable {
     case radio(GMusicRadioStation)
 }
 
