@@ -25,15 +25,11 @@ final class ApplicationSlider: NSSlider {
         return cell as? SliderCell
     }
     
-    private let isUserInteractingSubject = BehaviorSubject(value: false)
-    var isUserInteractingObservable: Observable<Bool> {
-        return isUserInteractingSubject.asObservable().share(replay: 1, scope: .whileConnected)
-    }
+    var isUserInteracting: Bool = false
     
-    var isUserInteracting: Bool = false {
-        didSet {
-            isUserInteractingSubject.onNext(isUserInteracting)
-        }
+    private let userSetValueSubject = PublishSubject<Double>()
+    var userSetValue: Observable<Double> {
+        return userSetValueSubject.asObservable().share(replay: 1, scope: .whileConnected)
     }
     
     required init?(coder: NSCoder) {
@@ -51,6 +47,7 @@ final class ApplicationSlider: NSSlider {
         let event = NSApplication.shared.currentEvent
         
         let leftMouseDown = event?.type == NSEvent.EventType.leftMouseDown
+        
         if leftMouseDown {
             isUserInteracting = true
             return
@@ -58,6 +55,7 @@ final class ApplicationSlider: NSSlider {
         
         let leftMouseUp = event?.type == NSEvent.EventType.leftMouseUp
         if leftMouseUp {
+            userSetValueSubject.onNext(cell?.doubleValue ?? 0)
             isUserInteracting = false
             return
         }

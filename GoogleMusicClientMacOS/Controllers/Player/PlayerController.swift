@@ -72,15 +72,24 @@ final class PlayerController: NSViewController {
             player?.currentItemTime.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentTime = $0?.timeString }),
             player?.currentItemDuration.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentDuration = $0?.timeString }),
             bindProgress(),
-            player?.isPlaying.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play })
+            player?.isPlaying.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play }),
+            userUpdateProgress(),
+            
             ].compactMap { $0 }
     }
     
-    func bindProgress() -> Disposable {
-        return Observable.combineLatest(player?.currentItemProgress ?? Observable.just(0), currentProgressSlider.isUserInteractingObservable) { ($0, $1) }
-            .filter { !$1 }
+    func userUpdateProgress() -> Disposable {
+        return currentProgressSlider.userSetValue.subscribe(onNext: { Global.current.dataFlowController.currentState.state.player?.seek(to: $0) })
+    }
+    
+    func bindProgress() -> Disposable? {
+        return player?.currentItemProgress
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] in self?.currentProgress = $0.0?.asNsDecimalNumber })
+            .subscribe(onNext: { [weak self] progress in
+                if self?.currentProgressSlider.isUserInteracting == false {
+                    self?.currentProgress = progress?.asNsDecimalNumber
+                }
+            })
     }
     
     func update(with track: GMusicTrack?) {
