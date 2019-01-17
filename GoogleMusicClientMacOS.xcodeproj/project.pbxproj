@@ -40,6 +40,7 @@
 		6E8496DE21D6370A00210F36 /* QueueController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E8496DD21D6370A00210F36 /* QueueController.storyboard */; };
 		6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94665621C282D200126BB7 /* AppDelegate.swift */; };
 		6E94665B21C282D200126BB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E94665A21C282D200126BB7 /* Assets.xcassets */; };
+		6EA34DB221F09B7F00E9588C /* ApplicationSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA34DB121F09B7F00E9588C /* ApplicationSlider.swift */; };
 		6EA6BC3A21DCFA2200EA3E3E /* export-options.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EA6BC3921DCFA2200EA3E3E /* export-options.plist */; };
 		6EA9BF3321EA455E00A2551D /* SystemController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EA9BF3221EA455E00A2551D /* SystemController.storyboard */; };
 		6EA9BF3521EA457100A2551D /* SystemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA9BF3421EA457100A2551D /* SystemController.swift */; };
@@ -117,6 +118,7 @@
 		6E94666521C282D300126BB7 /* GoogleMusicClientMacOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoogleMusicClientMacOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E94666921C282D300126BB7 /* GoogleMusicClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMusicClientTests.swift; sourceTree = "<group>"; };
 		6E94666B21C282D300126BB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6EA34DB121F09B7F00E9588C /* ApplicationSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSlider.swift; sourceTree = "<group>"; };
 		6EA6BC3921DCFA2200EA3E3E /* export-options.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "export-options.plist"; sourceTree = "<group>"; };
 		6EA9BF3221EA455E00A2551D /* SystemController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SystemController.storyboard; sourceTree = "<group>"; };
 		6EA9BF3421EA457100A2551D /* SystemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemController.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				6E7F608821C8F71B00C1D30C /* Constraints.swift */,
 				6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */,
 				6E7F608A21C9128700C1D30C /* LeftHighlightTableRowView.swift */,
+				6EA34DB121F09B7F00E9588C /* ApplicationSlider.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				6E3DD68821C2B18000C1F49F /* Global.swift in Sources */,
 				6E7F608D21C9278400C1D30C /* RadioListController.swift in Sources */,
 				6E1E6DF721D277E500937756 /* Player.swift in Sources */,
+				6EA34DB221F09B7F00E9588C /* ApplicationSlider.swift in Sources */,
 				6E7F608921C8F71B00C1D30C /* Constraints.swift in Sources */,
 				6E38A74D21C293BC00983339 /* MainWindowController.swift in Sources */,
 				6E31EC3321C7DBA5009B9742 /* ApplicationTableView.swift in Sources */,

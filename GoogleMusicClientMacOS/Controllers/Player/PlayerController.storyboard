@@ -224,9 +224,9 @@
                                         <rect key="frame" x="37" y="0.0" width="28" height="20"/>
                                         <imageCell key="cell" controlSize="mini" refusesFirstResponder="YES" alignment="left" imageAlignment="right" imageScaling="proportionallyDown" image="Volume" id="kvG-2Q-4i6"/>
                                     </imageView>
-                                    <slider horizontalHuggingPriority="1" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uh4-xd-1rU">
+                                    <slider horizontalHuggingPriority="1" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uh4-xd-1rU" customClass="ApplicationSlider" customModule="Google_Music_Player" customModuleProvider="target">
                                         <rect key="frame" x="70" y="3" width="120" height="15"/>
-                                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="lwh-aS-f7X"/>
+                                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="lwh-aS-f7X" customClass="SliderCell" customModule="Google_Music_Player" customModuleProvider="target"/>
                                         <connections>
                                             <binding destination="y3d-EB-w5r" name="value" keyPath="self.currentVolume" id="lpl-bl-qLZ">
                                                 <dictionary key="options">
