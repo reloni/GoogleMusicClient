@@ -8,9 +8,11 @@
 
 import Cocoa
 import AppKit
+import RxSwift
 
 final class SliderCell: NSSliderCell {
     var shouldDrawKnob = false
+
     override func drawKnob() {
         if shouldDrawKnob {
             super.drawKnob()
@@ -23,12 +25,42 @@ final class ApplicationSlider: NSSlider {
         return cell as? SliderCell
     }
     
+    private let isUserInteractingSubject = BehaviorSubject(value: false)
+    var isUserInteractingObservable: Observable<Bool> {
+        return isUserInteractingSubject.asObservable().share(replay: 1, scope: .whileConnected)
+    }
+    
+    var isUserInteracting: Bool = false {
+        didSet {
+            isUserInteractingSubject.onNext(isUserInteracting)
+        }
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         postsBoundsChangedNotifications = true
         postsFrameChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(boundsChanged), name: NSView.boundsDidChangeNotification, object: self)
         NotificationCenter.default.addObserver(self, selector: #selector(boundsChanged), name: NSView.frameDidChangeNotification, object: self)
+        
+        target = self
+        action = #selector(valueChaged)
+    }
+    
+    @objc func valueChaged() {
+        let event = NSApplication.shared.currentEvent
+        
+        let leftMouseDown = event?.type == NSEvent.EventType.leftMouseDown
+        if leftMouseDown {
+            isUserInteracting = true
+            return
+        }
+        
+        let leftMouseUp = event?.type == NSEvent.EventType.leftMouseUp
+        if leftMouseUp {
+            isUserInteracting = false
+            return
+        }
     }
     
     func refreshTrackingArea() {
