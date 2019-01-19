@@ -71,17 +71,11 @@ final class PlayerController: NSViewController {
 //            player?.currentItemStatus.subscribe(onNext: { print("ItemStatus: \($0)") }),
             player?.currentItemTime.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentTime = $0?.timeString }),
             player?.currentItemDuration.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentDuration = $0?.timeString }),
-            bindProgress(),
             player?.isPlaying.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play }),
-            bindUserUpdateProgress(),
-            Global.current.dataFlowController.currentTrack.map { $0 != nil }.subscribe(onNext: { [weak self] in self?.isCurrentProgressChangeEnabled = $0 })
+            currentProgressSlider.userSetValue.subscribe(onNext: { Global.current.dataFlowController.currentState.state.player?.seek(to: $0) }),
+            Global.current.dataFlowController.currentTrack.map { $0 != nil }.subscribe(onNext: { [weak self] in self?.isCurrentProgressChangeEnabled = $0 }),
+            bindProgress()
             ].compactMap { $0 }
-    }
-    
-    
-    
-    func bindUserUpdateProgress() -> Disposable {
-        return currentProgressSlider.userSetValue.subscribe(onNext: { Global.current.dataFlowController.currentState.state.player?.seek(to: $0) })
     }
     
     func bindProgress() -> Disposable? {

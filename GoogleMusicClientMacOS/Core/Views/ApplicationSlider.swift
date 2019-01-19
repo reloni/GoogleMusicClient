@@ -47,7 +47,6 @@ final class ApplicationSlider: NSSlider {
         let event = NSApplication.shared.currentEvent
         
         let leftMouseDown = event?.type == NSEvent.EventType.leftMouseDown
-        
         if leftMouseDown {
             isUserInteracting = true
             return
