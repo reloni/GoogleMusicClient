@@ -17,6 +17,7 @@ final class MainCoordinator {
     weak var mainController: NSViewController? = nil
     let playerController: PlayerController
     let systemController: SystemController
+    let errorController: ErrorController
     
     init(windowController: ApplicationWindowController, controller: MainController) {
         self.windowController = windowController
@@ -24,11 +25,13 @@ final class MainCoordinator {
         self.leftMenuController = LeftMenuController.instantiate()
         self.playerController = PlayerController.instantiate()
         self.systemController = SystemController.instantiate()
+        self.errorController = ErrorController.instantiate()
         
         _ = controller.view
         initLeftMenu()
         initPlayer()
         initSystemController()
+        initErrorController()
     }
 
     deinit {
@@ -59,6 +62,12 @@ private extension MainCoordinator {
         let coordinator = LogInCoordinator(windowController: self.windowController)
         
         return RxReduceResult.single({ $0.mutate(\AppState.coordinator, coordinator) })
+    }
+    
+    func initErrorController() {
+        controller.addChild(errorController)
+        controller.errorContainerView.addSubview(errorController.view)
+        errorController.view.lt.edges(to: controller.errorContainerView)
     }
     
     func initLeftMenu() {

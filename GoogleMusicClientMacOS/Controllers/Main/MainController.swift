@@ -17,6 +17,10 @@ final class MainController: NSViewController {
     @IBOutlet weak var mainContainerView: NSView!
     @IBOutlet weak var bottomContainerView: NSView!
     @IBOutlet weak var topContainerView: NSView!
+    @IBOutlet weak var errorContainerView: NSView!
+    
+    @IBOutlet var errorContainerTopToBottomContainerTopConstraint: NSLayoutConstraint!
+    @IBOutlet var errorContainerBottomToBottomContainerTopConstraint: NSLayoutConstraint!
     
     func showQueuePopover(for view: NSView) {
         let popover = NSPopover()
@@ -26,6 +30,32 @@ final class MainController: NSViewController {
         
         popover.contentSize = NSSize(width: mainContainerView.frame.width * 0.9, height: mainContainerView.frame.height - 15)
         popover.show(relativeTo: .zero, of: view, preferredEdge: NSRectEdge.minY)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+            NSAnimationContext.runAnimationGroup { context in
+                context.duration = 0.3
+                context.allowsImplicitAnimation = true
+                context.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                self.errorContainerTopToBottomContainerTopConstraint.isActive = false
+                self.errorContainerBottomToBottomContainerTopConstraint.isActive = true
+                self.view.layoutSubtreeIfNeeded()
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(8)) {
+            NSAnimationContext.runAnimationGroup { context in
+                context.duration = 0.3
+                context.allowsImplicitAnimation = true
+                context.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                self.errorContainerTopToBottomContainerTopConstraint.isActive = true
+                self.errorContainerBottomToBottomContainerTopConstraint.isActive = false
+                self.view.layoutSubtreeIfNeeded()
+            }
+        }
     }
     
     deinit {
