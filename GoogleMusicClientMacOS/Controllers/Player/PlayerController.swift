@@ -38,7 +38,7 @@ final class PlayerController: NSViewController {
     @objc dynamic var currentArtistAndAlbum: String? = nil
     @objc dynamic var currentTime: String? = nil
     @objc dynamic var currentProgress: NSDecimalNumber? = nil
-    @objc dynamic var isCurrentProgressChangeEnabled = true
+    @objc dynamic var isCurrentProgressChangeEnabled = false
     @objc dynamic var currentVolume: NSDecimalNumber = 100 {
         didSet {
             player?.volume = currentVolume.floatValue / 100
@@ -73,12 +73,14 @@ final class PlayerController: NSViewController {
             player?.currentItemDuration.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentDuration = $0?.timeString }),
             bindProgress(),
             player?.isPlaying.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play }),
-            userUpdateProgress(),
-            
+            bindUserUpdateProgress(),
+            Global.current.dataFlowController.currentTrack.map { $0 != nil }.subscribe(onNext: { [weak self] in self?.isCurrentProgressChangeEnabled = $0 })
             ].compactMap { $0 }
     }
     
-    func userUpdateProgress() -> Disposable {
+    
+    
+    func bindUserUpdateProgress() -> Disposable {
         return currentProgressSlider.userSetValue.subscribe(onNext: { Global.current.dataFlowController.currentState.state.player?.seek(to: $0) })
     }
     

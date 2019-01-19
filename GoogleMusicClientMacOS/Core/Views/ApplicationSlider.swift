@@ -84,6 +84,7 @@ final class ApplicationSlider: NSSlider {
     }
     
     override func mouseEntered(with event: NSEvent) {
+        guard isEnabled else { return }
         sliderCell?.shouldDrawKnob = true
         setNeedsDisplay(bounds)
     }
