@@ -27,9 +27,9 @@ final class PlayerController: NSViewController {
     @IBOutlet weak var queueButton: NSButton!
     
     @IBOutlet weak var currentTimeLabel: NSTextField!
+    @IBOutlet weak var currentProgressSlider: ApplicationSlider!
     @IBOutlet weak var trackDurationLabel: NSTextField!
     
-    @IBOutlet weak var songProgressIndication: NSProgressIndicator!
     @IBOutlet weak var volumeSlider: NSSlider!
     
     @IBOutlet weak var showQueueButton: NSButton!
@@ -38,6 +38,7 @@ final class PlayerController: NSViewController {
     @objc dynamic var currentArtistAndAlbum: String? = nil
     @objc dynamic var currentTime: String? = nil
     @objc dynamic var currentProgress: NSDecimalNumber? = nil
+    @objc dynamic var isCurrentProgressChangeEnabled = false
     @objc dynamic var currentVolume: NSDecimalNumber = 100 {
         didSet {
             player?.volume = currentVolume.floatValue / 100
@@ -70,9 +71,27 @@ final class PlayerController: NSViewController {
 //            player?.currentItemStatus.subscribe(onNext: { print("ItemStatus: \($0)") }),
             player?.currentItemTime.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentTime = $0?.timeString }),
             player?.currentItemDuration.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentDuration = $0?.timeString }),
-            player?.currentItemProgress.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentProgress = $0?.asNsDecimalNumber }),
-            player?.isPlaying.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play })
+            bindProgress(),
+            player?.isPlaying.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play }),
+            bindUserUpdateProgress(),
+            Global.current.dataFlowController.currentTrack.map { $0 != nil }.subscribe(onNext: { [weak self] in self?.isCurrentProgressChangeEnabled = $0 })
             ].compactMap { $0 }
+    }
+    
+    
+    
+    func bindUserUpdateProgress() -> Disposable {
+        return currentProgressSlider.userSetValue.subscribe(onNext: { Global.current.dataFlowController.currentState.state.player?.seek(to: $0) })
+    }
+    
+    func bindProgress() -> Disposable? {
+        return player?.currentItemProgress
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] progress in
+                if self?.currentProgressSlider.isUserInteracting == false {
+                    self?.currentProgress = progress?.asNsDecimalNumber
+                }
+            })
     }
     
     func update(with track: GMusicTrack?) {

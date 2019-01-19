@@ -190,6 +190,19 @@ struct Queue<Element> {
 }
 
 final class Player<Item> {
+    struct PlayerSeekTime: ExpressibleByFloatLiteral {
+        typealias FloatLiteralType = Double
+        
+        let rawValue: FloatLiteralType
+        
+        init(floatLiteral value: Double) {
+            switch value {
+            case let v where v >= 0 && v <= 100: rawValue = v / 100
+            default: rawValue = 0
+            }
+        }
+    }
+    
     private let bag = DisposeBag()
     
     private let avPlayer: AVPlayer
@@ -203,12 +216,20 @@ final class Player<Item> {
     private(set) lazy var isPlaying: Observable<Bool> = { return isPlayingSubject.asObservable().distinctUntilChanged().share(replay: 1, scope: .forever) }()
     
     lazy private(set) var currentItemTime: Observable<Double?> = {
-        return timer.map { [weak avPlayer = self.avPlayer] _ in avPlayer?.currentTime().seconds }.share(replay: 1, scope: .whileConnected)
+        return timer
+            .withLatestFrom(seekingTo) { $1 }
+            .map { [weak avPlayer = self.avPlayer] seekTime in seekTime ?? avPlayer?.currentTime().seconds }
+            .share(replay: 1, scope: .whileConnected)
     }()
     
     lazy private(set) var currentItemStatus: Observable<AVPlayer.ItemStatus?> = {
         return timer.map { [weak avPlayer = self.avPlayer] _ in avPlayer?.currentItemStatus }.startWith(nil).distinctUntilChanged().share(replay: 1, scope: .forever)
     }()
+    
+    private let seekingToSubject = BehaviorSubject<Double?>(value: nil)
+    var seekingTo: Observable<Double?> {
+        return seekingToSubject.asObservable().share(replay: 1, scope: .forever)
+    }
     
     lazy private(set) var currentItemDuration: Observable<Double?> = {
         return timer.map { [weak avPlayer = self.avPlayer] _ in avPlayer?.currentItem?.duration.seconds }.share(replay: 1, scope: .forever)
@@ -267,6 +288,21 @@ extension Player {
             .disposed(by: bag)
     }
     
+    func seek(to time: Double) {
+        seek(to: PlayerSeekTime(floatLiteral: time))
+    }
+    
+    func seek(to time: PlayerSeekTime) {
+        guard let item = avPlayer.currentItem else { return }
+        
+        let newSeconds = item.duration.seconds * time.rawValue
+        seekingToSubject.onNext(newSeconds)
+        
+        avPlayer.seek(to: CMTime(seconds: newSeconds, preferredTimescale: 500)) { [weak self] _ in
+            self?.seekingToSubject.onNext(nil)
+        }
+    }
+    
     func play(_ track: Item?) {
         guard let track = track else {
             avPlayer.flush()
@@ -291,7 +327,7 @@ private extension Player {
     func startTimer() {
         stopTimer()
         let scheduler = SerialDispatchQueueScheduler(qos: .userInitiated)
-        timerDisposable = Observable<Int>.timer(1.0, period: 0.5, scheduler: scheduler).map { _ in return () }.bind(to: timerSubject)
+        timerDisposable = Observable<Int>.timer(1.0, period: 0.3, scheduler: scheduler).map { _ in return () }.bind(to: timerSubject)
     }
     
     func stopTimer() {

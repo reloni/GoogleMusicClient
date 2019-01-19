@@ -8,9 +8,11 @@
 
 import Cocoa
 import AppKit
+import RxSwift
 
 final class SliderCell: NSSliderCell {
     var shouldDrawKnob = false
+
     override func drawKnob() {
         if shouldDrawKnob {
             super.drawKnob()
@@ -23,12 +25,40 @@ final class ApplicationSlider: NSSlider {
         return cell as? SliderCell
     }
     
+    var isUserInteracting: Bool = false
+    
+    private let userSetValueSubject = PublishSubject<Double>()
+    var userSetValue: Observable<Double> {
+        return userSetValueSubject.asObservable().share(replay: 1, scope: .whileConnected)
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         postsBoundsChangedNotifications = true
         postsFrameChangedNotifications = true
         NotificationCenter.default.addObserver(self, selector: #selector(boundsChanged), name: NSView.boundsDidChangeNotification, object: self)
         NotificationCenter.default.addObserver(self, selector: #selector(boundsChanged), name: NSView.frameDidChangeNotification, object: self)
+        
+        target = self
+        action = #selector(valueChaged)
+    }
+    
+    @objc func valueChaged() {
+        let event = NSApplication.shared.currentEvent
+        
+        let leftMouseDown = event?.type == NSEvent.EventType.leftMouseDown
+        
+        if leftMouseDown {
+            isUserInteracting = true
+            return
+        }
+        
+        let leftMouseUp = event?.type == NSEvent.EventType.leftMouseUp
+        if leftMouseUp {
+            userSetValueSubject.onNext(cell?.doubleValue ?? 0)
+            isUserInteracting = false
+            return
+        }
     }
     
     func refreshTrackingArea() {
@@ -54,6 +84,7 @@ final class ApplicationSlider: NSSlider {
     }
     
     override func mouseEntered(with event: NSEvent) {
+        guard isEnabled else { return }
         sliderCell?.shouldDrawKnob = true
         setNeedsDisplay(bounds)
     }
