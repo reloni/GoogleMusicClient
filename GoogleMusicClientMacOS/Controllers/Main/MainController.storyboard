@@ -33,6 +33,12 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </containerView>
+                            <containerView horizontalHuggingPriority="1" verticalHuggingPriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="cT9-Ld-QJ4">
+                                <rect key="frame" x="100" y="10" width="200" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" placeholder="YES" id="fPf-Jf-eYe"/>
+                                </constraints>
+                            </containerView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="RzJ-qC-MfL">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="70"/>
                                 <constraints>
@@ -56,8 +62,10 @@
                             </containerView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="cT9-Ld-QJ4" firstAttribute="leading" secondItem="C9d-hh-iLv" secondAttribute="trailing" id="0Iv-hG-auw"/>
                             <constraint firstAttribute="trailing" secondItem="lm6-QH-u0V" secondAttribute="trailing" id="4PK-Lg-YfN"/>
                             <constraint firstItem="bgq-eG-AUu" firstAttribute="leading" secondItem="C9d-hh-iLv" secondAttribute="trailing" id="8zS-Qs-9RA"/>
+                            <constraint firstItem="cT9-Ld-QJ4" firstAttribute="top" secondItem="RzJ-qC-MfL" secondAttribute="top" identifier="ErrorViewTopToBottomViewTop" id="9bs-oL-6xL"/>
                             <constraint firstAttribute="trailing" secondItem="bgq-eG-AUu" secondAttribute="trailing" id="ACw-xv-dfn"/>
                             <constraint firstItem="lm6-QH-u0V" firstAttribute="leading" secondItem="fNf-Uk-khK" secondAttribute="leading" id="Cjb-yD-E9p"/>
                             <constraint firstAttribute="trailing" secondItem="RzJ-qC-MfL" secondAttribute="trailing" id="IIL-uv-E2k"/>
@@ -72,10 +80,15 @@
                             <constraint firstItem="bgq-eG-AUu" firstAttribute="top" secondItem="f3D-Va-6WX" secondAttribute="bottom" id="cM0-fy-ZJR"/>
                             <constraint firstItem="C9d-hh-iLv" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" id="dKf-RL-QyV"/>
                             <constraint firstItem="RzJ-qC-MfL" firstAttribute="leading" secondItem="fNf-Uk-khK" secondAttribute="leading" id="jrJ-DH-vbo"/>
+                            <constraint firstItem="RzJ-qC-MfL" firstAttribute="top" secondItem="cT9-Ld-QJ4" secondAttribute="bottom" priority="999" identifier="ErrorViewBottomToBottomViewTop" id="nS9-wn-EBS"/>
+                            <constraint firstAttribute="trailing" secondItem="cT9-Ld-QJ4" secondAttribute="trailing" id="xaW-RD-JHS"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="bottomContainerView" destination="RzJ-qC-MfL" id="Qnr-pl-shr"/>
+                        <outlet property="errorContainerBottomToBottomContainerTopConstraint" destination="nS9-wn-EBS" id="fTk-wZ-eUM"/>
+                        <outlet property="errorContainerTopToBottomContainerTopConstraint" destination="9bs-oL-6xL" id="DDe-5g-93Z"/>
+                        <outlet property="errorContainerView" destination="cT9-Ld-QJ4" id="T0o-aJ-XnV"/>
                         <outlet property="leftContainerView" destination="C9d-hh-iLv" id="YqV-Qw-A2t"/>
                         <outlet property="mainContainerView" destination="bgq-eG-AUu" id="qsR-xB-dQB"/>
                         <outlet property="topContainerView" destination="f3D-Va-6WX" id="uaQ-36-MGm"/>
@@ -83,7 +96,7 @@
                 </viewController>
                 <customObject id="xlo-eS-pZE" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="135" y="172"/>
+            <point key="canvasLocation" x="107" y="452"/>
         </scene>
     </scenes>
     <resources>

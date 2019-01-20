@@ -18,7 +18,7 @@ final class MainWindowController: NSWindowController, ApplicationController {
         restoreWindow()
         
         Global.current.dataFlowController.errors.subscribe(onNext: { error in
-            print("ERROR: \(error.error) Action: \(error.action)")
+            Global.current.dataFlowController.dispatch(UIAction.showErrorController(error.error))
         }).disposed(by: bag)
 
         Global.current.dataFlowController.dispatch(CompositeActions.beforeStartup)

@@ -34,6 +34,8 @@ final class PlayerController: NSViewController {
     
     @IBOutlet weak var showQueueButton: NSButton!
     
+    
+    
     @objc dynamic var currentTrackTitle: String? = nil
     @objc dynamic var currentArtistAndAlbum: String? = nil
     @objc dynamic var currentTime: String? = nil

@@ -17,6 +17,7 @@ final class MainCoordinator {
     weak var mainController: NSViewController? = nil
     let playerController: PlayerController
     let systemController: SystemController
+    let errorController: ErrorController
     
     init(windowController: ApplicationWindowController, controller: MainController) {
         self.windowController = windowController
@@ -24,11 +25,13 @@ final class MainCoordinator {
         self.leftMenuController = LeftMenuController.instantiate()
         self.playerController = PlayerController.instantiate()
         self.systemController = SystemController.instantiate()
+        self.errorController = ErrorController.instantiate()
         
         _ = controller.view
         initLeftMenu()
         initPlayer()
         initSystemController()
+        initErrorController()
     }
 
     deinit {
@@ -45,6 +48,8 @@ extension MainCoordinator: ApplicationCoordinator {
         case UIAction.showRadio: showMainController(RadioListController.instantiate())
         case UIAction.showPlaylists: removeCurrentMainController()
         case UIAction.showQueuePopover(let view): showQueuePopover(for: view)
+        case UIAction.showErrorController(let e): showError(e)
+        case UIAction.hideErrorController: hideError()
         default: break
         }
         
@@ -53,12 +58,27 @@ extension MainCoordinator: ApplicationCoordinator {
 }
 
 private extension MainCoordinator {
+    func showError(_ error: Error) {
+        errorController.textLabel.cell?.title = error.localizedDescription
+        controller.toggleErrorController(isVisible: true)
+    }
+    
+    func hideError() {
+        controller.toggleErrorController(isVisible: false)
+    }
+    
     func logOff() -> RxReduceResult<AppState> {
         let controller = LogInController.instantiate()
         windowController.replaceContentController(controller)
         let coordinator = LogInCoordinator(windowController: self.windowController)
         
         return RxReduceResult.single({ $0.mutate(\AppState.coordinator, coordinator) })
+    }
+    
+    func initErrorController() {
+        controller.addChild(errorController)
+        controller.errorContainerView.addSubview(errorController.view)
+        errorController.view.lt.edges(to: controller.errorContainerView)
     }
     
     func initLeftMenu() {
