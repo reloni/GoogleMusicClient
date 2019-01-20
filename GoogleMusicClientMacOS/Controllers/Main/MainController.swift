@@ -34,10 +34,6 @@ final class MainController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-            Global.current.dataFlowController.dispatch(UIAction.showErrorController("Some error"))
-        }
     }
     
     func toggleErrorController(isVisible: Bool) {
