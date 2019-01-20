@@ -33,7 +33,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </containerView>
-                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="cT9-Ld-QJ4">
+                            <containerView horizontalHuggingPriority="1" verticalHuggingPriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="cT9-Ld-QJ4">
                                 <rect key="frame" x="100" y="10" width="200" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" placeholder="YES" id="fPf-Jf-eYe"/>

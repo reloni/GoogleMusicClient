@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -10,29 +11,51 @@
             <objects>
                 <viewController storyboardIdentifier="ErrorController" id="t1a-L5-YF4" customClass="ErrorController" customModule="Google_Music_Player" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="q0D-v9-azq">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="37"/>
+                        <rect key="frame" x="0.0" y="0.0" width="587" height="37"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Pxa-Cg-9Ab">
-                                <rect key="frame" x="8" y="10" width="434" height="17"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Ololo" id="YIy-IV-D9q">
-                                    <font key="font" metaFont="systemSemibold" size="13"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K6l-s4-rrr">
+                                <rect key="frame" x="497" y="1" width="86" height="32"/>
+                                <buttonCell key="cell" type="push" bezelStyle="rounded" image="Cancel" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IOI-PO-S81">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <color key="contentTintColor" name="ErrorTextColor"/>
+                                <connections>
+                                    <action selector="cancelButtonClick:" target="t1a-L5-YF4" id="uHt-DU-Mh6"/>
+                                </connections>
+                            </button>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="sEO-K2-KRQ">
+                                <rect key="frame" x="8" y="10" width="487" height="17"/>
+                                <textFieldCell key="cell" selectable="YES" enabled="NO" alignment="center" title="Error" id="WEv-Yg-RYD">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="ErrorTextColor"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Pxa-Cg-9Ab" secondAttribute="trailing" constant="10" id="a2E-EV-kKQ"/>
-                            <constraint firstItem="Pxa-Cg-9Ab" firstAttribute="top" secondItem="q0D-v9-azq" secondAttribute="top" constant="10" id="nlT-ZH-9Jd"/>
-                            <constraint firstItem="Pxa-Cg-9Ab" firstAttribute="leading" secondItem="q0D-v9-azq" secondAttribute="leading" constant="10" id="qCj-66-VVY"/>
-                            <constraint firstAttribute="bottom" secondItem="Pxa-Cg-9Ab" secondAttribute="bottom" constant="10" id="qyr-gJ-qPL"/>
+                            <constraint firstAttribute="trailing" secondItem="K6l-s4-rrr" secondAttribute="trailing" constant="10" id="71Y-YW-8AD"/>
+                            <constraint firstItem="K6l-s4-rrr" firstAttribute="leading" secondItem="sEO-K2-KRQ" secondAttribute="trailing" constant="10" id="EOL-r7-N0D"/>
+                            <constraint firstItem="K6l-s4-rrr" firstAttribute="centerY" secondItem="q0D-v9-azq" secondAttribute="centerY" id="bcT-aQ-uVE"/>
+                            <constraint firstAttribute="bottom" secondItem="sEO-K2-KRQ" secondAttribute="bottom" constant="10" id="j5a-wi-AaG"/>
+                            <constraint firstItem="sEO-K2-KRQ" firstAttribute="leading" secondItem="q0D-v9-azq" secondAttribute="leading" constant="10" id="v3H-tX-nw0"/>
+                            <constraint firstItem="sEO-K2-KRQ" firstAttribute="top" secondItem="q0D-v9-azq" secondAttribute="top" constant="10" id="zrE-fu-P3H"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textLabel" destination="sEO-K2-KRQ" id="5wk-pN-JRO"/>
+                    </connections>
                 </viewController>
                 <customObject id="fgo-kp-Dia" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="109" y="118"/>
+            <point key="canvasLocation" x="-428.5" y="118"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Cancel" width="50" height="50"/>
+        <namedColor name="ErrorTextColor">
+            <color name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+        </namedColor>
+    </resources>
 </document>

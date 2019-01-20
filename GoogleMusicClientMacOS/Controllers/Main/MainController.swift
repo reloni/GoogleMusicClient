@@ -35,26 +35,19 @@ final class MainController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
-            NSAnimationContext.runAnimationGroup { context in
-                context.duration = 0.3
-                context.allowsImplicitAnimation = true
-                context.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-                self.errorContainerTopToBottomContainerTopConstraint.isActive = false
-                self.errorContainerBottomToBottomContainerTopConstraint.isActive = true
-                self.view.layoutSubtreeIfNeeded()
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            Global.current.dataFlowController.dispatch(UIAction.showErrorController("Some error"))
         }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(8)) {
-            NSAnimationContext.runAnimationGroup { context in
-                context.duration = 0.3
-                context.allowsImplicitAnimation = true
-                context.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-                self.errorContainerTopToBottomContainerTopConstraint.isActive = true
-                self.errorContainerBottomToBottomContainerTopConstraint.isActive = false
-                self.view.layoutSubtreeIfNeeded()
-            }
+    }
+    
+    func toggleErrorController(isVisible: Bool) {
+        NSAnimationContext.runAnimationGroup { context in
+            context.duration = 0.3
+            context.allowsImplicitAnimation = true
+            context.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            self.errorContainerTopToBottomContainerTopConstraint.isActive = !isVisible
+            self.errorContainerBottomToBottomContainerTopConstraint.isActive = isVisible
+            self.view.layoutSubtreeIfNeeded()
         }
     }
     

@@ -119,3 +119,9 @@ extension NSImage {
         self.init(data: data)
     }
 }
+
+extension String: LocalizedError {
+    public var errorDescription: String? {
+        return self
+    }
+}

@@ -9,9 +9,16 @@
 import Cocoa
 
 final class ErrorController: NSViewController {
+    @IBOutlet weak var textLabel: NSTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.wantsLayer = true
         view.layer?.backgroundColor = NSColor.systemRed.cgColor
     }
+    
+    @IBAction func cancelButtonClick(_ sender: Any) {
+        Global.current.dataFlowController.dispatch(UIAction.hideErrorController)
+    }
+    
 }

@@ -48,6 +48,8 @@ extension MainCoordinator: ApplicationCoordinator {
         case UIAction.showRadio: showMainController(RadioListController.instantiate())
         case UIAction.showPlaylists: removeCurrentMainController()
         case UIAction.showQueuePopover(let view): showQueuePopover(for: view)
+        case UIAction.showErrorController(let e): showError(e)
+        case UIAction.hideErrorController: hideError()
         default: break
         }
         
@@ -56,6 +58,15 @@ extension MainCoordinator: ApplicationCoordinator {
 }
 
 private extension MainCoordinator {
+    func showError(_ error: Error) {
+        errorController.textLabel.cell?.title = error.localizedDescription
+        controller.toggleErrorController(isVisible: true)
+    }
+    
+    func hideError() {
+        controller.toggleErrorController(isVisible: false)
+    }
+    
     func logOff() -> RxReduceResult<AppState> {
         let controller = LogInController.instantiate()
         windowController.replaceContentController(controller)
