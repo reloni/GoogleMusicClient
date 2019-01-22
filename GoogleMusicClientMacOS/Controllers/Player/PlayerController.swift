@@ -76,6 +76,7 @@ final class PlayerController: NSViewController {
             player?.isPlaying.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play }),
             currentProgressSlider.userSetValue.subscribe(onNext: { Global.current.dataFlowController.currentState.state.player?.seek(to: $0) }),
             Global.current.dataFlowController.currentTrack.map { $0 != nil }.subscribe(onNext: { [weak self] in self?.isCurrentProgressChangeEnabled = $0 }),
+            player?.errors.subscribe(onNext: { Global.current.dataFlowController.dispatch(UIAction.showErrorController($0)) }),
             bindProgress()
             ].compactMap { $0 }
     }

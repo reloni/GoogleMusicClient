@@ -82,6 +82,11 @@ final class Player<Item> {
     
     private let avPlayer: AVPlayer
     private let loadRequest: (Item) -> Single<Data>
+    
+    private let errorSubject = PublishSubject<Error>()
+    lazy var errors: Observable<Error> = {
+        return errorSubject.asObservable().share(replay: 0, scope: .whileConnected)
+    }()
 
     private let timerSubject = PublishSubject<Void>()
     lazy private(set) var timer: Observable<Void> = { return timerSubject.asObservable().share(replay: 1, scope: .whileConnected) }()
@@ -142,7 +147,7 @@ extension Player {
     
     func stop() {
         avPlayer.flush()
-        isPlayingSubject.onNext(true)
+        isPlayingSubject.onNext(false)
     }
     
     func resume() {
@@ -180,10 +185,11 @@ extension Player {
     
     func play(_ track: Item?) {
         guard let track = track else {
-            avPlayer.flush()
             isPlayingSubject.onNext(false)
             return
         }
+        
+        avPlayer.flush()
         
         isPlayingSubject.onNext(true)
         startTimer()
@@ -192,7 +198,7 @@ extension Player {
             .map { DataAssetLoader($0, type: .aac) }
             .map(setAsset(for: avPlayer))
             .do(onSuccess: { $0.set(rate: .play) })
-            .do(onError: { print("player error: \($0)") })
+            .do(onError: { [weak self] in self?.errorSubject.onNext($0); self?.stop() })
             .subscribe()
             .disposed(by: bag)
     }
