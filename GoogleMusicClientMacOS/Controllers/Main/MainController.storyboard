@@ -26,7 +26,7 @@
                                 </userDefinedRuntimeAttributes>
                             </containerView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="bgq-eG-AUu">
-                                <rect key="frame" x="100" y="71" width="200" height="194"/>
+                                <rect key="frame" x="101" y="71" width="199" height="194"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                         <color key="value" name="MainBackgroundColor"/>
@@ -34,7 +34,7 @@
                                 </userDefinedRuntimeAttributes>
                             </containerView>
                             <containerView horizontalHuggingPriority="1" verticalHuggingPriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="cT9-Ld-QJ4">
-                                <rect key="frame" x="100" y="10" width="200" height="60"/>
+                                <rect key="frame" x="101" y="10" width="199" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" placeholder="YES" id="fPf-Jf-eYe"/>
                                 </constraints>
@@ -55,16 +55,18 @@
                                 <rect key="frame" x="0.0" y="68" width="300" height="5"/>
                             </box>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="f3D-Va-6WX">
-                                <rect key="frame" x="100" y="265" width="200" height="35"/>
+                                <rect key="frame" x="101" y="265" width="199" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="2zX-zl-pPc"/>
                                 </constraints>
                             </containerView>
+                            <box horizontalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="g3e-5j-8Cq">
+                                <rect key="frame" x="98" y="71" width="5" height="229"/>
+                            </box>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="cT9-Ld-QJ4" firstAttribute="leading" secondItem="C9d-hh-iLv" secondAttribute="trailing" id="0Iv-hG-auw"/>
                             <constraint firstAttribute="trailing" secondItem="lm6-QH-u0V" secondAttribute="trailing" id="4PK-Lg-YfN"/>
-                            <constraint firstItem="bgq-eG-AUu" firstAttribute="leading" secondItem="C9d-hh-iLv" secondAttribute="trailing" id="8zS-Qs-9RA"/>
+                            <constraint firstItem="g3e-5j-8Cq" firstAttribute="leading" secondItem="C9d-hh-iLv" secondAttribute="trailing" id="5hG-SR-X9E"/>
                             <constraint firstItem="cT9-Ld-QJ4" firstAttribute="top" secondItem="RzJ-qC-MfL" secondAttribute="top" identifier="ErrorViewTopToBottomViewTop" id="9bs-oL-6xL"/>
                             <constraint firstAttribute="trailing" secondItem="bgq-eG-AUu" secondAttribute="trailing" id="ACw-xv-dfn"/>
                             <constraint firstItem="lm6-QH-u0V" firstAttribute="leading" secondItem="fNf-Uk-khK" secondAttribute="leading" id="Cjb-yD-E9p"/>
@@ -72,15 +74,19 @@
                             <constraint firstItem="lm6-QH-u0V" firstAttribute="top" secondItem="bgq-eG-AUu" secondAttribute="bottom" id="Laa-DY-CwF"/>
                             <constraint firstAttribute="bottom" secondItem="RzJ-qC-MfL" secondAttribute="bottom" id="MPd-df-j0v"/>
                             <constraint firstItem="C9d-hh-iLv" firstAttribute="leading" secondItem="fNf-Uk-khK" secondAttribute="leading" id="Q7E-Zd-CCr"/>
+                            <constraint firstItem="cT9-Ld-QJ4" firstAttribute="leading" secondItem="g3e-5j-8Cq" secondAttribute="trailing" id="T6l-PY-KCg"/>
                             <constraint firstItem="f3D-Va-6WX" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" id="TTf-x1-IKq"/>
-                            <constraint firstItem="f3D-Va-6WX" firstAttribute="leading" secondItem="C9d-hh-iLv" secondAttribute="trailing" id="UPs-WU-fv9"/>
+                            <constraint firstItem="g3e-5j-8Cq" firstAttribute="top" secondItem="C9d-hh-iLv" secondAttribute="top" id="USW-nD-tX2"/>
                             <constraint firstItem="RzJ-qC-MfL" firstAttribute="top" secondItem="lm6-QH-u0V" secondAttribute="bottom" id="VSy-ta-qR0"/>
                             <constraint firstAttribute="trailing" secondItem="f3D-Va-6WX" secondAttribute="trailing" id="XR2-hp-rgm"/>
+                            <constraint firstItem="f3D-Va-6WX" firstAttribute="leading" secondItem="g3e-5j-8Cq" secondAttribute="trailing" id="YB4-R9-goO"/>
+                            <constraint firstItem="bgq-eG-AUu" firstAttribute="leading" secondItem="g3e-5j-8Cq" secondAttribute="trailing" id="blw-A5-EpQ"/>
                             <constraint firstItem="lm6-QH-u0V" firstAttribute="top" secondItem="C9d-hh-iLv" secondAttribute="bottom" id="bmd-vA-Aku"/>
                             <constraint firstItem="bgq-eG-AUu" firstAttribute="top" secondItem="f3D-Va-6WX" secondAttribute="bottom" id="cM0-fy-ZJR"/>
                             <constraint firstItem="C9d-hh-iLv" firstAttribute="top" secondItem="fNf-Uk-khK" secondAttribute="top" id="dKf-RL-QyV"/>
                             <constraint firstItem="RzJ-qC-MfL" firstAttribute="leading" secondItem="fNf-Uk-khK" secondAttribute="leading" id="jrJ-DH-vbo"/>
                             <constraint firstItem="RzJ-qC-MfL" firstAttribute="top" secondItem="cT9-Ld-QJ4" secondAttribute="bottom" priority="999" identifier="ErrorViewBottomToBottomViewTop" id="nS9-wn-EBS"/>
+                            <constraint firstItem="g3e-5j-8Cq" firstAttribute="bottom" secondItem="C9d-hh-iLv" secondAttribute="bottom" id="pH9-SI-o6F"/>
                             <constraint firstAttribute="trailing" secondItem="cT9-Ld-QJ4" secondAttribute="trailing" id="xaW-RD-JHS"/>
                         </constraints>
                     </view>
