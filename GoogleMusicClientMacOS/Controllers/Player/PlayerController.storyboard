@@ -102,6 +102,7 @@
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <color key="contentTintColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                     </button>
                                     <button horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Qjd-9b-0qi">
                                         <rect key="frame" x="325" y="0.0" width="50" height="20"/>
@@ -109,6 +110,7 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <color key="contentTintColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                     </button>
                                     <button horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="WUy-CC-EmZ">
                                         <rect key="frame" x="375" y="0.0" width="50" height="20"/>
@@ -116,6 +118,7 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <color key="contentTintColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                         <connections>
                                             <binding destination="y3d-EB-w5r" name="image" keyPath="self.palyPauseImage" id="yPv-ND-XTl"/>
                                         </connections>
@@ -126,6 +129,7 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <color key="contentTintColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                     </button>
                                     <button horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ghG-SW-YTo">
                                         <rect key="frame" x="475" y="0.0" width="50" height="20"/>
@@ -133,6 +137,7 @@
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <color key="contentTintColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                     </button>
                                     <textField horizontalHuggingPriority="2" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UL9-zC-2mR">
                                         <rect key="frame" x="523" y="2" width="274" height="17"/>
@@ -218,6 +223,7 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
+                                        <color key="contentTintColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                         <connections>
                                             <action selector="queueButtonClicked:" target="y3d-EB-w5r" id="YMl-EZ-QMc"/>
                                         </connections>
@@ -225,6 +231,7 @@
                                     <imageView horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="OaA-md-VtK">
                                         <rect key="frame" x="37" y="0.0" width="28" height="20"/>
                                         <imageCell key="cell" controlSize="mini" refusesFirstResponder="YES" alignment="left" imageAlignment="right" imageScaling="proportionallyDown" image="Volume" id="kvG-2Q-4i6"/>
+                                        <color key="contentTintColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                     </imageView>
                                     <slider horizontalHuggingPriority="1" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uh4-xd-1rU" customClass="ApplicationSlider" customModule="Google_Music_Player" customModuleProvider="target">
                                         <rect key="frame" x="70" y="3" width="120" height="15"/>

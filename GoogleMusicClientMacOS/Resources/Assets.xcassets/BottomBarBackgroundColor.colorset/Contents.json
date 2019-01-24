@@ -25,7 +25,7 @@
         }
       ],
       "color" : {
-        "reference" : "unemphasizedSelectedContentBackgroundColor"
+        "reference" : "alternatingContentBackgroundColor"
       }
     },
     {
