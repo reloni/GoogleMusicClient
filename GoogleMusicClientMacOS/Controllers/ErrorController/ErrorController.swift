@@ -18,7 +18,7 @@ final class ErrorController: NSViewController {
     }
     
     @IBAction func cancelButtonClick(_ sender: Any) {
-        Global.current.dataFlowController.dispatch(UIAction.hideErrorController)
+        Current.dispatch(UIAction.hideErrorController)
     }
     
 }

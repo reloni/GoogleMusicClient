@@ -15,13 +15,13 @@ final class RadioListController: NSViewController {
     @IBOutlet weak var tableView: ApplicationTableView!
     
     var client: GMusicClient {
-        return Global.current.dataFlowController.currentState.state.client!
+        return Current.currentState.state.client!
     }
     
     let bag = DisposeBag()
     
     var stations: [GMusicRadioStation] {
-        return Global.current.dataFlowController.currentState.state.radioStations
+        return Current.currentState.state.radioStations
     }
     
     override func viewDidLoad() {
@@ -34,7 +34,7 @@ final class RadioListController: NSViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        Global.current.dataFlowController.state.filter { state in
+        Current.state.filter { state in
             switch state.setBy {
             case PlayerAction.loadRadioStations: return true
             default: return false
@@ -49,7 +49,7 @@ final class RadioListController: NSViewController {
                                  PlayerAction.loadRadioStations,
                                  UIAction.hideProgressIndicator,
                                  fallbackAction: UIAction.hideProgressIndicator)
-        Global.current.dataFlowController.dispatch(action)
+        Current.dispatch(action)
     }
     
     deinit {
@@ -73,6 +73,6 @@ extension RadioListController: NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
         guard 0..<stations.count ~= tableView.selectedRow else { return }
         let station = stations[tableView.selectedRow]
-        Global.current.dataFlowController.dispatch(CompositeActions.play(station: station))
+        Current.dispatch(CompositeActions.play(station: station))
     }
 }

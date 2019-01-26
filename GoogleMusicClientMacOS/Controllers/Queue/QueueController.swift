@@ -16,11 +16,11 @@ final class QueueController: NSViewController {
     let bag = DisposeBag()
     
     var player: Player<GMusicTrack>? {
-        return Global.current.dataFlowController.currentState.state.player
+        return Current.currentState.state.player
     }
     
     var queue: [GMusicTrack] {
-        return Global.current.dataFlowController.currentState.state.queue.items
+        return Current.currentState.state.queue.items
     }
     
     override func viewDidLoad() {
@@ -30,15 +30,15 @@ final class QueueController: NSViewController {
         tableView.dataSource = self
         
         tableView.didClickRow = { index in
-            Global.current.dataFlowController.dispatch(PlayerAction.playAtIndex(index))
+            Current.dispatch(PlayerAction.playAtIndex(index))
         }
 
-        Global.current.dataFlowController.currentTrack
+        Current.currentTrack
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] in self?.updateTableView(selectedIndex: $0?.index) })
             .disposed(by: bag)
         
-        Global.current.dataFlowController.state
+        Current.state
             .filter { ($0.setBy as? PlayerAction) == PlayerAction.initializeQueueFromSource }
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak tableView] _ in tableView?.scrollToBeginningOfDocument(nil); tableView?.reloadData() })

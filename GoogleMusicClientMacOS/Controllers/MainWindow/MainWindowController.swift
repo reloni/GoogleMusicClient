@@ -17,12 +17,12 @@ final class MainWindowController: NSWindowController, ApplicationController {
         
         restoreWindow()
         
-        Global.current.dataFlowController.errors.subscribe(onNext: { error in
-            Global.current.dataFlowController.dispatch(UIAction.showErrorController(error.error))
+        Current.errors.subscribe(onNext: { error in
+            Current.dispatch(UIAction.showErrorController(error.error))
         }).disposed(by: bag)
 
-        Global.current.dataFlowController.dispatch(CompositeActions.beforeStartup)
-        Global.current.dataFlowController.dispatch(UIAction.startup(self))
+        Current.dispatch(CompositeActions.beforeStartup)
+        Current.dispatch(UIAction.startup(self))
     }
     
     func restoreWindow() {

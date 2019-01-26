@@ -18,7 +18,7 @@ final class SystemController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Global.current.dataFlowController.state
+        Current.state
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] state in
                 switch state.setBy {

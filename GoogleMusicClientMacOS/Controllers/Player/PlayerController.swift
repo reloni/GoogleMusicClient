@@ -50,7 +50,7 @@ final class PlayerController: NSViewController {
     @objc dynamic var palyPauseImage = NSImage.pause
     
     let bag = DisposeBag()
-    var player: Player<GMusicTrack>? { return Global.current.dataFlowController.currentState.state.player }
+    var player: Player<GMusicTrack>? { return Current.currentState.state.player }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,19 +64,19 @@ final class PlayerController: NSViewController {
     
     func bind() -> [Disposable] {
         return [
-            Global.current.dataFlowController.currentTrack.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.update(with: $0?.track) }),
-            shuffleButton.rx.tap.subscribe(onNext: { Global.current.dataFlowController.dispatch(PlayerAction.pause) }),
-            previousButton.rx.tap.subscribe(onNext: { Global.current.dataFlowController.dispatch(PlayerAction.playPrevious) }),
-            playPauseButon.rx.tap.subscribe(onNext: { Global.current.dataFlowController.dispatch(PlayerAction.toggle) }),
-            nextButton.rx.tap.subscribe(onNext: { Global.current.dataFlowController.dispatch(PlayerAction.playNext) }),
-            repeatModeButton.rx.tap.subscribe(onNext: { Global.current.dataFlowController.dispatch(PlayerAction.resume) }),
+            Current.currentTrack.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.update(with: $0?.track) }),
+            shuffleButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.pause) }),
+            previousButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.playPrevious) }),
+            playPauseButon.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.toggle) }),
+            nextButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.playNext) }),
+            repeatModeButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.resume) }),
 //            player?.currentItemStatus.subscribe(onNext: { print("ItemStatus: \($0)") }),
             player?.currentItemTime.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentTime = $0?.timeString }),
             player?.currentItemDuration.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentDuration = $0?.timeString }),
             player?.isPlaying.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play }),
-            currentProgressSlider.userSetValue.subscribe(onNext: { Global.current.dataFlowController.currentState.state.player?.seek(to: $0) }),
-            Global.current.dataFlowController.currentTrack.map { $0 != nil }.subscribe(onNext: { [weak self] in self?.isCurrentProgressChangeEnabled = $0 }),
-            player?.errors.subscribe(onNext: { Global.current.dataFlowController.dispatch(UIAction.showErrorController($0)) }),
+            currentProgressSlider.userSetValue.subscribe(onNext: { Current.currentState.state.player?.seek(to: $0) }),
+            Current.currentTrack.map { $0 != nil }.subscribe(onNext: { [weak self] in self?.isCurrentProgressChangeEnabled = $0 }),
+            player?.errors.subscribe(onNext: { Current.dispatch(UIAction.showErrorController($0)) }),
             bindProgress()
             ].compactMap { $0 }
     }
@@ -95,18 +95,30 @@ final class PlayerController: NSViewController {
         currentTrackTitle = track?.title
         currentArtistAndAlbum = track == nil ? nil : "\(track!.album) (\(track!.artist))"
         
-        Global.current.image(for: track)
+        image(for: track)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] in self?.albumImage.image = $0 })
             .disposed(by: bag)
         
-        if Global.current.dataFlowController.currentState.state.queue.isCompleted {
-            Global.current.dataFlowController.dispatch(CompositeActions.repeatFromQueueSource())
+        if Current.currentState.state.queue.isCompleted {
+            Current.dispatch(CompositeActions.repeatFromQueueSource())
         }
     }
     
+    func image(for track: GMusicTrack?) -> Observable<NSImage> {
+        guard let client = Current.currentState.state.client else { return Observable.just(NSImage.album) }
+        guard let track = track else { return Observable.just(NSImage.album) }
+        
+        return client
+            .downloadAlbumArt(track)
+            .catchErrorJustReturn(nil)
+            .map { NSImage($0) ?? NSImage.album }
+            .asObservable()
+            .startWith(NSImage.album)
+    }
+    
     @IBAction func queueButtonClicked(_ sender: Any) {
-        Global.current.dataFlowController.dispatch(UIAction.showQueuePopover(showQueueButton))
+        Current.dispatch(UIAction.showQueuePopover(showQueueButton))
     }
     
     func subscribeToNotifications() {
@@ -117,12 +129,12 @@ final class PlayerController: NSViewController {
     }
     
     @objc func didPlayToEnd() {
-        Global.current.dataFlowController.dispatch(PlayerAction.playNext)
+        Current.dispatch(PlayerAction.playNext)
         print("didPlayToEnd")
     }
     
     @objc func playbackStalled() {
-        Global.current.dataFlowController.dispatch(PlayerAction.pause)
+        Current.dispatch(PlayerAction.pause)
         print("playbackStalled")
     }
     

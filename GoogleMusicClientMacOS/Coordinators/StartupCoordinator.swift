@@ -26,7 +26,7 @@ final class StartupCoordinator: ApplicationCoordinator {
     }
     
     func startup(in windowController: ApplicationWindowController) -> RxReduceResult<AppState> {
-        let hasGmusicToken = Global.current.dataFlowController.currentState.state.hasGmusicToken
+        let hasGmusicToken = Current.currentState.state.hasGmusicToken
         
         let controller = hasGmusicToken ? MainController.instantiate() : LogInController.instantiate()
         

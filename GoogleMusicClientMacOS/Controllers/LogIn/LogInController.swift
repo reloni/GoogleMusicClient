@@ -15,7 +15,7 @@ final class LogInController: NSViewController {
         let authController = GMusicAuthenticationController { result in
             switch result {
             case .authenticated(let token):
-                Global.current.dataFlowController.dispatch(CompositeActions.logIn(token: token))
+                Current.dispatch(CompositeActions.logIn(token: token))
             case .error(let e):
                 print("error: \(e)")
             case .userAborted:

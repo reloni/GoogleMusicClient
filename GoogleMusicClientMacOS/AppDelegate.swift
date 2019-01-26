@@ -7,6 +7,20 @@
 //
 
 import Cocoa
+import RxDataFlow
+import RxGoogleMusic
+
+private func initialState() -> AppState {
+    return AppState(coordinator: StartupCoordinator(),
+                    keychain: Keychain(),
+                    client: nil,
+                    radioStations: [],
+                    player: nil,
+                    queue: Queue(items: [GMusicTrack]()),
+                    queueSource: nil)
+}
+
+let Current = RxDataFlowController(reducer: rootReducer, initialState: initialState())
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -38,11 +52,11 @@ class Application: NSApplication {
         guard state && !keyRepeat else { return }
         switch(key) {
         case NX_KEYTYPE_PLAY:
-            Global.current.dataFlowController.dispatch(PlayerAction.toggle)
+            Current.dispatch(PlayerAction.toggle)
         case NX_KEYTYPE_FAST:
-            Global.current.dataFlowController.dispatch(PlayerAction.playNext)
+            Current.dispatch(PlayerAction.playNext)
         case NX_KEYTYPE_REWIND:
-            Global.current.dataFlowController.dispatch(PlayerAction.playPrevious)
+            Current.dispatch(PlayerAction.playPrevious)
         default:
             break
         }
