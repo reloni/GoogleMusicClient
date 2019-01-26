@@ -57,6 +57,7 @@ enum UIAction : RxActionType {
     case hideProgressIndicator
     
     case showQueuePopover(NSView)
+    case showAlert(AlertConfiguration)
     
     case showErrorController(Error)
     case hideErrorController

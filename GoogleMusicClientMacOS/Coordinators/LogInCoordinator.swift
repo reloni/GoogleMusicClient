@@ -25,6 +25,9 @@ final class LogInCoordinator: ApplicationCoordinator {
             windowController.replaceContentController(controller)
             let coordinator = MainCoordinator(windowController: self.windowController, controller: controller)
             return RxReduceResult.single({ $0.mutate(\.coordinator, coordinator) })
+        case UIAction.showAlert(let configuration):
+            showAlert(configuration)
+            return RxReduceResult.single({ $0 })
         default:
             return RxReduceResult.empty
         }   

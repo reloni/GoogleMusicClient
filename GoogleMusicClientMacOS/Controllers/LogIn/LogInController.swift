@@ -17,7 +17,12 @@ final class LogInController: NSViewController {
             case .authenticated(let token):
                 Current.dispatch(CompositeActions.logIn(token: token))
             case .error(let e):
-                print("error: \(e)")
+                let alert = AlertConfiguration.init(messageText: "Authentication error",
+                                                    informativeText: e.localizedDescription,
+                                                    alertStyle: .critical,
+                                                    buttonTitles: ["OK"],
+                                                    completion: { _ in })
+                Current.dispatch(UIAction.showAlert(alert))
             case .userAborted:
                 print("userAborted")
             }
