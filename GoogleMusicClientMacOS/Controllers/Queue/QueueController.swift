@@ -26,10 +26,6 @@ final class QueueController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.backgroundColor = NSColor.clear
-        tableView.allowsColumnSelection = false
-        tableView.columnAutoresizingStyle = .uniformColumnAutoresizingStyle
-        
         tableView.delegate = self
         tableView.dataSource = self
         

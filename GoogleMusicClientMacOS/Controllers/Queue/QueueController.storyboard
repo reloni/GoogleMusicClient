@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,7 +24,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="541" height="92"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="ClearColor"/>
                                             <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
@@ -45,11 +46,11 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="7os-Ne-5h2">
-                                                                    <rect key="frame" x="0.0" y="7" width="280" height="17"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="1Xu-aZ-bcj">
+                                                                    <rect key="frame" x="2" y="7" width="276" height="17"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" drawsBackground="YES" id="1Xu-aZ-bcj">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="systemPurpleColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="ClearColor"/>
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
@@ -83,11 +84,11 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="gVK-fP-Qnc">
-                                                                    <rect key="frame" x="0.0" y="7" width="99" height="17"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="bcQ-cr-qd1">
+                                                                    <rect key="frame" x="2" y="7" width="95" height="17"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" drawsBackground="YES" id="bcQ-cr-qd1">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="ClearColor"/>
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
@@ -121,11 +122,11 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="GoO-fy-KnX">
-                                                                    <rect key="frame" x="0.0" y="7" width="100" height="17"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="HTz-ql-k3t">
+                                                                    <rect key="frame" x="2" y="7" width="96" height="17"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" drawsBackground="YES" id="HTz-ql-k3t">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="ClearColor"/>
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
@@ -159,11 +160,11 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ess-KH-mH2">
-                                                                    <rect key="frame" x="0.0" y="7" width="40" height="17"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="GXz-6i-tJ7">
+                                                                    <rect key="frame" x="2" y="7" width="36" height="17"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" drawsBackground="YES" id="GXz-6i-tJ7">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="ClearColor"/>
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
@@ -214,4 +215,9 @@
             <point key="canvasLocation" x="107.5" y="6"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="ClearColor">
+            <color red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>
