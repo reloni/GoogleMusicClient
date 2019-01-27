@@ -92,4 +92,8 @@ extension QueueController: NSTableViewDelegate {
             return nil
         }
     }
+    
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return HighlightOnHoverTableRowView()
+    }
 }

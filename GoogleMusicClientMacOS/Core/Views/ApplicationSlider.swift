@@ -21,6 +21,10 @@ final class SliderCell: NSSliderCell {
 }
 
 final class ApplicationSlider: NSSlider {
+    override var trackingAreaOptions: NSTrackingArea.Options {
+        return [NSTrackingArea.Options.activeInActiveApp, NSTrackingArea.Options.mouseEnteredAndExited]
+    }
+    
     var sliderCell: SliderCell? {
         return cell as? SliderCell
     }
@@ -34,10 +38,8 @@ final class ApplicationSlider: NSSlider {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        postsBoundsChangedNotifications = true
-        postsFrameChangedNotifications = true
-        NotificationCenter.default.addObserver(self, selector: #selector(boundsChanged), name: NSView.boundsDidChangeNotification, object: self)
-        NotificationCenter.default.addObserver(self, selector: #selector(boundsChanged), name: NSView.frameDidChangeNotification, object: self)
+
+        setupTrackingArea()
         
         target = self
         action = #selector(valueChaged)
@@ -58,23 +60,6 @@ final class ApplicationSlider: NSSlider {
             isUserInteracting = false
             return
         }
-    }
-    
-    func refreshTrackingArea() {
-        for a in trackingAreas {
-            removeTrackingArea(a)
-        }
-        
-        let trackingArea = NSTrackingArea(rect:bounds,
-                                          options: [NSTrackingArea.Options.activeInActiveApp,
-                                                    NSTrackingArea.Options.mouseEnteredAndExited],
-                                          owner: self,
-                                          userInfo: nil)
-        addTrackingArea(trackingArea)
-    }
-    
-    @objc func boundsChanged() {
-        refreshTrackingArea()
     }
     
     override func mouseExited(with event: NSEvent) {

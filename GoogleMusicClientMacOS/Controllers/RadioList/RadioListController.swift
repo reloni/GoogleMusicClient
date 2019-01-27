@@ -75,4 +75,8 @@ extension RadioListController: NSTableViewDelegate {
         let station = stations[tableView.selectedRow]
         Current.dispatch(CompositeActions.play(station: station))
     }
+    
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return HighlightOnHoverTableRowView()
+    }
 }
