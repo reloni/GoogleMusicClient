@@ -18,9 +18,21 @@ struct AppState: RxStateType {
     let keychain: KeychainType
     private(set) var client: GMusicClient?
     private(set) var radioStations: [GMusicRadioStation]
+    private(set) var favorites: [GMusicTrack]
     private(set) var player: Player<GMusicTrack>?
     private(set) var queue: Queue<GMusicTrack>
     private(set) var queueSource: QueueSource?
+}
+
+func initialState() -> AppState {
+    return AppState(coordinator: StartupCoordinator(),
+                    keychain: Keychain(),
+                    client: nil,
+                    radioStations: [],
+                    favorites: [],
+                    player: nil,
+                    queue: Queue(items: [GMusicTrack]()),
+                    queueSource: nil)
 }
 
 extension AppState {
@@ -29,6 +41,7 @@ extension AppState {
                               keychain: keychain,
                               client: nil,
                               radioStations: [],
+                              favorites: [],
                               player: nil,
                               queue: Queue(items: []),
                               queueSource: nil)

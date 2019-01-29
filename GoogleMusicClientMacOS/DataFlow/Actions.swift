@@ -74,6 +74,7 @@ enum SystemAction: RxActionType {
 enum PlayerAction: RxActionType, Equatable {
     case setQueueSource(QueueSource)
     case loadRadioStations
+    case loadFavorites
     case initializeQueueFromSource
     case pause
     case resume

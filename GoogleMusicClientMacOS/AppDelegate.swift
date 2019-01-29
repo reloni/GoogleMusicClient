@@ -10,16 +10,6 @@ import Cocoa
 import RxDataFlow
 import RxGoogleMusic
 
-private func initialState() -> AppState {
-    return AppState(coordinator: StartupCoordinator(),
-                    keychain: Keychain(),
-                    client: nil,
-                    radioStations: [],
-                    player: nil,
-                    queue: Queue(items: [GMusicTrack]()),
-                    queueSource: nil)
-}
-
 let Current = RxDataFlowController(reducer: rootReducer, initialState: initialState())
 
 @NSApplicationMain

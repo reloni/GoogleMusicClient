@@ -60,6 +60,7 @@ final class RadioListController: NSViewController {
         }
     }
     
+    
     deinit {
         print("RadioListController deinit")
     }

@@ -9,9 +9,10 @@
 import Cocoa
 import RxSwift
 import RxGoogleMusic
+import RxDataFlow
 
 final class FavoritesController: NSViewController {
-//    @IBOutlet weak var tableView: ApplicationTableView!
+    @IBOutlet weak var tableView: ApplicationTableView!
     
     let bag = DisposeBag()
     
@@ -19,81 +20,74 @@ final class FavoritesController: NSViewController {
         return Current.currentState.state.player
     }
     
-    var queue: [GMusicTrack] {
-        return Current.currentState.state.queue.items
+    var favorites: [GMusicTrack] {
+        return Current.currentState.state.favorites
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//
-//        tableView.didClickRow = { index in
-//            Current.dispatch(PlayerAction.playAtIndex(index))
-//        }
-//
-//        Current.currentTrack
-//            .observeOn(MainScheduler.instance)
-//            .subscribe(onNext: { [weak self] in self?.updateTableView(selectedIndex: $0?.index) })
-//            .disposed(by: bag)
-//
-//        Current.state
-//            .filter { ($0.setBy as? PlayerAction) == PlayerAction.initializeQueueFromSource }
-//            .observeOn(MainScheduler.instance)
-//            .subscribe(onNext: { [weak tableView] _ in tableView?.scrollToBeginningOfDocument(nil); tableView?.reloadData() })
-//            .disposed(by: bag)
+        tableView.delegate = self
+        tableView.dataSource = self
         
+        Current.state.filter { state in
+            switch state.setBy {
+            case PlayerAction.loadFavorites: return true
+            default: return false
+            }
+            }.observeOn(MainScheduler.instance)
+            .do(onNext: { [weak self] _ in self?.tableView.reloadData() })
+            .subscribe()
+            .disposed(by: bag)
+        
+        if favorites.count == 0 {
+            let action = RxCompositeAction(UIAction.showProgressIndicator,
+                                           PlayerAction.loadFavorites,
+                                           UIAction.hideProgressIndicator,
+                                           fallbackAction: UIAction.hideProgressIndicator)
+            Current.dispatch(action)
+        }
     }
-    
-//    func updateTableView(selectedIndex: Int?) {
-//        guard let index = selectedIndex else {
-//            tableView.selectRowIndexes(IndexSet([]), byExtendingSelection: false)
-//            return
-//        }
-//
-//        tableView.selectRowIndexes(IndexSet([index]), byExtendingSelection: false)
-//    }
     
     deinit {
         print("FavoritesController deinit")
     }
 }
 
-//extension FavoritesController: NSTableViewDataSource {
-//    func numberOfRows(in tableView: NSTableView) -> Int {
-//        return queue.count
-//    }
-//}
-//
-//extension FavoritesController: NSTableViewDelegate {
-//    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-//        let c = cell(in: tableView, for: tableColumn)
-//        switch c?.identifier?.rawValue {
-//        case "Title": c?.textField?.stringValue = queue[row].title
-//        case "Album": c?.textField?.stringValue = queue[row].album
-//        case "Artist": c?.textField?.stringValue = queue[row].artist
-//        case "Duration": c?.textField?.stringValue = queue[row].duration.timeString ?? "--:--"
-//        default: break
-//        }
-//        return c
-//    }
-//
-//    func cell(in tableView: NSTableView, for column: NSTableColumn?) -> NSTableCellView? {
-//        if column == tableView.tableColumns[0] {
-//            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Title"), owner: self) as? NSTableCellView
-//        } else if column == tableView.tableColumns[1] {
-//            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Album"), owner: self) as? NSTableCellView
-//        } else if column == tableView.tableColumns[2] {
-//            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Artist"), owner: self) as? NSTableCellView
-//        } else if column == tableView.tableColumns[3] {
-//            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Duration"), owner: self) as? NSTableCellView
-//        } else {
-//            return nil
-//        }
-//    }
-//
-//    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-//        return HighlightOnHoverTableRowView()
-//    }
-//}
+extension FavoritesController: NSTableViewDataSource {
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return favorites.count
+    }
+}
+
+extension FavoritesController: NSTableViewDelegate {
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let c = cell(in: tableView, for: tableColumn)
+        switch c?.identifier?.rawValue {
+        case "Title": c?.textField?.stringValue = favorites[row].title
+        case "Album": c?.textField?.stringValue = favorites[row].album
+        case "Artist": c?.textField?.stringValue = favorites[row].artist
+        case "Duration": c?.textField?.stringValue = favorites[row].duration.timeString ?? "--:--"
+        default: break
+        }
+        return c
+    }
+
+    func cell(in tableView: NSTableView, for column: NSTableColumn?) -> NSTableCellView? {
+        if column == tableView.tableColumns[0] {
+            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Title"), owner: self) as? NSTableCellView
+        } else if column == tableView.tableColumns[1] {
+            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Album"), owner: self) as? NSTableCellView
+        } else if column == tableView.tableColumns[2] {
+            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Artist"), owner: self) as? NSTableCellView
+        } else if column == tableView.tableColumns[3] {
+            return tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Duration"), owner: self) as? NSTableCellView
+        } else {
+            return nil
+        }
+    }
+
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return HighlightOnHoverTableRowView()
+    }
+}
