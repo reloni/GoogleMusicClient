@@ -49,9 +49,10 @@ enum UIAction : RxActionType {
     case showLogIn
     
     case showRadio
-    case showArtists
-    case showAlbums
-    case showPlaylists
+    case showFavorites
+//    case showArtists
+//    case showAlbums
+//    case showPlaylists
     
     case showProgressIndicator
     case hideProgressIndicator

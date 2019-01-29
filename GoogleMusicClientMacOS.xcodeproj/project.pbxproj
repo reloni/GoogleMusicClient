@@ -48,6 +48,8 @@
 		6EA6BC3A21DCFA2200EA3E3E /* export-options.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EA6BC3921DCFA2200EA3E3E /* export-options.plist */; };
 		6EA9BF3321EA455E00A2551D /* SystemController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EA9BF3221EA455E00A2551D /* SystemController.storyboard */; };
 		6EA9BF3521EA457100A2551D /* SystemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA9BF3421EA457100A2551D /* SystemController.swift */; };
+		6EAC5E482200BE0D003D1B19 /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */; };
+		6EAC5E4C2200BF9A003D1B19 /* FavoritesController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EAC5E4B2200BF9A003D1B19 /* FavoritesController.storyboard */; };
 		6EB27ACA21C3C7E80013479C /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB27AC921C3C7E80013479C /* RxDataFlow.framework */; };
 		6EB27ACB21C3C7E80013479C /* RxDataFlow.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB27AC921C3C7E80013479C /* RxDataFlow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6EB27ACF21C3D4B60013479C /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB27ACE21C3D4B60013479C /* AppState.swift */; };
@@ -130,6 +132,8 @@
 		6EA6BC3921DCFA2200EA3E3E /* export-options.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "export-options.plist"; sourceTree = "<group>"; };
 		6EA9BF3221EA455E00A2551D /* SystemController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SystemController.storyboard; sourceTree = "<group>"; };
 		6EA9BF3421EA457100A2551D /* SystemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemController.swift; sourceTree = "<group>"; };
+		6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
+		6EAC5E4B2200BF9A003D1B19 /* FavoritesController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FavoritesController.storyboard; sourceTree = "<group>"; };
 		6EB27AC921C3C7E80013479C /* RxDataFlow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataFlow.framework; path = Carthage/Build/Mac/RxDataFlow.framework; sourceTree = "<group>"; };
 		6EB27ACE21C3D4B60013479C /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		6EB27AD021C3D4D50013479C /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
@@ -189,7 +193,8 @@
 		6E38A74B21C293AB00983339 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6E7E4E3921F38E3F0097E727 /* ErrorController */,
+				6EAC5E462200BDEF003D1B19 /* Favorites */,
+				6E7E4E3921F38E3F0097E727 /* Error */,
 				6EA9BF3121EA453200A2551D /* System */,
 				6E38A74F21C2983900983339 /* MainWindow */,
 				6E38A75F21C2A62400983339 /* Main */,
@@ -261,13 +266,13 @@
 			path = Player;
 			sourceTree = "<group>";
 		};
-		6E7E4E3921F38E3F0097E727 /* ErrorController */ = {
+		6E7E4E3921F38E3F0097E727 /* Error */ = {
 			isa = PBXGroup;
 			children = (
 				6E7E4E3A21F38E530097E727 /* ErrorController.storyboard */,
 				6E7E4E3C21F38EDD0097E727 /* ErrorController.swift */,
 			);
-			path = ErrorController;
+			path = Error;
 			sourceTree = "<group>";
 		};
 		6E8496D621D635FA00210F36 /* Queue */ = {
@@ -330,6 +335,15 @@
 				6EA9BF3421EA457100A2551D /* SystemController.swift */,
 			);
 			path = System;
+			sourceTree = "<group>";
+		};
+		6EAC5E462200BDEF003D1B19 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */,
+				6EAC5E4B2200BF9A003D1B19 /* FavoritesController.storyboard */,
+			);
+			path = Favorites;
 			sourceTree = "<group>";
 		};
 		6EB27ACD21C3D4A60013479C /* DataFlow */ = {
@@ -468,6 +482,7 @@
 				6E38A76321C2A68200983339 /* MainController.storyboard in Resources */,
 				6EFDC5A221CA231D00E93699 /* PlayerController.storyboard in Resources */,
 				6EA6BC3A21DCFA2200EA3E3E /* export-options.plist in Resources */,
+				6EAC5E4C2200BF9A003D1B19 /* FavoritesController.storyboard in Resources */,
 				6E94665B21C282D200126BB7 /* Assets.xcassets in Resources */,
 				6E38A75421C298A300983339 /* LogInController.storyboard in Resources */,
 				6E31EC3521C7E1C5009B9742 /* LeftMenuController.storyboard in Resources */,
@@ -490,6 +505,7 @@
 			files = (
 				6E38A76121C2A64B00983339 /* MainController.swift in Sources */,
 				6E3FC37E21CA6E180026DEA7 /* PlayerReducer.swift in Sources */,
+				6EAC5E482200BE0D003D1B19 /* FavoritesController.swift in Sources */,
 				6EA9BF3521EA457100A2551D /* SystemController.swift in Sources */,
 				6E7F608D21C9278400C1D30C /* RadioListController.swift in Sources */,
 				6E1E6DF721D277E500937756 /* Player.swift in Sources */,

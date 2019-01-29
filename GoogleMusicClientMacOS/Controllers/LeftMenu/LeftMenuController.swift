@@ -16,6 +16,7 @@ final class LeftMenuController: NSViewController {
     @IBOutlet weak var tableView: ApplicationTableView!
     
     let rows: [(String, RxActionType)] = [("Radio", UIAction.showRadio),
+                                          ("Favorites", UIAction.showFavorites),
 //                                          ("Artists", UIAction.showArtists),
 //                                          ("Albums", UIAction.showAlbums),
 //                                          ("Playlists", UIAction.showPlaylists),
