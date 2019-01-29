@@ -51,12 +51,13 @@ final class RadioListController: NSViewController {
             .subscribe()
             .disposed(by: bag)
         
-        
-        let action = RxCompositeAction(UIAction.showProgressIndicator,
-                                 PlayerAction.loadRadioStations,
-                                 UIAction.hideProgressIndicator,
-                                 fallbackAction: UIAction.hideProgressIndicator)
-        Current.dispatch(action)
+        if stations.count == 0 {
+            let action = RxCompositeAction(UIAction.showProgressIndicator,
+                                           PlayerAction.loadRadioStations,
+                                           UIAction.hideProgressIndicator,
+                                           fallbackAction: UIAction.hideProgressIndicator)
+            Current.dispatch(action)
+        }
     }
     
     deinit {
