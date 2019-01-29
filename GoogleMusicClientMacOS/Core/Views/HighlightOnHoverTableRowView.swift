@@ -9,7 +9,7 @@
 import Cocoa
 
 final class HighlightOnHoverTableRowView: NSTableRowView {
-    var isHighlighted = false
+    var isHovered = false
     
     override var trackingAreaOptions: NSTrackingArea.Options {
         return [NSTrackingArea.Options.activeInActiveApp, NSTrackingArea.Options.mouseEnteredAndExited]
@@ -25,17 +25,17 @@ final class HighlightOnHoverTableRowView: NSTableRowView {
     }
     
     override func mouseExited(with event: NSEvent) {
-        isHighlighted = false
+        isHovered = false
         setNeedsDisplay(bounds)
     }
     
     override func mouseEntered(with event: NSEvent) {
-        isHighlighted = true
+        isHovered = true
         setNeedsDisplay(bounds)
     }
     
     override func drawBackground(in dirtyRect: NSRect) {
-        guard isHighlighted else { return }
+        guard isHovered else { return }
         
         let color = NSColor.selectedContentBackgroundColor.withAlphaComponent(0.25)
         
