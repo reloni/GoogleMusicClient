@@ -10,6 +10,8 @@
 		6E013D2F21E35AAE00BC6F61 /* GoogleMusicClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94666921C282D300126BB7 /* GoogleMusicClientTests.swift */; };
 		6E13220E21FE424F008E2AC2 /* HighlightOnHoverTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E13220D21FE424F008E2AC2 /* HighlightOnHoverTableRowView.swift */; };
 		6E1E6DF721D277E500937756 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1E6DF621D277E500937756 /* Player.swift */; };
+		6E20C8A322022B4C00BC3362 /* CollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E20C8A122022B4C00BC3362 /* CollectionViewItem.swift */; };
+		6E20C8A422022B4C00BC3362 /* CollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E20C8A222022B4C00BC3362 /* CollectionViewItem.xib */; };
 		6E31EC3321C7DBA5009B9742 /* ApplicationTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */; };
 		6E31EC3521C7E1C5009B9742 /* LeftMenuController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E31EC3421C7E1C5009B9742 /* LeftMenuController.storyboard */; };
 		6E31EC3721C7E208009B9742 /* LeftMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31EC3621C7E208009B9742 /* LeftMenuController.swift */; };
@@ -91,6 +93,8 @@
 /* Begin PBXFileReference section */
 		6E13220D21FE424F008E2AC2 /* HighlightOnHoverTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightOnHoverTableRowView.swift; sourceTree = "<group>"; };
 		6E1E6DF621D277E500937756 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		6E20C8A122022B4C00BC3362 /* CollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewItem.swift; sourceTree = "<group>"; };
+		6E20C8A222022B4C00BC3362 /* CollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewItem.xib; sourceTree = "<group>"; };
 		6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationTableView.swift; sourceTree = "<group>"; };
 		6E31EC3421C7E1C5009B9742 /* LeftMenuController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LeftMenuController.storyboard; sourceTree = "<group>"; };
 		6E31EC3621C7E208009B9742 /* LeftMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuController.swift; sourceTree = "<group>"; };
@@ -342,6 +346,8 @@
 			children = (
 				6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */,
 				6EAC5E4B2200BF9A003D1B19 /* FavoritesController.storyboard */,
+				6E20C8A122022B4C00BC3362 /* CollectionViewItem.swift */,
+				6E20C8A222022B4C00BC3362 /* CollectionViewItem.xib */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -482,6 +488,7 @@
 				6E38A76321C2A68200983339 /* MainController.storyboard in Resources */,
 				6EFDC5A221CA231D00E93699 /* PlayerController.storyboard in Resources */,
 				6EA6BC3A21DCFA2200EA3E3E /* export-options.plist in Resources */,
+				6E20C8A422022B4C00BC3362 /* CollectionViewItem.xib in Resources */,
 				6EAC5E4C2200BF9A003D1B19 /* FavoritesController.storyboard in Resources */,
 				6E94665B21C282D200126BB7 /* Assets.xcassets in Resources */,
 				6E38A75421C298A300983339 /* LogInController.storyboard in Resources */,
@@ -512,6 +519,7 @@
 				6EA34DB221F09B7F00E9588C /* ApplicationSlider.swift in Sources */,
 				6E7F608921C8F71B00C1D30C /* Constraints.swift in Sources */,
 				6E38A74D21C293BC00983339 /* MainWindowController.swift in Sources */,
+				6E20C8A322022B4C00BC3362 /* CollectionViewItem.swift in Sources */,
 				6E31EC3321C7DBA5009B9742 /* ApplicationTableView.swift in Sources */,
 				6E13220E21FE424F008E2AC2 /* HighlightOnHoverTableRowView.swift in Sources */,
 				6E38A75221C2988C00983339 /* LogInController.swift in Sources */,
