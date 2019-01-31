@@ -9,11 +9,29 @@
 import Cocoa
 
 class CollectionViewItem: NSCollectionViewItem {
-    @IBOutlet weak var label: NSTextField!
+    let titleLabel: NSTextField = {
+        let tf = NSTextField()
+        tf.isEditable = false
+        tf.isBezeled = false
+        return tf
+    }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
+    override init(nibName nibNameOrNil: NSNib.Name?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        view = NSView()
+        view.addSubview(titleLabel)
+        setupConstraints()
+    }
+
+    func setupConstraints() {
+        titleLabel.lt.edges(to: view)
+    }
 }

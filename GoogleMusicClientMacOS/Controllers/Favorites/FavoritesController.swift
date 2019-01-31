@@ -33,8 +33,7 @@ final class FavoritesController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let nib = NSNib (nibNamed: "CollectionViewItem", bundle: nil)!
-        collectionView.register (nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier ("CollectionViewItem"))
+        collectionView.register(CollectionViewItem.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier ("CollectionViewItem"))
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -44,7 +43,7 @@ final class FavoritesController: NSViewController {
     func configureCollectionView() {
         let flowLayout = NSCollectionViewFlowLayout()
         flowLayout.minimumLineSpacing = 0
-        flowLayout.scrollDirection = .horizontal
+        flowLayout.scrollDirection = .vertical
         collectionView.collectionViewLayout = flowLayout
     }
     
@@ -78,7 +77,7 @@ extension FavoritesController: NSCollectionViewDataSource {
         let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CollectionViewItem"), for: indexPath)
         guard let collectionViewItem = item as? CollectionViewItem else { return item }
 
-        collectionViewItem.label.stringValue = "ololo"
+        collectionViewItem.titleLabel.stringValue = "ololo"
         return item
     }
     
