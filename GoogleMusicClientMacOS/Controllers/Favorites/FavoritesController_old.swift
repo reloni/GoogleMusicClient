@@ -1,51 +1,16 @@
 //
-//  FavoritesController.swift
+//  FavoritesController_old.swift
 //  GoogleMusicClientMacOS
 //
-//  Created by Anton Efimenko on 29/01/2019.
+//  Created by Anton Efimenko on 31/01/2019.
 //  Copyright © 2019 Anton Efimenko. All rights reserved.
 //
 
-import Cocoa
-import RxSwift
-import RxGoogleMusic
-import RxDataFlow
-
-extension NSUserInterfaceItemIdentifier {
-    static let collectionViewItem: NSUserInterfaceItemIdentifier = {
-        return NSUserInterfaceItemIdentifier("NavCollectionViewCell")
-    }()
-}
-
-
+import Foundation
 
 final class FavoritesController: NSViewController {
-    let collectionView: NSCollectionView = {
-        let view = NSCollectionView()
-        view.backgroundColors = [.clear]
-        view.collectionViewLayout = {
-            let layout = NSCollectionViewFlowLayout()
-            layout.minimumLineSpacing = 0
-            layout.scrollDirection = .vertical
-            return layout
-        }()
-        view.register(CollectionViewItem.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier ("CollectionViewItem"))
-        return view
-    }()
-    
-    lazy var scrollView: NSScrollView = {
-        let scroll = NSScrollView()
-        scroll.documentView = self.collectionView
-        return scroll
-    }()
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    //    @IBOutlet weak var tableView: ApplicationTableView!
+    @IBOutlet weak var collectionView: NSCollectionView!
     
     let bag = DisposeBag()
     
@@ -57,16 +22,20 @@ final class FavoritesController: NSViewController {
         return Current.currentState.state.favorites
     }
     
-    override func loadView() {
-        view = NSView()
-        view.addSubview(scrollView)
-        scrollView.lt.edges(to: view)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.register(CollectionViewItem.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier ("CollectionViewItem"))
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        configureCollectionView()
+    }
+    
+    func configureCollectionView() {
+        let flowLayout = NSCollectionViewFlowLayout()
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.scrollDirection = .vertical
+        collectionView.collectionViewLayout = flowLayout
     }
     
     override func viewWillLayout() {
@@ -104,4 +73,3 @@ extension FavoritesController: NSCollectionViewDataSource {
     }
     
 }
-

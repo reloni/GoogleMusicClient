@@ -13,6 +13,7 @@ class CollectionViewItem: NSCollectionViewItem {
         let tf = NSTextField()
         tf.isEditable = false
         tf.isBezeled = false
+        tf.drawsBackground = false
         return tf
     }()
     

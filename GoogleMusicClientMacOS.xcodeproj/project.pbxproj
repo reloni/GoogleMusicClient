@@ -91,6 +91,7 @@
 
 /* Begin PBXFileReference section */
 		6E13220D21FE424F008E2AC2 /* HighlightOnHoverTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightOnHoverTableRowView.swift; sourceTree = "<group>"; };
+		6E1361B122036F19006E5B34 /* FavoritesController_old.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController_old.swift; sourceTree = "<group>"; };
 		6E1E6DF621D277E500937756 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		6E20C8A122022B4C00BC3362 /* CollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewItem.swift; sourceTree = "<group>"; };
 		6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationTableView.swift; sourceTree = "<group>"; };
@@ -345,6 +346,7 @@
 				6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */,
 				6EAC5E4B2200BF9A003D1B19 /* FavoritesController.storyboard */,
 				6E20C8A122022B4C00BC3362 /* CollectionViewItem.swift */,
+				6E1361B122036F19006E5B34 /* FavoritesController_old.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";

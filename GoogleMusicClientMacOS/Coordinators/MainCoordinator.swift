@@ -46,7 +46,7 @@ extension MainCoordinator: ApplicationCoordinator {
 //        case UIAction.showArtists: removeCurrentMainController()
 //        case UIAction.showAlbums: removeCurrentMainController()
         case UIAction.showRadio: showMainController(RadioListController.instantiate())
-        case UIAction.showFavorites: showMainController(FavoritesController.instantiate())
+        case UIAction.showFavorites: showMainController(FavoritesController())
 //        case UIAction.showPlaylists: removeCurrentMainController()
         case UIAction.showQueuePopover(let view): showQueuePopover(for: view)
         case UIAction.showErrorController(let e): showError(e)
