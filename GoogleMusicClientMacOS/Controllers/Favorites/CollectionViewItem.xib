@@ -15,11 +15,11 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="480" height="17"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dRp-We-6Uo">
                     <rect key="frame" x="-2" y="0.0" width="484" height="17"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="qiu-Xe-Rpb">
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Label" usesSingleLineMode="YES" id="qiu-Xe-Rpb">
                         <font key="font" usesAppearanceFont="YES"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -27,10 +27,9 @@
                 </textField>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="dRp-We-6Uo" secondAttribute="trailing" id="HhC-yP-bIa"/>
-                <constraint firstItem="dRp-We-6Uo" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="J2p-Yz-Z4Z"/>
-                <constraint firstItem="dRp-We-6Uo" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="pzF-hK-Yb3"/>
-                <constraint firstAttribute="bottom" secondItem="dRp-We-6Uo" secondAttribute="bottom" id="xep-E2-kqL"/>
+                <constraint firstItem="dRp-We-6Uo" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="2km-d8-ifz"/>
+                <constraint firstItem="dRp-We-6Uo" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="LBp-QR-9JU"/>
+                <constraint firstAttribute="trailing" secondItem="dRp-We-6Uo" secondAttribute="trailing" id="eRI-Bc-GDa"/>
             </constraints>
         </customView>
         <customObject id="2gX-Uo-BHf" customClass="CollectionViewItem" customModule="Google_Music_Player" customModuleProvider="target"/>
