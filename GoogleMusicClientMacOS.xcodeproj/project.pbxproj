@@ -56,7 +56,6 @@
 		6EA9BF3321EA455E00A2551D /* SystemController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EA9BF3221EA455E00A2551D /* SystemController.storyboard */; };
 		6EA9BF3521EA457100A2551D /* SystemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA9BF3421EA457100A2551D /* SystemController.swift */; };
 		6EAC5E482200BE0D003D1B19 /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */; };
-		6EAC5E4C2200BF9A003D1B19 /* FavoritesController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EAC5E4B2200BF9A003D1B19 /* FavoritesController.storyboard */; };
 		6EB27ACA21C3C7E80013479C /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB27AC921C3C7E80013479C /* RxDataFlow.framework */; };
 		6EB27ACB21C3C7E80013479C /* RxDataFlow.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB27AC921C3C7E80013479C /* RxDataFlow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6EB27ACF21C3D4B60013479C /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB27ACE21C3D4B60013479C /* AppState.swift */; };
@@ -97,7 +96,6 @@
 
 /* Begin PBXFileReference section */
 		6E13220D21FE424F008E2AC2 /* HighlightOnHoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightOnHoverView.swift; sourceTree = "<group>"; };
-		6E1361B122036F19006E5B34 /* FavoritesController_old.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController_old.swift; sourceTree = "<group>"; };
 		6E1E6DF621D277E500937756 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationTableView.swift; sourceTree = "<group>"; };
 		6E31EC3421C7E1C5009B9742 /* LeftMenuController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LeftMenuController.storyboard; sourceTree = "<group>"; };
@@ -148,7 +146,6 @@
 		6EA9BF3221EA455E00A2551D /* SystemController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SystemController.storyboard; sourceTree = "<group>"; };
 		6EA9BF3421EA457100A2551D /* SystemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemController.swift; sourceTree = "<group>"; };
 		6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
-		6EAC5E4B2200BF9A003D1B19 /* FavoritesController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FavoritesController.storyboard; sourceTree = "<group>"; };
 		6EB27AC921C3C7E80013479C /* RxDataFlow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataFlow.framework; path = Carthage/Build/Mac/RxDataFlow.framework; sourceTree = "<group>"; };
 		6EB27ACE21C3D4B60013479C /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		6EB27AD021C3D4D50013479C /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
@@ -363,8 +360,6 @@
 			isa = PBXGroup;
 			children = (
 				6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */,
-				6EAC5E4B2200BF9A003D1B19 /* FavoritesController.storyboard */,
-				6E1361B122036F19006E5B34 /* FavoritesController_old.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -505,7 +500,6 @@
 				6E38A76321C2A68200983339 /* MainController.storyboard in Resources */,
 				6EFDC5A221CA231D00E93699 /* PlayerController.storyboard in Resources */,
 				6EA6BC3A21DCFA2200EA3E3E /* export-options.plist in Resources */,
-				6EAC5E4C2200BF9A003D1B19 /* FavoritesController.storyboard in Resources */,
 				6E94665B21C282D200126BB7 /* Assets.xcassets in Resources */,
 				6E38A75421C298A300983339 /* LogInController.storyboard in Resources */,
 				6E31EC3521C7E1C5009B9742 /* LeftMenuController.storyboard in Resources */,
