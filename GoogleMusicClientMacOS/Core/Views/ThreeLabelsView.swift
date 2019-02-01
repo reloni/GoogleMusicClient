@@ -9,29 +9,9 @@
 import Cocoa
 
 final class ThreeLabelsView: NSView {
-    let first = VerticallyCenteredTextField().configure {
-        $0.textField.isEditable = false
-        $0.textField.isBezeled = false
-        $0.textField.drawsBackground = false
-        $0.textField.usesSingleLineMode = false
-        $0.textField.font = NSFont.systemFont(ofSize: 13, weight: NSFont.Weight.medium)
-    }
-    
-    let second = VerticallyCenteredTextField().configure {
-        $0.textField.isEditable = false
-        $0.textField.isBezeled = false
-        $0.textField.drawsBackground = false
-        $0.textField.usesSingleLineMode = false
-        $0.textField.font = NSFont.systemFont(ofSize: 13, weight: NSFont.Weight.medium)
-    }
-    
-    let third = VerticallyCenteredTextField().configure {
-        $0.textField.isEditable = false
-        $0.textField.isBezeled = false
-        $0.textField.drawsBackground = false
-        $0.textField.usesSingleLineMode = false
-        $0.textField.font = NSFont.systemFont(ofSize: 13, weight: NSFont.Weight.medium)
-    }
+    let first = VerticallyCenteredTextField()
+    let second = VerticallyCenteredTextField()
+    let third = VerticallyCenteredTextField()
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)

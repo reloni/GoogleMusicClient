@@ -10,6 +10,8 @@ import Cocoa
 
 final class VerticallyCenteredTextField: NSView {
     let textField = NSTextField()
+        |> baseLabel()
+        |> font(.semibold)
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)

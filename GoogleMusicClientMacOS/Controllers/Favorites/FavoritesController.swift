@@ -22,16 +22,10 @@ final class FavoritesController: NSViewController {
         view.registerHeader(forClass: ThreeLabelsView.self)
     }
     
-    lazy var scrollView = NSScrollView().configure {
-        $0.documentView = self.collectionView
-    }
+    lazy var scrollView = NSScrollView().configure { $0.documentView = self.collectionView }
     
     let bag = DisposeBag()
-    
-    var player: Player<GMusicTrack>? {
-        return Current.currentState.state.player
-    }
-    
+
     var favorites: [GMusicTrack] {
         return Current.currentState.state.favorites
     }
