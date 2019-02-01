@@ -8,7 +8,27 @@
 
 import Cocoa
 
-final class HighlightOnHoverView: NSView {
+protocol HoverView {
+    var isHovered: Bool { get set }
+    func drawHoverBackground(_ rect: NSRect)
+}
+
+extension HoverView {
+    func drawHoverBackground(_ rect: NSRect) {
+        guard isHovered else { return }
+        
+        let color = NSColor.selectedContentBackgroundColor.withAlphaComponent(0.25)
+        
+        color.setStroke()
+        color.setFill()
+        
+        let selectionPath = NSBezierPath.init(roundedRect: rect, xRadius: 0, yRadius: 0)
+        selectionPath.fill()
+        selectionPath.stroke()
+    }
+}
+
+final class HighlightOnHoverView: NSView, HoverView {
     var isHovered = false
     
     override var trackingAreaOptions: NSTrackingArea.Options {
@@ -36,21 +56,12 @@ final class HighlightOnHoverView: NSView {
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        guard isHovered else { return }
-        
-        let color = NSColor.selectedContentBackgroundColor.withAlphaComponent(0.25)
-        
-        color.setStroke()
-        color.setFill()
-        
-        let selectionPath = NSBezierPath.init(roundedRect: bounds, xRadius: 0, yRadius: 0)
-        selectionPath.fill()
-        selectionPath.stroke()
+        drawHoverBackground(bounds)
     }
 }
 
 
-final class HighlightOnHoverTableRowView: NSTableRowView {
+final class HighlightOnHoverTableRowView: NSTableRowView, HoverView {
     var isHovered = false
     
     override var trackingAreaOptions: NSTrackingArea.Options {
@@ -78,15 +89,6 @@ final class HighlightOnHoverTableRowView: NSTableRowView {
     }
     
     override func drawBackground(in dirtyRect: NSRect) {
-        guard isHovered else { return }
-        
-        let color = NSColor.selectedContentBackgroundColor.withAlphaComponent(0.25)
-        
-        color.setStroke()
-        color.setFill()
-        
-        let selectionPath = NSBezierPath.init(roundedRect: bounds, xRadius: 0, yRadius: 0)
-        selectionPath.fill()
-        selectionPath.stroke()
+        drawHoverBackground(bounds)
     }
 }

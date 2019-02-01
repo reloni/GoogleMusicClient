@@ -11,12 +11,6 @@ import RxSwift
 import RxGoogleMusic
 import RxDataFlow
 
-extension NSUserInterfaceItemIdentifier {
-    static let collectionViewItem: NSUserInterfaceItemIdentifier = {
-        return NSUserInterfaceItemIdentifier("NavCollectionViewCell")
-    }()
-}
-
 final class FavoritesController: NSViewController {
     let collectionView = NSCollectionView().configure { view in
         view.backgroundColors = [.clear]
@@ -24,8 +18,8 @@ final class FavoritesController: NSViewController {
             $0.minimumLineSpacing = 0
             $0.scrollDirection = .vertical
         }
-        view.register(ThreeLabelsView.self, forSupplementaryViewOfKind: NSCollectionView.elementKindSectionHeader, withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Header"))
-        view.register(CollectionViewItem.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier ("CollectionViewItem"))
+        view.registerItem(forClass: ThreeLabelsCollectionViewItem.self)
+        view.registerHeader(forClass: ThreeLabelsView.self)
     }
     
     lazy var scrollView = NSScrollView().configure {
@@ -114,29 +108,24 @@ extension FavoritesController: NSCollectionViewDataSource {
 
     func collectionView(_ collectionView: NSCollectionView, viewForSupplementaryElementOfKind kind: NSCollectionView.SupplementaryElementKind, at indexPath: IndexPath) -> NSView {
         if kind == NSCollectionView.elementKindSectionHeader {
-            let view = collectionView.makeSupplementaryView(ofKind: kind, withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Header"), for: indexPath) as! ThreeLabelsView
+            let view: ThreeLabelsView = collectionView.makeHeader(for: indexPath)
             return view.configure {
                 $0.first.textField.stringValue = "Title"
                 $0.second.textField.stringValue = "Album"
                 $0.third.textField.stringValue = "Artist"
             }
-        } else if kind == NSCollectionView.elementKindSectionFooter {
-            print("footer")
         }
         
         return NSView()
     }
     
     func collectionView(_ itemForRepresentedObjectAtcollectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        
-        let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CollectionViewItem"), for: indexPath)
-        guard let collectionViewItem = item as? CollectionViewItem else { return item }
-        
+        let item: ThreeLabelsCollectionViewItem = collectionView.makeItem(for: indexPath)
         let track = favorites[indexPath.item]
         
-        collectionViewItem.musicTrackView.first.textField.stringValue = track.title
-        collectionViewItem.musicTrackView.second.textField.stringValue = track.album
-        collectionViewItem.musicTrackView.third.textField.stringValue = track.artist
+        item.musicTrackView.first.textField.stringValue = track.title
+        item.musicTrackView.second.textField.stringValue = track.album
+        item.musicTrackView.third.textField.stringValue = track.artist
         
         return item
     }
