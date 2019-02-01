@@ -22,7 +22,8 @@ final class SliderCell: NSSliderCell {
 
 final class ApplicationSlider: NSSlider {
     override var trackingAreaOptions: NSTrackingArea.Options {
-        return [NSTrackingArea.Options.activeInActiveApp, NSTrackingArea.Options.mouseEnteredAndExited]
+        get { return [NSTrackingArea.Options.activeInActiveApp, NSTrackingArea.Options.mouseEnteredAndExited] }
+        set { }
     }
     
     var sliderCell: SliderCell? {

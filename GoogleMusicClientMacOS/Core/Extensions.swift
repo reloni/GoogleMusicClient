@@ -12,6 +12,18 @@ import RxDataFlow
 import RxSwift
 import RxGoogleMusic
 
+public protocol Configure { }
+
+extension Configure where Self: AnyObject {
+    public func configure(_ block: (Self) -> Void) -> Self {
+        block(self)
+        return self
+    }
+}
+
+extension NSObject: Configure { }
+
+
 extension RxDataFlowController where State == AppState {
     var currentTrack: Observable<(track: GMusicTrack, index: Int)?> {
         return state.filter { result in

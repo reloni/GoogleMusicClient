@@ -9,10 +9,15 @@
 import Cocoa
 
 class Layout {
-    class Anchor<AnchorType: AnyObject> {
+    class Anchor {
+        enum AnchorType {
+            case xAxis(NSLayoutXAxisAnchor)
+            case yAxis(NSLayoutYAxisAnchor)
+            case dimension(NSLayoutDimension)
+        }
         let owner: NSView
-        let target: NSLayoutAnchor<AnchorType>
-        init(target: NSLayoutAnchor<AnchorType>, owner: NSView) {
+        let target: AnchorType
+        init(target: AnchorType, owner: NSView) {
             self.target = target
             self.owner = owner
         }
@@ -28,51 +33,92 @@ extension NSView {
 }
 
 extension Layout {
-    var leading: Layout.Anchor<NSLayoutXAxisAnchor> {
-        return Layout.Anchor(target: target.leadingAnchor, owner: target)
+    var leading: Layout.Anchor {
+        return Layout.Anchor(target: Layout.Anchor.AnchorType.xAxis(target.leadingAnchor), owner: target)
     }
     
-    var trailing: Layout.Anchor<NSLayoutXAxisAnchor> {
-        return Layout.Anchor(target: target.trailingAnchor, owner: target)
+    var trailing: Layout.Anchor {
+        return Layout.Anchor(target: Layout.Anchor.AnchorType.xAxis(target.trailingAnchor), owner: target)
     }
     
-    var top: Layout.Anchor<NSLayoutYAxisAnchor> {
-        return Layout.Anchor(target: target.topAnchor, owner: target)
+    var top: Layout.Anchor {
+        return Layout.Anchor(target: Layout.Anchor.AnchorType.yAxis(target.topAnchor), owner: target)
     }
     
-    var bottom: Layout.Anchor<NSLayoutYAxisAnchor> {
-        return Layout.Anchor(target: target.bottomAnchor, owner: target)
+    var bottom: Layout.Anchor {
+        return Layout.Anchor(target: Layout.Anchor.AnchorType.yAxis(target.bottomAnchor), owner: target)
+    }
+    
+    var height: Layout.Anchor {
+        return Layout.Anchor(target: Layout.Anchor.AnchorType.dimension(target.heightAnchor), owner: target)
+    }
+    
+    var width: Layout.Anchor {
+        return Layout.Anchor(target: Layout.Anchor.AnchorType.dimension(target.widthAnchor), owner: target)
+    }
+    
+    var centerX: Layout.Anchor {
+        return Layout.Anchor(target: Layout.Anchor.AnchorType.xAxis(target.centerXAnchor), owner: target)
+    }
+    
+    var centerY: Layout.Anchor {
+        return Layout.Anchor(target: Layout.Anchor.AnchorType.yAxis(target.centerYAnchor), owner: target)
     }
     
     @discardableResult func edges(to other: NSView, constant: CGFloat = 0.0) -> [NSLayoutConstraint] {
-        return [top(to: other, constant: constant),
-                leading(to: other, constant: constant),
-                trailing(to: other, constant: constant),
-                bottom(to: other, constant: constant)
+        return [top(to: other.lt.top, constant: constant),
+                leading(to: other.lt.leading, constant: constant),
+                trailing(to: other.lt.trailing, constant: constant),
+                bottom(to: other.lt.bottom, constant: constant)
         ]
     }
     
-    @discardableResult func leading(to other: NSView, constant: CGFloat = 0.0) -> NSLayoutConstraint {
-        return makeConstraint(leading, other.lt.leading, constant: constant)
+    @discardableResult func leading(to other: Layout.Anchor, constant: CGFloat = 0.0) -> NSLayoutConstraint {
+        return makeConstraint(leading, other, constant: constant)
     }
     
-    @discardableResult func trailing(to other: NSView, constant: CGFloat = 0.0) -> NSLayoutConstraint {
-        return makeConstraint(trailing, other.lt.trailing, constant: constant)
+    @discardableResult func trailing(to other: Layout.Anchor, constant: CGFloat = 0.0) -> NSLayoutConstraint {
+        return makeConstraint(trailing, other, constant: constant)
     }
     
-    @discardableResult func top(to other: NSView, constant: CGFloat = 0.0) -> NSLayoutConstraint {
-        return makeConstraint(top, other.lt.top, constant: constant)
+    @discardableResult func top(to other: Layout.Anchor, constant: CGFloat = 0.0) -> NSLayoutConstraint {
+        return makeConstraint(top, other, constant: constant)
     }
     
-    @discardableResult func bottom(to other: NSView, constant: CGFloat = 0.0) -> NSLayoutConstraint {
-        return makeConstraint(bottom, other.lt.bottom, constant: constant)
+    @discardableResult func bottom(to other: Layout.Anchor, constant: CGFloat = 0.0) -> NSLayoutConstraint {
+        return makeConstraint(bottom, other, constant: constant)
     }
     
-    private func makeConstraint<AnchorType>(_ lhs: Layout.Anchor<AnchorType>, _ rhs: Layout.Anchor<AnchorType>, constant: CGFloat) -> NSLayoutConstraint {
+    @discardableResult func height(to other: Layout.Anchor, constant: CGFloat = 0.0, multiplier: CGFloat = 1.0) -> NSLayoutConstraint {
+        return makeConstraint(height, other, constant: constant, multiplier: multiplier)
+    }
+    
+    @discardableResult func width(to other: Layout.Anchor, constant: CGFloat = 0.0, multiplier: CGFloat = 1.0) -> NSLayoutConstraint {
+        return makeConstraint(width, other, constant: constant, multiplier: multiplier)
+    }
+    
+    @discardableResult func centerX(to other: Layout.Anchor, constant: CGFloat = 0.0) -> NSLayoutConstraint {
+        return makeConstraint(centerX, other, constant: constant)
+    }
+    
+    @discardableResult func centerY(to other: Layout.Anchor, constant: CGFloat = 0.0) -> NSLayoutConstraint {
+        return makeConstraint(centerY, other, constant: constant)
+    }
+    
+    private func makeConstraint(_ lhs: Layout.Anchor, _ rhs: Layout.Anchor, constant: CGFloat, multiplier: CGFloat = 1.0) -> NSLayoutConstraint {
         lhs.owner.translatesAutoresizingMaskIntoConstraints = false
         rhs.owner.translatesAutoresizingMaskIntoConstraints = false
-        let constraint = lhs.target.constraint(equalTo: rhs.target, constant: 0)
+        let constraint: NSLayoutConstraint = {
+            switch (lhs.target, rhs.target) {
+            case let (.xAxis(l), .xAxis(r)): return l.constraint(equalTo: r, constant: constant)
+            case let (.yAxis(l), .yAxis(r)): return l.constraint(equalTo: r, constant: constant)
+            case let (.dimension(l), .dimension(r)): return l.constraint(equalTo: r, multiplier: multiplier, constant: constant)
+            default: fatalError()
+            }
+        }()
         constraint.isActive = true
         return constraint
     }
 }
+
+

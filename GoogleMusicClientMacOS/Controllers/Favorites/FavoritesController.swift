@@ -17,18 +17,14 @@ extension NSUserInterfaceItemIdentifier {
     }()
 }
 
-
-
 final class FavoritesController: NSViewController {
     let collectionView: NSCollectionView = {
         let view = NSCollectionView()
         view.backgroundColors = [.clear]
-        view.collectionViewLayout = {
-            let layout = NSCollectionViewFlowLayout()
-            layout.minimumLineSpacing = 0
-            layout.scrollDirection = .vertical
-            return layout
-        }()
+        view.collectionViewLayout = NSCollectionViewFlowLayout().configure {
+            $0.minimumLineSpacing = 0
+            $0.scrollDirection = .vertical
+        }
         view.register(CollectionViewItem.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier ("CollectionViewItem"))
         return view
     }()
@@ -81,7 +77,7 @@ final class FavoritesController: NSViewController {
 
 extension FavoritesController: NSCollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-        return NSSize(width: collectionView.bounds.width - 20, height: 25)
+        return NSSize(width: collectionView.bounds.width, height: 40)
     }
 }
 
@@ -99,7 +95,9 @@ extension FavoritesController: NSCollectionViewDataSource {
         let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CollectionViewItem"), for: indexPath)
         guard let collectionViewItem = item as? CollectionViewItem else { return item }
         
-        collectionViewItem.titleLabel.stringValue = "ololo"
+        collectionViewItem.trackTitle.textField.stringValue = "Title"
+        collectionViewItem.album.textField.stringValue = "Album"
+        collectionViewItem.artist.textField.stringValue = "Artist"
         return item
     }
     
