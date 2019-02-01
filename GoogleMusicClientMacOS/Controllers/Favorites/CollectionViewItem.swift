@@ -24,30 +24,64 @@ final class VerticallyCenteredTextField: NSView {
     }
 }
 
+final class ThreeLabelsView: NSView {
+    let first = VerticallyCenteredTextField().configure {
+        $0.textField.isEditable = false
+        $0.textField.isBezeled = false
+        $0.textField.drawsBackground = false
+        $0.textField.usesSingleLineMode = false
+        $0.textField.font = NSFont.systemFont(ofSize: 13, weight: NSFont.Weight.medium)
+    }
+    
+    let second = VerticallyCenteredTextField().configure {
+        $0.textField.isEditable = false
+        $0.textField.isBezeled = false
+        $0.textField.drawsBackground = false
+        $0.textField.usesSingleLineMode = false
+        $0.textField.font = NSFont.systemFont(ofSize: 13, weight: NSFont.Weight.medium)
+    }
+    
+    let third = VerticallyCenteredTextField().configure {
+        $0.textField.isEditable = false
+        $0.textField.isBezeled = false
+        $0.textField.drawsBackground = false
+        $0.textField.usesSingleLineMode = false
+        $0.textField.font = NSFont.systemFont(ofSize: 13, weight: NSFont.Weight.medium)
+    }
+    
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        addSubview(first)
+        addSubview(second)
+        addSubview(third)
+        setupConstraints()
+    }
+    
+    required init?(coder decoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupConstraints() {
+        first.lt.top(to: lt.top)
+        first.lt.leading(to: lt.leading, constant: 10)
+        first.lt.bottom(to: lt.bottom)
+        first.lt.trailing(to: third.lt.leading, constant: -10)
+        
+        third.lt.top(to: first.lt.top)
+        third.lt.bottom(to: first.lt.bottom)
+        third.lt.trailing(to: second.lt.leading, constant: -10)
+        
+        second.lt.top(to: first.lt.top)
+        second.lt.bottom(to: first.lt.bottom)
+        second.lt.trailing(to: lt.trailing, constant: -10)
+        
+        first.lt.width(to: lt.width, constant: 0, multiplier: 0.5)
+        third.lt.width(to: second.lt.width)
+    }
+}
+
 class CollectionViewItem: NSCollectionViewItem {
-    let trackTitle = VerticallyCenteredTextField().configure {
-        $0.textField.isEditable = false
-        $0.textField.isBezeled = false
-        $0.textField.drawsBackground = false
-        $0.textField.usesSingleLineMode = false
-        $0.textField.font = NSFont.systemFont(ofSize: 13, weight: NSFont.Weight.medium)
-    }
-    
-    let album = VerticallyCenteredTextField().configure {
-        $0.textField.isEditable = false
-        $0.textField.isBezeled = false
-        $0.textField.drawsBackground = false
-        $0.textField.usesSingleLineMode = false
-        $0.textField.font = NSFont.systemFont(ofSize: 13, weight: NSFont.Weight.medium)
-    }
-    
-    let artist = VerticallyCenteredTextField().configure {
-        $0.textField.isEditable = false
-        $0.textField.isBezeled = false
-        $0.textField.drawsBackground = false
-        $0.textField.usesSingleLineMode = false
-        $0.textField.font = NSFont.systemFont(ofSize: 13, weight: NSFont.Weight.medium)
-    }
+    let musicTrackView = ThreeLabelsView()
     
     override init(nibName nibNameOrNil: NSNib.Name?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -59,27 +93,7 @@ class CollectionViewItem: NSCollectionViewItem {
     
     override func loadView() {
         view = HighlightOnHoverView()
-        view.addSubview(trackTitle)
-        view.addSubview(album)
-        view.addSubview(artist)
-        setupConstraints()
-    }
-
-    func setupConstraints() {
-        trackTitle.lt.top(to: view.lt.top)
-        trackTitle.lt.leading(to: view.lt.leading, constant: 10)
-        trackTitle.lt.bottom(to: view.lt.bottom)
-        trackTitle.lt.trailing(to: artist.lt.leading, constant: -10)
-        
-        artist.lt.top(to: trackTitle.lt.top)
-        artist.lt.bottom(to: trackTitle.lt.bottom)
-        artist.lt.trailing(to: album.lt.leading, constant: -10)
-        
-        album.lt.top(to: trackTitle.lt.top)
-        album.lt.bottom(to: trackTitle.lt.bottom)
-        album.lt.trailing(to: view.lt.trailing, constant: -10)
-        
-        trackTitle.lt.width(to: view.lt.width, constant: 0, multiplier: 0.5)
-        artist.lt.width(to: album.lt.width)
+        view.addSubview(musicTrackView)
+        musicTrackView.lt.edges(to: view)
     }
 }
