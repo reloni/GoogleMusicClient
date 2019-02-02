@@ -18,6 +18,7 @@ func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
     switch action {
     case PlayerAction.initializeQueueFromSource: return initializeQueueFromSource(currentState: currentState, client: client)
     case PlayerAction.loadRadioStations: return loadRadioStations(client: client)
+    case PlayerAction.loadFavorites: return loadFavorites(client: client)
     case PlayerAction.pause: currentState.player?.pause()
     case PlayerAction.resume: currentState.player?.resume()
     case PlayerAction.playNext: return playNext(currentState: currentState)
@@ -56,6 +57,7 @@ private func initializeQueueFromSource(currentState: AppState, client: GMusicCli
     guard let source = currentState.queueSource else { return RxReduceResult.single { $0 } }
     switch source {
     case .radio(let r): return loadRadioStationFeed(r, currentState: currentState, client: client)
+    case .list(let l): return RxReduceResult.single({ $0.mutate(\.queue, Queue(items: l)) })
     }
 }
 
@@ -69,4 +71,11 @@ private func loadRadioStations(client: GMusicClient) -> RxReduceResult<AppState>
         .map { $0.items.filter { $0.inLibrary } }
         .reduce([GMusicRadioStation](), accumulator: { $0 + $1 })
     return RxReduceResult.create(from: request, transform: { $0.mutate(\AppState.radioStations, $1) })
+}
+
+private func loadFavorites(client: GMusicClient) -> RxReduceResult<AppState> {
+    let request = client.favorites(maxResults: 10000, recursive: true)
+        .map { $0.items }
+        .reduce([GMusicTrack](), accumulator: { $0 + $1 })
+    return RxReduceResult.create(from: request, transform: { $0.mutate(\AppState.favorites, $1) })
 }

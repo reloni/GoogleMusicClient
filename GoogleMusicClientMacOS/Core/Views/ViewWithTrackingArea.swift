@@ -10,7 +10,7 @@ import Cocoa
 
 @objc protocol ViewWithTrackingArea: class {
     var trackingAreaBounds: NSRect { get }
-    var trackingAreaOptions: NSTrackingArea.Options { get }
+    var trackingAreaOptions: NSTrackingArea.Options { get set }
     var trackingAreas: [NSTrackingArea] { get }
     var postsBoundsChangedNotifications: Bool { get set }
     var postsFrameChangedNotifications: Bool { get set }
@@ -24,7 +24,7 @@ import Cocoa
 extension NSView: ViewWithTrackingArea {
     var trackingAreaBounds: NSRect { return bounds }
     
-    var trackingAreaOptions: NSTrackingArea.Options { return [] }
+    var trackingAreaOptions: NSTrackingArea.Options { get { return [] } set { } }
     
     func setupTrackingArea() {
         postsBoundsChangedNotifications = true

@@ -34,6 +34,13 @@ final class RadioListController: NSViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.didClickRow = { [weak self] index in
+            guard let self = self else { return }
+            guard 0..<self.stations.count ~= self.tableView.selectedRow else { return }
+            let station = self.stations[self.tableView.selectedRow]
+            Current.dispatch(CompositeActions.play(station: station))
+        }
+        
         Current.state.filter { state in
             switch state.setBy {
             case PlayerAction.loadRadioStations: return true
@@ -44,13 +51,15 @@ final class RadioListController: NSViewController {
             .subscribe()
             .disposed(by: bag)
         
-        
-        let action = RxCompositeAction(UIAction.showProgressIndicator,
-                                 PlayerAction.loadRadioStations,
-                                 UIAction.hideProgressIndicator,
-                                 fallbackAction: UIAction.hideProgressIndicator)
-        Current.dispatch(action)
+        if stations.count == 0 {
+            let action = RxCompositeAction(UIAction.showProgressIndicator,
+                                           PlayerAction.loadRadioStations,
+                                           UIAction.hideProgressIndicator,
+                                           fallbackAction: UIAction.hideProgressIndicator)
+            Current.dispatch(action)
+        }
     }
+    
     
     deinit {
         print("RadioListController deinit")
@@ -68,12 +77,6 @@ extension RadioListController: NSTableViewDelegate {
         let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Cell"), owner: self) as! NSTableCellView
         cell.textField?.stringValue = stations[row].name
         return cell
-    }
-    
-    func tableViewSelectionDidChange(_ notification: Notification) {
-        guard 0..<stations.count ~= tableView.selectedRow else { return }
-        let station = stations[tableView.selectedRow]
-        Current.dispatch(CompositeActions.play(station: station))
     }
     
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {

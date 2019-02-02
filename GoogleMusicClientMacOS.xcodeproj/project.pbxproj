@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6E013D2F21E35AAE00BC6F61 /* GoogleMusicClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94666921C282D300126BB7 /* GoogleMusicClientTests.swift */; };
-		6E13220E21FE424F008E2AC2 /* HighlightOnHoverTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E13220D21FE424F008E2AC2 /* HighlightOnHoverTableRowView.swift */; };
+		6E13220E21FE424F008E2AC2 /* SelectableNSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E13220D21FE424F008E2AC2 /* SelectableNSView.swift */; };
 		6E1E6DF721D277E500937756 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1E6DF621D277E500937756 /* Player.swift */; };
 		6E31EC3321C7DBA5009B9742 /* ApplicationTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */; };
 		6E31EC3521C7E1C5009B9742 /* LeftMenuController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E31EC3421C7E1C5009B9742 /* LeftMenuController.storyboard */; };
@@ -32,6 +32,13 @@
 		6E3DD68621C2B07400C1F49F /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3DD68521C2B07400C1F49F /* Keychain.swift */; };
 		6E3FC37E21CA6E180026DEA7 /* PlayerReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3FC37D21CA6E180026DEA7 /* PlayerReducer.swift */; };
 		6E5C758621D8FAF900C98482 /* DataAssetLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5C758521D8FAF900C98482 /* DataAssetLoader.swift */; };
+		6E7D890E2204CAA100C44E91 /* VerticallyCenteredTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D890D2204CAA100C44E91 /* VerticallyCenteredTextField.swift */; };
+		6E7D89102204CAD600C44E91 /* ThreeLabelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D890F2204CAD600C44E91 /* ThreeLabelsView.swift */; };
+		6E7D89122204CB3A00C44E91 /* ThreeLabelsCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D89112204CB3A00C44E91 /* ThreeLabelsCollectionViewItem.swift */; };
+		6E7D89142204CB8E00C44E91 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D89132204CB8E00C44E91 /* Support.swift */; };
+		6E7D89172204D02100C44E91 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D89162204D02100C44E91 /* Styles.swift */; };
+		6E7D891A2204D60F00C44E91 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D89182204D60F00C44E91 /* Operators.swift */; };
+		6E7D891B2204D60F00C44E91 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D89192204D60F00C44E91 /* Functions.swift */; };
 		6E7E4E3821F3744B0097E727 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7E4E3721F3744B0097E727 /* Queue.swift */; };
 		6E7E4E3B21F38E530097E727 /* ErrorController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E7E4E3A21F38E530097E727 /* ErrorController.storyboard */; };
 		6E7E4E3D21F38EDD0097E727 /* ErrorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7E4E3C21F38EDD0097E727 /* ErrorController.swift */; };
@@ -48,6 +55,7 @@
 		6EA6BC3A21DCFA2200EA3E3E /* export-options.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EA6BC3921DCFA2200EA3E3E /* export-options.plist */; };
 		6EA9BF3321EA455E00A2551D /* SystemController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EA9BF3221EA455E00A2551D /* SystemController.storyboard */; };
 		6EA9BF3521EA457100A2551D /* SystemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA9BF3421EA457100A2551D /* SystemController.swift */; };
+		6EAC5E482200BE0D003D1B19 /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */; };
 		6EB27ACA21C3C7E80013479C /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB27AC921C3C7E80013479C /* RxDataFlow.framework */; };
 		6EB27ACB21C3C7E80013479C /* RxDataFlow.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB27AC921C3C7E80013479C /* RxDataFlow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6EB27ACF21C3D4B60013479C /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB27ACE21C3D4B60013479C /* AppState.swift */; };
@@ -87,7 +95,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6E13220D21FE424F008E2AC2 /* HighlightOnHoverTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightOnHoverTableRowView.swift; sourceTree = "<group>"; };
+		6E13220D21FE424F008E2AC2 /* SelectableNSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableNSView.swift; sourceTree = "<group>"; };
 		6E1E6DF621D277E500937756 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationTableView.swift; sourceTree = "<group>"; };
 		6E31EC3421C7E1C5009B9742 /* LeftMenuController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LeftMenuController.storyboard; sourceTree = "<group>"; };
@@ -108,6 +116,13 @@
 		6E3DD68521C2B07400C1F49F /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		6E3FC37D21CA6E180026DEA7 /* PlayerReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerReducer.swift; sourceTree = "<group>"; };
 		6E5C758521D8FAF900C98482 /* DataAssetLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataAssetLoader.swift; sourceTree = "<group>"; };
+		6E7D890D2204CAA100C44E91 /* VerticallyCenteredTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticallyCenteredTextField.swift; sourceTree = "<group>"; };
+		6E7D890F2204CAD600C44E91 /* ThreeLabelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeLabelsView.swift; sourceTree = "<group>"; };
+		6E7D89112204CB3A00C44E91 /* ThreeLabelsCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeLabelsCollectionViewItem.swift; sourceTree = "<group>"; };
+		6E7D89132204CB8E00C44E91 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
+		6E7D89162204D02100C44E91 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
+		6E7D89182204D60F00C44E91 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		6E7D89192204D60F00C44E91 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		6E7E4E3721F3744B0097E727 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		6E7E4E3A21F38E530097E727 /* ErrorController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ErrorController.storyboard; sourceTree = "<group>"; };
 		6E7E4E3C21F38EDD0097E727 /* ErrorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorController.swift; sourceTree = "<group>"; };
@@ -130,6 +145,7 @@
 		6EA6BC3921DCFA2200EA3E3E /* export-options.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "export-options.plist"; sourceTree = "<group>"; };
 		6EA9BF3221EA455E00A2551D /* SystemController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SystemController.storyboard; sourceTree = "<group>"; };
 		6EA9BF3421EA457100A2551D /* SystemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemController.swift; sourceTree = "<group>"; };
+		6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
 		6EB27AC921C3C7E80013479C /* RxDataFlow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataFlow.framework; path = Carthage/Build/Mac/RxDataFlow.framework; sourceTree = "<group>"; };
 		6EB27ACE21C3D4B60013479C /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		6EB27AD021C3D4D50013479C /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
@@ -165,12 +181,16 @@
 		6E31EC3121C7DB80009B9742 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6E7D89162204D02100C44E91 /* Styles.swift */,
 				6E7F608821C8F71B00C1D30C /* Constraints.swift */,
 				6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */,
 				6E7F608A21C9128700C1D30C /* LeftHighlightTableRowView.swift */,
 				6EA34DB121F09B7F00E9588C /* ApplicationSlider.swift */,
 				6E8FB9B821FE23A000952770 /* ViewWithTrackingArea.swift */,
-				6E13220D21FE424F008E2AC2 /* HighlightOnHoverTableRowView.swift */,
+				6E13220D21FE424F008E2AC2 /* SelectableNSView.swift */,
+				6E7D890D2204CAA100C44E91 /* VerticallyCenteredTextField.swift */,
+				6E7D890F2204CAD600C44E91 /* ThreeLabelsView.swift */,
+				6E7D89112204CB3A00C44E91 /* ThreeLabelsCollectionViewItem.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,7 +209,8 @@
 		6E38A74B21C293AB00983339 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6E7E4E3921F38E3F0097E727 /* ErrorController */,
+				6EAC5E462200BDEF003D1B19 /* Favorites */,
+				6E7E4E3921F38E3F0097E727 /* Error */,
 				6EA9BF3121EA453200A2551D /* System */,
 				6E38A74F21C2983900983339 /* MainWindow */,
 				6E38A75F21C2A62400983339 /* Main */,
@@ -228,6 +249,9 @@
 				6E38A75821C29A4000983339 /* ApplicationController.swift */,
 				6E3DD68521C2B07400C1F49F /* Keychain.swift */,
 				6ED66B2C21D3A87200BA9B95 /* Extensions.swift */,
+				6E7D89132204CB8E00C44E91 /* Support.swift */,
+				6E7D89192204D60F00C44E91 /* Functions.swift */,
+				6E7D89182204D60F00C44E91 /* Operators.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -261,13 +285,13 @@
 			path = Player;
 			sourceTree = "<group>";
 		};
-		6E7E4E3921F38E3F0097E727 /* ErrorController */ = {
+		6E7E4E3921F38E3F0097E727 /* Error */ = {
 			isa = PBXGroup;
 			children = (
 				6E7E4E3A21F38E530097E727 /* ErrorController.storyboard */,
 				6E7E4E3C21F38EDD0097E727 /* ErrorController.swift */,
 			);
-			path = ErrorController;
+			path = Error;
 			sourceTree = "<group>";
 		};
 		6E8496D621D635FA00210F36 /* Queue */ = {
@@ -330,6 +354,14 @@
 				6EA9BF3421EA457100A2551D /* SystemController.swift */,
 			);
 			path = System;
+			sourceTree = "<group>";
+		};
+		6EAC5E462200BDEF003D1B19 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */,
+			);
+			path = Favorites;
 			sourceTree = "<group>";
 		};
 		6EB27ACD21C3D4A60013479C /* DataFlow */ = {
@@ -490,14 +522,18 @@
 			files = (
 				6E38A76121C2A64B00983339 /* MainController.swift in Sources */,
 				6E3FC37E21CA6E180026DEA7 /* PlayerReducer.swift in Sources */,
+				6EAC5E482200BE0D003D1B19 /* FavoritesController.swift in Sources */,
 				6EA9BF3521EA457100A2551D /* SystemController.swift in Sources */,
 				6E7F608D21C9278400C1D30C /* RadioListController.swift in Sources */,
 				6E1E6DF721D277E500937756 /* Player.swift in Sources */,
+				6E7D89102204CAD600C44E91 /* ThreeLabelsView.swift in Sources */,
 				6EA34DB221F09B7F00E9588C /* ApplicationSlider.swift in Sources */,
 				6E7F608921C8F71B00C1D30C /* Constraints.swift in Sources */,
 				6E38A74D21C293BC00983339 /* MainWindowController.swift in Sources */,
 				6E31EC3321C7DBA5009B9742 /* ApplicationTableView.swift in Sources */,
-				6E13220E21FE424F008E2AC2 /* HighlightOnHoverTableRowView.swift in Sources */,
+				6E7D891B2204D60F00C44E91 /* Functions.swift in Sources */,
+				6E7D891A2204D60F00C44E91 /* Operators.swift in Sources */,
+				6E13220E21FE424F008E2AC2 /* SelectableNSView.swift in Sources */,
 				6E38A75221C2988C00983339 /* LogInController.swift in Sources */,
 				6E7F608B21C9128700C1D30C /* LeftHighlightTableRowView.swift in Sources */,
 				6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */,
@@ -507,10 +543,14 @@
 				6E7E4E3D21F38EDD0097E727 /* ErrorController.swift in Sources */,
 				6E5C758621D8FAF900C98482 /* DataAssetLoader.swift in Sources */,
 				6EB27AD321C3D5140013479C /* RootReducer.swift in Sources */,
+				6E7D89142204CB8E00C44E91 /* Support.swift in Sources */,
 				6E38A75721C2991D00983339 /* LogInCoordinator.swift in Sources */,
 				6EB27ACF21C3D4B60013479C /* AppState.swift in Sources */,
 				6E3DD68621C2B07400C1F49F /* Keychain.swift in Sources */,
+				6E7D89122204CB3A00C44E91 /* ThreeLabelsCollectionViewItem.swift in Sources */,
 				6E8496DA21D6365B00210F36 /* QueueController.swift in Sources */,
+				6E7D89172204D02100C44E91 /* Styles.swift in Sources */,
+				6E7D890E2204CAA100C44E91 /* VerticallyCenteredTextField.swift in Sources */,
 				6E38A75C21C2A08C00983339 /* StartupCoordinator.swift in Sources */,
 				6EB27AD121C3D4D50013479C /* Actions.swift in Sources */,
 				6ED66B2D21D3A87200BA9B95 /* Extensions.swift in Sources */,

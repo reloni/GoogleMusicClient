@@ -32,6 +32,15 @@ struct CompositeActions {
                                  fallbackAction: UIAction.hideProgressIndicator)
     }
     
+    static func play(tracks: [GMusicTrack], startIndex: Int) -> RxCompositeAction {
+        return RxCompositeAction(UIAction.showProgressIndicator,
+                                 PlayerAction.setQueueSource(.list(tracks)),
+                                 PlayerAction.initializeQueueFromSource,
+                                 PlayerAction.playAtIndex(startIndex),
+                                 UIAction.hideProgressIndicator,
+                                 fallbackAction: UIAction.hideProgressIndicator)
+    }
+    
     static func repeatFromQueueSource() -> RxCompositeAction {
         return RxCompositeAction(UIAction.showProgressIndicator,
                                  PlayerAction.initializeQueueFromSource,
@@ -49,9 +58,10 @@ enum UIAction : RxActionType {
     case showLogIn
     
     case showRadio
-    case showArtists
-    case showAlbums
-    case showPlaylists
+    case showFavorites
+//    case showArtists
+//    case showAlbums
+//    case showPlaylists
     
     case showProgressIndicator
     case hideProgressIndicator
@@ -73,6 +83,7 @@ enum SystemAction: RxActionType {
 enum PlayerAction: RxActionType, Equatable {
     case setQueueSource(QueueSource)
     case loadRadioStations
+    case loadFavorites
     case initializeQueueFromSource
     case pause
     case resume
