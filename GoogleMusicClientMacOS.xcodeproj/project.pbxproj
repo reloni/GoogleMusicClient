@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6E013D2F21E35AAE00BC6F61 /* GoogleMusicClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94666921C282D300126BB7 /* GoogleMusicClientTests.swift */; };
-		6E13220E21FE424F008E2AC2 /* HighlightOnHoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E13220D21FE424F008E2AC2 /* HighlightOnHoverView.swift */; };
+		6E13220E21FE424F008E2AC2 /* SelectableNSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E13220D21FE424F008E2AC2 /* SelectableNSView.swift */; };
 		6E1E6DF721D277E500937756 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1E6DF621D277E500937756 /* Player.swift */; };
 		6E31EC3321C7DBA5009B9742 /* ApplicationTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */; };
 		6E31EC3521C7E1C5009B9742 /* LeftMenuController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E31EC3421C7E1C5009B9742 /* LeftMenuController.storyboard */; };
@@ -95,7 +95,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6E13220D21FE424F008E2AC2 /* HighlightOnHoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightOnHoverView.swift; sourceTree = "<group>"; };
+		6E13220D21FE424F008E2AC2 /* SelectableNSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableNSView.swift; sourceTree = "<group>"; };
 		6E1E6DF621D277E500937756 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		6E31EC3221C7DBA5009B9742 /* ApplicationTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationTableView.swift; sourceTree = "<group>"; };
 		6E31EC3421C7E1C5009B9742 /* LeftMenuController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LeftMenuController.storyboard; sourceTree = "<group>"; };
@@ -187,7 +187,7 @@
 				6E7F608A21C9128700C1D30C /* LeftHighlightTableRowView.swift */,
 				6EA34DB121F09B7F00E9588C /* ApplicationSlider.swift */,
 				6E8FB9B821FE23A000952770 /* ViewWithTrackingArea.swift */,
-				6E13220D21FE424F008E2AC2 /* HighlightOnHoverView.swift */,
+				6E13220D21FE424F008E2AC2 /* SelectableNSView.swift */,
 				6E7D890D2204CAA100C44E91 /* VerticallyCenteredTextField.swift */,
 				6E7D890F2204CAD600C44E91 /* ThreeLabelsView.swift */,
 				6E7D89112204CB3A00C44E91 /* ThreeLabelsCollectionViewItem.swift */,
@@ -533,7 +533,7 @@
 				6E31EC3321C7DBA5009B9742 /* ApplicationTableView.swift in Sources */,
 				6E7D891B2204D60F00C44E91 /* Functions.swift in Sources */,
 				6E7D891A2204D60F00C44E91 /* Operators.swift in Sources */,
-				6E13220E21FE424F008E2AC2 /* HighlightOnHoverView.swift in Sources */,
+				6E13220E21FE424F008E2AC2 /* SelectableNSView.swift in Sources */,
 				6E38A75221C2988C00983339 /* LogInController.swift in Sources */,
 				6E7F608B21C9128700C1D30C /* LeftHighlightTableRowView.swift in Sources */,
 				6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */,

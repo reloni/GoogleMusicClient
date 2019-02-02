@@ -14,6 +14,8 @@ import RxDataFlow
 final class FavoritesController: NSViewController {
     let collectionView = NSCollectionView().configure { view in
         view.backgroundColors = [.clear]
+        view.allowsMultipleSelection = false
+        view.isSelectable = true
         view.collectionViewLayout = NSCollectionViewFlowLayout().configure {
             $0.minimumLineSpacing = 0
             $0.scrollDirection = .vertical
@@ -56,7 +58,9 @@ final class FavoritesController: NSViewController {
             default: return false
             }
             }.observeOn(MainScheduler.instance)
-            .do(onNext: { [weak self] _ in self?.collectionView.reloadSections(IndexSet(integer: 0)) })
+            .do(onNext: { [weak self] _ in
+                self?.collectionView.reloadSections(IndexSet(integer: 0))
+            })
             .subscribe()
             .disposed(by: bag)
         

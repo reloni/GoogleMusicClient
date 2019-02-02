@@ -8,17 +8,28 @@
 
 import Cocoa
 
-protocol HoverView {
+protocol SelectableView {
     var isHovered: Bool { get set }
+    var isSelected: Bool { get set }
     func drawHoverBackground(_ rect: NSRect)
 }
 
-extension HoverView {
+extension SelectableView {
     func drawHoverBackground(_ rect: NSRect) {
-        guard isHovered else { return }
+        guard isHovered || isSelected else { return }
         
-        let color = NSColor.selectedContentBackgroundColor.withAlphaComponent(0.25)
+        let color: NSColor = {
+            if isSelected {
+                return NSColor.selectedContentBackgroundColor
+            } else {
+                return NSColor.selectedContentBackgroundColor.withAlphaComponent(0.25)
+            }
+        }()
         
+        draw(color, in: rect)
+    }
+    
+    func draw(_ color: NSColor, in rect: NSRect) {
         color.setStroke()
         color.setFill()
         
@@ -28,8 +39,17 @@ extension HoverView {
     }
 }
 
-final class HighlightOnHoverView: NSView, HoverView {
-    var isHovered = false
+final class SelectableNSView: NSView, SelectableView {
+    var isHovered = false {
+        didSet {
+            setNeedsDisplay(bounds)
+        }
+    }
+    var isSelected = false {
+        didSet {
+            setNeedsDisplay(bounds)
+        }
+    }
     
     override var trackingAreaOptions: NSTrackingArea.Options {
         get { return [NSTrackingArea.Options.activeInActiveApp, NSTrackingArea.Options.mouseEnteredAndExited] }
@@ -47,12 +67,10 @@ final class HighlightOnHoverView: NSView, HoverView {
     
     override func mouseExited(with event: NSEvent) {
         isHovered = false
-        setNeedsDisplay(bounds)
     }
     
     override func mouseEntered(with event: NSEvent) {
         isHovered = true
-        setNeedsDisplay(bounds)
     }
     
     override func draw(_ dirtyRect: NSRect) {
@@ -61,7 +79,7 @@ final class HighlightOnHoverView: NSView, HoverView {
 }
 
 
-final class HighlightOnHoverTableRowView: NSTableRowView, HoverView {
+final class HighlightOnHoverTableRowView: NSTableRowView, SelectableView {
     var isHovered = false
     
     override var trackingAreaOptions: NSTrackingArea.Options {
