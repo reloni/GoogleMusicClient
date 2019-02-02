@@ -64,6 +64,12 @@ final class FavoritesController: NSViewController {
             .subscribe()
             .disposed(by: bag)
         
+        Current.currentTrack
+            .filter { $0?.source.isFavorites == true }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in self?.updateCollectionView(selectedIndex: $0?.index) })
+            .disposed(by: bag)
+        
         if favorites.count == 0 {
             let action = RxCompositeAction(UIAction.showProgressIndicator,
                                            PlayerAction.loadFavorites,
@@ -71,8 +77,21 @@ final class FavoritesController: NSViewController {
                                            fallbackAction: UIAction.hideProgressIndicator)
             Current.dispatch(action)
         }
-    
         
+        if Current.currentState.state.queueSource?.isFavorites != true {
+            collectionView.deselectAll(self)
+        }
+    }
+    
+    func updateCollectionView(selectedIndex: Int?) {
+        guard let index = selectedIndex else {
+            collectionView.deselectAll(self)
+            return
+        }
+        
+        collectionView.deselectAll(self)
+        collectionView.selectItems(at: Set([IndexPath(item: index, section: 0)]),
+                                   scrollPosition: NSCollectionView.ScrollPosition.bottom)
     }
     
     override func viewWillLayout() {
@@ -92,6 +111,18 @@ extension FavoritesController: NSCollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> NSSize {
         return NSSize(width: collectionView.bounds.width, height: 30)
+    }
+}
+
+extension FavoritesController: NSCollectionViewDelegate {
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        guard let index = indexPaths.first?.item else { return }
+        if Current.currentState.state.queueSource?.isFavorites == true {
+            Current.dispatch(PlayerAction.playAtIndex(index))
+        } else {
+            Current.dispatch(CompositeActions.play(tracks: favorites, startIndex: index))
+        }
+    
     }
 }
 

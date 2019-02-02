@@ -57,6 +57,7 @@ private func initializeQueueFromSource(currentState: AppState, client: GMusicCli
     guard let source = currentState.queueSource else { return RxReduceResult.single { $0 } }
     switch source {
     case .radio(let r): return loadRadioStationFeed(r, currentState: currentState, client: client)
+    case .list(let l): return RxReduceResult.single({ $0.mutate(\.queue, Queue(items: l)) })
     }
 }
 
@@ -73,7 +74,7 @@ private func loadRadioStations(client: GMusicClient) -> RxReduceResult<AppState>
 }
 
 private func loadFavorites(client: GMusicClient) -> RxReduceResult<AppState> {
-    let request = client.favorites(maxResults: 100, recursive: true)
+    let request = client.favorites(maxResults: 10000, recursive: true)
         .map { $0.items }
         .reduce([GMusicTrack](), accumulator: { $0 + $1 })
     return RxReduceResult.create(from: request, transform: { $0.mutate(\AppState.favorites, $1) })

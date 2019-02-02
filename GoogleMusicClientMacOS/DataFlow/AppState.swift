@@ -11,6 +11,14 @@ import RxGoogleMusic
 
 enum QueueSource: Equatable {
     case radio(GMusicRadioStation)
+    case list([GMusicTrack])
+    
+    var isFavorites: Bool {
+        if case .list = self {
+            return true
+        }
+        return false
+    }
 }
 
 struct AppState: RxStateType {
@@ -62,8 +70,8 @@ extension AppState {
     
     var hasGmusicToken: Bool { return keychain.accessToken != nil }
     
-    var currentTrack: (track: GMusicTrack, index: Int)? {
-        guard let t = queue.current, let i = queue.currentElementIndex else { return nil }
-        return (t, i)
+    var currentTrack: (track: GMusicTrack, index: Int, source: QueueSource)? {
+        guard let t = queue.current, let i = queue.currentElementIndex, let s = queueSource else { return nil }
+        return (t, i, s)
     }
 }

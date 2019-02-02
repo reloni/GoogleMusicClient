@@ -32,6 +32,15 @@ struct CompositeActions {
                                  fallbackAction: UIAction.hideProgressIndicator)
     }
     
+    static func play(tracks: [GMusicTrack], startIndex: Int) -> RxCompositeAction {
+        return RxCompositeAction(UIAction.showProgressIndicator,
+                                 PlayerAction.setQueueSource(.list(tracks)),
+                                 PlayerAction.initializeQueueFromSource,
+                                 PlayerAction.playAtIndex(startIndex),
+                                 UIAction.hideProgressIndicator,
+                                 fallbackAction: UIAction.hideProgressIndicator)
+    }
+    
     static func repeatFromQueueSource() -> RxCompositeAction {
         return RxCompositeAction(UIAction.showProgressIndicator,
                                  PlayerAction.initializeQueueFromSource,
