@@ -21,7 +21,7 @@ final class FavoritesController: NSViewController {
             $0.scrollDirection = .vertical
         }
         view.registerItem(forClass: ThreeLabelsCollectionViewItem.self)
-        view.registerHeader(forClass: ThreeLabelsView.self)
+        view.registerHeader(forClass: MusicTrackView.self)
     }
     
     lazy var scrollView = NSScrollView().configure { $0.documentView = self.collectionView }
@@ -137,11 +137,12 @@ extension FavoritesController: NSCollectionViewDataSource {
 
     func collectionView(_ collectionView: NSCollectionView, viewForSupplementaryElementOfKind kind: NSCollectionView.SupplementaryElementKind, at indexPath: IndexPath) -> NSView {
         if kind == NSCollectionView.elementKindSectionHeader {
-            let view: ThreeLabelsView = collectionView.makeHeader(for: indexPath)
+            let view: MusicTrackView = collectionView.makeHeader(for: indexPath)
             return view.configure {
-                $0.first.textField.stringValue = "Title"
-                $0.second.textField.stringValue = "Album"
-                $0.third.textField.stringValue = "Artist"
+                $0.title.textField.stringValue = "Title"
+                $0.album.textField.stringValue = "Album"
+                $0.artist.textField.stringValue = "Artist"
+                $0.duration.textField.stringValue = "Duration"
             }
         }
         
@@ -152,9 +153,10 @@ extension FavoritesController: NSCollectionViewDataSource {
         let item: ThreeLabelsCollectionViewItem = collectionView.makeItem(for: indexPath)
         let track = favorites[indexPath.item]
         
-        item.musicTrackView.first.textField.stringValue = track.title
-        item.musicTrackView.second.textField.stringValue = track.album
-        item.musicTrackView.third.textField.stringValue = track.artist
+        item.musicTrackView.title.textField.stringValue = track.title
+        item.musicTrackView.album.textField.stringValue = track.album
+        item.musicTrackView.artist.textField.stringValue = track.artist
+        item.musicTrackView.duration.textField.stringValue = track.duration.timeString ?? "--:--"
         
         return item
     }

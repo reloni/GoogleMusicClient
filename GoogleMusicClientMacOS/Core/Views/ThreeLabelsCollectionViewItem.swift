@@ -9,7 +9,7 @@
 import Cocoa
 
 class ThreeLabelsCollectionViewItem: NSCollectionViewItem {
-    let musicTrackView = ThreeLabelsView()
+    let musicTrackView = MusicTrackView()
     
     override var isSelected: Bool {
         didSet {

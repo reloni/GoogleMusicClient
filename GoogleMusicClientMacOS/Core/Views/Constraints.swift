@@ -32,6 +32,16 @@ extension NSView {
     var lt: Layout { return Layout(target: self) }
 }
 
+extension Layout.Anchor {
+    @discardableResult func equal(to constant: CGFloat) -> NSLayoutConstraint {
+        return makeConstraint(self, equalToConstant: constant)
+    }
+    
+    @discardableResult func equal(to other: Layout.Anchor, constant: CGFloat = 0.0, multiplier: CGFloat = 1.0) -> NSLayoutConstraint {
+        return makeConstraint(self, other, constant: constant, multiplier: multiplier)
+    }
+}
+
 extension Layout {
     var leading: Layout.Anchor {
         return Layout.Anchor(target: Layout.Anchor.AnchorType.xAxis(target.leadingAnchor), owner: target)
@@ -104,21 +114,31 @@ extension Layout {
     @discardableResult func centerY(to other: Layout.Anchor, constant: CGFloat = 0.0) -> NSLayoutConstraint {
         return makeConstraint(centerY, other, constant: constant)
     }
-    
-    private func makeConstraint(_ lhs: Layout.Anchor, _ rhs: Layout.Anchor, constant: CGFloat, multiplier: CGFloat = 1.0) -> NSLayoutConstraint {
-        lhs.owner.translatesAutoresizingMaskIntoConstraints = false
-        rhs.owner.translatesAutoresizingMaskIntoConstraints = false
-        let constraint: NSLayoutConstraint = {
-            switch (lhs.target, rhs.target) {
-            case let (.xAxis(l), .xAxis(r)): return l.constraint(equalTo: r, constant: constant)
-            case let (.yAxis(l), .yAxis(r)): return l.constraint(equalTo: r, constant: constant)
-            case let (.dimension(l), .dimension(r)): return l.constraint(equalTo: r, multiplier: multiplier, constant: constant)
-            default: fatalError()
-            }
-        }()
-        constraint.isActive = true
-        return constraint
-    }
 }
 
+private func makeConstraint(_ lhs: Layout.Anchor, _ rhs: Layout.Anchor, constant: CGFloat, multiplier: CGFloat = 1.0) -> NSLayoutConstraint {
+    lhs.owner.translatesAutoresizingMaskIntoConstraints = false
+    rhs.owner.translatesAutoresizingMaskIntoConstraints = false
+    let constraint: NSLayoutConstraint = {
+        switch (lhs.target, rhs.target) {
+        case let (.xAxis(l), .xAxis(r)): return l.constraint(equalTo: r, constant: constant)
+        case let (.yAxis(l), .yAxis(r)): return l.constraint(equalTo: r, constant: constant)
+        case let (.dimension(l), .dimension(r)): return l.constraint(equalTo: r, multiplier: multiplier, constant: constant)
+        default: fatalError()
+        }
+    }()
+    constraint.isActive = true
+    return constraint
+}
 
+private func makeConstraint(_ anchor: Layout.Anchor, equalToConstant constant: CGFloat) -> NSLayoutConstraint {
+    anchor.owner.translatesAutoresizingMaskIntoConstraints = false
+    let constraint: NSLayoutConstraint = {
+        switch anchor.target {
+        case .dimension(let t): return t.constraint(equalToConstant: constant)
+        default: fatalError()
+        }
+    }()
+    constraint.isActive = true
+    return constraint
+}
