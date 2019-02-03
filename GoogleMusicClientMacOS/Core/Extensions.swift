@@ -63,6 +63,11 @@ extension Int {
     }
 }
 
+extension NSColor {
+    static var textColor: NSColor { return NSColor.init(named: "TextColor")! }
+    static var selectedItemTextColor: NSColor { return NSColor.init(named: "SelectedItemTextColor")! }
+}
+
 extension NSImage {
     static var pause: NSImage { return NSImage(imageLiteralResourceName: "Pause") }
     static var play: NSImage { return NSImage(imageLiteralResourceName: "Play") }

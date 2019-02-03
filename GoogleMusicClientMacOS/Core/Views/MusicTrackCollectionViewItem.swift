@@ -14,6 +14,11 @@ class MusicTrackCollectionViewItem: NSCollectionViewItem {
     override var isSelected: Bool {
         didSet {
             (view as? SelectableNSView)?.isSelected = isSelected
+            if isSelected {
+                musicTrackView.labelsColor = NSColor.selectedItemTextColor
+            } else {
+                musicTrackView.labelsColor = NSColor.textColor
+            }
         }
     }
     

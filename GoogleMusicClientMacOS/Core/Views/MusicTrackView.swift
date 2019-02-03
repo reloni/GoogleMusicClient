@@ -14,6 +14,17 @@ final class MusicTrackView: NSView {
     let artist = VerticallyCenteredTextField()
     let duration = VerticallyCenteredTextField()
     
+    private lazy var textFields: [VerticallyCenteredTextField] = {
+       return [title, album, artist, duration]
+    }()
+    
+    var labelsColor = NSColor.textColor {
+        didSet {
+            textFields.forEach { $0.textField.textColor = labelsColor
+            }
+        }
+    }
+    
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         addSubview(title)
