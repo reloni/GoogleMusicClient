@@ -47,7 +47,6 @@
 		6E7F608D21C9278400C1D30C /* RadioListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F608C21C9278400C1D30C /* RadioListController.swift */; };
 		6E7F608F21C9279500C1D30C /* RadioListController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E7F608E21C9279500C1D30C /* RadioListController.storyboard */; };
 		6E8496DA21D6365B00210F36 /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8496D921D6365B00210F36 /* QueueController.swift */; };
-		6E8496DE21D6370A00210F36 /* QueueController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E8496DD21D6370A00210F36 /* QueueController.storyboard */; };
 		6E8FB9B921FE23A000952770 /* ViewWithTrackingArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8FB9B821FE23A000952770 /* ViewWithTrackingArea.swift */; };
 		6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94665621C282D200126BB7 /* AppDelegate.swift */; };
 		6E94665B21C282D200126BB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E94665A21C282D200126BB7 /* Assets.xcassets */; };
@@ -131,7 +130,6 @@
 		6E7F608C21C9278400C1D30C /* RadioListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioListController.swift; sourceTree = "<group>"; };
 		6E7F608E21C9279500C1D30C /* RadioListController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RadioListController.storyboard; sourceTree = "<group>"; };
 		6E8496D921D6365B00210F36 /* QueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueController.swift; sourceTree = "<group>"; };
-		6E8496DD21D6370A00210F36 /* QueueController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = QueueController.storyboard; sourceTree = "<group>"; };
 		6E8FB9B821FE23A000952770 /* ViewWithTrackingArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithTrackingArea.swift; sourceTree = "<group>"; };
 		6E94665321C282D200126BB7 /* Google Music Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Google Music Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E94665621C282D200126BB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -298,7 +296,6 @@
 			isa = PBXGroup;
 			children = (
 				6E8496D921D6365B00210F36 /* QueueController.swift */,
-				6E8496DD21D6370A00210F36 /* QueueController.storyboard */,
 			);
 			path = Queue;
 			sourceTree = "<group>";
@@ -495,7 +492,6 @@
 				6E7F608F21C9279500C1D30C /* RadioListController.storyboard in Resources */,
 				6E38A74E21C2943000983339 /* MainWindowController.storyboard in Resources */,
 				6E7E4E3B21F38E530097E727 /* ErrorController.storyboard in Resources */,
-				6E8496DE21D6370A00210F36 /* QueueController.storyboard in Resources */,
 				6EA9BF3321EA455E00A2551D /* SystemController.storyboard in Resources */,
 				6E38A76321C2A68200983339 /* MainController.storyboard in Resources */,
 				6EFDC5A221CA231D00E93699 /* PlayerController.storyboard in Resources */,

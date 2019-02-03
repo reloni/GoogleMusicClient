@@ -67,7 +67,7 @@ final class FavoritesController: NSViewController {
         Current.currentTrack
             .filter { $0?.source.isFavorites == true }
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] in self?.updateCollectionView(selectedIndex: $0?.index) })
+            .subscribe(onNext: { [weak collectionView] in collectionView?.selectItem(index: $0?.index) })
             .disposed(by: bag)
         
         if favorites.count == 0 {
@@ -81,17 +81,6 @@ final class FavoritesController: NSViewController {
         if Current.currentState.state.queueSource?.isFavorites != true {
             collectionView.deselectAll(self)
         }
-    }
-    
-    func updateCollectionView(selectedIndex: Int?) {
-        guard let index = selectedIndex else {
-            collectionView.deselectAll(self)
-            return
-        }
-        
-        collectionView.deselectAll(self)
-        collectionView.selectItems(at: Set([IndexPath(item: index, section: 0)]),
-                                   scrollPosition: NSCollectionView.ScrollPosition.left)
     }
     
     override func viewWillLayout() {

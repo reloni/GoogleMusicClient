@@ -24,7 +24,7 @@ final class MainController: NSViewController {
     
     func showQueuePopover(for view: NSView) {
         let popover = NSPopover()
-        popover.contentViewController = QueueController2()
+        popover.contentViewController = QueueController()
         popover.behavior = .semitransient
         popover.animates = true
         
