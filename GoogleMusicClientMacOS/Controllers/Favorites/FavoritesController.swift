@@ -91,7 +91,7 @@ final class FavoritesController: NSViewController {
         
         collectionView.deselectAll(self)
         collectionView.selectItems(at: Set([IndexPath(item: index, section: 0)]),
-                                   scrollPosition: NSCollectionView.ScrollPosition.bottom)
+                                   scrollPosition: NSCollectionView.ScrollPosition.left)
     }
     
     override func viewWillLayout() {
