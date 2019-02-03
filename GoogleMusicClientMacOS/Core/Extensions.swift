@@ -108,4 +108,15 @@ extension NSCollectionView {
     func makeHeader<T>(for path: IndexPath) -> T {
         return makeSupplementaryView(for: path, kind: NSCollectionView.elementKindSectionHeader)
     }
+    
+    func selectItem(index selectedIndex: Int?) {
+        guard let index = selectedIndex else {
+            deselectAll(self)
+            return
+        }
+        
+        deselectAll(self)
+        selectItems(at: Set([IndexPath(item: index, section: 0)]),
+                                   scrollPosition: NSCollectionView.ScrollPosition.left)
+    }
 }

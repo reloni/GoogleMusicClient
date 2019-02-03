@@ -26,7 +26,8 @@ func baseLabel() -> (NSTextField) -> NSTextField {
     return { label in
         label.isEditable = false
         label.isBezeled = false
-        label.drawsBackground = false
+        label.drawsBackground = true
+        label.backgroundColor = NSColor.clear
         label.usesSingleLineMode = true
         label.lineBreakMode = NSLineBreakMode.byTruncatingTail
         return label
