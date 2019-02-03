@@ -16,9 +16,9 @@ final class VerticallyCenteredTextField: NSView {
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         addSubview(textField)
-        textField.lt.leading(to: lt.leading)
-        textField.lt.trailing(to: lt.trailing)
-        textField.lt.centerY(to: lt.centerY)
+        textField.lt.leading.equal(to: lt.leading)
+        textField.lt.trailing.equal(to: lt.trailing)
+        textField.lt.centerY.equal(to: lt.centerY)
     }
     
     required init?(coder decoder: NSCoder) {

@@ -28,25 +28,25 @@ final class MusicTrackView: NSView {
     }
     
     func setupConstraints() {
-        title.lt.top(to: lt.top)
-        title.lt.leading(to: lt.leading, constant: 10)
-        title.lt.bottom(to: lt.bottom)
-        title.lt.trailing(to: artist.lt.leading, constant: -10)
+        title.lt.top.equal(to: lt.top)
+        title.lt.leading.equal(to: lt.leading, constant: 10)
+        title.lt.bottom.equal(to: lt.bottom)
+        title.lt.trailing.equal(to: artist.lt.leading, constant: -10)
         
-        artist.lt.top(to: title.lt.top)
-        artist.lt.bottom(to: title.lt.bottom)
-        artist.lt.trailing(to: album.lt.leading, constant: -10)
+        artist.lt.top.equal(to: title.lt.top)
+        artist.lt.bottom.equal(to: title.lt.bottom)
+        artist.lt.trailing.equal(to: album.lt.leading, constant: -10)
         
-        album.lt.top(to: title.lt.top)
-        album.lt.bottom(to: title.lt.bottom)
-        album.lt.trailing(to: duration.lt.leading, constant: -10)
+        album.lt.top.equal(to: title.lt.top)
+        album.lt.bottom.equal(to: title.lt.bottom)
+        album.lt.trailing.equal(to: duration.lt.leading, constant: -10)
         
-        duration.lt.top(to: title.lt.top)
-        duration.lt.bottom(to: title.lt.bottom)
-        duration.lt.trailing(to: lt.trailing, constant: -10)
+        duration.lt.top.equal(to: title.lt.top)
+        duration.lt.bottom.equal(to: title.lt.bottom)
+        duration.lt.trailing.equal(to: lt.trailing, constant: -10)
         
-        title.lt.width(to: lt.width, constant: 0, multiplier: 0.5)
-        artist.lt.width(to: album.lt.width)
+        title.lt.width.equal(to: lt.width, constant: 0, multiplier: 0.5)
+        artist.lt.width.equal(to: album.lt.width)
         duration.lt.width.equal(to: 60)
     }
 }

@@ -76,43 +76,11 @@ extension Layout {
     }
     
     @discardableResult func edges(to other: NSView, constant: CGFloat = 0.0) -> [NSLayoutConstraint] {
-        return [top(to: other.lt.top, constant: constant),
-                leading(to: other.lt.leading, constant: constant),
-                trailing(to: other.lt.trailing, constant: constant),
-                bottom(to: other.lt.bottom, constant: constant)
+        return [target.lt.top.equal(to: other.lt.top, constant: constant),
+                target.lt.leading.equal(to: other.lt.leading, constant: constant),
+                target.lt.trailing.equal(to: other.lt.trailing, constant: constant),
+                target.lt.bottom.equal(to: other.lt.bottom, constant: constant)
         ]
-    }
-    
-    @discardableResult func leading(to other: Layout.Anchor, constant: CGFloat = 0.0) -> NSLayoutConstraint {
-        return makeConstraint(leading, other, constant: constant)
-    }
-    
-    @discardableResult func trailing(to other: Layout.Anchor, constant: CGFloat = 0.0) -> NSLayoutConstraint {
-        return makeConstraint(trailing, other, constant: constant)
-    }
-    
-    @discardableResult func top(to other: Layout.Anchor, constant: CGFloat = 0.0) -> NSLayoutConstraint {
-        return makeConstraint(top, other, constant: constant)
-    }
-    
-    @discardableResult func bottom(to other: Layout.Anchor, constant: CGFloat = 0.0) -> NSLayoutConstraint {
-        return makeConstraint(bottom, other, constant: constant)
-    }
-    
-    @discardableResult func height(to other: Layout.Anchor, constant: CGFloat = 0.0, multiplier: CGFloat = 1.0) -> NSLayoutConstraint {
-        return makeConstraint(height, other, constant: constant, multiplier: multiplier)
-    }
-    
-    @discardableResult func width(to other: Layout.Anchor, constant: CGFloat = 0.0, multiplier: CGFloat = 1.0) -> NSLayoutConstraint {
-        return makeConstraint(width, other, constant: constant, multiplier: multiplier)
-    }
-    
-    @discardableResult func centerX(to other: Layout.Anchor, constant: CGFloat = 0.0) -> NSLayoutConstraint {
-        return makeConstraint(centerX, other, constant: constant)
-    }
-    
-    @discardableResult func centerY(to other: Layout.Anchor, constant: CGFloat = 0.0) -> NSLayoutConstraint {
-        return makeConstraint(centerY, other, constant: constant)
     }
 }
 
