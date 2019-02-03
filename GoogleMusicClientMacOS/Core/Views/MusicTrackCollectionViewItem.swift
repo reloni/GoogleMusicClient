@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ThreeLabelsCollectionViewItem: NSCollectionViewItem {
+class MusicTrackCollectionViewItem: NSCollectionViewItem {
     let musicTrackView = MusicTrackView()
     
     override var isSelected: Bool {
@@ -24,8 +24,6 @@ class ThreeLabelsCollectionViewItem: NSCollectionViewItem {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
     
     override func loadView() {
         view = SelectableNSView()

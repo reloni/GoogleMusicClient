@@ -40,3 +40,42 @@ func font(_ font: ApplicationFont) -> (NSTextField) -> NSTextField {
         return label
     }
 }
+
+let singleColumnCollectionViewLayout = NSCollectionViewFlowLayout().configure {
+    $0.minimumLineSpacing = 0
+    $0.scrollDirection = .vertical
+}
+
+func baseCollectionView() -> (NSCollectionView) -> NSCollectionView {
+    return { collection in
+        collection.backgroundColors = [.clear]
+        collection.allowsMultipleSelection = false
+        collection.isSelectable = true
+        return collection
+    }
+}
+
+func layout(_ value: NSCollectionViewLayout) -> (NSCollectionView) -> NSCollectionView {
+    return { $0.collectionViewLayout = value; return $0 }
+}
+
+func register(item: AnyClass) -> (NSCollectionView) -> NSCollectionView {
+    return { collection in
+        collection.registerItem(forClass: item)
+        return collection
+    }
+}
+
+func register(items: AnyClass...) -> (NSCollectionView) -> NSCollectionView {
+    return { collection in
+        items.forEach { collection.registerItem(forClass: $0) }
+        return collection
+    }
+}
+
+func register(header: AnyClass) -> (NSCollectionView) -> NSCollectionView {
+    return { collection in
+        collection.registerHeader(forClass: header)
+        return collection
+    }
+}

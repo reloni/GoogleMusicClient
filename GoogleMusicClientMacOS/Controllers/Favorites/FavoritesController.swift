@@ -12,17 +12,11 @@ import RxGoogleMusic
 import RxDataFlow
 
 final class FavoritesController: NSViewController {
-    let collectionView = NSCollectionView().configure { view in
-        view.backgroundColors = [.clear]
-        view.allowsMultipleSelection = false
-        view.isSelectable = true
-        view.collectionViewLayout = NSCollectionViewFlowLayout().configure {
-            $0.minimumLineSpacing = 0
-            $0.scrollDirection = .vertical
-        }
-        view.registerItem(forClass: ThreeLabelsCollectionViewItem.self)
-        view.registerHeader(forClass: MusicTrackView.self)
-    }
+    let collectionView = NSCollectionView()
+        |> baseCollectionView()
+        |> layout(singleColumnCollectionViewLayout)
+        |> register(item: MusicTrackCollectionViewItem.self)
+        |> register(header: MusicTrackView.self)
     
     lazy var scrollView = NSScrollView().configure { $0.documentView = self.collectionView }
     
@@ -139,7 +133,7 @@ extension FavoritesController: NSCollectionViewDataSource {
     }
     
     func collectionView(_ itemForRepresentedObjectAtcollectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        let item: ThreeLabelsCollectionViewItem = collectionView.makeItem(for: indexPath)
+        let item: MusicTrackCollectionViewItem = collectionView.makeItem(for: indexPath)
         let track = favorites[indexPath.item]
         
         item.musicTrackView.title.textField.stringValue = track.title

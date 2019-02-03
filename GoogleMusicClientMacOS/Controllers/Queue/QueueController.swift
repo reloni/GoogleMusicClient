@@ -11,17 +11,11 @@ import RxGoogleMusic
 import RxSwift
 
 final class QueueController: NSViewController {
-    let collectionView = NSCollectionView().configure { view in
-        view.backgroundColors = [.clear]
-        view.allowsMultipleSelection = false
-        view.isSelectable = true
-        view.collectionViewLayout = NSCollectionViewFlowLayout().configure {
-            $0.minimumLineSpacing = 0
-            $0.scrollDirection = .vertical
-        }
-        view.registerItem(forClass: ThreeLabelsCollectionViewItem.self)
-        view.registerHeader(forClass: MusicTrackView.self)
-    }
+    let collectionView = NSCollectionView()
+        |> baseCollectionView()
+        |> layout(singleColumnCollectionViewLayout)
+        |> register(item: MusicTrackCollectionViewItem.self)
+        |> register(header: MusicTrackView.self)
     
     lazy var scrollView = NSScrollView().configure { $0.documentView = self.collectionView }
     
@@ -119,7 +113,7 @@ extension QueueController: NSCollectionViewDataSource {
     }
     
     func collectionView(_ itemForRepresentedObjectAtcollectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        let item: ThreeLabelsCollectionViewItem = collectionView.makeItem(for: indexPath)
+        let item: MusicTrackCollectionViewItem = collectionView.makeItem(for: indexPath)
         let track = queue[indexPath.item]
         
         item.musicTrackView.title.textField.stringValue = track.title
