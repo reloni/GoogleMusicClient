@@ -45,7 +45,6 @@
 		6E7F608921C8F71B00C1D30C /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F608821C8F71B00C1D30C /* Constraints.swift */; };
 		6E7F608B21C9128700C1D30C /* LeftHighlightTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F608A21C9128700C1D30C /* LeftHighlightTableRowView.swift */; };
 		6E7F608D21C9278400C1D30C /* RadioListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F608C21C9278400C1D30C /* RadioListController.swift */; };
-		6E7F608F21C9279500C1D30C /* RadioListController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E7F608E21C9279500C1D30C /* RadioListController.storyboard */; };
 		6E8496DA21D6365B00210F36 /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8496D921D6365B00210F36 /* QueueController.swift */; };
 		6E8FB9B921FE23A000952770 /* ViewWithTrackingArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8FB9B821FE23A000952770 /* ViewWithTrackingArea.swift */; };
 		6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94665621C282D200126BB7 /* AppDelegate.swift */; };
@@ -128,7 +127,6 @@
 		6E7F608821C8F71B00C1D30C /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		6E7F608A21C9128700C1D30C /* LeftHighlightTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftHighlightTableRowView.swift; sourceTree = "<group>"; };
 		6E7F608C21C9278400C1D30C /* RadioListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioListController.swift; sourceTree = "<group>"; };
-		6E7F608E21C9279500C1D30C /* RadioListController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RadioListController.storyboard; sourceTree = "<group>"; };
 		6E8496D921D6365B00210F36 /* QueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueController.swift; sourceTree = "<group>"; };
 		6E8FB9B821FE23A000952770 /* ViewWithTrackingArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithTrackingArea.swift; sourceTree = "<group>"; };
 		6E94665321C282D200126BB7 /* Google Music Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Google Music Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -386,7 +384,6 @@
 			isa = PBXGroup;
 			children = (
 				6E7F608C21C9278400C1D30C /* RadioListController.swift */,
-				6E7F608E21C9279500C1D30C /* RadioListController.storyboard */,
 			);
 			path = RadioList;
 			sourceTree = "<group>";
@@ -489,7 +486,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E7F608F21C9279500C1D30C /* RadioListController.storyboard in Resources */,
 				6E38A74E21C2943000983339 /* MainWindowController.storyboard in Resources */,
 				6E7E4E3B21F38E530097E727 /* ErrorController.storyboard in Resources */,
 				6EA9BF3321EA455E00A2551D /* SystemController.storyboard in Resources */,

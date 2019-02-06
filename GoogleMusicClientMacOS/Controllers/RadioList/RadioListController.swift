@@ -12,7 +12,13 @@ import RxSwift
 import RxDataFlow
 
 final class RadioListController: NSViewController {
-    @IBOutlet weak var tableView: ApplicationTableView!
+    let collectionView = NSCollectionView()
+        |> baseCollectionView()
+        |> layout(singleColumnCollectionViewLayout)
+        |> register(item: TextFieldCollectionViewItem.self)
+        |> register(header: VerticallyCenteredTextField.self)
+    
+    lazy var scrollView = NSScrollView().configure { $0.documentView = self.collectionView }
     
     var client: GMusicClient {
         return Current.currentState.state.client!
@@ -24,30 +30,25 @@ final class RadioListController: NSViewController {
         return Current.currentState.state.radioStations
     }
     
+    override func loadView() {
+        view = NSView()
+        view.addSubview(scrollView)
+        scrollView.lt.edges(to: view)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.backgroundColor = NSColor.clear
-        tableView.allowsColumnSelection = false
-        tableView.columnAutoresizingStyle = .uniformColumnAutoresizingStyle
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        tableView.didClickRow = { [weak self] index in
-            guard let self = self else { return }
-            guard 0..<self.stations.count ~= self.tableView.selectedRow else { return }
-            let station = self.stations[self.tableView.selectedRow]
-            Current.dispatch(CompositeActions.play(station: station))
-        }
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         Current.state.filter { state in
             switch state.setBy {
             case PlayerAction.loadRadioStations: return true
             default: return false
             }
-        }.observeOn(MainScheduler.instance)
-            .do(onNext: { [weak self] _ in self?.tableView.reloadData() })
+            }.observeOn(MainScheduler.instance)
+            .do(onNext: { [weak self] _ in self?.collectionView.reloadSections(IndexSet(integer: 0)) })
             .subscribe()
             .disposed(by: bag)
         
@@ -60,26 +61,61 @@ final class RadioListController: NSViewController {
         }
     }
     
+    override func viewWillLayout() {
+        super.viewWillLayout()
+        collectionView.collectionViewLayout?.invalidateLayout()
+    }
+    
     
     deinit {
         print("RadioListController deinit")
     }
 }
 
-extension RadioListController: NSTableViewDataSource {
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return stations.count
+extension RadioListController: NSCollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+        return NSSize(width: collectionView.bounds.width, height: 40)
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> NSSize {
+        return NSSize(width: collectionView.bounds.width, height: 30)
     }
 }
 
-extension RadioListController: NSTableViewDelegate {
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Cell"), owner: self) as! NSTableCellView
-        cell.textField?.stringValue = stations[row].name
-        return cell
+extension RadioListController: NSCollectionViewDelegate {
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        guard let index = indexPaths.first?.item else { return }
+        let station = stations[index]
+        Current.dispatch(CompositeActions.play(station: station))
+    }
+}
+
+extension RadioListController: NSCollectionViewDataSource {
+    func numberOfSections(in collectionView: NSCollectionView) -> Int {
+        return 1
     }
     
-    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return HighlightOnHoverTableRowView()
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        return stations.count
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, viewForSupplementaryElementOfKind kind: NSCollectionView.SupplementaryElementKind, at indexPath: IndexPath) -> NSView {
+        if kind == NSCollectionView.elementKindSectionHeader {
+            let view: VerticallyCenteredTextField = collectionView.makeHeader(for: indexPath)
+            return view.configure {
+                $0.textField.stringValue = "Name"
+            }
+        }
+        
+        return NSView()
+    }
+    
+    func collectionView(_ itemForRepresentedObjectAtcollectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+        let item: TextFieldCollectionViewItem = collectionView.makeItem(for: indexPath)
+        let station = stations[indexPath.item]
+        
+        item.itemTextField.textField.stringValue = station.name
+        
+        return item
     }
 }

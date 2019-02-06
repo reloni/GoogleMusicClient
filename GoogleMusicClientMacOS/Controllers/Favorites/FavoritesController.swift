@@ -105,7 +105,6 @@ extension FavoritesController: NSCollectionViewDelegate {
         } else {
             Current.dispatch(CompositeActions.play(tracks: favorites, startIndex: index))
         }
-    
     }
 }
 
