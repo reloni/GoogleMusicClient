@@ -59,6 +59,11 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="2zX-zl-pPc"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" name="MainBackgroundColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </containerView>
                             <box horizontalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="g3e-5j-8Cq">
                                 <rect key="frame" x="98" y="71" width="5" height="229"/>
