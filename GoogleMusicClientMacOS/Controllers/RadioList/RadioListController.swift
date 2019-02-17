@@ -42,12 +42,9 @@ final class RadioListController: NSViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        Current.state.filter { state in
-            switch state.setBy {
-            case PlayerAction.loadRadioStations: return true
-            default: return false
-            }
-            }.observeOn(MainScheduler.instance)
+        Current.state
+            .filter { ($0.setBy as? PlayerAction) == PlayerAction.loadRadioStations }
+            .observeOn(MainScheduler.instance)
             .do(onNext: { [weak self] _ in self?.collectionView.reloadSections(IndexSet(integer: 0)) })
             .subscribe()
             .disposed(by: bag)

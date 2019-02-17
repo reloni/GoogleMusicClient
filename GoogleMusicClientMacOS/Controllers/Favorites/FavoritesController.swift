@@ -46,15 +46,10 @@ final class FavoritesController: NSViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        Current.state.filter { state in
-            switch state.setBy {
-            case PlayerAction.loadFavorites: return true
-            default: return false
-            }
-            }.observeOn(MainScheduler.instance)
-            .do(onNext: { [weak self] _ in
-                self?.collectionView.reloadSections(IndexSet(integer: 0))
-            })
+        Current.state
+            .filter { ($0.setBy as? PlayerAction) == PlayerAction.loadFavorites }
+            .observeOn(MainScheduler.instance)
+            .do(onNext: { [weak collectionView] _ in collectionView?.reloadSections(IndexSet(integer: 0)) })
             .subscribe()
             .disposed(by: bag)
         
