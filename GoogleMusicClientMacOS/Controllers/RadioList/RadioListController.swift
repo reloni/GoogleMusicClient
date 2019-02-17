@@ -49,6 +49,12 @@ final class RadioListController: NSViewController {
             .subscribe()
             .disposed(by: bag)
         
+        Current.currentRadio
+            .filter { $0 != nil }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak collectionView] in collectionView?.selectItem(index: $0?.index) })
+            .disposed(by: bag)
+        
         if stations.count == 0 {
             let action = RxCompositeAction(UIAction.showProgressIndicator,
                                            PlayerAction.loadRadioStations,

@@ -6,6 +6,7 @@
 //  Copyright © 2018 Anton Efimenko. All rights reserved.
 //
 
+import Foundation
 import RxDataFlow
 import RxGoogleMusic
 
@@ -15,6 +16,13 @@ enum QueueSource: Equatable {
     
     var isFavorites: Bool {
         if case .list = self {
+            return true
+        }
+        return false
+    }
+    
+    var isRadio: Bool {
+        if case .radio = self {
             return true
         }
         return false
@@ -73,5 +81,11 @@ extension AppState {
     var currentTrack: (track: GMusicTrack, index: Int, source: QueueSource)? {
         guard let t = queue.current, let i = queue.currentElementIndex, let s = queueSource else { return nil }
         return (t, i, s)
+    }
+    
+    var currentRadio: (radio: GMusicRadioStation, index: Int)? {
+        guard case QueueSource.radio(let r)? = queueSource else { return nil }
+        guard let index = radioStations.firstIndex(of: r) else { return nil }
+        return (radio: r, index: index)
     }
 }

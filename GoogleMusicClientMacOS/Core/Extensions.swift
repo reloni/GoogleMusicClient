@@ -21,6 +21,15 @@ extension RxDataFlowController where State == AppState {
             }
         }.map { $0.state.currentTrack }.startWith(currentState.state.currentTrack)
     }
+    
+    var currentRadio: Observable<(radio: GMusicRadioStation, index: Int)?> {
+        return state.filter { result in
+            switch result.setBy {
+            case PlayerAction.setQueueSource(let s) where s.isRadio: return true
+            default: return false
+            }
+            }.map { $0.state.currentRadio }.startWith(currentState.state.currentRadio)
+    }
 }
 
 extension UserDefaults {
