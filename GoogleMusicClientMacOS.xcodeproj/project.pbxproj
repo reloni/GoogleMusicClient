@@ -46,6 +46,8 @@
 		6E7F608B21C9128700C1D30C /* LeftHighlightTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F608A21C9128700C1D30C /* LeftHighlightTableRowView.swift */; };
 		6E7F608D21C9278400C1D30C /* RadioListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F608C21C9278400C1D30C /* RadioListController.swift */; };
 		6E8496DA21D6365B00210F36 /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8496D921D6365B00210F36 /* QueueController.swift */; };
+		6E857E9322215AE30057B701 /* TextFieldCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E857E9222215AE30057B701 /* TextFieldCollectionViewItem.swift */; };
+		6E857E9522215B1F0057B701 /* ViewWithBottomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E857E9422215B1F0057B701 /* ViewWithBottomBorder.swift */; };
 		6E8FB9B921FE23A000952770 /* ViewWithTrackingArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8FB9B821FE23A000952770 /* ViewWithTrackingArea.swift */; };
 		6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94665621C282D200126BB7 /* AppDelegate.swift */; };
 		6E94665B21C282D200126BB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E94665A21C282D200126BB7 /* Assets.xcassets */; };
@@ -128,6 +130,8 @@
 		6E7F608A21C9128700C1D30C /* LeftHighlightTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftHighlightTableRowView.swift; sourceTree = "<group>"; };
 		6E7F608C21C9278400C1D30C /* RadioListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioListController.swift; sourceTree = "<group>"; };
 		6E8496D921D6365B00210F36 /* QueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueController.swift; sourceTree = "<group>"; };
+		6E857E9222215AE30057B701 /* TextFieldCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCollectionViewItem.swift; sourceTree = "<group>"; };
+		6E857E9422215B1F0057B701 /* ViewWithBottomBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithBottomBorder.swift; sourceTree = "<group>"; };
 		6E8FB9B821FE23A000952770 /* ViewWithTrackingArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithTrackingArea.swift; sourceTree = "<group>"; };
 		6E94665321C282D200126BB7 /* Google Music Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Google Music Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E94665621C282D200126BB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -187,6 +191,8 @@
 				6E7D890D2204CAA100C44E91 /* VerticallyCenteredTextField.swift */,
 				6E7D890F2204CAD600C44E91 /* MusicTrackView.swift */,
 				6E7D89112204CB3A00C44E91 /* MusicTrackCollectionViewItem.swift */,
+				6E857E9222215AE30057B701 /* TextFieldCollectionViewItem.swift */,
+				6E857E9422215B1F0057B701 /* ViewWithBottomBorder.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -527,6 +533,7 @@
 				6E7D891A2204D60F00C44E91 /* Operators.swift in Sources */,
 				6E13220E21FE424F008E2AC2 /* SelectableNSView.swift in Sources */,
 				6E38A75221C2988C00983339 /* LogInController.swift in Sources */,
+				6E857E9522215B1F0057B701 /* ViewWithBottomBorder.swift in Sources */,
 				6E7F608B21C9128700C1D30C /* LeftHighlightTableRowView.swift in Sources */,
 				6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */,
 				6EB27AD521C3D6450013479C /* SystemReducer.swift in Sources */,
@@ -550,6 +557,7 @@
 				6EFDC5A421CA233300E93699 /* PlayerController.swift in Sources */,
 				6E38A75921C29A4000983339 /* ApplicationController.swift in Sources */,
 				6E8FB9B921FE23A000952770 /* ViewWithTrackingArea.swift in Sources */,
+				6E857E9322215AE30057B701 /* TextFieldCollectionViewItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

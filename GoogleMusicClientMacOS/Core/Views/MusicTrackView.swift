@@ -8,7 +8,7 @@
 
 import Cocoa
 
-final class MusicTrackView: NSView {
+final class MusicTrackView: NSView, ViewWithBottomBorder {
     let title = VerticallyCenteredTextField()
     let album = VerticallyCenteredTextField()
     let artist = VerticallyCenteredTextField()
@@ -27,11 +27,15 @@ final class MusicTrackView: NSView {
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
+        
         addSubview(title)
         addSubview(album)
         addSubview(artist)
         addSubview(duration)
+        
         setupConstraints()
+        
+        addBottomBorder(to: self)
     }
     
     required init?(coder decoder: NSCoder) {

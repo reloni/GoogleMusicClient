@@ -10,7 +10,7 @@ import Cocoa
 import RxDataFlow
 import RxSwift
 
-final class SystemController: NSViewController {
+final class SystemController: NSViewController, ViewWithBottomBorder {
     @IBOutlet weak var progressIndicator: NSProgressIndicator!
     
     let bag = DisposeBag()
@@ -28,6 +28,8 @@ final class SystemController: NSViewController {
                 }
             })
             .disposed(by: bag)
+        
+        addBottomBorder(to: view)
     }
     
     func toggleProgressIndicator(_ isActive: Bool) {
