@@ -16,7 +16,7 @@ final class RadioListController: NSViewController {
         |> baseCollectionView()
         |> layout(singleColumnCollectionViewLayout)
         |> register(item: TextFieldCollectionViewItem.self)
-        |> register(header: VerticallyCenteredTextField.self)
+        |> register(header: MusicTrackView.self)
     
     lazy var scrollView = NSScrollView().configure { $0.documentView = self.collectionView }
     
@@ -104,9 +104,9 @@ extension RadioListController: NSCollectionViewDataSource {
     
     func collectionView(_ collectionView: NSCollectionView, viewForSupplementaryElementOfKind kind: NSCollectionView.SupplementaryElementKind, at indexPath: IndexPath) -> NSView {
         if kind == NSCollectionView.elementKindSectionHeader {
-            let view: VerticallyCenteredTextField = collectionView.makeHeader(for: indexPath)
+            let view: MusicTrackView = collectionView.makeHeader(for: indexPath)
             return view.configure {
-                $0.textField.stringValue = "Name"
+                $0.title.textField.stringValue = "Name"
             }
         }
         
