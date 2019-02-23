@@ -11,7 +11,6 @@ import Cocoa
 final class MusicTrackCollectionViewItem: NSCollectionViewItem, ViewWithBottomBorder {
     let musicTrackView = MusicTrackView()
     
-    
     override var isSelected: Bool {
         didSet {
             (view as? SelectableNSView)?.isSelected = isSelected

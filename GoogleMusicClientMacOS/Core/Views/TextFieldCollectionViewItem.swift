@@ -22,6 +22,11 @@ final class TextFieldCollectionViewItem: NSCollectionViewItem, ViewWithBottomBor
     override var isSelected: Bool {
         didSet {
             (view as? SelectableNSView)?.isSelected = isSelected
+            if isSelected {
+                itemTextField.textField.textColor = NSColor.selectedItemTextColor
+            } else {
+                itemTextField.textField.textColor = NSColor.textColor
+            }
         }
     }
     
