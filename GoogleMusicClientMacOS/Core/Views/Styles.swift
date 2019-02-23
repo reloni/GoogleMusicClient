@@ -51,6 +51,7 @@ func baseCollectionView() -> (NSCollectionView) -> NSCollectionView {
         collection.backgroundColors = [.clear]
         collection.allowsMultipleSelection = false
         collection.isSelectable = true
+        collection.allowsEmptySelection = false
         return collection
     }
 }
