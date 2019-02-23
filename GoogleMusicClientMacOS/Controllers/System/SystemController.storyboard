@@ -13,7 +13,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="450" height="27"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDf-ph-5It">
+                            <searchField hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDf-ph-5It">
                                 <rect key="frame" x="265" y="5" width="180" height="17"/>
                                 <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="DaZ-pJ-r73">
                                     <font key="font" metaFont="system"/>
