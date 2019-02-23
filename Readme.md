@@ -12,10 +12,11 @@ No affiliation with Google. Google Play is a trademark of Google Inc.
 Download latest version on [Releases](https://github.com/reloni/GoogleMusicClient/releases) page.
 
 ## Features
-This is early preview, only radio stations supported. In order to see radio station in app it should be added to user media library.
+This is early preview, only radio stations and favorites supported. In order to see data in app it should be added to user media library.
 - Native macOS light and dark themes
 - Media keys support (play, pause, next, previous)
 - Radio station playback
+- Favorites playlist playback
 
 ## Screenshots
 <table>
