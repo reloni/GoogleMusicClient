@@ -125,12 +125,19 @@ extension NSCollectionView {
     
     func selectItem(index selectedIndex: Int?) {
         guard let index = selectedIndex else {
-            deselectAll(self)
+            deselectAllItems()
             return
         }
         
-        deselectAll(self)
+        deselectAllItems()
         selectItems(at: Set([IndexPath(item: index, section: 0)]),
                                    scrollPosition: NSCollectionView.ScrollPosition.left)
+    }
+    
+    func deselectAllItems() {
+        let currentAllowsEmptySelection = allowsEmptySelection
+        allowsEmptySelection = true
+        deselectAll(self)
+        allowsEmptySelection = currentAllowsEmptySelection
     }
 }
