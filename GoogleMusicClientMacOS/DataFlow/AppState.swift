@@ -32,6 +32,7 @@ enum QueueSource: Equatable {
 struct AppState: RxStateType {
     private(set) var coordinator: ApplicationCoordinator
     let keychain: KeychainType
+    let userDefaults: UserDefaultsType
     private(set) var client: GMusicClient?
     private(set) var radioStations: [GMusicRadioStation]
     private(set) var favorites: [GMusicTrack]
@@ -43,6 +44,7 @@ struct AppState: RxStateType {
 func initialState() -> AppState {
     return AppState(coordinator: StartupCoordinator(),
                     keychain: Keychain(),
+                    userDefaults: UserDefaults.standard,
                     client: nil,
                     radioStations: [],
                     favorites: [],
@@ -55,6 +57,7 @@ extension AppState {
     func cleaned() -> AppState {
         return  AppState(coordinator: coordinator,
                               keychain: keychain,
+                              userDefaults: userDefaults,
                               client: nil,
                               radioStations: [],
                               favorites: [],
@@ -87,5 +90,9 @@ extension AppState {
         guard case QueueSource.radio(let r)? = queueSource else { return nil }
         guard let index = radioStations.firstIndex(of: r) else { return nil }
         return (radio: r, index: index)
+    }
+    
+    var isRepeatQueueEnabled: Bool {
+        return userDefaults.isRepeatQueueEnabled
     }
 }

@@ -133,11 +133,18 @@
                                     </button>
                                     <button horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ghG-SW-YTo">
                                         <rect key="frame" x="475" y="0.0" width="50" height="20"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Repeat" imagePosition="only" alignment="center" scrollable="YES" lineBreakMode="clipping" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="6Vv-5X-Pc3">
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Repeat" imagePosition="only" alignment="center" scrollable="YES" lineBreakMode="clipping" imageScaling="proportionallyUpOrDown" inset="2" id="6Vv-5X-Pc3">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <color key="contentTintColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                        <connections>
+                                            <binding destination="y3d-EB-w5r" name="value" keyPath="self.isRepeatQueueEnabled" id="2cC-Jl-8v1">
+                                                <dictionary key="options">
+                                                    <integer key="NSNullPlaceholder" value="0"/>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="2" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UL9-zC-2mR">
                                         <rect key="frame" x="523" y="2" width="274" height="17"/>

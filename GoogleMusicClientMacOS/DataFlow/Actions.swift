@@ -73,11 +73,12 @@ enum UIAction : RxActionType {
     case hideErrorController
 }
 
-enum SystemAction: RxActionType {    
+enum SystemAction: RxActionType, Equatable {    
     case saveKeychainToken(GMusicToken)
     case initializeMusicClient
     case initializePlayer
     case creanup
+    case toggleQueueRepeat
 }
 
 enum PlayerAction: RxActionType, Equatable {

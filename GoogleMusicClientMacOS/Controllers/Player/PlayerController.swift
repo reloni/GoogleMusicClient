@@ -34,8 +34,6 @@ final class PlayerController: NSViewController {
     
     @IBOutlet weak var showQueueButton: NSButton!
     
-    
-    
     @objc dynamic var currentTrackTitle: String? = nil
     @objc dynamic var currentArtistAndAlbum: String? = nil
     @objc dynamic var currentTime: String? = nil
@@ -48,6 +46,7 @@ final class PlayerController: NSViewController {
     }
     @objc dynamic var currentDuration: String? = nil
     @objc dynamic var palyPauseImage = NSImage.pause
+    @objc dynamic var isRepeatQueueEnabled = Current.currentState.state.isRepeatQueueEnabled
     
     let bag = DisposeBag()
     var player: Player<GMusicTrack>? { return Current.currentState.state.player }
@@ -64,12 +63,13 @@ final class PlayerController: NSViewController {
     
     func bind() -> [Disposable] {
         return [
+            Current.state.filter { $0.setBy.equalTo(SystemAction.toggleQueueRepeat) }.subscribe(onNext: { [weak self] state in self?.isRepeatQueueEnabled = state.state.isRepeatQueueEnabled }),
             Current.currentTrack.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.update(with: $0?.track) }),
             shuffleButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.pause) }),
             previousButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.playPrevious) }),
             playPauseButon.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.toggle) }),
             nextButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.playNext) }),
-            repeatModeButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.resume) }),
+            repeatModeButton.rx.tap.subscribe(onNext: { Current.dispatch(SystemAction.toggleQueueRepeat) }),
 //            player?.currentItemStatus.subscribe(onNext: { print("ItemStatus: \($0)") }),
             player?.currentItemTime.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentTime = $0?.timeString }),
             player?.currentItemDuration.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentDuration = $0?.timeString }),
@@ -100,7 +100,8 @@ final class PlayerController: NSViewController {
             .subscribe(onNext: { [weak self] in self?.albumImage.image = $0 })
             .disposed(by: bag)
         
-        if Current.currentState.state.queue.isCompleted {
+        
+        if Current.currentState.state.queue.isCompleted, Current.currentState.state.isRepeatQueueEnabled {
             Current.dispatch(CompositeActions.repeatFromQueueSource())
         }
     }

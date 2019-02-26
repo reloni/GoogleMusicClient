@@ -49,6 +49,7 @@
 		6E857E9322215AE30057B701 /* TextFieldCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E857E9222215AE30057B701 /* TextFieldCollectionViewItem.swift */; };
 		6E857E9522215B1F0057B701 /* ViewWithBottomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E857E9422215B1F0057B701 /* ViewWithBottomBorder.swift */; };
 		6E8FB9B921FE23A000952770 /* ViewWithTrackingArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8FB9B821FE23A000952770 /* ViewWithTrackingArea.swift */; };
+		6E927F7D22256A1F007A34EF /* UserDefaultsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E927F7C22256A1F007A34EF /* UserDefaultsType.swift */; };
 		6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94665621C282D200126BB7 /* AppDelegate.swift */; };
 		6E94665B21C282D200126BB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E94665A21C282D200126BB7 /* Assets.xcassets */; };
 		6EA34DB221F09B7F00E9588C /* ApplicationSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA34DB121F09B7F00E9588C /* ApplicationSlider.swift */; };
@@ -133,6 +134,7 @@
 		6E857E9222215AE30057B701 /* TextFieldCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCollectionViewItem.swift; sourceTree = "<group>"; };
 		6E857E9422215B1F0057B701 /* ViewWithBottomBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithBottomBorder.swift; sourceTree = "<group>"; };
 		6E8FB9B821FE23A000952770 /* ViewWithTrackingArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithTrackingArea.swift; sourceTree = "<group>"; };
+		6E927F7C22256A1F007A34EF /* UserDefaultsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsType.swift; sourceTree = "<group>"; };
 		6E94665321C282D200126BB7 /* Google Music Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Google Music Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E94665621C282D200126BB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E94665A21C282D200126BB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				6E7D89132204CB8E00C44E91 /* Support.swift */,
 				6E7D89192204D60F00C44E91 /* Functions.swift */,
 				6E7D89182204D60F00C44E91 /* Operators.swift */,
+				6E927F7C22256A1F007A34EF /* UserDefaultsType.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				6E31EC3321C7DBA5009B9742 /* ApplicationTableView.swift in Sources */,
 				6E7D891B2204D60F00C44E91 /* Functions.swift in Sources */,
 				6E7D891A2204D60F00C44E91 /* Operators.swift in Sources */,
+				6E927F7D22256A1F007A34EF /* UserDefaultsType.swift in Sources */,
 				6E13220E21FE424F008E2AC2 /* SelectableNSView.swift in Sources */,
 				6E38A75221C2988C00983339 /* LogInController.swift in Sources */,
 				6E857E9522215B1F0057B701 /* ViewWithBottomBorder.swift in Sources */,

@@ -12,6 +12,13 @@ import RxDataFlow
 import RxSwift
 import RxGoogleMusic
 
+extension RxActionType {
+    func equalTo<T: RxActionType & Equatable>(_ value: T) -> Bool {
+        guard let casted = self as? T else { return false }
+        return casted == value
+    }
+}
+
 extension RxDataFlowController where State == AppState {
     var currentTrack: Observable<(track: GMusicTrack, index: Int, source: QueueSource)?> {
         return state.filter { result in
