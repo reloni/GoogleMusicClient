@@ -141,6 +141,13 @@ extension NSCollectionView {
                                    scrollPosition: NSCollectionView.ScrollPosition.left)
     }
     
+    func scrollToTop() {
+        guard numberOfSections > 0 else { return }
+        guard numberOfItems(inSection: 0) > 0 else { return }
+        
+        scrollToItems(at: Set([IndexPath(item: 0, section: 0)]), scrollPosition: NSCollectionView.ScrollPosition.top)
+    }
+    
     func deselectAllItems() {
         let currentAllowsEmptySelection = allowsEmptySelection
         allowsEmptySelection = true

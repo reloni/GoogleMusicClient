@@ -55,7 +55,7 @@ final class QueueController: NSViewController {
             .filter(isSetBy(PlayerAction.initializeQueueFromSource))
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak collectionView] _ in
-                collectionView?.scrollToBeginningOfDocument(nil)
+                collectionView?.scrollToTop()
                 collectionView?.reloadData()
             })
             .disposed(by: bag)
