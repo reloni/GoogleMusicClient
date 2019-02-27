@@ -27,7 +27,7 @@ func systemReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
         return RxReduceResult.single({ $0.mutate(\.player, player) })
     case SystemAction.toggleQueueRepeat:
         currentState.userDefaults.isRepeatQueueEnabled = !currentState.userDefaults.isRepeatQueueEnabled
-        return RxReduceResult.single({ $0 })
+        return RxReduceResult.single(id)
     default:
         break
     }

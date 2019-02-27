@@ -78,7 +78,7 @@ final class PlayerController: NSViewController {
             Current.currentTrack.map { $0 != nil }.subscribe(onNext: { [weak self] in self?.isCurrentProgressChangeEnabled = $0 }),
             player?.errors.subscribe(onNext: { Current.dispatch(UIAction.showErrorController($0)) }),
             bindProgress()
-            ].compactMap { $0 }
+            ].compactMap(id)
     }
     
     func bindProgress() -> Disposable? {

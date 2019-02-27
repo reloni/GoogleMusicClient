@@ -54,7 +54,7 @@ private func playNext(currentState: AppState) -> RxReduceResult<AppState> {
 }
 
 private func initializeQueueFromSource(currentState: AppState, client: GMusicClient) -> RxReduceResult<AppState> {
-    guard let source = currentState.queueSource else { return RxReduceResult.single { $0 } }
+    guard let source = currentState.queueSource else { return RxReduceResult.single(id) }
     switch source {
     case .radio(let r): return loadRadioStationFeed(r, currentState: currentState, client: client)
     case .list(let l): return RxReduceResult.single({ $0.mutate(\.queue, Queue(items: l)) })

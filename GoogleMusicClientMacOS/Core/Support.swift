@@ -69,3 +69,7 @@ func isSetBy<Action: RxActionType & Equatable, State: RxStateType>(_ action: Act
         return value.setBy.equalTo(action)
     }
 }
+
+func id<T>(_ value: T) -> T {
+    return value
+}

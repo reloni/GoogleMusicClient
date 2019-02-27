@@ -51,7 +51,7 @@ extension MainCoordinator: ApplicationCoordinator {
         default: break
         }
         
-        return RxReduceResult.single({ $0 })
+        return RxReduceResult.single(id)
     }
 }
 
