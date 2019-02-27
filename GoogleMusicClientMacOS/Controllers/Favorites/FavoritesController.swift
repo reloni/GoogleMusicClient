@@ -47,7 +47,7 @@ final class FavoritesController: NSViewController {
         collectionView.dataSource = self
         
         Current.state
-            .filter { ($0.setBy as? PlayerAction) == PlayerAction.loadFavorites }
+            .filter(isSetBy(PlayerAction.loadFavorites))
             .observeOn(MainScheduler.instance)
             .do(onNext: { [weak collectionView] _ in collectionView?.reloadSections(IndexSet(integer: 0)) })
             .subscribe()

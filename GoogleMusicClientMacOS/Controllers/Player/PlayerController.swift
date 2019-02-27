@@ -63,7 +63,7 @@ final class PlayerController: NSViewController {
     
     func bind() -> [Disposable] {
         return [
-            Current.state.filter { $0.setBy.equalTo(SystemAction.toggleQueueRepeat) }.subscribe(onNext: { [weak self] state in self?.isRepeatQueueEnabled = state.state.isRepeatQueueEnabled }),
+            Current.state.filter(isSetBy(SystemAction.toggleQueueRepeat)).subscribe(onNext: { [weak self] in self?.isRepeatQueueEnabled = $0.state.isRepeatQueueEnabled }),
             Current.currentTrack.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.update(with: $0?.track) }),
             shuffleButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.pause) }),
             previousButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.playPrevious) }),

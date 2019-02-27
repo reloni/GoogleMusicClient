@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxDataFlow
 
 public protocol Configure { }
 
@@ -60,5 +61,11 @@ enum WindowSize: Codable {
             try container.encode(rect.origin.x, forKey: .x)
             try container.encode(rect.origin.y, forKey: .y)
         }
+    }
+}
+
+func isSetBy<Action: RxActionType & Equatable, State: RxStateType>(_ action: Action) -> ((setBy: RxActionType, state: State)) -> Bool {
+    return { value in
+        return value.setBy.equalTo(action)
     }
 }

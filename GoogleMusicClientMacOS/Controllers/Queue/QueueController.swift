@@ -52,7 +52,7 @@ final class QueueController: NSViewController {
             .disposed(by: bag)
         
         Current.state
-            .filter { ($0.setBy as? PlayerAction) == PlayerAction.initializeQueueFromSource }
+            .filter(isSetBy(PlayerAction.initializeQueueFromSource))
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak collectionView] _ in
                 collectionView?.scrollToBeginningOfDocument(nil)
