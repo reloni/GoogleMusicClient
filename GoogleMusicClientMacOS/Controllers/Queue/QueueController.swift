@@ -48,7 +48,7 @@ final class QueueController: NSViewController {
         
         Current.currentTrack
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak collectionView] in collectionView?.selectItem(index: $0?.index) })
+            .subscribe(onNext: { [weak collectionView] in collectionView?.selectItem(index: $0?.queueIndex) })
             .disposed(by: bag)
         
         Current.state

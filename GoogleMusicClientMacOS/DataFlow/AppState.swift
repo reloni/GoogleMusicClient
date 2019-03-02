@@ -10,9 +10,17 @@ import Foundation
 import RxDataFlow
 import RxGoogleMusic
 
+extension GMusicTrack: Hashable {
+    public var hashValue: Int { return automaticId.hashValue }
+    
+    public func hash(into hasher: inout Hasher) {
+        automaticId.hash(into: &hasher)
+    }
+}
+
 enum QueueSource: Equatable {
     case radio(GMusicRadioStation)
-    case list([GMusicTrack])
+    case list(OrderedSet<GMusicTrack>)
     
     var isFavorites: Bool {
         if case .list = self {
@@ -27,6 +35,11 @@ enum QueueSource: Equatable {
         }
         return false
     }
+    
+    var list: OrderedSet<GMusicTrack>? {
+        guard case let .list(l) = self else { return nil }
+        return l
+    }
 }
 
 struct AppState: RxStateType {
@@ -35,7 +48,7 @@ struct AppState: RxStateType {
     let userDefaults: UserDefaultsType
     private(set) var client: GMusicClient?
     private(set) var radioStations: [GMusicRadioStation]
-    private(set) var favorites: [GMusicTrack]
+    private(set) var favorites: OrderedSet<GMusicTrack>
     private(set) var player: Player<GMusicTrack>?
     private(set) var queue: Queue<GMusicTrack>
     private(set) var queueSource: QueueSource?
@@ -47,7 +60,7 @@ func initialState() -> AppState {
                     userDefaults: UserDefaults.standard,
                     client: nil,
                     radioStations: [],
-                    favorites: [],
+                    favorites: OrderedSet<GMusicTrack>(),
                     player: nil,
                     queue: Queue(items: [GMusicTrack]()),
                     queueSource: nil)
@@ -60,7 +73,7 @@ extension AppState {
                               userDefaults: userDefaults,
                               client: nil,
                               radioStations: [],
-                              favorites: [],
+                              favorites: OrderedSet<GMusicTrack>(),
                               player: nil,
                               queue: Queue(items: []),
                               queueSource: nil)
@@ -81,7 +94,7 @@ extension AppState {
     
     var hasGmusicToken: Bool { return keychain.accessToken != nil }
     
-    var currentTrack: (track: GMusicTrack, index: Int, source: QueueSource)? {
+    var currentTrack: (track: GMusicTrack, queueIndex: Int, source: QueueSource)? {
         guard let t = queue.current, let i = queue.currentElementIndex, let s = queueSource else { return nil }
         return (t, i, s)
     }

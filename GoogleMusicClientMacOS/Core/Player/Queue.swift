@@ -105,8 +105,16 @@ struct Queue<Element> {
         return current
     }
     
-    mutating func shuffle() {
-        items = items.shuffled()
+    mutating func shuffle(moveToFirst: Int?) {
+        guard let newFirstIndex = moveToFirst else {
+            items.shuffle()
+            currentIndex = .notStarted
+            return
+        }
+        
+        let newFirst = items.remove(at: newFirstIndex)
+        items.shuffle()
+        items.insert(newFirst, at: 0)
         currentIndex = .notStarted
     }
     

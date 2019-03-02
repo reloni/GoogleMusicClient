@@ -34,9 +34,19 @@ struct CompositeActions {
     
     static func play(tracks: [GMusicTrack], startIndex: Int) -> RxCompositeAction {
         return RxCompositeAction(UIAction.showProgressIndicator,
-                                 PlayerAction.setQueueSource(.list(tracks)),
+                                 PlayerAction.setQueueSource(.list(OrderedSet(elements: tracks))),
                                  PlayerAction.initializeQueueFromSource,
                                  PlayerAction.playAtIndex(startIndex),
+                                 UIAction.hideProgressIndicator,
+                                 fallbackAction: UIAction.hideProgressIndicator)
+    }
+    
+    static func playShuffled(tracks: [GMusicTrack], startIndex: Int) -> RxCompositeAction {
+        return RxCompositeAction(UIAction.showProgressIndicator,
+                                 PlayerAction.setQueueSource(.list(OrderedSet(elements: tracks))),
+                                 PlayerAction.initializeQueueFromSource,
+                                 PlayerAction.shuffleQueue(moveToFirst: startIndex),
+                                 PlayerAction.playNext,
                                  UIAction.hideProgressIndicator,
                                  fallbackAction: UIAction.hideProgressIndicator)
     }
@@ -92,4 +102,5 @@ enum PlayerAction: RxActionType, Equatable {
     case playNext
     case toggle
     case playAtIndex(Int)
+    case shuffleQueue(moveToFirst: Int?)
 }

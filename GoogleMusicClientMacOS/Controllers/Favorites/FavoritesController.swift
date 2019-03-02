@@ -23,7 +23,7 @@ final class FavoritesController: NSViewController {
     let bag = DisposeBag()
 
     var favorites: [GMusicTrack] {
-        return Current.currentState.state.favorites
+        return Current.currentState.state.favorites.all()
     }
     
     init() {
@@ -56,7 +56,7 @@ final class FavoritesController: NSViewController {
         Current.currentTrack
             .filter { $0?.source.isFavorites == true }
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak collectionView] in collectionView?.selectItem(index: $0?.index) })
+            .subscribe(onNext: { [weak collectionView] in collectionView?.selectItem(index: $0?.source.list?.indexOfOptioal($0?.track)) })
             .disposed(by: bag)
         
         if favorites.count == 0 {
@@ -98,7 +98,8 @@ extension FavoritesController: NSCollectionViewDelegate {
         if Current.currentState.state.queueSource?.isFavorites == true {
             Current.dispatch(PlayerAction.playAtIndex(index))
         } else {
-            Current.dispatch(CompositeActions.play(tracks: favorites, startIndex: index))
+//            Current.dispatch(CompositeActions.play(tracks: favorites, startIndex: index))
+            Current.dispatch(CompositeActions.playShuffled(tracks: favorites, startIndex: index))
         }
     }
 }
