@@ -30,6 +30,9 @@ func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
     case PlayerAction.toggleShuffle:
         currentState.userDefaults.isShuffleEnabled = !currentState.userDefaults.isShuffleEnabled
         return RxReduceResult.single(id)
+    case PlayerAction.toggleQueueRepeat:
+        currentState.userDefaults.isRepeatQueueEnabled = !currentState.userDefaults.isRepeatQueueEnabled
+        return RxReduceResult.single(id)
     default: break
     }
     return RxReduceResult.empty

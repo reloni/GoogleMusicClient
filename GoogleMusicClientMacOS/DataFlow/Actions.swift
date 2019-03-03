@@ -89,7 +89,6 @@ enum SystemAction: RxActionType, Equatable {
     case initializeMusicClient
     case initializePlayer
     case creanup
-    case toggleQueueRepeat
 }
 
 enum PlayerAction: RxActionType, Equatable {
@@ -105,4 +104,5 @@ enum PlayerAction: RxActionType, Equatable {
     case playAtIndex(Int)
     case shuffleQueue(moveToFirst: Int?)
     case toggleShuffle
+    case toggleQueueRepeat
 }

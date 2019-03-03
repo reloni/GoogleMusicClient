@@ -65,7 +65,7 @@ final class PlayerController: NSViewController {
     
     func bind() -> [Disposable] {
         return [
-            Current.state.filter(isSetBy(SystemAction.toggleQueueRepeat)).subscribe(onNext: { [weak self] in self?.isRepeatQueueEnabled = $0.state.isRepeatQueueEnabled }),
+            Current.state.filter(isSetBy(PlayerAction.toggleQueueRepeat)).subscribe(onNext: { [weak self] in self?.isRepeatQueueEnabled = $0.state.isRepeatQueueEnabled }),
             bindShuffle(),
             bindShuffleAllowed(),
             Current.currentTrack.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.update(with: $0?.track) }),
@@ -73,7 +73,7 @@ final class PlayerController: NSViewController {
             previousButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.playPrevious) }),
             playPauseButon.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.toggle) }),
             nextButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.playNext) }),
-            repeatModeButton.rx.tap.subscribe(onNext: { Current.dispatch(SystemAction.toggleQueueRepeat) }),
+            repeatModeButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.toggleQueueRepeat) }),
 //            player?.currentItemStatus.subscribe(onNext: { print("ItemStatus: \($0)") }),
             player?.currentItemTime.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentTime = $0?.timeString }),
             player?.currentItemDuration.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.currentDuration = $0?.timeString }),
@@ -88,7 +88,7 @@ final class PlayerController: NSViewController {
     func bindShuffle() -> Disposable {
         return Current.state.filter { state in
             switch state.setBy {
-            case PlayerAction.setQueueSource, SystemAction.toggleQueueRepeat: return true
+            case PlayerAction.setQueueSource, PlayerAction.toggleQueueRepeat: return true
             default: return false
             }
             }.observeOn(MainScheduler.instance)

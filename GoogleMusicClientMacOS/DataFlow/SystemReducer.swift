@@ -25,9 +25,6 @@ func systemReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
         guard let client = currentState.client else { return RxReduceResult.empty }
         let player = Player<GMusicTrack>(loadRequest: client.downloadTrack)
         return RxReduceResult.single({ $0.mutate(\.player, player) })
-    case SystemAction.toggleQueueRepeat:
-        currentState.userDefaults.isRepeatQueueEnabled = !currentState.userDefaults.isRepeatQueueEnabled
-        return RxReduceResult.single(id)
     default:
         break
     }
