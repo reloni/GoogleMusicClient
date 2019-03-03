@@ -126,7 +126,7 @@ final class PlayerController: NSViewController {
         
         
         if Current.currentState.state.queue.isCompleted, Current.currentState.state.isRepeatQueueEnabled {
-            Current.dispatch(CompositeActions.repeatFromQueueSource())
+            Current.dispatch(CompositeActions.repeatFromQueueSource(shuffle: Current.currentState.state.isShuffleEnabledForCurrentQueueSource))
         }
     }
     

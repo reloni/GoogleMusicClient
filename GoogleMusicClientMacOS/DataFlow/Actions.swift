@@ -51,12 +51,13 @@ struct CompositeActions {
                                  fallbackAction: UIAction.hideProgressIndicator)
     }
     
-    static func repeatFromQueueSource() -> RxCompositeAction {
-        return RxCompositeAction(UIAction.showProgressIndicator,
-                                 PlayerAction.initializeQueueFromSource,
-                                 PlayerAction.playNext,
-                                 UIAction.hideProgressIndicator,
-                                 fallbackAction: UIAction.hideProgressIndicator)
+    static func repeatFromQueueSource(shuffle: Bool) -> RxCompositeAction {
+        let actions: [RxActionType] = [UIAction.showProgressIndicator,
+                                       PlayerAction.initializeQueueFromSource,
+                                       shuffle ? PlayerAction.shuffleQueue(moveToFirst: nil) : nil,
+                                       PlayerAction.playNext,
+                                       UIAction.hideProgressIndicator].compactMap(id)
+        return RxCompositeAction(actions: actions, fallbackAction: UIAction.hideProgressIndicator)
     }
 }
 
