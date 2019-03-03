@@ -20,7 +20,7 @@ extension RxActionType {
 }
 
 extension RxDataFlowController where State == AppState {
-    var currentTrack: Observable<(track: GMusicTrack, index: Int, source: QueueSource)?> {
+    var currentTrack: Observable<(track: GMusicTrack, queueIndex: Int, source: QueueSource)?> {
         return state.filter { result in
             switch result.setBy {
             case PlayerAction.playNext, PlayerAction.playPrevious, PlayerAction.playAtIndex: return true

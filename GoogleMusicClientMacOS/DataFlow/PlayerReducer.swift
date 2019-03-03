@@ -26,9 +26,19 @@ func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
     case PlayerAction.toggle: currentState.player?.toggle()
     case PlayerAction.playAtIndex(let index): return playAtIndex(currentState: currentState, index: index)
     case PlayerAction.setQueueSource(let s): return RxReduceResult.single { $0.mutate(\.queueSource, s) }
+    case PlayerAction.shuffleQueue(let moveToFirst): return shuffleQueue(currentState: currentState, moveToFirst: moveToFirst)
+    case PlayerAction.toggleShuffle:
+        currentState.userDefaults.isShuffleEnabled = !currentState.userDefaults.isShuffleEnabled
+        return RxReduceResult.single(id)
     default: break
     }
     return RxReduceResult.empty
+}
+
+private func shuffleQueue(currentState: AppState, moveToFirst: Int?) -> RxReduceResult<AppState> {
+    var q = currentState.queue
+    q.shuffle(moveToFirst: moveToFirst)
+    return RxReduceResult.single { $0.mutate(\.queue, q) }
 }
 
 private func playAtIndex(currentState: AppState, index: Int) -> RxReduceResult<AppState> {
@@ -57,7 +67,7 @@ private func initializeQueueFromSource(currentState: AppState, client: GMusicCli
     guard let source = currentState.queueSource else { return RxReduceResult.single(id) }
     switch source {
     case .radio(let r): return loadRadioStationFeed(r, currentState: currentState, client: client)
-    case .list(let l): return RxReduceResult.single({ $0.mutate(\.queue, Queue(items: l)) })
+    case .list(let l): return RxReduceResult.single({ $0.mutate(\.queue, Queue(items: l.all())) })
     }
 }
 
@@ -77,5 +87,6 @@ private func loadFavorites(client: GMusicClient) -> RxReduceResult<AppState> {
     let request = client.favorites(maxResults: 10000, recursive: true)
         .map { $0.items }
         .reduce([GMusicTrack](), accumulator: { $0 + $1 })
+        .map { OrderedSet(elements: $0) }
     return RxReduceResult.create(from: request, transform: { $0.mutate(\AppState.favorites, $1) })
 }

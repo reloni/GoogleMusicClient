@@ -34,19 +34,30 @@ struct CompositeActions {
     
     static func play(tracks: [GMusicTrack], startIndex: Int) -> RxCompositeAction {
         return RxCompositeAction(UIAction.showProgressIndicator,
-                                 PlayerAction.setQueueSource(.list(tracks)),
+                                 PlayerAction.setQueueSource(.list(OrderedSet(elements: tracks))),
                                  PlayerAction.initializeQueueFromSource,
                                  PlayerAction.playAtIndex(startIndex),
                                  UIAction.hideProgressIndicator,
                                  fallbackAction: UIAction.hideProgressIndicator)
     }
     
-    static func repeatFromQueueSource() -> RxCompositeAction {
+    static func playShuffled(tracks: [GMusicTrack], startIndex: Int) -> RxCompositeAction {
         return RxCompositeAction(UIAction.showProgressIndicator,
+                                 PlayerAction.setQueueSource(.list(OrderedSet(elements: tracks))),
                                  PlayerAction.initializeQueueFromSource,
+                                 PlayerAction.shuffleQueue(moveToFirst: startIndex),
                                  PlayerAction.playNext,
                                  UIAction.hideProgressIndicator,
                                  fallbackAction: UIAction.hideProgressIndicator)
+    }
+    
+    static func repeatFromQueueSource(shuffle: Bool) -> RxCompositeAction {
+        let actions: [RxActionType] = [UIAction.showProgressIndicator,
+                                       PlayerAction.initializeQueueFromSource,
+                                       shuffle ? PlayerAction.shuffleQueue(moveToFirst: nil) : nil,
+                                       PlayerAction.playNext,
+                                       UIAction.hideProgressIndicator].compactMap(id)
+        return RxCompositeAction(actions: actions, fallbackAction: UIAction.hideProgressIndicator)
     }
 }
 
@@ -92,4 +103,6 @@ enum PlayerAction: RxActionType, Equatable {
     case playNext
     case toggle
     case playAtIndex(Int)
+    case shuffleQueue(moveToFirst: Int?)
+    case toggleShuffle
 }

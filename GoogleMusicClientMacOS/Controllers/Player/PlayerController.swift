@@ -47,6 +47,8 @@ final class PlayerController: NSViewController {
     @objc dynamic var currentDuration: String? = nil
     @objc dynamic var palyPauseImage = NSImage.pause
     @objc dynamic var isRepeatQueueEnabled = Current.currentState.state.isRepeatQueueEnabled
+    @objc dynamic var isShuffleEnabled = Current.currentState.state.isShuffleEnabledForCurrentQueueSource
+    @objc dynamic var isShuffleAllowed = Current.currentState.state.queueSource?.isFavorites ?? false
     
     let bag = DisposeBag()
     var player: Player<GMusicTrack>? { return Current.currentState.state.player }
@@ -64,8 +66,10 @@ final class PlayerController: NSViewController {
     func bind() -> [Disposable] {
         return [
             Current.state.filter(isSetBy(SystemAction.toggleQueueRepeat)).subscribe(onNext: { [weak self] in self?.isRepeatQueueEnabled = $0.state.isRepeatQueueEnabled }),
+            bindShuffle(),
+            bindShuffleAllowed(),
             Current.currentTrack.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.update(with: $0?.track) }),
-            shuffleButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.pause) }),
+            shuffleButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.toggleShuffle) }),
             previousButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.playPrevious) }),
             playPauseButon.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.toggle) }),
             nextButton.rx.tap.subscribe(onNext: { Current.dispatch(PlayerAction.playNext) }),
@@ -79,6 +83,26 @@ final class PlayerController: NSViewController {
             player?.errors.subscribe(onNext: { Current.dispatch(UIAction.showErrorController($0)) }),
             bindProgress()
             ].compactMap(id)
+    }
+    
+    func bindShuffle() -> Disposable {
+        return Current.state.filter { state in
+            switch state.setBy {
+            case PlayerAction.setQueueSource, SystemAction.toggleQueueRepeat: return true
+            default: return false
+            }
+            }.observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in self?.isShuffleEnabled = $0.state.isShuffleEnabledForCurrentQueueSource })
+    }
+    
+    func bindShuffleAllowed() -> Disposable {
+        return Current.state.filter { state in
+            switch state.setBy {
+            case PlayerAction.setQueueSource: return true
+            default: return false
+            }
+            }.observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in self?.isShuffleAllowed = $0.state.queueSource?.isFavorites ?? false })
     }
     
     func bindProgress() -> Disposable? {
@@ -102,7 +126,7 @@ final class PlayerController: NSViewController {
         
         
         if Current.currentState.state.queue.isCompleted, Current.currentState.state.isRepeatQueueEnabled {
-            Current.dispatch(CompositeActions.repeatFromQueueSource())
+            Current.dispatch(CompositeActions.repeatFromQueueSource(shuffle: Current.currentState.state.isShuffleEnabledForCurrentQueueSource))
         }
     }
     
