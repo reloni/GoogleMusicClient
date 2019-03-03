@@ -17,7 +17,7 @@ final class QueueController: NSViewController {
         |> register(item: MusicTrackCollectionViewItem.self)
         |> register(header: MusicTrackView.self)
     
-    lazy var scrollView = NSScrollView().configure { $0.documentView = self.collectionView }
+    lazy var scrollView = NSScrollView().configure { $0.documentView = self.collectionView; $0.hasHorizontalScroller = false }
     
     let bag = DisposeBag()
     
