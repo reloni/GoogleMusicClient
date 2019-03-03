@@ -98,11 +98,23 @@
                                     </textField>
                                     <button horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="b2b-Om-n8S">
                                         <rect key="frame" x="275" y="0.0" width="50" height="20"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Shuffle" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="Ag5-rO-raJ">
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Shuffle" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ag5-rO-raJ">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <color key="contentTintColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                        <connections>
+                                            <binding destination="y3d-EB-w5r" name="enabled" keyPath="self.isShuffleAllowed" id="8QA-ZS-msP">
+                                                <dictionary key="options">
+                                                    <integer key="NSNullPlaceholder" value="0"/>
+                                                </dictionary>
+                                            </binding>
+                                            <binding destination="y3d-EB-w5r" name="value" keyPath="self.isShuffleEnabled" id="bgy-5G-5sM">
+                                                <dictionary key="options">
+                                                    <integer key="NSNullPlaceholder" value="0"/>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
                                     </button>
                                     <button horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Qjd-9b-0qi">
                                         <rect key="frame" x="325" y="0.0" width="50" height="20"/>

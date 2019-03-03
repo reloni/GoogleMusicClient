@@ -95,11 +95,10 @@ extension FavoritesController: NSCollectionViewDelegateFlowLayout {
 extension FavoritesController: NSCollectionViewDelegate {
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         guard let index = indexPaths.first?.item else { return }
-        if Current.currentState.state.queueSource?.isFavorites == true {
-            Current.dispatch(PlayerAction.playAtIndex(index))
-        } else {
-//            Current.dispatch(CompositeActions.play(tracks: favorites, startIndex: index))
+        if Current.currentState.state.isShuffleEnabled {
             Current.dispatch(CompositeActions.playShuffled(tracks: favorites, startIndex: index))
+        } else {
+            Current.dispatch(CompositeActions.play(tracks: favorites, startIndex: index))
         }
     }
 }

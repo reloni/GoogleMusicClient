@@ -27,6 +27,9 @@ func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
     case PlayerAction.playAtIndex(let index): return playAtIndex(currentState: currentState, index: index)
     case PlayerAction.setQueueSource(let s): return RxReduceResult.single { $0.mutate(\.queueSource, s) }
     case PlayerAction.shuffleQueue(let moveToFirst): return shuffleQueue(currentState: currentState, moveToFirst: moveToFirst)
+    case PlayerAction.toggleShuffle:
+        currentState.userDefaults.isShuffleEnabled = !currentState.userDefaults.isShuffleEnabled
+        return RxReduceResult.single(id)
     default: break
     }
     return RxReduceResult.empty

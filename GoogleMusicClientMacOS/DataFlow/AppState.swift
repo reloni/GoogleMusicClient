@@ -108,4 +108,13 @@ extension AppState {
     var isRepeatQueueEnabled: Bool {
         return userDefaults.isRepeatQueueEnabled
     }
+    
+    var isShuffleEnabled: Bool {
+        return userDefaults.isShuffleEnabled
+    }
+    
+    var isShuffleEnabledForCurrentQueueSource: Bool {
+        guard case .list? = queueSource else { return false }
+        return userDefaults.isShuffleEnabled
+    }
 }

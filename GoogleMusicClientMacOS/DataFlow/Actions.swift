@@ -103,4 +103,5 @@ enum PlayerAction: RxActionType, Equatable {
     case toggle
     case playAtIndex(Int)
     case shuffleQueue(moveToFirst: Int?)
+    case toggleShuffle
 }
