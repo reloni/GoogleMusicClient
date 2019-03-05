@@ -10,7 +10,7 @@ import Cocoa
 import RxGoogleMusic
 import RxSwift
 import RxDataFlow
-import GoogleMusicClient_Core
+import GoogleMusicClientCore
 
 final class RadioListController: NSViewController {
     let collectionView = NSCollectionView()

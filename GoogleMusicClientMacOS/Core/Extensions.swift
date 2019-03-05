@@ -11,7 +11,7 @@ import Cocoa
 import RxDataFlow
 import RxSwift
 import RxGoogleMusic
-import GoogleMusicClient_Core
+import GoogleMusicClientCore
 
 extension RxDataFlowController where State == AppState {
     var currentTrack: Observable<(track: GMusicTrack, queueIndex: Int, source: QueueSource)?> {

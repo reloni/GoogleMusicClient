@@ -10,7 +10,7 @@ import RxSwift
 import RxDataFlow
 import RxGoogleMusic
 import Foundation
-import GoogleMusicClient_Core
+import GoogleMusicClientCore
 
 func systemReducer(_ action: RxActionType, currentState: AppState) -> RxReduceResult<AppState> {
     switch action {

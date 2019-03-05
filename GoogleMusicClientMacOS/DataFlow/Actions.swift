@@ -10,7 +10,7 @@ import RxDataFlow
 import RxSwift
 import RxGoogleMusic
 import Cocoa
-import GoogleMusicClient_Core
+import GoogleMusicClientCore
 
 struct CompositeActions {
     static let beforeStartup = RxCompositeAction(SystemAction.initializeMusicClient, SystemAction.initializePlayer)

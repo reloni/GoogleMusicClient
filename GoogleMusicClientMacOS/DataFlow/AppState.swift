@@ -9,7 +9,7 @@
 import Foundation
 import RxDataFlow
 import RxGoogleMusic
-import GoogleMusicClient_Core
+import GoogleMusicClientCore
 
 extension GMusicTrack: Hashable {
     public var hashValue: Int { return automaticId.hashValue }

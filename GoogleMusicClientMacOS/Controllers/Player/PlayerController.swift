@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 import RxDataFlow
 import AVFoundation
-import GoogleMusicClient_Core
+import GoogleMusicClientCore
 
 final class PlayerController: NSViewController {
     @IBOutlet weak var albumImage: NSImageView!

@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxDataFlow
 import RxGoogleMusic
-import GoogleMusicClient_Core
+import GoogleMusicClientCore
 
 func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceResult<AppState> {
     guard let client = currentState.client else { return RxReduceResult.empty }
