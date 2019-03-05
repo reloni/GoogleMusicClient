@@ -9,6 +9,7 @@
 import Cocoa
 import RxDataFlow
 import RxSwift
+import GoogleMusicClient_Core
 
 final class MainWindowController: NSWindowController, ApplicationController {
     let bag = DisposeBag()

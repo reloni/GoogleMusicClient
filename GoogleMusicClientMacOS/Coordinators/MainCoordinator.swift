@@ -9,6 +9,7 @@
 import Cocoa
 import RxDataFlow
 import RxSwift
+import GoogleMusicClient_Core
 
 final class MainCoordinator {
     private unowned let windowController: ApplicationWindowController

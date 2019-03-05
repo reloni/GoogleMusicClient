@@ -11,7 +11,7 @@ import RxDataFlow
 
 public protocol Configure { }
 
-extension Configure where Self: AnyObject {
+public extension Configure where Self: AnyObject {
     public func configure(_ block: (Self) -> Void) -> Self {
         block(self)
         return self
@@ -20,7 +20,7 @@ extension Configure where Self: AnyObject {
 
 extension NSObject: Configure { }
 
-enum WindowSize: Codable {
+public enum WindowSize: Codable {
     case fullScreen
     case rect(NSRect)
     
@@ -32,7 +32,7 @@ enum WindowSize: Codable {
         case y
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         let type = try container.decode(String.self, forKey: .type)
@@ -49,7 +49,7 @@ enum WindowSize: Codable {
         }
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
         case .fullScreen:
@@ -64,12 +64,12 @@ enum WindowSize: Codable {
     }
 }
 
-func isSetBy<Action: RxActionType & Equatable, State: RxStateType>(_ action: Action) -> ((setBy: RxActionType, state: State)) -> Bool {
+public func isSetBy<Action: RxActionType & Equatable, State: RxStateType>(_ action: Action) -> ((setBy: RxActionType, state: State)) -> Bool {
     return { value in
         return value.setBy.equalTo(action)
     }
 }
 
-func id<T>(_ value: T) -> T {
+public func id<T>(_ value: T) -> T {
     return value
 }

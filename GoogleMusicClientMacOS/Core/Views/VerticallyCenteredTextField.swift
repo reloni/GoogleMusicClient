@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import GoogleMusicClient_Core
 
 final class VerticallyCenteredTextField: NSView {
     let textField = NSTextField()

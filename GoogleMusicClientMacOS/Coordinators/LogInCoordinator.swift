@@ -10,6 +10,7 @@ import Cocoa
 import RxGoogleMusic
 import RxSwift
 import RxDataFlow
+import GoogleMusicClient_Core
 
 final class LogInCoordinator: ApplicationCoordinator {
     private unowned let windowController: ApplicationWindowController

@@ -9,6 +9,7 @@
 import Cocoa
 import RxGoogleMusic
 import RxSwift
+import GoogleMusicClient_Core
 
 final class QueueController: NSViewController {
     let collectionView = NSCollectionView()

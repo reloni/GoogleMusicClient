@@ -11,13 +11,7 @@ import Cocoa
 import RxDataFlow
 import RxSwift
 import RxGoogleMusic
-
-extension RxActionType {
-    func equalTo<T: RxActionType & Equatable>(_ value: T) -> Bool {
-        guard let casted = self as? T else { return false }
-        return casted == value
-    }
-}
+import GoogleMusicClient_Core
 
 extension RxDataFlowController where State == AppState {
     var currentTrack: Observable<(track: GMusicTrack, queueIndex: Int, source: QueueSource)?> {
@@ -36,46 +30,6 @@ extension RxDataFlowController where State == AppState {
             default: return false
             }
             }.map { $0.state.currentRadio }.startWith(currentState.state.currentRadio)
-    }
-}
-
-extension UserDefaults {
-    var mainWindowFrame: WindowSize? {
-        set {
-            guard let size = newValue else {
-                set(nil, forKey: "mainWindowFrame")
-                return
-            }
-            let data = try? JSONEncoder().encode(size)
-            set(data, forKey: "mainWindowFrame")
-        }
-        get {
-            guard let data = self.data(forKey: "mainWindowFrame") else {
-                return nil
-            }
-            return try? JSONDecoder().decode(WindowSize.self, from: data)
-        }
-    }
-}
-
-extension TimeInterval {
-    var timeString: String? {
-        guard !isInfinite, !isNaN else { return nil }
-        return String(format:"%02d:%02d", minute, second)
-    }
-    
-    var minute: Int {
-        return Int((self/60).truncatingRemainder(dividingBy: 60))
-    }
-    
-    var second: Int {
-        return Int(truncatingRemainder(dividingBy: 60))
-    }
-}
-
-extension Int {
-    var asNsDecimalNumber: NSDecimalNumber? {
-        return NSDecimalNumber(value: self)
     }
 }
 

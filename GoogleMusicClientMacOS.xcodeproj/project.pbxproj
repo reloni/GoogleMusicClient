@@ -29,16 +29,12 @@
 		6E3ACE3A21C28B22000944F3 /* RxCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3521C28B22000944F3 /* RxCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6E3ACE3B21C28B22000944F3 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3621C28B22000944F3 /* RxSwift.framework */; };
 		6E3ACE3C21C28B22000944F3 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3621C28B22000944F3 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6E3DD68621C2B07400C1F49F /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3DD68521C2B07400C1F49F /* Keychain.swift */; };
 		6E3FC37E21CA6E180026DEA7 /* PlayerReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3FC37D21CA6E180026DEA7 /* PlayerReducer.swift */; };
 		6E5C758621D8FAF900C98482 /* DataAssetLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5C758521D8FAF900C98482 /* DataAssetLoader.swift */; };
 		6E7D890E2204CAA100C44E91 /* VerticallyCenteredTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D890D2204CAA100C44E91 /* VerticallyCenteredTextField.swift */; };
 		6E7D89102204CAD600C44E91 /* MusicTrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D890F2204CAD600C44E91 /* MusicTrackView.swift */; };
 		6E7D89122204CB3A00C44E91 /* MusicTrackCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D89112204CB3A00C44E91 /* MusicTrackCollectionViewItem.swift */; };
-		6E7D89142204CB8E00C44E91 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D89132204CB8E00C44E91 /* Support.swift */; };
 		6E7D89172204D02100C44E91 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D89162204D02100C44E91 /* Styles.swift */; };
-		6E7D891A2204D60F00C44E91 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D89182204D60F00C44E91 /* Operators.swift */; };
-		6E7D891B2204D60F00C44E91 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D89192204D60F00C44E91 /* Functions.swift */; };
 		6E7E4E3821F3744B0097E727 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7E4E3721F3744B0097E727 /* Queue.swift */; };
 		6E7E4E3B21F38E530097E727 /* ErrorController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E7E4E3A21F38E530097E727 /* ErrorController.storyboard */; };
 		6E7E4E3D21F38EDD0097E727 /* ErrorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7E4E3C21F38EDD0097E727 /* ErrorController.swift */; };
@@ -49,10 +45,19 @@
 		6E857E9322215AE30057B701 /* TextFieldCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E857E9222215AE30057B701 /* TextFieldCollectionViewItem.swift */; };
 		6E857E9522215B1F0057B701 /* ViewWithBottomBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E857E9422215B1F0057B701 /* ViewWithBottomBorder.swift */; };
 		6E8FB9B921FE23A000952770 /* ViewWithTrackingArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8FB9B821FE23A000952770 /* ViewWithTrackingArea.swift */; };
-		6E927F7D22256A1F007A34EF /* UserDefaultsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E927F7C22256A1F007A34EF /* UserDefaultsType.swift */; };
 		6E94665721C282D200126BB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E94665621C282D200126BB7 /* AppDelegate.swift */; };
 		6E94665B21C282D200126BB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E94665A21C282D200126BB7 /* Assets.xcassets */; };
-		6E98C5DD222B1D4B00BED0D9 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E98C5DC222B1D4B00BED0D9 /* OrderedSet.swift */; };
+		6EA25F9E222F0E980079700C /* GoogleMusicClient_Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EA25F9C222F0E980079700C /* GoogleMusicClient_Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6EA25FA1222F0E980079700C /* GoogleMusicClient_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA25F9A222F0E980079700C /* GoogleMusicClient_Core.framework */; };
+		6EA25FA2222F0E980079700C /* GoogleMusicClient_Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA25F9A222F0E980079700C /* GoogleMusicClient_Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6EA25FA6222F0EE50079700C /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3DD68521C2B07400C1F49F /* Keychain.swift */; };
+		6EA25FA7222F0EF60079700C /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D89132204CB8E00C44E91 /* Support.swift */; };
+		6EA25FA8222F0EFA0079700C /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E98C5DC222B1D4B00BED0D9 /* OrderedSet.swift */; };
+		6EA25FA9222F0EFF0079700C /* UserDefaultsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E927F7C22256A1F007A34EF /* UserDefaultsType.swift */; };
+		6EA25FAD222F0F660079700C /* RxDataFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB27AC921C3C7E80013479C /* RxDataFlow.framework */; };
+		6EA25FAF222F10110079700C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA25FAE222F10110079700C /* Extensions.swift */; };
+		6EA25FB6222F15580079700C /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D89182204D60F00C44E91 /* Operators.swift */; };
+		6EA25FB7222F155C0079700C /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D89192204D60F00C44E91 /* Functions.swift */; };
 		6EA34DB221F09B7F00E9588C /* ApplicationSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA34DB121F09B7F00E9588C /* ApplicationSlider.swift */; };
 		6EA6BC3A21DCFA2200EA3E3E /* export-options.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EA6BC3921DCFA2200EA3E3E /* export-options.plist */; };
 		6EA9BF3321EA455E00A2551D /* SystemController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EA9BF3221EA455E00A2551D /* SystemController.storyboard */; };
@@ -77,6 +82,13 @@
 			remoteGlobalIDString = 6E94665221C282D200126BB7;
 			remoteInfo = GoogleMusicClient;
 		};
+		6EA25F9F222F0E980079700C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6E94664B21C282D200126BB7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6EA25F99222F0E980079700C;
+			remoteInfo = GoogleMusicClient.Core;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -88,6 +100,7 @@
 			files = (
 				6EB27ACB21C3C7E80013479C /* RxDataFlow.framework in Embed Frameworks */,
 				6E3ACE3A21C28B22000944F3 /* RxCocoa.framework in Embed Frameworks */,
+				6EA25FA2222F0E980079700C /* GoogleMusicClient_Core.framework in Embed Frameworks */,
 				6E3ACE3821C28B22000944F3 /* RxGoogleMusic.framework in Embed Frameworks */,
 				6E3ACE3C21C28B22000944F3 /* RxSwift.framework in Embed Frameworks */,
 			);
@@ -145,6 +158,10 @@
 		6E94666921C282D300126BB7 /* GoogleMusicClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMusicClientTests.swift; sourceTree = "<group>"; };
 		6E94666B21C282D300126BB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E98C5DC222B1D4B00BED0D9 /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
+		6EA25F9A222F0E980079700C /* GoogleMusicClient_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleMusicClient_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EA25F9C222F0E980079700C /* GoogleMusicClient_Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoogleMusicClient_Core.h; sourceTree = "<group>"; };
+		6EA25F9D222F0E980079700C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6EA25FAE222F10110079700C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6EA34DB121F09B7F00E9588C /* ApplicationSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSlider.swift; sourceTree = "<group>"; };
 		6EA6BC3921DCFA2200EA3E3E /* export-options.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "export-options.plist"; sourceTree = "<group>"; };
 		6EA9BF3221EA455E00A2551D /* SystemController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SystemController.storyboard; sourceTree = "<group>"; };
@@ -167,6 +184,7 @@
 			files = (
 				6EB27ACA21C3C7E80013479C /* RxDataFlow.framework in Frameworks */,
 				6E3ACE3921C28B22000944F3 /* RxCocoa.framework in Frameworks */,
+				6EA25FA1222F0E980079700C /* GoogleMusicClient_Core.framework in Frameworks */,
 				6E3ACE3721C28B22000944F3 /* RxGoogleMusic.framework in Frameworks */,
 				6E3ACE3B21C28B22000944F3 /* RxSwift.framework in Frameworks */,
 			);
@@ -176,6 +194,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6EA25F97222F0E980079700C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EA25FAD222F0F660079700C /* RxDataFlow.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,13 +279,9 @@
 				6E7E4E3621F374330097E727 /* Player */,
 				6E31EC3121C7DB80009B9742 /* Views */,
 				6E38A75821C29A4000983339 /* ApplicationController.swift */,
-				6E3DD68521C2B07400C1F49F /* Keychain.swift */,
 				6ED66B2C21D3A87200BA9B95 /* Extensions.swift */,
-				6E7D89132204CB8E00C44E91 /* Support.swift */,
-				6E7D89192204D60F00C44E91 /* Functions.swift */,
 				6E7D89182204D60F00C44E91 /* Operators.swift */,
-				6E927F7C22256A1F007A34EF /* UserDefaultsType.swift */,
-				6E98C5DC222B1D4B00BED0D9 /* OrderedSet.swift */,
+				6E7D89192204D60F00C44E91 /* Functions.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -319,7 +341,9 @@
 				6E3ACE3621C28B22000944F3 /* RxSwift.framework */,
 				6E94665521C282D200126BB7 /* GoogleMusicClientMacOS */,
 				6E94666821C282D300126BB7 /* GoogleMusicClientMacOSTests */,
+				6EA25F9B222F0E980079700C /* GoogleMusicClient.Core */,
 				6E94665421C282D200126BB7 /* Products */,
+				6EA25FAC222F0F660079700C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -328,6 +352,7 @@
 			children = (
 				6E94665321C282D200126BB7 /* Google Music Player.app */,
 				6E94666521C282D300126BB7 /* GoogleMusicClientMacOSTests.xctest */,
+				6EA25F9A222F0E980079700C /* GoogleMusicClient_Core.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -352,6 +377,27 @@
 				6E94666B21C282D300126BB7 /* Info.plist */,
 			);
 			path = GoogleMusicClientMacOSTests;
+			sourceTree = "<group>";
+		};
+		6EA25F9B222F0E980079700C /* GoogleMusicClient.Core */ = {
+			isa = PBXGroup;
+			children = (
+				6EA25F9C222F0E980079700C /* GoogleMusicClient_Core.h */,
+				6EA25F9D222F0E980079700C /* Info.plist */,
+				6E3DD68521C2B07400C1F49F /* Keychain.swift */,
+				6E7D89132204CB8E00C44E91 /* Support.swift */,
+				6E98C5DC222B1D4B00BED0D9 /* OrderedSet.swift */,
+				6E927F7C22256A1F007A34EF /* UserDefaultsType.swift */,
+				6EA25FAE222F10110079700C /* Extensions.swift */,
+			);
+			path = GoogleMusicClient.Core;
+			sourceTree = "<group>";
+		};
+		6EA25FAC222F0F660079700C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		6EA9BF3121EA453200A2551D /* System */ = {
@@ -411,6 +457,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		6EA25F95222F0E980079700C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EA25F9E222F0E980079700C /* GoogleMusicClient_Core.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		6E94665221C282D200126BB7 /* GoogleMusicClientMacOS */ = {
 			isa = PBXNativeTarget;
@@ -424,6 +481,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				6EA25FA0222F0E980079700C /* PBXTargetDependency */,
 			);
 			name = GoogleMusicClientMacOS;
 			productName = GoogleMusicClient;
@@ -447,6 +505,24 @@
 			productName = GoogleMusicClientTests;
 			productReference = 6E94666521C282D300126BB7 /* GoogleMusicClientMacOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6EA25F99222F0E980079700C /* GoogleMusicClient.Core */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6EA25FA5222F0E980079700C /* Build configuration list for PBXNativeTarget "GoogleMusicClient.Core" */;
+			buildPhases = (
+				6EA25F95222F0E980079700C /* Headers */,
+				6EA25F96222F0E980079700C /* Sources */,
+				6EA25F97222F0E980079700C /* Frameworks */,
+				6EA25F98222F0E980079700C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GoogleMusicClient.Core;
+			productName = GoogleMusicClient.Core;
+			productReference = 6EA25F9A222F0E980079700C /* GoogleMusicClient_Core.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -472,6 +548,9 @@
 					6E94666421C282D300126BB7 = {
 						CreatedOnToolsVersion = 10.1;
 					};
+					6EA25F99222F0E980079700C = {
+						CreatedOnToolsVersion = 10.1;
+					};
 				};
 			};
 			buildConfigurationList = 6E94664E21C282D200126BB7 /* Build configuration list for PBXProject "GoogleMusicClientMacOS" */;
@@ -489,6 +568,7 @@
 			targets = (
 				6E94665221C282D200126BB7 /* GoogleMusicClientMacOS */,
 				6E94666421C282D300126BB7 /* GoogleMusicClientMacOSTests */,
+				6EA25F99222F0E980079700C /* GoogleMusicClient.Core */,
 			);
 		};
 /* End PBXProject section */
@@ -517,6 +597,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6EA25F98222F0E980079700C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -535,9 +622,8 @@
 				6E7F608921C8F71B00C1D30C /* Constraints.swift in Sources */,
 				6E38A74D21C293BC00983339 /* MainWindowController.swift in Sources */,
 				6E31EC3321C7DBA5009B9742 /* ApplicationTableView.swift in Sources */,
-				6E7D891B2204D60F00C44E91 /* Functions.swift in Sources */,
-				6E7D891A2204D60F00C44E91 /* Operators.swift in Sources */,
-				6E927F7D22256A1F007A34EF /* UserDefaultsType.swift in Sources */,
+				6EA25FB7222F155C0079700C /* Functions.swift in Sources */,
+				6EA25FB6222F15580079700C /* Operators.swift in Sources */,
 				6E13220E21FE424F008E2AC2 /* SelectableNSView.swift in Sources */,
 				6E38A75221C2988C00983339 /* LogInController.swift in Sources */,
 				6E857E9522215B1F0057B701 /* ViewWithBottomBorder.swift in Sources */,
@@ -549,10 +635,8 @@
 				6E7E4E3D21F38EDD0097E727 /* ErrorController.swift in Sources */,
 				6E5C758621D8FAF900C98482 /* DataAssetLoader.swift in Sources */,
 				6EB27AD321C3D5140013479C /* RootReducer.swift in Sources */,
-				6E7D89142204CB8E00C44E91 /* Support.swift in Sources */,
 				6E38A75721C2991D00983339 /* LogInCoordinator.swift in Sources */,
 				6EB27ACF21C3D4B60013479C /* AppState.swift in Sources */,
-				6E3DD68621C2B07400C1F49F /* Keychain.swift in Sources */,
 				6E7D89122204CB3A00C44E91 /* MusicTrackCollectionViewItem.swift in Sources */,
 				6E8496DA21D6365B00210F36 /* QueueController.swift in Sources */,
 				6E7D89172204D02100C44E91 /* Styles.swift in Sources */,
@@ -560,7 +644,6 @@
 				6E38A75C21C2A08C00983339 /* StartupCoordinator.swift in Sources */,
 				6EB27AD121C3D4D50013479C /* Actions.swift in Sources */,
 				6ED66B2D21D3A87200BA9B95 /* Extensions.swift in Sources */,
-				6E98C5DD222B1D4B00BED0D9 /* OrderedSet.swift in Sources */,
 				6E38A75E21C2A38C00983339 /* MainCoordinator.swift in Sources */,
 				6EFDC5A421CA233300E93699 /* PlayerController.swift in Sources */,
 				6E38A75921C29A4000983339 /* ApplicationController.swift in Sources */,
@@ -577,6 +660,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6EA25F96222F0E980079700C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EA25FA8222F0EFA0079700C /* OrderedSet.swift in Sources */,
+				6EA25FA6222F0EE50079700C /* Keychain.swift in Sources */,
+				6EA25FA9222F0EFF0079700C /* UserDefaultsType.swift in Sources */,
+				6EA25FA7222F0EF60079700C /* Support.swift in Sources */,
+				6EA25FAF222F10110079700C /* Extensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -584,6 +679,11 @@
 			isa = PBXTargetDependency;
 			target = 6E94665221C282D200126BB7 /* GoogleMusicClientMacOS */;
 			targetProxy = 6E94666621C282D300126BB7 /* PBXContainerItemProxy */;
+		};
+		6EA25FA0222F0E980079700C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6EA25F99222F0E980079700C /* GoogleMusicClient.Core */;
+			targetProxy = 6EA25F9F222F0E980079700C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -717,6 +817,7 @@
 		6E94666F21C282D300126BB7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GoogleMusicClientMacOS/Resources/GoogleMusicClientMacOS.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
@@ -743,6 +844,7 @@
 		6E94667021C282D300126BB7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GoogleMusicClientMacOS/Resources/GoogleMusicClientMacOS.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
@@ -808,6 +910,72 @@
 			};
 			name = Release;
 		};
+		6EA25FA3222F0E980079700C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = SJMSRXG797;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = GoogleMusicClient.Core/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.AntonEfimenko.GoogleMusicClient-Core";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		6EA25FA4222F0E980079700C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = SJMSRXG797;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = GoogleMusicClient.Core/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.AntonEfimenko.GoogleMusicClient-Core";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -834,6 +1002,15 @@
 			buildConfigurations = (
 				6E94667221C282D300126BB7 /* Debug */,
 				6E94667321C282D300126BB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6EA25FA5222F0E980079700C /* Build configuration list for PBXNativeTarget "GoogleMusicClient.Core" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6EA25FA3222F0E980079700C /* Debug */,
+				6EA25FA4222F0E980079700C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

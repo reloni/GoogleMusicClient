@@ -6,18 +6,18 @@
 //  Copyright © 2019 Anton Efimenko. All rights reserved.
 //
 
-struct OrderedSet<Element: Hashable> {
+public struct OrderedSet<Element: Hashable> {
     private var objects: [Element] = []
     private var indexOfKey: [Element: Int] = [:]
     
-    init(elements: [Element] = []) {
+    public init(elements: [Element] = []) {
         elements.forEach {
             add($0)
         }
     }
     
     // O(1)
-    mutating func add(_ object: Element) {
+    public mutating func add(_ object: Element) {
         guard indexOfKey[object] == nil else {
             return
         }
@@ -27,7 +27,7 @@ struct OrderedSet<Element: Hashable> {
     }
     
     // O(n)
-    mutating func insert(_ object: Element, at index: Int) {
+    public mutating func insert(_ object: Element, at index: Int) {
         assert(index < objects.count, "Index should be smaller than object count")
         assert(index >= 0, "Index should be bigger than 0")
         
@@ -43,7 +43,7 @@ struct OrderedSet<Element: Hashable> {
     }
     
     // O(1)
-    func object(at index: Int) -> Element {
+    public func object(at index: Int) -> Element {
         assert(index < objects.count, "Index should be smaller than object count")
         assert(index >= 0, "Index should be bigger than 0")
         
@@ -51,7 +51,7 @@ struct OrderedSet<Element: Hashable> {
     }
     
     // O(1)
-    mutating func set(_ object: Element, at index: Int) {
+    public mutating func set(_ object: Element, at index: Int) {
         assert(index < objects.count, "Index should be smaller than object count")
         assert(index >= 0, "Index should be bigger than 0")
         
@@ -65,12 +65,12 @@ struct OrderedSet<Element: Hashable> {
     }
     
     // O(1)
-    func indexOf(_ object: Element) -> Int {
+    public func indexOf(_ object: Element) -> Int {
         return indexOfKey[object] ?? -1
     }
     
     // O(n)
-    mutating func remove(_ object: Element) {
+    public mutating func remove(_ object: Element) {
         guard let index = indexOfKey[object] else {
             return
         }
@@ -82,12 +82,12 @@ struct OrderedSet<Element: Hashable> {
         }
     }
     
-    func all() -> [Element] {
+    public func all() -> [Element] {
         return objects
     }
 }
 
-extension OrderedSet {
+public extension OrderedSet {
     func indexOfOptioal(_ object: Element?) -> Int? {
         guard let o = object else { return nil }
         return indexOf(o)
@@ -95,7 +95,7 @@ extension OrderedSet {
 }
 
 extension OrderedSet: Equatable {
-    static func == (lhs: OrderedSet, rhs: OrderedSet) -> Bool {
+    public static func == (lhs: OrderedSet, rhs: OrderedSet) -> Bool {
         return lhs.objects == rhs.objects
     }
 }

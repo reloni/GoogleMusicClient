@@ -10,6 +10,7 @@ import Cocoa
 import RxSwift
 import RxGoogleMusic
 import RxDataFlow
+import GoogleMusicClient_Core
 
 final class FavoritesController: NSViewController {
     let collectionView = NSCollectionView()

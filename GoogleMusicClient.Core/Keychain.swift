@@ -9,30 +9,30 @@
 import Security
 import Foundation
 
-protocol KeychainType: class {
+public protocol KeychainType: class {
     var accessToken: String? { get set }
     var refreshToken: String? { get set }
     var expiresAt: Date? { get set }
 }
 
 extension Keychain {
-    convenience init() {
+    public convenience init() {
         self.init(service: "GoogleMusicClient")
     }
 }
 
 extension Keychain: KeychainType {
-    var accessToken: String? {
+    public var accessToken: String? {
         get { return self.stringForAccount(account: "accessToken") }
         set { self.setString(string: newValue, forAccount: "accessToken") }
     }
     
-    var refreshToken: String? {
+    public var refreshToken: String? {
         get { return self.stringForAccount(account: "refreshToken") }
         set { self.setString(string: newValue, forAccount: "refreshToken") }
     }
     
-    var expiresAt: Date? {
+    public var expiresAt: Date? {
         get {
             guard let value = TimeInterval(stringForAccount(account: "expiresAt") ?? "") else { return nil }
             return Date(timeIntervalSince1970: value)
@@ -121,7 +121,7 @@ struct SecItemWrapper {
     }
 }
 
-class Keychain {
+public class Keychain {
     let service: String
     init(service: String) {
         self.service = service
