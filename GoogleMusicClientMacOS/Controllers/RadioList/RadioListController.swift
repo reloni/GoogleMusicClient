@@ -15,9 +15,9 @@ import GoogleMusicClientCore
 final class RadioListController: NSViewController {
     let collectionView = NSCollectionView()
         |> baseCollectionView()
-        |> layout(singleColumnCollectionViewLayout)
-        |> register(item: TextFieldCollectionViewItem.self)
-        |> register(header: MusicTrackView.self)
+        |> layout(radioListCollectionViewLayout)
+        |> register(item: RadioStationCollectionViewItem.self)
+//        |> register(header: MusicTrackView.self)
     
     lazy var scrollView = NSScrollView().configure { $0.documentView = self.collectionView }
     
@@ -77,13 +77,13 @@ final class RadioListController: NSViewController {
 }
 
 extension RadioListController: NSCollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-        return NSSize(width: collectionView.bounds.width, height: 40)
-    }
+//    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+//        return NSSize(width: collectionView.bounds.width, height: 40)
+//    }
     
-    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> NSSize {
-        return NSSize(width: collectionView.bounds.width, height: 30)
-    }
+//    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> NSSize {
+//        return NSSize(width: collectionView.bounds.width, height: 30)
+//    }
 }
 
 extension RadioListController: NSCollectionViewDelegate {
@@ -103,22 +103,23 @@ extension RadioListController: NSCollectionViewDataSource {
         return stations.count
     }
     
-    func collectionView(_ collectionView: NSCollectionView, viewForSupplementaryElementOfKind kind: NSCollectionView.SupplementaryElementKind, at indexPath: IndexPath) -> NSView {
-        if kind == NSCollectionView.elementKindSectionHeader {
-            let view: MusicTrackView = collectionView.makeHeader(for: indexPath)
-            return view.configure {
-                $0.title.textField.stringValue = "Name"
-            }
-        }
-        
-        return NSView()
-    }
+//    func collectionView(_ collectionView: NSCollectionView, viewForSupplementaryElementOfKind kind: NSCollectionView.SupplementaryElementKind, at indexPath: IndexPath) -> NSView {
+//        if kind == NSCollectionView.elementKindSectionHeader {
+//            let view: MusicTrackView = collectionView.makeHeader(for: indexPath)
+//            return view.configure {
+//                $0.title.textField.stringValue = "Name"
+//            }
+//        }
+//
+//        return NSView()
+//    }
     
     func collectionView(_ itemForRepresentedObjectAtcollectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        let item: TextFieldCollectionViewItem = collectionView.makeItem(for: indexPath)
+        let item: RadioStationCollectionViewItem = collectionView.makeItem(for: indexPath)
         let station = stations[indexPath.item]
         
-        item.itemTextField.textField.stringValue = station.name
+//        item.itemTextField.textField.stringValue = station.name
+        item.titleLabel.stringValue = station.name
         
         return item
     }

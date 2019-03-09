@@ -40,6 +40,10 @@ extension Layout.Anchor {
     @discardableResult func equal(to other: Layout.Anchor, constant: CGFloat = 0.0, multiplier: CGFloat = 1.0) -> NSLayoutConstraint {
         return makeConstraint(self, other, constant: constant, multiplier: multiplier)
     }
+    
+    @discardableResult func equal(to other: Layout.Anchor, constant: CGFloat = 0.0) -> NSLayoutConstraint {
+        return makeConstraint(self, other, constant: constant, multiplier: 1)
+    }
 }
 
 extension Layout {

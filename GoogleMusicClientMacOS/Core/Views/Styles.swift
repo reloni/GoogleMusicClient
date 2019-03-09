@@ -41,9 +41,21 @@ func font(_ font: ApplicationFont) -> (NSTextField) -> NSTextField {
     }
 }
 
+func alignment(_ alignment: NSTextAlignment) -> (NSTextField) -> NSTextField {
+    return { label in
+        label.alignment = alignment
+        return label
+    }
+}
+
 let singleColumnCollectionViewLayout = NSCollectionViewFlowLayout().configure {
     $0.minimumLineSpacing = 0
     $0.scrollDirection = .vertical
+}
+
+let radioListCollectionViewLayout = NSCollectionViewFlowLayout().configure {
+    $0.scrollDirection = .vertical
+    $0.itemSize = NSSize(width: 200, height: 200)
 }
 
 func baseCollectionView() -> (NSCollectionView) -> NSCollectionView {
