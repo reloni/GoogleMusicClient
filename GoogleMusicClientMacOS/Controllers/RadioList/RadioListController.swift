@@ -70,6 +70,19 @@ final class RadioListController: NSViewController {
         collectionView.collectionViewLayout?.invalidateLayout()
     }
     
+    func image(for radio: GMusicRadioStation) -> Observable<NSImage> {
+        guard let client = Current.currentState.state.client else { return Observable.just(NSImage.album) }
+        guard let art = radio.imageUrls.first(where: { $0.autogen == false }) ?? radio.imageUrls.first else {
+            return Observable.just(NSImage.album)
+        }
+        
+        return client
+            .downloadArt(art)
+            .map { NSImage($0) ?? NSImage.album }
+            .catchErrorJustReturn(NSImage.album)
+            .asObservable()
+            .startWith(NSImage.album)
+    }
     
     deinit {
         print("RadioListController deinit")
@@ -120,6 +133,11 @@ extension RadioListController: NSCollectionViewDataSource {
         
 //        item.itemTextField.textField.stringValue = station.name
         item.titleLabel.stringValue = station.name
+        image(for: station)
+            .delaySubscription(1, scheduler: MainScheduler.instance)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak item] in item?.image.image = $0 })
+            .disposed(by: bag)
         
         return item
     }

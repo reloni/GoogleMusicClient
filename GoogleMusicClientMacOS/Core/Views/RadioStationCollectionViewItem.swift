@@ -53,6 +53,7 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
         
         image.imageScaling = .scaleProportionallyUpOrDown
         titleLabel.setContentPriority(.hugging(1000, .vertical))
+        titleLabel.setContentPriority(.compression(1000, .vertical))
         
         createConstraints()
         
