@@ -22,30 +22,14 @@ enum ApplicationFont {
     }
 }
 
-func baseLabel() -> (NSTextField) -> NSTextField {
-    return { label in
-        label.isEditable = false
-        label.isBezeled = false
-        label.drawsBackground = true
-        label.backgroundColor = NSColor.clear
-        label.usesSingleLineMode = true
-        label.lineBreakMode = NSLineBreakMode.byTruncatingTail
-        return label
-    }
-}
-
-func font(_ font: ApplicationFont) -> (NSTextField) -> NSTextField {
-    return { label in
-        label.font = font.value
-        return label
-    }
-}
-
-func alignment(_ alignment: NSTextAlignment) -> (NSTextField) -> NSTextField {
-    return { label in
-        label.alignment = alignment
-        return label
-    }
+let baseLabel = {
+    return NSTextField()
+        |> mutate(^\.isEditable, false)
+        |> mutate(^\.isBezeled, false)
+        |> mutate(^\.drawsBackground, true)
+        |> mutate(^\.usesSingleLineMode, true)
+        |> mutate(^\NSTextField.backgroundColor, NSColor.clear)
+        |> mutate(^\.lineBreakMode, NSLineBreakMode.byTruncatingTail)
 }
 
 let singleColumnCollectionViewLayout = NSCollectionViewFlowLayout().configure {

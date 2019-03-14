@@ -10,9 +10,8 @@ import Cocoa
 import GoogleMusicClientCore
 
 final class VerticallyCenteredTextField: NSView {
-    let textField = NSTextField()
-        |> baseLabel()
-        |> font(.semibold)
+    let textField = baseLabel()
+        |> mutate(^\NSTextField.font, ApplicationFont.semibold.value)
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)

@@ -41,10 +41,9 @@ extension NSView {
 
 final class RadioStationCollectionViewItem: NSCollectionViewItem {
     let image = NSImageView()
-    let titleLabel = NSTextField()
-        |> baseLabel()
-        |> font(.semibold)
-        |> alignment(.center)
+    let titleLabel = baseLabel()
+        |> mutate(^\NSTextField.font, ApplicationFont.semibold.value)
+        |> mutate(^\NSTextField.alignment, NSTextAlignment.center)
     
     override func loadView() {
         view = NSView()
