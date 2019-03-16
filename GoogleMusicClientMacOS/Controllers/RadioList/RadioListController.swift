@@ -136,7 +136,7 @@ extension RadioListController: NSCollectionViewDataSource {
         image(for: station)
             .delaySubscription(1, scheduler: MainScheduler.instance)
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak item] in item?.image.image = $0 })
+            .subscribe(onNext: { [weak item] in item?.image.image = $0; item?.backgroundImage.image = $0.blurred(radius: 30) })
             .disposed(by: bag)
         
         return item

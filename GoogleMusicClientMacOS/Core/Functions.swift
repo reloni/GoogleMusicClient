@@ -24,6 +24,10 @@ func mutate<S, A>(
         return mutate(setter) { $0 = value }
 }
 
+func mutate<S>(_ configure: @escaping (inout S) -> Void) -> (inout S) -> Void {
+    return configure
+}
+
 prefix operator ^
 prefix func ^ <Root, Value>(
     _ kp: WritableKeyPath<Root, Value>
