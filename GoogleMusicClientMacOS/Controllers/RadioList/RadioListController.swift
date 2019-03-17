@@ -70,33 +70,21 @@ final class RadioListController: NSViewController {
         collectionView.collectionViewLayout?.invalidateLayout()
     }
     
-    func image(for radio: GMusicRadioStation) -> Observable<NSImage> {
-        guard let client = Current.currentState.state.client else { return Observable.just(NSImage.album) }
+    func image(for radio: GMusicRadioStation) -> Observable<NSImage?> {
+        guard let client = Current.currentState.state.client else { return Observable.just(nil) }
         guard let art = radio.imageUrls.first(where: { $0.autogen == false }) ?? radio.imageUrls.first else {
-            return Observable.just(NSImage.album)
+            return Observable.just(nil)
         }
         
         return client
             .downloadArt(art)
-            .map { NSImage($0) ?? NSImage.album }
-            .catchErrorJustReturn(NSImage.album)
+            .map { NSImage($0) }
             .asObservable()
-            .startWith(NSImage.album)
     }
     
     deinit {
         print("RadioListController deinit")
     }
-}
-
-extension RadioListController: NSCollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-//        return NSSize(width: collectionView.bounds.width, height: 40)
-//    }
-    
-//    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> NSSize {
-//        return NSSize(width: collectionView.bounds.width, height: 30)
-//    }
 }
 
 extension RadioListController: NSCollectionViewDelegate {
@@ -116,28 +104,12 @@ extension RadioListController: NSCollectionViewDataSource {
         return stations.count
     }
     
-//    func collectionView(_ collectionView: NSCollectionView, viewForSupplementaryElementOfKind kind: NSCollectionView.SupplementaryElementKind, at indexPath: IndexPath) -> NSView {
-//        if kind == NSCollectionView.elementKindSectionHeader {
-//            let view: MusicTrackView = collectionView.makeHeader(for: indexPath)
-//            return view.configure {
-//                $0.title.textField.stringValue = "Name"
-//            }
-//        }
-//
-//        return NSView()
-//    }
-    
     func collectionView(_ itemForRepresentedObjectAtcollectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item: RadioStationCollectionViewItem = collectionView.makeItem(for: indexPath)
         let station = stations[indexPath.item]
         
-//        item.itemTextField.textField.stringValue = station.name
         item.titleLabel.stringValue = station.name
-        image(for: station)
-            .delaySubscription(1, scheduler: MainScheduler.instance)
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak item] in item?.image.image = $0; item?.backgroundImage.image = $0.blurred(radius: 30) })
-            .disposed(by: bag)
+        item.setImage(from: image(for: station))
         
         return item
     }

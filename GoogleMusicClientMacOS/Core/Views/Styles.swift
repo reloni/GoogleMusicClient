@@ -77,3 +77,24 @@ func register(header: AnyClass) -> (NSCollectionView) -> NSCollectionView {
         return collection
     }
 }
+
+func addBlur<T: NSView>(radius: Double) -> (inout T) -> Void {
+    return { view in
+        guard let blurFilter = CIFilter(name: "CIGaussianBlur") else { return }
+        
+        let blurView = NSView(frame: .zero)
+        blurView.wantsLayer = true
+        blurView.layer?.backgroundColor = NSColor.clear.cgColor
+        blurView.layer?.masksToBounds = true
+        blurView.layerUsesCoreImageFilters = true
+        blurView.layer?.needsDisplayOnBoundsChange = true
+        
+        blurFilter.setDefaults()
+        
+        blurFilter.setValue(NSNumber(value: radius), forKey: "inputRadius")
+        blurView.layer?.backgroundFilters = [blurFilter]
+        view.addSubview(blurView)
+        
+        blurView.lt.edges(to: view)
+    }
+}
