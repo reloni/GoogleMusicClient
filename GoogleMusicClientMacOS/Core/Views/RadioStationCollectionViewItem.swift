@@ -10,14 +10,14 @@ import Cocoa
 import RxSwift
 
 final class RadioStationCollectionViewItem: NSCollectionViewItem {
-    let image = NSImageView()
+    private let image = NSImageView()
         |> mutate(^\NSImageView.imageScaling, NSImageScaling.scaleProportionallyUpOrDown)
     
-    let backgroundImage = NSImageView()
+    private let backgroundImage = NSImageView()
         |> mutate(^\NSImageView.imageScaling, NSImageScaling.scaleNone)
         |> addBlur(radius: 20.0)
     
-    let titleLabel = baseLabel()
+    private let titleLabel = baseLabel()
         |> mutate(^\NSTextField.font, ApplicationFont.semibold.value)
         |> mutate(^\NSTextField.alignment, NSTextAlignment.center)
         |> mutate { $0.setContentPriority(.hugging(1000, .vertical)) }
@@ -36,6 +36,11 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
             .do(onNext: { [weak self] in self?.backgroundImage.image = $0; self?.image.image = $0 })
             .do(onError: { [weak self] _ in self?.backgroundImage.image = NSImage.album; self?.image.image = NSImage.album })
             .subscribe()
+    }
+    
+    override var title: String? {
+        get { return titleLabel.stringValue }
+        set { titleLabel.stringValue = newValue ?? "" }
     }
     
     override func loadView() {

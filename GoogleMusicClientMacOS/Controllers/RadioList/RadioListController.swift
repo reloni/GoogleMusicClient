@@ -17,7 +17,6 @@ final class RadioListController: NSViewController {
         |> baseCollectionView()
         |> layout(radioListCollectionViewLayout)
         |> register(item: RadioStationCollectionViewItem.self)
-//        |> register(header: MusicTrackView.self)
     
     lazy var scrollView = NSScrollView().configure { $0.documentView = self.collectionView }
     
@@ -108,7 +107,7 @@ extension RadioListController: NSCollectionViewDataSource {
         let item: RadioStationCollectionViewItem = collectionView.makeItem(for: indexPath)
         let station = stations[indexPath.item]
         
-        item.titleLabel.stringValue = station.name
+        item.title = station.name
         item.setImage(from: image(for: station))
         
         return item
