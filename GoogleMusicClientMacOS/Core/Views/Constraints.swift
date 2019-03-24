@@ -82,8 +82,8 @@ extension Layout {
     @discardableResult func edges(to other: NSView, constant: CGFloat = 0.0) -> [NSLayoutConstraint] {
         return [target.lt.top.equal(to: other.lt.top, constant: constant),
                 target.lt.leading.equal(to: other.lt.leading, constant: constant),
-                target.lt.trailing.equal(to: other.lt.trailing, constant: constant),
-                target.lt.bottom.equal(to: other.lt.bottom, constant: constant)
+                target.lt.trailing.equal(to: other.lt.trailing, constant: -constant),
+                target.lt.bottom.equal(to: other.lt.bottom, constant: -constant)
         ]
     }
 }

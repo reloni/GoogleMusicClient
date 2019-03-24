@@ -10,6 +10,9 @@ import Cocoa
 import RxSwift
 
 final class RadioStationCollectionViewItem: NSCollectionViewItem {
+    private let progressIndicator = NSProgressIndicator()
+        |> mutate(^\NSProgressIndicator.style, .spinning)
+    
     private let image = NSImageView()
         |> mutate(^\NSImageView.imageScaling, NSImageScaling.scaleProportionallyUpOrDown)
     
@@ -33,8 +36,10 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
     func setImage(from loader: Observable<NSImage?>) {
         imageLoader = loader
             .observeOn(MainScheduler.instance)
+            .do(onSubscribe: { [weak self] in self?.toggleSpiner(animating: true); self?.updateImages(with: nil) })
             .do(onNext: { [weak self] in self?.backgroundImage.image = $0; self?.image.image = $0 })
             .do(onError: { [weak self] _ in self?.backgroundImage.image = NSImage.album; self?.image.image = NSImage.album; })
+            .do(onDispose: { [weak self] in self?.toggleSpiner(animating: false) })
             .subscribe()
     }
     
@@ -43,11 +48,24 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
         set { titleLabel.stringValue = newValue ?? "" }
     }
     
+    func toggleSpiner(animating: Bool) {
+        if animating {
+            progressIndicator.startAnimation(nil)
+            progressIndicator.isHidden = false
+        } else {
+            progressIndicator.stopAnimation(nil)
+            progressIndicator.isHidden = true
+        }
+    }
+    
+    func updateImages(with image: NSImage?) {
+        self.image.image = image
+        self.backgroundImage.image = image
+    }
+    
     override func loadView() {
         view = NSView()
-        view.addSubview(backgroundImage)
-        view.addSubview(image)
-        view.addSubview(titleLabel)
+        view.addSubviews(backgroundImage, image, titleLabel, progressIndicator)
         createConstraints()
     }
     
@@ -55,6 +73,8 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
         backgroundImage.lt.top.equal(to: view.lt.top, constant: 5)
         backgroundImage.lt.leading.equal(to: view.lt.leading, constant: 5)
         backgroundImage.lt.trailing.equal(to: view.lt.trailing, constant: 5)
+        
+        progressIndicator.lt.edges(to: backgroundImage, constant: 20)
         
         image.lt.top.equal(to: backgroundImage.lt.top)
         image.lt.leading.equal(to: backgroundImage.lt.leading)

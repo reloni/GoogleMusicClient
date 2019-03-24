@@ -33,6 +33,14 @@ extension RxDataFlowController where State == AppState {
     }
 }
 
+extension NSView {
+    func addSubviews(_ views: NSView...) {
+        views.forEach {
+            addSubview($0)
+        }
+    }
+}
+
 extension NSColor {
     static var textColor: NSColor { return NSColor.init(named: "TextColor")! }
     static var selectedItemTextColor: NSColor { return NSColor.init(named: "SelectedItemTextColor")! }
