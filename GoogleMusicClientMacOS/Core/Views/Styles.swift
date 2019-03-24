@@ -39,7 +39,7 @@ let singleColumnCollectionViewLayout = NSCollectionViewFlowLayout().configure {
 
 let radioListCollectionViewLayout = NSCollectionViewFlowLayout().configure {
     $0.scrollDirection = .vertical
-    $0.itemSize = NSSize(width: 200, height: 200)
+    $0.itemSize = NSSize(width: 220, height: 150)
     $0.sectionInset = NSEdgeInsets(top: 10, left: 20, bottom: 10, right: 30)
 }
 

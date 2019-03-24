@@ -34,7 +34,7 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
         imageLoader = loader
             .observeOn(MainScheduler.instance)
             .do(onNext: { [weak self] in self?.backgroundImage.image = $0; self?.image.image = $0 })
-            .do(onError: { [weak self] _ in self?.backgroundImage.image = NSImage.album; self?.image.image = NSImage.album })
+            .do(onError: { [weak self] _ in self?.backgroundImage.image = NSImage.album; self?.image.image = NSImage.album; })
             .subscribe()
     }
     
@@ -47,7 +47,6 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
         view = NSView()
         view.addSubview(backgroundImage)
         view.addSubview(image)
-
         view.addSubview(titleLabel)
         createConstraints()
     }
@@ -57,13 +56,11 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
         backgroundImage.lt.leading.equal(to: view.lt.leading, constant: 5)
         backgroundImage.lt.trailing.equal(to: view.lt.trailing, constant: 5)
         
-        image.lt.centerX.equal(to: backgroundImage.lt.centerX, constant: 0)
-        image.lt.centerY.equal(to: backgroundImage.lt.centerY, constant: 0)
-        
-        image.lt.height.equal(to: image.lt.width)
+        image.lt.top.equal(to: backgroundImage.lt.top)
         image.lt.leading.equal(to: backgroundImage.lt.leading)
         image.lt.trailing.equal(to: backgroundImage.lt.trailing)
-
+        image.lt.bottom.equal(to: backgroundImage.lt.bottom)
+        
         titleLabel.lt.top.equal(to: backgroundImage.lt.bottom, constant: 15)
         titleLabel.lt.leading.equal(to: backgroundImage.lt.leading)
         titleLabel.lt.trailing.equal(to: backgroundImage.lt.trailing)
