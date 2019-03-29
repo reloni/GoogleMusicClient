@@ -12,7 +12,7 @@ import RxDataFlow
 public protocol Configure { }
 
 public extension Configure where Self: AnyObject {
-    public func configure(_ block: (Self) -> Void) -> Self {
+    func configure(_ block: (Self) -> Void) -> Self {
         block(self)
         return self
     }

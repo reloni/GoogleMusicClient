@@ -40,6 +40,7 @@ extension AVPlayer {
             case .failed: self = .failed
             case .readyToPlay: self = .readyToPlay
             case .unknown: self = .unknown
+            @unknown default: fatalError()
             }
         }
     }
