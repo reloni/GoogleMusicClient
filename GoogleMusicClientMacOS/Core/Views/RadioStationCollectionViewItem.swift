@@ -10,6 +10,9 @@ import Cocoa
 import RxSwift
 
 final class RadioStationCollectionViewItem: NSCollectionViewItem {
+    private let playPauseImage = NSImageView()
+        |> mutate(^\NSImageView.imageScaling, NSImageScaling.scaleProportionallyUpOrDown)
+    
     private let progressIndicator = NSProgressIndicator()
         |> mutate(^\NSProgressIndicator.style, .spinning)
     
@@ -48,6 +51,8 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
         set { titleLabel.stringValue = newValue ?? "" }
     }
     
+    private var selectableView: SelectableNSView { return view as! SelectableNSView }
+    
     func toggleSpiner(animating: Bool) {
         if animating {
             progressIndicator.startAnimation(nil)
@@ -64,9 +69,25 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
     }
     
     override func loadView() {
-        view = NSView()
+        view = SelectableNSView()
         view.addSubviews(backgroundImage, image, titleLabel, progressIndicator)
+        
+        selectableView.drawHoverBackground = false
+        selectableView.setupTrackingArea()
+        selectableView.isSelectedChanged = { isSelected in
+            print("isSelected: \(isSelected)")
+        }
+        selectableView.isHoveredChanged = { isHovered in
+            print("isHovered: \(isHovered)")
+        }
+        
         createConstraints()
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            selectableView.isSelected = isSelected
+        }
     }
     
     func createConstraints() {
