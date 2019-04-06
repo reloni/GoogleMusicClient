@@ -24,10 +24,10 @@ enum ApplicationFont {
 
 let baseLabel = {
     return NSTextField()
-        |> mutate(^\.isEditable, false)
-        |> mutate(^\.isBezeled, false)
-        |> mutate(^\.drawsBackground, true)
-        |> mutate(^\.usesSingleLineMode, true)
+        |> mutate(^\NSTextField.isEditable, false)
+        |> mutate(^\NSTextField.isBezeled, false)
+        |> mutate(^\NSTextField.drawsBackground, true)
+        |> mutate(^\NSTextField.usesSingleLineMode, true)
         |> mutate(^\NSTextField.backgroundColor, NSColor.clear)
         |> mutate(^\.lineBreakMode, NSLineBreakMode.byTruncatingTail)
 }

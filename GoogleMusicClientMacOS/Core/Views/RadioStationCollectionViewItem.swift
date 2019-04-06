@@ -10,6 +10,12 @@ import Cocoa
 import RxSwift
 
 final class RadioStationCollectionViewItem: NSCollectionViewItem {
+    private let playPauseCircle = NSView()
+        |> mutate(^\NSView.isHidden, true)
+        |> mutate(^\NSView.wantsLayer, true)
+        |> mutate(^?\NSView.layer!.backgroundColor, NSColor.white.cgColor)
+        |> mutate(^\NSView.layer!.masksToBounds, true)
+    
     private let playPauseImage = NSImageView()
         |> mutate(^\NSImageView.imageScaling, NSImageScaling.scaleProportionallyUpOrDown)
     
@@ -70,18 +76,24 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
     
     override func loadView() {
         view = SelectableNSView()
-        view.addSubviews(backgroundImage, image, titleLabel, progressIndicator)
+        view.addSubviews(backgroundImage, image, titleLabel, progressIndicator, playPauseCircle, playPauseImage)
         
         selectableView.drawHoverBackground = false
         selectableView.setupTrackingArea()
         selectableView.isSelectedChanged = { isSelected in
             print("isSelected: \(isSelected)")
         }
-        selectableView.isHoveredChanged = { isHovered in
+        selectableView.isHoveredChanged = { [weak self] isHovered in
             print("isHovered: \(isHovered)")
+            self?.toggleIsHovered(isHovered)
         }
         
         createConstraints()
+    }
+    
+    override func viewDidLayout() {
+        super.viewDidLayout()
+        playPauseCircle.layer?.cornerRadius = playPauseCircle.bounds.height / 2
     }
     
     override var isSelected: Bool {
@@ -90,12 +102,24 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
         }
     }
     
+    func toggleIsHovered(_ isHovered: Bool) {
+        playPauseCircle.isHidden = !isHovered
+        playPauseImage.image = isHovered ? NSImage.play.tinted(tintColor: NSColor.black) : nil
+    }
+    
     func createConstraints() {
         backgroundImage.lt.top.equal(to: view.lt.top, constant: 5)
         backgroundImage.lt.leading.equal(to: view.lt.leading, constant: 5)
         backgroundImage.lt.trailing.equal(to: view.lt.trailing, constant: 5)
         
         progressIndicator.lt.edges(to: backgroundImage, constant: 20)
+
+        playPauseCircle.lt.top.equal(to: backgroundImage.lt.top, constant: 10)
+        playPauseCircle.lt.leading.equal(to: backgroundImage.lt.leading, constant: 10)
+        playPauseCircle.lt.width.equal(to: 30)
+        playPauseCircle.lt.height.equal(to: 30)
+        
+        playPauseImage.lt.edges(to: playPauseCircle)
         
         image.lt.top.equal(to: backgroundImage.lt.top)
         image.lt.leading.equal(to: backgroundImage.lt.leading)
