@@ -9,15 +9,56 @@
 import Cocoa
 import RxSwift
 
-final class RadioStationCollectionViewItem: NSCollectionViewItem {
-    private let playPauseCircle = NSView()
-        |> mutate(^\NSView.isHidden, true)
+private final class PlayPauseView: NSView {
+    enum State {
+        case hidden
+        case play
+        case pause
+    }
+    
+    private let circle = NSView()
         |> mutate(^\NSView.wantsLayer, true)
         |> mutate(^?\NSView.layer!.backgroundColor, NSColor.white.cgColor)
         |> mutate(^\NSView.layer!.masksToBounds, true)
     
-    private let playPauseImage = NSImageView()
+    private let image = NSImageView()
         |> mutate(^\NSImageView.imageScaling, NSImageScaling.scaleProportionallyUpOrDown)
+    
+    override func layout() {
+        super.layout()
+        circle.layer?.cornerRadius = circle.bounds.height / 2
+    }
+    
+    init() {
+        super.init(frame: .zero)
+        
+        addSubviews(circle, image)
+        
+        circle.lt.edges(to: self)
+        image.lt.edges(to: circle)
+        
+        setState(.hidden)
+    }
+    
+    required init?(coder decoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setState(_ value: State) {
+        switch value {
+        case .hidden: isHidden = true
+        case .pause:
+            isHidden = false
+            image.image = NSImage.pause.tinted(tintColor: NSColor.black)
+        case .play:
+            isHidden = false
+            image.image = NSImage.play.tinted(tintColor: NSColor.black)
+        }
+    }
+}
+
+final class RadioStationCollectionViewItem: NSCollectionViewItem {
+    private let playPauseView = PlayPauseView()
     
     private let progressIndicator = NSProgressIndicator()
         |> mutate(^\NSProgressIndicator.style, .spinning)
@@ -76,35 +117,36 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
     
     override func loadView() {
         view = SelectableNSView()
-        view.addSubviews(backgroundImage, image, titleLabel, progressIndicator, playPauseCircle, playPauseImage)
+        view.addSubviews(backgroundImage, image, titleLabel, progressIndicator, playPauseView)
         
         selectableView.drawHoverBackground = false
         selectableView.setupTrackingArea()
-        selectableView.isSelectedChanged = { isSelected in
-            print("isSelected: \(isSelected)")
+        selectableView.isSelectedChanged = { _ in
+            self.toggleIsHovered(isSelected: self.selectableView.isSelected, isHovered: self.selectableView.isHovered)
         }
-        selectableView.isHoveredChanged = { [weak self] isHovered in
-            print("isHovered: \(isHovered)")
-            self?.toggleIsHovered(isHovered)
+        selectableView.isHoveredChanged = { [weak self] _ in
+            guard let self = self else { return }
+            self.toggleIsHovered(isSelected: self.selectableView.isSelected, isHovered: self.selectableView.isHovered)
         }
         
         createConstraints()
     }
-    
-    override func viewDidLayout() {
-        super.viewDidLayout()
-        playPauseCircle.layer?.cornerRadius = playPauseCircle.bounds.height / 2
-    }
-    
+
     override var isSelected: Bool {
         didSet {
             selectableView.isSelected = isSelected
         }
     }
-    
-    func toggleIsHovered(_ isHovered: Bool) {
-        playPauseCircle.isHidden = !isHovered
-        playPauseImage.image = isHovered ? NSImage.play.tinted(tintColor: NSColor.black) : nil
+
+    func toggleIsHovered(isSelected: Bool, isHovered: Bool) {
+        guard let player = Current.currentState.state.player else { playPauseView.setState(.hidden); return  }
+        switch (isSelected, isHovered, player.isPlayingNow) {
+        case (true, _, true): playPauseView.setState(.play)
+        case (true, _, false): playPauseView.setState(.pause)
+        case (false, true, true): playPauseView.setState(.pause)
+        case (false, true, false): playPauseView.setState(.play)
+        default: playPauseView.setState(.hidden)
+        }
     }
     
     func createConstraints() {
@@ -114,12 +156,10 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
         
         progressIndicator.lt.edges(to: backgroundImage, constant: 20)
 
-        playPauseCircle.lt.top.equal(to: backgroundImage.lt.top, constant: 10)
-        playPauseCircle.lt.leading.equal(to: backgroundImage.lt.leading, constant: 10)
-        playPauseCircle.lt.width.equal(to: 30)
-        playPauseCircle.lt.height.equal(to: 30)
-        
-        playPauseImage.lt.edges(to: playPauseCircle)
+        playPauseView.lt.top.equal(to: backgroundImage.lt.top, constant: 10)
+        playPauseView.lt.leading.equal(to: backgroundImage.lt.leading, constant: 10)
+        playPauseView.lt.width.equal(to: 30)
+        playPauseView.lt.height.equal(to: 30)
         
         image.lt.top.equal(to: backgroundImage.lt.top)
         image.lt.leading.equal(to: backgroundImage.lt.leading)
