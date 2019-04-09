@@ -8,6 +8,7 @@
 
 import Cocoa
 import RxSwift
+import RxCocoa
 
 private final class PlayPauseView: NSView {
     enum State {
@@ -58,6 +59,7 @@ private final class PlayPauseView: NSView {
 }
 
 final class RadioStationCollectionViewItem: NSCollectionViewItem {
+    let bag = DisposeBag()
     private let playPauseView = PlayPauseView()
     
     private let progressIndicator = NSProgressIndicator()
@@ -76,15 +78,27 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
         |> mutate { $0.setContentPriority(.hugging(1000, .vertical)) }
         |> mutate { $0.setContentPriority(.compression(1000, .vertical)) }
     
-    private var imageLoader: Disposable? = nil
+    override var title: String? {
+        get { return titleLabel.stringValue }
+        set { titleLabel.stringValue = newValue ?? "" }
+    }
+    
+    private var selectableView: SelectableNSView { return view as! SelectableNSView }
+    
+    private var imageLoaderDisposable: Disposable? = nil
+    
+    private let isPlayingRelay = BehaviorRelay(value: false)
+    private var isPlayingDisposable: Disposable? = nil
     
     override func prepareForReuse() {
-        imageLoader?.dispose()
-        imageLoader = nil
+        imageLoaderDisposable?.dispose()
+        imageLoaderDisposable = nil
+        isPlayingDisposable?.dispose()
+        isPlayingDisposable = nil
     }
     
     func setImage(from loader: Observable<NSImage?>) {
-        imageLoader = loader
+        imageLoaderDisposable = loader
             .observeOn(MainScheduler.instance)
             .do(onSubscribe: { [weak self] in self?.toggleSpiner(animating: true); self?.updateImages(with: nil) })
             .do(onNext: { [weak self] in self?.backgroundImage.image = $0; self?.image.image = $0 })
@@ -93,12 +107,9 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
             .subscribe()
     }
     
-    override var title: String? {
-        get { return titleLabel.stringValue }
-        set { titleLabel.stringValue = newValue ?? "" }
+    func subscribeToIsPlaying(_ isPlaying: Observable<Bool>) {
+       isPlayingDisposable = isPlaying.bind(to: isPlayingRelay)
     }
-    
-    private var selectableView: SelectableNSView { return view as! SelectableNSView }
     
     func toggleSpiner(animating: Bool) {
         if animating {
@@ -121,13 +132,14 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
         
         selectableView.drawHoverBackground = false
         selectableView.setupTrackingArea()
-        selectableView.isSelectedChanged = { _ in
-            self.toggleIsHovered(isSelected: self.selectableView.isSelected, isHovered: self.selectableView.isHovered)
-        }
-        selectableView.isHoveredChanged = { [weak self] _ in
-            guard let self = self else { return }
-            self.toggleIsHovered(isSelected: self.selectableView.isSelected, isHovered: self.selectableView.isHovered)
-        }
+        
+        selectableView.isSelectedChanged = { [weak self] _ in self?.togglePlayPauseIndicator() }
+        selectableView.isHoveredChanged = { [weak self] _ in self?.togglePlayPauseIndicator() }
+        isPlayingRelay
+            .observeOn(MainScheduler.instance)
+            .do(onNext: { [weak self] _ in self?.togglePlayPauseIndicator() })
+            .subscribe()
+            .disposed(by: bag)
         
         createConstraints()
     }
@@ -137,14 +149,13 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
             selectableView.isSelected = isSelected
         }
     }
-
-    func toggleIsHovered(isSelected: Bool, isHovered: Bool) {
-        guard let player = Current.currentState.state.player else { playPauseView.setState(.hidden); return  }
-        switch (isSelected, isHovered, player.isPlayingNow) {
-        case (true, _, true): playPauseView.setState(.play)
+    
+    func togglePlayPauseIndicator() {
+        switch (selectableView.isSelected, selectableView.isHovered, isPlayingRelay.value) {
+        case (true, true, true): playPauseView.setState(.pause)
+        case (true, false, true): playPauseView.setState(.play)
         case (true, _, false): playPauseView.setState(.pause)
-        case (false, true, true): playPauseView.setState(.pause)
-        case (false, true, false): playPauseView.setState(.play)
+        case (false, true, _): playPauseView.setState(.play)
         default: playPauseView.setState(.hidden)
         }
     }

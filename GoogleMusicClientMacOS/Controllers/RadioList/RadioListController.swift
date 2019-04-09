@@ -110,6 +110,10 @@ extension RadioListController: NSCollectionViewDataSource {
         item.title = station.name
         item.setImage(from: image(for: station))
         
+        if let player = Current.currentState.state.player {
+            item.subscribeToIsPlaying(player.isPlaying)
+        }
+        
         return item
     }
 }
