@@ -43,7 +43,7 @@ let radioListCollectionViewLayout = NSCollectionViewFlowLayout().configure {
     $0.sectionInset = NSEdgeInsets(top: 10, left: 20, bottom: 10, right: 30)
 }
 
-func baseCollectionView() -> (NSCollectionView) -> NSCollectionView {
+func baseCollectionView<T: NSCollectionView>() -> (T) -> T {
     return { collection in
         collection.backgroundColors = [.clear]
         collection.allowsMultipleSelection = false
@@ -53,25 +53,25 @@ func baseCollectionView() -> (NSCollectionView) -> NSCollectionView {
     }
 }
 
-func layout(_ value: NSCollectionViewLayout) -> (NSCollectionView) -> NSCollectionView {
+func layout<T: NSCollectionView>(_ value: NSCollectionViewLayout) -> (T) -> T {
     return { $0.collectionViewLayout = value; return $0 }
 }
 
-func register(item: AnyClass) -> (NSCollectionView) -> NSCollectionView {
+func register<T: NSCollectionView>(item: AnyClass) -> (T) -> T {
     return { collection in
         collection.registerItem(forClass: item)
         return collection
     }
 }
 
-func register(items: AnyClass...) -> (NSCollectionView) -> NSCollectionView {
+func register<T: NSCollectionView>(items: AnyClass...) -> (T) -> T {
     return { collection in
         items.forEach { collection.registerItem(forClass: $0) }
         return collection
     }
 }
 
-func register(header: AnyClass) -> (NSCollectionView) -> NSCollectionView {
+func register<T: NSCollectionView>(header: AnyClass) -> (T) -> T {
     return { collection in
         collection.registerHeader(forClass: header)
         return collection

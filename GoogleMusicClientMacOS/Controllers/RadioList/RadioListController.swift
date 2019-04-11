@@ -13,7 +13,7 @@ import RxDataFlow
 import GoogleMusicClientCore
 
 final class RadioListController: NSViewController {
-    let collectionView = NSCollectionView()
+    let collectionView: ApplicationCollectionView = ApplicationCollectionView()
         |> baseCollectionView()
         |> layout(radioListCollectionViewLayout)
         |> register(item: RadioStationCollectionViewItem.self)
@@ -39,8 +39,11 @@ final class RadioListController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.delegate = self
         collectionView.dataSource = self
+        
+        collectionView.didClickItem = { [weak self] ip in
+            self?.selectStation(at: ip.item)
+        }
         
         Current.state
             .filter(isSetBy(PlayerAction.loadRadioStations))
@@ -69,6 +72,19 @@ final class RadioListController: NSViewController {
         collectionView.collectionViewLayout?.invalidateLayout()
     }
     
+    func selectStation(at index: Int) {
+        let station = stations[index]
+        
+        let isPlayCurrentStation = Current.currentState.state.currentRadio?.radio == station
+        let isPlayNow = Current.currentState.state.player?.isPlayingNow ?? false
+        
+        switch (isPlayCurrentStation, isPlayNow) {
+        case (true, true): Current.dispatch(PlayerAction.pause)
+        case (true, false): Current.dispatch(PlayerAction.resume)
+        default: Current.dispatch(CompositeActions.play(station: station))
+        }
+    }
+    
     func image(for radio: GMusicRadioStation) -> Observable<NSImage?> {
         guard let client = Current.currentState.state.client else { return Observable.just(nil) }
         guard let art = radio.imageUrls.first(where: { $0.autogen == false }) ?? radio.imageUrls.first else {
@@ -83,14 +99,6 @@ final class RadioListController: NSViewController {
     
     deinit {
         print("RadioListController deinit")
-    }
-}
-
-extension RadioListController: NSCollectionViewDelegate {
-    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
-        guard let index = indexPaths.first?.item else { return }
-        let station = stations[index]
-        Current.dispatch(CompositeActions.play(station: station))
     }
 }
 
