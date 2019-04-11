@@ -153,6 +153,7 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
     func togglePlayPauseIndicator() {
         switch (selectableView.isSelected, selectableView.isHovered, isPlayingRelay.value) {
         case (true, true, true): playPauseView.setState(.pause)
+        case (true, true, false): playPauseView.setState(.play)
         case (true, false, true): playPauseView.setState(.play)
         case (true, _, false): playPauseView.setState(.pause)
         case (false, true, _): playPauseView.setState(.play)
