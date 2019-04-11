@@ -33,6 +33,14 @@ extension RxDataFlowController where State == AppState {
     }
 }
 
+extension NSView {
+    func addSubviews(_ views: NSView...) {
+        views.forEach {
+            addSubview($0)
+        }
+    }
+}
+
 extension NSColor {
     static var textColor: NSColor { return NSColor.init(named: "TextColor")! }
     static var selectedItemTextColor: NSColor { return NSColor.init(named: "SelectedItemTextColor")! }
@@ -48,6 +56,18 @@ extension NSImage {
             return nil
         }
         self.init(data: data)
+    }
+    
+    func tinted(tintColor: NSColor) -> NSImage {
+        guard let cgImage = self.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return self }
+        
+        return NSImage(size: size, flipped: false) { bounds in
+            guard let context = NSGraphicsContext.current?.cgContext else { return false }
+            tintColor.set()
+            context.clip(to: bounds, mask: cgImage)
+            context.fill(bounds)
+            return true
+        }
     }
 }
 

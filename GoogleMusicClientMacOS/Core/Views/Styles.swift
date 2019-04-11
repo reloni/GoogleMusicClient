@@ -22,23 +22,14 @@ enum ApplicationFont {
     }
 }
 
-func baseLabel() -> (NSTextField) -> NSTextField {
-    return { label in
-        label.isEditable = false
-        label.isBezeled = false
-        label.drawsBackground = true
-        label.backgroundColor = NSColor.clear
-        label.usesSingleLineMode = true
-        label.lineBreakMode = NSLineBreakMode.byTruncatingTail
-        return label
-    }
-}
-
-func font(_ font: ApplicationFont) -> (NSTextField) -> NSTextField {
-    return { label in
-        label.font = font.value
-        return label
-    }
+let baseLabel = {
+    return NSTextField()
+        |> mutate(^\NSTextField.isEditable, false)
+        |> mutate(^\NSTextField.isBezeled, false)
+        |> mutate(^\NSTextField.drawsBackground, true)
+        |> mutate(^\NSTextField.usesSingleLineMode, true)
+        |> mutate(^\NSTextField.backgroundColor, NSColor.clear)
+        |> mutate(^\.lineBreakMode, NSLineBreakMode.byTruncatingTail)
 }
 
 let singleColumnCollectionViewLayout = NSCollectionViewFlowLayout().configure {
@@ -46,7 +37,13 @@ let singleColumnCollectionViewLayout = NSCollectionViewFlowLayout().configure {
     $0.scrollDirection = .vertical
 }
 
-func baseCollectionView() -> (NSCollectionView) -> NSCollectionView {
+let radioListCollectionViewLayout = NSCollectionViewFlowLayout().configure {
+    $0.scrollDirection = .vertical
+    $0.itemSize = NSSize(width: 220, height: 150)
+    $0.sectionInset = NSEdgeInsets(top: 10, left: 20, bottom: 10, right: 30)
+}
+
+func baseCollectionView<T: NSCollectionView>() -> (T) -> T {
     return { collection in
         collection.backgroundColors = [.clear]
         collection.allowsMultipleSelection = false
@@ -56,27 +53,48 @@ func baseCollectionView() -> (NSCollectionView) -> NSCollectionView {
     }
 }
 
-func layout(_ value: NSCollectionViewLayout) -> (NSCollectionView) -> NSCollectionView {
+func layout<T: NSCollectionView>(_ value: NSCollectionViewLayout) -> (T) -> T {
     return { $0.collectionViewLayout = value; return $0 }
 }
 
-func register(item: AnyClass) -> (NSCollectionView) -> NSCollectionView {
+func register<T: NSCollectionView>(item: AnyClass) -> (T) -> T {
     return { collection in
         collection.registerItem(forClass: item)
         return collection
     }
 }
 
-func register(items: AnyClass...) -> (NSCollectionView) -> NSCollectionView {
+func register<T: NSCollectionView>(items: AnyClass...) -> (T) -> T {
     return { collection in
         items.forEach { collection.registerItem(forClass: $0) }
         return collection
     }
 }
 
-func register(header: AnyClass) -> (NSCollectionView) -> NSCollectionView {
+func register<T: NSCollectionView>(header: AnyClass) -> (T) -> T {
     return { collection in
         collection.registerHeader(forClass: header)
         return collection
+    }
+}
+
+func addBlur<T: NSView>(radius: Double) -> (inout T) -> Void {
+    return { view in
+        guard let blurFilter = CIFilter(name: "CIGaussianBlur") else { return }
+        
+        let blurView = NSView(frame: .zero)
+        blurView.wantsLayer = true
+        blurView.layer?.backgroundColor = NSColor.clear.cgColor
+        blurView.layer?.masksToBounds = true
+        blurView.layerUsesCoreImageFilters = true
+        blurView.layer?.needsDisplayOnBoundsChange = true
+        
+        blurFilter.setDefaults()
+        
+        blurFilter.setValue(NSNumber(value: radius), forKey: "inputRadius")
+        blurView.layer?.backgroundFilters = [blurFilter]
+        view.addSubview(blurView)
+        
+        blurView.lt.edges(to: view)
     }
 }

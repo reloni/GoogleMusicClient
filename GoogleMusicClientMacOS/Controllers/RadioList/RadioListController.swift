@@ -13,11 +13,10 @@ import RxDataFlow
 import GoogleMusicClientCore
 
 final class RadioListController: NSViewController {
-    let collectionView = NSCollectionView()
+    let collectionView: ApplicationCollectionView = ApplicationCollectionView()
         |> baseCollectionView()
-        |> layout(singleColumnCollectionViewLayout)
-        |> register(item: TextFieldCollectionViewItem.self)
-        |> register(header: MusicTrackView.self)
+        |> layout(radioListCollectionViewLayout)
+        |> register(item: RadioStationCollectionViewItem.self)
     
     lazy var scrollView = NSScrollView().configure { $0.documentView = self.collectionView }
     
@@ -40,8 +39,11 @@ final class RadioListController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.delegate = self
         collectionView.dataSource = self
+        
+        collectionView.didClickItem = { [weak self] ip in
+            self?.selectStation(at: ip.item)
+        }
         
         Current.state
             .filter(isSetBy(PlayerAction.loadRadioStations))
@@ -70,27 +72,33 @@ final class RadioListController: NSViewController {
         collectionView.collectionViewLayout?.invalidateLayout()
     }
     
+    func selectStation(at index: Int) {
+        let station = stations[index]
+        
+        let isPlayCurrentStation = Current.currentState.state.currentRadio?.radio == station
+        let isPlayNow = Current.currentState.state.player?.isPlayingNow ?? false
+        
+        switch (isPlayCurrentStation, isPlayNow) {
+        case (true, true): Current.dispatch(PlayerAction.pause)
+        case (true, false): Current.dispatch(PlayerAction.resume)
+        default: Current.dispatch(CompositeActions.play(station: station))
+        }
+    }
+    
+    func image(for radio: GMusicRadioStation) -> Observable<NSImage?> {
+        guard let client = Current.currentState.state.client else { return Observable.just(nil) }
+        guard let art = radio.imageUrls.first(where: { $0.autogen == false }) ?? radio.imageUrls.first else {
+            return Observable.just(nil)
+        }
+        
+        return client
+            .downloadArt(art)
+            .map { NSImage($0) }
+            .asObservable()
+    }
     
     deinit {
         print("RadioListController deinit")
-    }
-}
-
-extension RadioListController: NSCollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
-        return NSSize(width: collectionView.bounds.width, height: 40)
-    }
-    
-    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> NSSize {
-        return NSSize(width: collectionView.bounds.width, height: 30)
-    }
-}
-
-extension RadioListController: NSCollectionViewDelegate {
-    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
-        guard let index = indexPaths.first?.item else { return }
-        let station = stations[index]
-        Current.dispatch(CompositeActions.play(station: station))
     }
 }
 
@@ -103,22 +111,16 @@ extension RadioListController: NSCollectionViewDataSource {
         return stations.count
     }
     
-    func collectionView(_ collectionView: NSCollectionView, viewForSupplementaryElementOfKind kind: NSCollectionView.SupplementaryElementKind, at indexPath: IndexPath) -> NSView {
-        if kind == NSCollectionView.elementKindSectionHeader {
-            let view: MusicTrackView = collectionView.makeHeader(for: indexPath)
-            return view.configure {
-                $0.title.textField.stringValue = "Name"
-            }
-        }
-        
-        return NSView()
-    }
-    
     func collectionView(_ itemForRepresentedObjectAtcollectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        let item: TextFieldCollectionViewItem = collectionView.makeItem(for: indexPath)
+        let item: RadioStationCollectionViewItem = collectionView.makeItem(for: indexPath)
         let station = stations[indexPath.item]
         
-        item.itemTextField.textField.stringValue = station.name
+        item.title = station.name
+        item.setImage(from: image(for: station))
+        
+        if let player = Current.currentState.state.player {
+            item.subscribeToIsPlaying(player.isPlaying)
+        }
         
         return item
     }

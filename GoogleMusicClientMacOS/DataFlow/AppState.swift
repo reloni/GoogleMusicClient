@@ -44,15 +44,15 @@ enum QueueSource: Equatable {
 }
 
 struct AppState: RxStateType {
-    private(set) var coordinator: ApplicationCoordinator
+    var coordinator: ApplicationCoordinator
     let keychain: KeychainType
     let userDefaults: UserDefaultsType
-    private(set) var client: GMusicClient?
-    private(set) var radioStations: [GMusicRadioStation]
-    private(set) var favorites: OrderedSet<GMusicTrack>
-    private(set) var player: Player<GMusicTrack>?
-    private(set) var queue: Queue<GMusicTrack>
-    private(set) var queueSource: QueueSource?
+    var client: GMusicClient?
+    var radioStations: [GMusicRadioStation]
+    var favorites: OrderedSet<GMusicTrack>
+    var player: Player<GMusicTrack>?
+    var queue: Queue<GMusicTrack>
+    var queueSource: QueueSource?
 }
 
 func initialState() -> AppState {

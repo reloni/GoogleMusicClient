@@ -40,14 +40,21 @@ extension SelectableView {
 }
 
 final class SelectableNSView: NSView, SelectableView {
+    var drawHoverBackground = true
+    
+    var isHoveredChanged: ((Bool) -> Void)? = nil
     var isHovered = false {
         didSet {
             setNeedsDisplay(bounds)
+            isHoveredChanged?(isHovered)
         }
     }
+    
+    var isSelectedChanged: ((Bool) -> Void)? = nil
     var isSelected = false {
         didSet {
             setNeedsDisplay(bounds)
+            isSelectedChanged?(isSelected)
         }
     }
     
@@ -74,7 +81,9 @@ final class SelectableNSView: NSView, SelectableView {
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        drawHoverBackground(bounds)
+        if drawHoverBackground {
+            drawHoverBackground(bounds)
+        }
     }
 }
 

@@ -40,6 +40,7 @@ extension AVPlayer {
             case .failed: self = .failed
             case .readyToPlay: self = .readyToPlay
             case .unknown: self = .unknown
+            @unknown default: fatalError()
             }
         }
     }
@@ -134,6 +135,10 @@ final class Player<Item> {
 }
 
 extension Player {
+    var isPlayingNow: Bool {
+        return (try? isPlayingSubject.value()) ?? false
+    }
+    
     var volume: Float {
         get { return avPlayer.volume }
         set { avPlayer.volume = newValue }

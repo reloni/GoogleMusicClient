@@ -17,6 +17,14 @@ func mutate<S, A>(
 }
 
 func mutate<S, A>(
+    _ setter: MutableSetter<S, A?>,
+    _ set: @escaping (inout A?) -> Void
+    )
+    -> (inout S) -> Void {
+        return setter(set)
+}
+
+func mutate<S, A>(
     _ setter: MutableSetter<S, A>,
     _ value: A
     )
@@ -24,11 +32,37 @@ func mutate<S, A>(
         return mutate(setter) { $0 = value }
 }
 
+func mutate<S, A>(
+    _ setter: MutableSetter<S, A?>,
+    _ value: A?
+    )
+    -> (inout S) -> Void {
+        return mutate(setter) { $0 = value }
+}
+
+func mutate<S>(_ configure: @escaping (inout S) -> Void) -> (inout S) -> Void {
+    return configure
+}
+
 prefix operator ^
 prefix func ^ <Root, Value>(
     _ kp: WritableKeyPath<Root, Value>
     )
     -> (@escaping (inout Value) -> Void)
+    -> (inout Root) -> Void {
+        
+        return { update in
+            { root in
+                update(&root[keyPath: kp])
+            }
+        }
+}
+
+prefix operator ^?
+prefix func ^? <Root, Value>(
+    _ kp: ReferenceWritableKeyPath<Root, Value?>
+    )
+    -> (@escaping (inout Value?) -> Void)
     -> (inout Root) -> Void {
         
         return { update in
