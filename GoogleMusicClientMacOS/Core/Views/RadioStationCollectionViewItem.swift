@@ -33,7 +33,7 @@ private final class PlayPauseView: NSView {
         super.init(frame: .zero)
         
         addSubviews(circle, image)
-        
+                
         circle.lt.edges(to: self)
         image.lt.edges(to: circle, constant: 5)
         
@@ -67,11 +67,6 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
     private let image = NSImageView()
         |> mutate(^\NSImageView.imageScaling, NSImageScaling.scaleProportionallyUpOrDown)
     
-    private let backgroundImage = NSImageView()
-        |> mutate(^\NSImageView.imageScaling, NSImageScaling.scaleProportionallyUpOrDown)
-        |> addBlur(radius: 20.0)
-    
-    
     private let titleLabel = baseLabel()
         |> mutate(^\NSTextField.font, ApplicationFont.semibold.value)
         |> mutate(^\NSTextField.alignment, NSTextAlignment.center)
@@ -100,9 +95,9 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
     func setImage(from loader: Observable<NSImage?>) {
         imageLoaderDisposable = loader
             .observeOn(MainScheduler.instance)
-            .do(onSubscribe: { [weak self] in self?.toggleSpiner(animating: true); self?.updateImages(with: nil) })
-            .do(onNext: { [weak self] in self?.backgroundImage.image = $0; self?.image.image = $0 })
-            .do(onError: { [weak self] _ in self?.backgroundImage.image = NSImage.album; self?.image.image = NSImage.album; })
+            .do(onSubscribe: { [weak self] in self?.toggleSpiner(animating: true); self?.updateImage(with: nil) })
+            .do(onNext: { [weak self] in self?.updateImage(with: $0) })
+            .do(onError: { [weak self] _ in self?.image.image = NSImage.album; })
             .do(onDispose: { [weak self] in self?.toggleSpiner(animating: false) })
             .subscribe()
     }
@@ -121,14 +116,13 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
         }
     }
     
-    func updateImages(with image: NSImage?) {
+    func updateImage(with image: NSImage?) {
         self.image.image = image
-        self.backgroundImage.image = image
     }
     
     override func loadView() {
         view = SelectableNSView()
-        view.addSubviews(backgroundImage, image, titleLabel, progressIndicator, playPauseView)
+        view.addSubviews(image, titleLabel, progressIndicator, playPauseView)
         
         selectableView.drawHoverBackground = false
         selectableView.setupTrackingArea()
@@ -162,25 +156,20 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
     }
     
     func createConstraints() {
-        backgroundImage.lt.top.equal(to: view.lt.top, constant: 5)
-        backgroundImage.lt.leading.equal(to: view.lt.leading, constant: 5)
-        backgroundImage.lt.trailing.equal(to: view.lt.trailing, constant: -5)
-        
-        progressIndicator.lt.edges(to: backgroundImage, constant: 20)
+        image.lt.top.equal(to: view.lt.top, constant: 5)
+        image.lt.leading.equal(to: view.lt.leading, constant: 5)
+        image.lt.trailing.equal(to: view.lt.trailing, constant: -5)
+                
+        progressIndicator.lt.edges(to: image, constant: 20)
 
-        playPauseView.lt.top.equal(to: backgroundImage.lt.top, constant: 10)
-        playPauseView.lt.leading.equal(to: backgroundImage.lt.leading, constant: 10)
+        playPauseView.lt.top.equal(to: image.lt.top, constant: 10)
+        playPauseView.lt.leading.equal(to: image.lt.leading, constant: 10)
         playPauseView.lt.width.equal(to: 30)
         playPauseView.lt.height.equal(to: 30)
         
-        image.lt.top.equal(to: backgroundImage.lt.top)
-        image.lt.leading.equal(to: backgroundImage.lt.leading)
-        image.lt.trailing.equal(to: backgroundImage.lt.trailing)
-        image.lt.bottom.equal(to: backgroundImage.lt.bottom)
-        
-        titleLabel.lt.top.equal(to: backgroundImage.lt.bottom, constant: 15)
-        titleLabel.lt.leading.equal(to: backgroundImage.lt.leading)
-        titleLabel.lt.trailing.equal(to: backgroundImage.lt.trailing)
+        titleLabel.lt.top.equal(to: image.lt.bottom, constant: 10)
+        titleLabel.lt.leading.equal(to: image.lt.leading)
+        titleLabel.lt.trailing.equal(to: image.lt.trailing)
         titleLabel.lt.bottom.equal(to: view.lt.bottom, constant: -5)
     }
 }
