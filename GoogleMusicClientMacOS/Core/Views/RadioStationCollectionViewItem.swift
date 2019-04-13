@@ -17,10 +17,9 @@ private final class PlayPauseView: NSView {
         case pause
     }
     
-    private let circle = NSView()
-        |> mutate(^\NSView.wantsLayer, true)
-        |> mutate(^?\NSView.layer!.backgroundColor, NSColor.white.cgColor)
-        |> mutate(^\NSView.layer!.masksToBounds, true)
+    private let circle = NSVisualEffectView()
+        |> mutate(^\NSVisualEffectView.blendingMode, .withinWindow)
+        |> mutate(^\NSVisualEffectView.material, .appearanceBased)
     
     private let image = NSImageView()
         |> mutate(^\NSImageView.imageScaling, NSImageScaling.scaleProportionallyUpOrDown)
@@ -36,7 +35,7 @@ private final class PlayPauseView: NSView {
         addSubviews(circle, image)
         
         circle.lt.edges(to: self)
-        image.lt.edges(to: circle)
+        image.lt.edges(to: circle, constant: 5)
         
         setState(.hidden)
     }
@@ -50,10 +49,10 @@ private final class PlayPauseView: NSView {
         case .hidden: isHidden = true
         case .pause:
             isHidden = false
-            image.image = NSImage.pause.tinted(tintColor: NSColor.black)
+            image.image = NSImage.pauseFilled.tinted(tintColor: NSColor.onImagePlayPauseMainColor)
         case .play:
             isHidden = false
-            image.image = NSImage.play.tinted(tintColor: NSColor.black)
+            image.image = NSImage.playFilled.tinted(tintColor: NSColor.onImagePlayPauseMainColor)
         }
     }
 }
@@ -69,8 +68,9 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
         |> mutate(^\NSImageView.imageScaling, NSImageScaling.scaleProportionallyUpOrDown)
     
     private let backgroundImage = NSImageView()
-        |> mutate(^\NSImageView.imageScaling, NSImageScaling.scaleNone)
+        |> mutate(^\NSImageView.imageScaling, NSImageScaling.scaleProportionallyUpOrDown)
         |> addBlur(radius: 20.0)
+    
     
     private let titleLabel = baseLabel()
         |> mutate(^\NSTextField.font, ApplicationFont.semibold.value)
@@ -132,7 +132,7 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
         
         selectableView.drawHoverBackground = false
         selectableView.setupTrackingArea()
-        
+
         selectableView.isSelectedChanged = { [weak self] _ in self?.togglePlayPauseIndicator() }
         selectableView.isHoveredChanged = { [weak self] _ in self?.togglePlayPauseIndicator() }
         isPlayingRelay
@@ -164,7 +164,7 @@ final class RadioStationCollectionViewItem: NSCollectionViewItem {
     func createConstraints() {
         backgroundImage.lt.top.equal(to: view.lt.top, constant: 5)
         backgroundImage.lt.leading.equal(to: view.lt.leading, constant: 5)
-        backgroundImage.lt.trailing.equal(to: view.lt.trailing, constant: 5)
+        backgroundImage.lt.trailing.equal(to: view.lt.trailing, constant: -5)
         
         progressIndicator.lt.edges(to: backgroundImage, constant: 20)
 

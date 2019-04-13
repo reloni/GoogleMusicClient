@@ -44,11 +44,15 @@ extension NSView {
 extension NSColor {
     static var textColor: NSColor { return NSColor.init(named: "TextColor")! }
     static var selectedItemTextColor: NSColor { return NSColor.init(named: "SelectedItemTextColor")! }
+    static var onImagePlayPauseMainColor: NSColor { return NSColor.init(named: "OnImagePlayPauseMainColor")! }
+    static var onImagePlayPauseBackgroundColor: NSColor { return NSColor.init(named: "OnImagePlayPauseBackgroundColor")! }
 }
 
 extension NSImage {
     static var pause: NSImage { return NSImage(imageLiteralResourceName: "Pause") }
     static var play: NSImage { return NSImage(imageLiteralResourceName: "Play") }
+    static var pauseFilled: NSImage { return NSImage(imageLiteralResourceName: "PauseFilled") }
+    static var playFilled: NSImage { return NSImage(imageLiteralResourceName: "PlayFilled") }
     static var album: NSImage { return NSImage(imageLiteralResourceName: "Album") }
     
     convenience init?(_ optionalData: Data?) {
