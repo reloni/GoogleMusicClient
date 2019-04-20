@@ -18,7 +18,9 @@ final class RadioListController: NSViewController {
         |> layout(radioListCollectionViewLayout)
         |> register(item: RadioStationCollectionViewItem.self)
     
-    lazy var scrollView = NSScrollView().configure { $0.documentView = self.collectionView }
+    lazy var scrollView = NSScrollView()
+        |> mainViewScrollView()
+        |> mutate { $0.documentView = self.collectionView }
     
     var client: GMusicClient {
         return Current.currentState.state.client!

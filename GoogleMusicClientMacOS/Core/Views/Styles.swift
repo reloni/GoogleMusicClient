@@ -53,6 +53,14 @@ func baseCollectionView<T: NSCollectionView>() -> (T) -> T {
     }
 }
 
+func mainViewScrollView() -> (NSScrollView) -> NSScrollView {
+    return { scrollView in
+        scrollView.automaticallyAdjustsContentInsets = false
+        scrollView.contentInsets = NSEdgeInsets(top: 35, left: 0, bottom: 70, right: 0)
+        return scrollView
+    }
+}
+
 func layout<T: NSCollectionView>(_ value: NSCollectionViewLayout) -> (T) -> T {
     return { $0.collectionViewLayout = value; return $0 }
 }

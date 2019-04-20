@@ -18,8 +18,10 @@ final class FavoritesController: NSViewController {
         |> layout(singleColumnCollectionViewLayout)
         |> register(item: MusicTrackCollectionViewItem.self)
         |> register(header: MusicTrackView.self)
-    
-    lazy var scrollView = NSScrollView().configure { $0.documentView = self.collectionView }
+
+    lazy var scrollView = NSScrollView()
+        |> mainViewScrollView()
+        |> mutate { $0.documentView = self.collectionView }
     
     let bag = DisposeBag()
 

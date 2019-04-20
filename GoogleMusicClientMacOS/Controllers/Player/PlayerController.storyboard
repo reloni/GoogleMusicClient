@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -9,10 +9,13 @@
         <scene sceneID="AgT-9T-oZe">
             <objects>
                 <viewController storyboardIdentifier="PlayerController" id="y3d-EB-w5r" customClass="PlayerController" customModule="Google_Music_Player" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="TYL-Nq-HCf">
+                    <view key="view" wantsLayer="YES" id="TYL-Nq-HCf">
                         <rect key="frame" x="0.0" y="0.0" width="1228" height="68"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <visualEffectView blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="Emn-i0-3RF">
+                                <rect key="frame" x="0.0" y="0.0" width="1228" height="68"/>
+                            </visualEffectView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tuq-cu-SQY">
                                 <rect key="frame" x="5" y="5" width="68" height="58"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Album" id="uQf-Vj-zYR"/>
@@ -291,6 +294,8 @@
                             <constraint firstAttribute="bottom" secondItem="caB-07-Ghj" secondAttribute="bottom" constant="12" id="5Jl-K0-Lc9"/>
                             <constraint firstItem="tuq-cu-SQY" firstAttribute="leading" secondItem="TYL-Nq-HCf" secondAttribute="leading" constant="5" id="5cu-WB-B3v"/>
                             <constraint firstItem="jTd-fk-pjk" firstAttribute="top" secondItem="zHl-k0-FT7" secondAttribute="bottom" constant="12" id="7Wr-is-lMt"/>
+                            <constraint firstItem="Emn-i0-3RF" firstAttribute="top" secondItem="TYL-Nq-HCf" secondAttribute="top" id="9la-PN-tb5"/>
+                            <constraint firstItem="Emn-i0-3RF" firstAttribute="leading" secondItem="TYL-Nq-HCf" secondAttribute="leading" id="DbC-Ln-bRM"/>
                             <constraint firstAttribute="bottom" secondItem="kiA-Bc-oTy" secondAttribute="bottom" constant="12" id="I3c-ic-kiw"/>
                             <constraint firstItem="zHl-k0-FT7" firstAttribute="top" secondItem="TYL-Nq-HCf" secondAttribute="top" constant="10" id="J2o-7D-lV3"/>
                             <constraint firstItem="tuq-cu-SQY" firstAttribute="top" secondItem="TYL-Nq-HCf" secondAttribute="top" constant="5" id="KfB-Yo-wkn"/>
@@ -302,6 +307,8 @@
                             <constraint firstItem="kiA-Bc-oTy" firstAttribute="trailing" secondItem="IND-kA-2fh" secondAttribute="leading" id="bmd-jD-yR1"/>
                             <constraint firstAttribute="bottom" secondItem="jtM-w2-9fp" secondAttribute="bottom" id="crD-Ng-CjN"/>
                             <constraint firstAttribute="bottom" secondItem="tuq-cu-SQY" secondAttribute="bottom" constant="5" id="e7l-dT-YUQ"/>
+                            <constraint firstAttribute="trailing" secondItem="Emn-i0-3RF" secondAttribute="trailing" id="eGG-Cv-i65"/>
+                            <constraint firstAttribute="bottom" secondItem="Emn-i0-3RF" secondAttribute="bottom" id="ghg-qh-jrc"/>
                             <constraint firstItem="caB-07-Ghj" firstAttribute="top" secondItem="zHl-k0-FT7" secondAttribute="bottom" constant="12" id="gus-qC-KF7"/>
                             <constraint firstAttribute="bottom" secondItem="jTd-fk-pjk" secondAttribute="bottom" constant="12" id="i7c-TY-B6j"/>
                             <constraint firstAttribute="trailing" secondItem="IND-kA-2fh" secondAttribute="trailing" id="k6d-3e-8YZ"/>

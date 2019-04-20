@@ -37,14 +37,18 @@ final class MainController: NSViewController {
     }
     
     func toggleErrorController(isVisible: Bool) {
-        NSAnimationContext.runAnimationGroup { context in
+        
+        NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.3
             context.allowsImplicitAnimation = true
             context.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             self.errorContainerTopToBottomContainerTopConstraint.isActive = !isVisible
             self.errorContainerBottomToBottomContainerTopConstraint.isActive = isVisible
+            if isVisible {
+                self.errorContainerView.isHidden = false
+            }
             self.view.layoutSubtreeIfNeeded()
-        }
+        }, completionHandler: { self.errorContainerView.isHidden = !isVisible })
     }
     
     deinit {
