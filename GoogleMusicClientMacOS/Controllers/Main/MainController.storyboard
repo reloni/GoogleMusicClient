@@ -6,10 +6,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main-->
+        <!--Google Music Player-->
         <scene sceneID="vTa-XT-qQu">
             <objects>
-                <viewController title="Main" identifier="MainController" storyboardIdentifier="MainController" id="cDM-Pm-fIS" customClass="MainController" customModule="Google_Music_Player" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Google Music Player" identifier="MainController" storyboardIdentifier="MainController" id="cDM-Pm-fIS" customClass="MainController" customModule="Google_Music_Player" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="fNf-Uk-khK">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
