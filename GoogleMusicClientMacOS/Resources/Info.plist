@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string></string>
+	<string>Google Music Player</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
@@ -32,7 +32,7 @@
 		<true/>
 	</dict>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2018 Anton Efimenko. All rights reserved.</string>
+	<string>Copyright © 2019 Anton Efimenko. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
 	<string>MainWindowController</string>
 	<key>NSPrincipalClass</key>
