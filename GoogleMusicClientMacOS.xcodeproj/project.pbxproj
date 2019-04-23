@@ -73,6 +73,7 @@
 		6EB27AD521C3D6450013479C /* SystemReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB27AD421C3D6450013479C /* SystemReducer.swift */; };
 		6EC9A5C5223EA6CA00DE0AFF /* LayoutPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC9A5C4223EA6CA00DE0AFF /* LayoutPriority.swift */; };
 		6ED66B2D21D3A87200BA9B95 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED66B2C21D3A87200BA9B95 /* Extensions.swift */; };
+		6EFC4082226F9EBD003C01AF /* NSControl+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC4081226F9EBD003C01AF /* NSControl+Rx.swift */; };
 		6EFDC5A221CA231D00E93699 /* PlayerController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EFDC5A121CA231D00E93699 /* PlayerController.storyboard */; };
 		6EFDC5A421CA233300E93699 /* PlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFDC5A321CA233300E93699 /* PlayerController.swift */; };
 /* End PBXBuildFile section */
@@ -179,6 +180,7 @@
 		6EB27AD421C3D6450013479C /* SystemReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemReducer.swift; sourceTree = "<group>"; };
 		6EC9A5C4223EA6CA00DE0AFF /* LayoutPriority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutPriority.swift; sourceTree = "<group>"; };
 		6ED66B2C21D3A87200BA9B95 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		6EFC4081226F9EBD003C01AF /* NSControl+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSControl+Rx.swift"; sourceTree = "<group>"; };
 		6EFDC5A121CA231D00E93699 /* PlayerController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlayerController.storyboard; sourceTree = "<group>"; };
 		6EFDC5A321CA233300E93699 /* PlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -232,6 +234,7 @@
 				6E857E9422215B1F0057B701 /* ViewWithBottomBorder.swift */,
 				6E07664E223427FE00AD5F05 /* RadioStationCollectionViewItem.swift */,
 				6EC9A5C4223EA6CA00DE0AFF /* LayoutPriority.swift */,
+				6EFC4081226F9EBD003C01AF /* NSControl+Rx.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -627,6 +630,7 @@
 				6E3FC37E21CA6E180026DEA7 /* PlayerReducer.swift in Sources */,
 				6E07664F223427FE00AD5F05 /* RadioStationCollectionViewItem.swift in Sources */,
 				6EAC5E482200BE0D003D1B19 /* FavoritesController.swift in Sources */,
+				6EFC4082226F9EBD003C01AF /* NSControl+Rx.swift in Sources */,
 				6EA9BF3521EA457100A2551D /* SystemController.swift in Sources */,
 				6E7F608D21C9278400C1D30C /* RadioListController.swift in Sources */,
 				6E1E6DF721D277E500937756 /* Player.swift in Sources */,

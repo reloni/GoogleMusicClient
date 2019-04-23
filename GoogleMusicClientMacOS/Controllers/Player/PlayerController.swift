@@ -82,7 +82,9 @@ final class PlayerController: NSViewController {
             currentProgressSlider.userSetValue.subscribe(onNext: { Current.currentState.state.player?.seek(to: $0) }),
             Current.currentTrack.map { $0 != nil }.subscribe(onNext: { [weak self] in self?.isCurrentProgressChangeEnabled = $0 }),
             player?.errors.subscribe(onNext: { Current.dispatch(UIAction.showErrorController($0)) }),
-            bindProgress()
+            bindProgress(),
+            albumImage.rx.clicked.subscribe(onNext: { _ in print("album image click") })
+            
             ].compactMap(id)
     }
     
