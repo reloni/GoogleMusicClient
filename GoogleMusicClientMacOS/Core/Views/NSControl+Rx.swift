@@ -15,4 +15,16 @@ extension Reactive where Base: NSControl {
         let source = self.methodInvoked(#selector(Base.mouseDown)).map { $0.first as! NSEvent }.takeUntil(self.deallocated).share()
         return ControlEvent(events: source)
     }
+    
+    var mouseEntered: ControlEvent<NSEvent> {
+        self.base.setupTrackingArea()
+        let source = self.methodInvoked(#selector(Base.mouseEntered)).map { $0.first as! NSEvent }.takeUntil(self.deallocated).share()
+        return ControlEvent(events: source)
+    }
+    
+    var mouseExited: ControlEvent<NSEvent> {
+        self.base.setupTrackingArea()
+        let source = self.methodInvoked(#selector(Base.mouseExited)).map { $0.first as! NSEvent }.takeUntil(self.deallocated).share()
+        return ControlEvent(events: source)
+    }
 }
