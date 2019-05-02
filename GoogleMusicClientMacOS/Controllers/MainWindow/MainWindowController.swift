@@ -47,4 +47,8 @@ extension MainWindowController: NSWindowDelegate {
     func windowDidEndLiveResize(_ notification: Notification) {
         UserDefaults.standard.mainWindowFrame = WindowSize.rect(window!.frame)
     }
+    
+    func windowDidMove(_ notification: Notification) {
+        UserDefaults.standard.mainWindowFrame = WindowSize.rect(window!.frame)
+    }
 }
