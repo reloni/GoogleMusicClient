@@ -21,7 +21,9 @@ func systemReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
         saveInKeychain(token: token, keychain: currentState.keychain)
     case SystemAction.initializeMusicClient:
         guard let token = currentState.gMusicToken else { return RxReduceResult.empty }
-        return RxReduceResult.single({ $0.mutate(\.client, GMusicClient(token: token, session: URLSession(configuration: .default), locale: Locale.current)) })
+        return RxReduceResult.single({ $0.mutate(\.client, GMusicClient(token: token,
+                                                                        deviceId: currentState.userDefaults.deviceId,
+                                                                        session: URLSession(configuration: .default), locale: Locale.current)) })
     case SystemAction.initializePlayer:
         guard let client = currentState.client else { return RxReduceResult.empty }
         let player = Player<GMusicTrack>(loadRequest: client.downloadTrack)

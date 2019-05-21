@@ -12,7 +12,7 @@ import RxGoogleMusic
 
 final class LogInController: NSViewController {    
     @IBAction func logIn(_ sender: Any) {
-        let authController = GMusicAuthenticationController { result in
+        let authController = GMusicAuthenticationController(deviceId: Current.currentState.state.userDefaults.deviceId) { result in
             switch result {
             case .authenticated(let token):
                 Current.dispatch(CompositeActions.logIn(token: token))
