@@ -84,8 +84,22 @@ final class PlayerController: NSViewController {
             player?.errors.subscribe(onNext: { Current.dispatch(UIAction.showErrorController($0)) }),
             bindProgress(),
             albumImage.rx.clicked.subscribe(onNext: { _ in print("album image click") }),
-            albumImage.rx.mouseEntered.subscribe(onNext: { _ in print("album image mouseEntered") }),
-            albumImage.rx.mouseExited.subscribe(onNext: { _ in print("album image mouseExited") })
+            albumImage.rx.mouseEntered.subscribe(onNext: { [weak albumImage] _ in
+                guard let img = albumImage else { return }
+                let prevWidth = img.layer!.frame.width
+                let prevHeight = img.layer!.frame.height
+                self.albumImage.layer?.setAffineTransform(CGAffineTransform(scaleX: 1.4, y: 1.4))
+                self.albumImage.layer!.frame.origin = CGPoint(x: -((img.layer!.frame.width - prevWidth) / 4),
+                                                              y: -((img.layer!.frame.height - prevHeight) / 4))
+            }),
+            albumImage.rx.mouseExited.subscribe(onNext: { [weak albumImage] _ in
+                guard let img = albumImage else { return }
+                let prevWidth = img.layer!.frame.width
+                let prevHeight = img.layer!.frame.height
+                img.layer?.setAffineTransform(.identity);
+                self.albumImage.layer!.frame.origin = CGPoint(x: ((prevWidth - img.layer!.frame.width) / 4),
+                                                              y: ((prevHeight - img.layer!.frame.height) / 4))
+            })
             ].compactMap(id)
     }
     
