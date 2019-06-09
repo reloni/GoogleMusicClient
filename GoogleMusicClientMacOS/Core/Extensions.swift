@@ -39,6 +39,33 @@ extension NSView {
             addSubview($0)
         }
     }
+    
+    func scaleUp(by scale: CGFloat) {
+        let prevWidth = self.layer!.frame.width
+        let prevHeight = self.layer!.frame.height
+        
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.5
+            context.allowsImplicitAnimation = true
+            context.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            self.animator().layer?.setAffineTransform(CGAffineTransform(scaleX: scale, y: scale))
+            self.animator().layer!.frame.origin = CGPoint(x: self.frame.origin.x - ((self.layer!.frame.width - prevWidth) / 2),
+                                                          y: self.frame.origin.y - ((self.layer!.frame.height - prevHeight) / 2))
+        }, completionHandler: nil)
+    }
+    
+    func resetScale() {
+        let prevWidth = self.layer!.frame.width
+        let prevHeight = self.layer!.frame.height
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.5
+            context.allowsImplicitAnimation = true
+            context.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            self.layer?.setAffineTransform(.identity)
+            self.animator().layer!.frame.origin = CGPoint(x: self.layer!.frame.origin.x + ((prevWidth - self.layer!.frame.width) / 2),
+                                                         y: self.layer!.frame.origin.y + ((prevHeight - self.layer!.frame.height) / 2))
+        }, completionHandler: nil)
+    }
 }
 
 extension NSColor {
