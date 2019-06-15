@@ -83,6 +83,7 @@ enum UIAction : RxActionType {
     
     case showErrorController(Error)
     case hideErrorController
+    case showAlbumPreviewPopover(NSView)
 }
 
 enum SystemAction: RxActionType, Equatable {    

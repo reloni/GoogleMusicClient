@@ -83,7 +83,7 @@ final class PlayerController: NSViewController {
             Current.currentTrack.map { $0 != nil }.subscribe(onNext: { [weak self] in self?.isCurrentProgressChangeEnabled = $0 }),
             player?.errors.subscribe(onNext: { Current.dispatch(UIAction.showErrorController($0)) }),
             bindProgress(),
-            albumImage.rx.clicked.subscribe(onNext: { _ in print("album image click") }),
+            albumImage.rx.clicked.subscribe(onNext: { [weak albumImage] _ in Current.dispatch(UIAction.showAlbumPreviewPopover(albumImage!)) }),
             albumImage.rx.mouseEntered.subscribe(onNext: { [weak albumImage] _ in albumImage?.scaleUp(by: 1.25) }),
             albumImage.rx.mouseExited.subscribe(onNext: { [weak albumImage] _ in albumImage?.resetScale() })
             ].compactMap(id)

@@ -22,14 +22,14 @@ final class MainController: NSViewController {
     @IBOutlet var errorContainerTopToBottomContainerTopConstraint: NSLayoutConstraint!
     @IBOutlet var errorContainerBottomToBottomContainerTopConstraint: NSLayoutConstraint!
     
-    func showQueuePopover(for view: NSView) {
+    func showPopover(content: NSViewController, relativeView: NSView, contentSize: NSSize) {
         let popover = NSPopover()
-        popover.contentViewController = QueueController()
+        popover.contentViewController = content
         popover.behavior = .semitransient
         popover.animates = true
-        
-        popover.contentSize = NSSize(width: mainContainerView.frame.width * 0.9, height: mainContainerView.frame.height - 15)
-        popover.show(relativeTo: .zero, of: view, preferredEdge: NSRectEdge.minY)
+        popover.contentSize = contentSize
+
+        popover.show(relativeTo: .zero, of: relativeView, preferredEdge: NSRectEdge.maxY)
     }
     
     override func viewDidLoad() {
@@ -37,7 +37,6 @@ final class MainController: NSViewController {
     }
     
     func toggleErrorController(isVisible: Bool) {
-        
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.3
             context.allowsImplicitAnimation = true
