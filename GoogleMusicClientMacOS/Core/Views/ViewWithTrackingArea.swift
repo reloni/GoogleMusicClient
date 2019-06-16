@@ -24,7 +24,10 @@ import Cocoa
 extension NSView: ViewWithTrackingArea {
     var trackingAreaBounds: NSRect { return bounds }
     
-    var trackingAreaOptions: NSTrackingArea.Options { get { return [] } set { } }
+    var trackingAreaOptions: NSTrackingArea.Options {
+        get { return [NSTrackingArea.Options.activeInActiveApp, NSTrackingArea.Options.mouseEnteredAndExited] }
+        set { }
+    }
     
     func setupTrackingArea() {
         postsBoundsChangedNotifications = true

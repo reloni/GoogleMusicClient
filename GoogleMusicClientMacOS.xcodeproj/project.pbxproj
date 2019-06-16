@@ -24,10 +24,13 @@
 		6E38A75E21C2A38C00983339 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E38A75D21C2A38C00983339 /* MainCoordinator.swift */; };
 		6E38A76121C2A64B00983339 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E38A76021C2A64B00983339 /* MainController.swift */; };
 		6E38A76321C2A68200983339 /* MainController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E38A76221C2A68200983339 /* MainController.storyboard */; };
+		6E3AB04822B6767B00735D05 /* AlbumPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3AB04722B6767B00735D05 /* AlbumPreviewController.swift */; };
+		6E3AB04C22B67D0E00735D05 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3AB04B22B67D0E00735D05 /* RxRelay.framework */; };
+		6E3AB04D22B67D0E00735D05 /* RxRelay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3AB04B22B67D0E00735D05 /* RxRelay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6E3AB04F22B67D8300735D05 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3AB04E22B67D8300735D05 /* RxCocoa.framework */; };
+		6E3AB05022B67D8300735D05 /* RxCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3AB04E22B67D8300735D05 /* RxCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6E3ACE3721C28B22000944F3 /* RxGoogleMusic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3421C28B22000944F3 /* RxGoogleMusic.framework */; };
 		6E3ACE3821C28B22000944F3 /* RxGoogleMusic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3421C28B22000944F3 /* RxGoogleMusic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6E3ACE3921C28B22000944F3 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3521C28B22000944F3 /* RxCocoa.framework */; };
-		6E3ACE3A21C28B22000944F3 /* RxCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3521C28B22000944F3 /* RxCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6E3ACE3B21C28B22000944F3 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3621C28B22000944F3 /* RxSwift.framework */; };
 		6E3ACE3C21C28B22000944F3 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3ACE3621C28B22000944F3 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6E3FC37E21CA6E180026DEA7 /* PlayerReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3FC37D21CA6E180026DEA7 /* PlayerReducer.swift */; };
@@ -73,6 +76,7 @@
 		6EB27AD521C3D6450013479C /* SystemReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB27AD421C3D6450013479C /* SystemReducer.swift */; };
 		6EC9A5C5223EA6CA00DE0AFF /* LayoutPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC9A5C4223EA6CA00DE0AFF /* LayoutPriority.swift */; };
 		6ED66B2D21D3A87200BA9B95 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED66B2C21D3A87200BA9B95 /* Extensions.swift */; };
+		6EFC4082226F9EBD003C01AF /* NSControl+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC4081226F9EBD003C01AF /* NSControl+Rx.swift */; };
 		6EFDC5A221CA231D00E93699 /* PlayerController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EFDC5A121CA231D00E93699 /* PlayerController.storyboard */; };
 		6EFDC5A421CA233300E93699 /* PlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFDC5A321CA233300E93699 /* PlayerController.swift */; };
 /* End PBXBuildFile section */
@@ -101,11 +105,12 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				6E3AB05022B67D8300735D05 /* RxCocoa.framework in Embed Frameworks */,
 				6EB27ACB21C3C7E80013479C /* RxDataFlow.framework in Embed Frameworks */,
-				6E3ACE3A21C28B22000944F3 /* RxCocoa.framework in Embed Frameworks */,
 				6EA25FA2222F0E980079700C /* GoogleMusicClientCore.framework in Embed Frameworks */,
 				6E3ACE3821C28B22000944F3 /* RxGoogleMusic.framework in Embed Frameworks */,
 				6E3ACE3C21C28B22000944F3 /* RxSwift.framework in Embed Frameworks */,
+				6E3AB04D22B67D0E00735D05 /* RxRelay.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,6 +134,10 @@
 		6E38A75D21C2A38C00983339 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		6E38A76021C2A64B00983339 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		6E38A76221C2A68200983339 /* MainController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainController.storyboard; sourceTree = "<group>"; };
+		6E3AB04722B6767B00735D05 /* AlbumPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPreviewController.swift; sourceTree = "<group>"; };
+		6E3AB04922B67CE400735D05 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/Mac/RxRelay.framework; sourceTree = "<group>"; };
+		6E3AB04B22B67D0E00735D05 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/Mac/RxRelay.framework; sourceTree = "<group>"; };
+		6E3AB04E22B67D8300735D05 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/Mac/RxCocoa.framework; sourceTree = "<group>"; };
 		6E3ACE3421C28B22000944F3 /* RxGoogleMusic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxGoogleMusic.framework; path = Carthage/Build/Mac/RxGoogleMusic.framework; sourceTree = "<group>"; };
 		6E3ACE3521C28B22000944F3 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/Mac/RxCocoa.framework; sourceTree = "<group>"; };
 		6E3ACE3621C28B22000944F3 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
@@ -179,6 +188,7 @@
 		6EB27AD421C3D6450013479C /* SystemReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemReducer.swift; sourceTree = "<group>"; };
 		6EC9A5C4223EA6CA00DE0AFF /* LayoutPriority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutPriority.swift; sourceTree = "<group>"; };
 		6ED66B2C21D3A87200BA9B95 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		6EFC4081226F9EBD003C01AF /* NSControl+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSControl+Rx.swift"; sourceTree = "<group>"; };
 		6EFDC5A121CA231D00E93699 /* PlayerController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlayerController.storyboard; sourceTree = "<group>"; };
 		6EFDC5A321CA233300E93699 /* PlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -188,8 +198,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E3AB04F22B67D8300735D05 /* RxCocoa.framework in Frameworks */,
 				6EB27ACA21C3C7E80013479C /* RxDataFlow.framework in Frameworks */,
-				6E3ACE3921C28B22000944F3 /* RxCocoa.framework in Frameworks */,
+				6E3AB04C22B67D0E00735D05 /* RxRelay.framework in Frameworks */,
 				6EA25FA1222F0E980079700C /* GoogleMusicClientCore.framework in Frameworks */,
 				6E3ACE3721C28B22000944F3 /* RxGoogleMusic.framework in Frameworks */,
 				6E3ACE3B21C28B22000944F3 /* RxSwift.framework in Frameworks */,
@@ -232,6 +243,7 @@
 				6E857E9422215B1F0057B701 /* ViewWithBottomBorder.swift */,
 				6E07664E223427FE00AD5F05 /* RadioStationCollectionViewItem.swift */,
 				6EC9A5C4223EA6CA00DE0AFF /* LayoutPriority.swift */,
+				6EFC4081226F9EBD003C01AF /* NSControl+Rx.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -250,14 +262,15 @@
 		6E38A74B21C293AB00983339 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6EAC5E462200BDEF003D1B19 /* Favorites */,
+				6E7F608C21C9278400C1D30C /* RadioListController.swift */,
+				6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */,
+				6E8496D921D6365B00210F36 /* QueueController.swift */,
+				6E3AB04722B6767B00735D05 /* AlbumPreviewController.swift */,
 				6E7E4E3921F38E3F0097E727 /* Error */,
 				6EA9BF3121EA453200A2551D /* System */,
 				6E38A74F21C2983900983339 /* MainWindow */,
 				6E38A75F21C2A62400983339 /* Main */,
-				6E8496D621D635FA00210F36 /* Queue */,
 				6E38A75021C2986700983339 /* LogIn */,
-				6EFDC59F21CA227500E93699 /* RadioList */,
 				6EFDC59E21CA226300E93699 /* LeftMenu */,
 				6EFDC5A021CA230700E93699 /* Player */,
 			);
@@ -333,17 +346,11 @@
 			path = Error;
 			sourceTree = "<group>";
 		};
-		6E8496D621D635FA00210F36 /* Queue */ = {
-			isa = PBXGroup;
-			children = (
-				6E8496D921D6365B00210F36 /* QueueController.swift */,
-			);
-			path = Queue;
-			sourceTree = "<group>";
-		};
 		6E94664A21C282D200126BB7 = {
 			isa = PBXGroup;
 			children = (
+				6E3AB04E22B67D8300735D05 /* RxCocoa.framework */,
+				6E3AB04B22B67D0E00735D05 /* RxRelay.framework */,
 				6EB27AC921C3C7E80013479C /* RxDataFlow.framework */,
 				6E3ACE3521C28B22000944F3 /* RxCocoa.framework */,
 				6E3ACE3421C28B22000944F3 /* RxGoogleMusic.framework */,
@@ -405,6 +412,7 @@
 		6EA25FAC222F0F660079700C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E3AB04922B67CE400735D05 /* RxRelay.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -416,14 +424,6 @@
 				6EA9BF3421EA457100A2551D /* SystemController.swift */,
 			);
 			path = System;
-			sourceTree = "<group>";
-		};
-		6EAC5E462200BDEF003D1B19 /* Favorites */ = {
-			isa = PBXGroup;
-			children = (
-				6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */,
-			);
-			path = Favorites;
 			sourceTree = "<group>";
 		};
 		6EB27ACD21C3D4A60013479C /* DataFlow */ = {
@@ -445,14 +445,6 @@
 				6E31EC3621C7E208009B9742 /* LeftMenuController.swift */,
 			);
 			path = LeftMenu;
-			sourceTree = "<group>";
-		};
-		6EFDC59F21CA227500E93699 /* RadioList */ = {
-			isa = PBXGroup;
-			children = (
-				6E7F608C21C9278400C1D30C /* RadioListController.swift */,
-			);
-			path = RadioList;
 			sourceTree = "<group>";
 		};
 		6EFDC5A021CA230700E93699 /* Player */ = {
@@ -627,11 +619,13 @@
 				6E3FC37E21CA6E180026DEA7 /* PlayerReducer.swift in Sources */,
 				6E07664F223427FE00AD5F05 /* RadioStationCollectionViewItem.swift in Sources */,
 				6EAC5E482200BE0D003D1B19 /* FavoritesController.swift in Sources */,
+				6EFC4082226F9EBD003C01AF /* NSControl+Rx.swift in Sources */,
 				6EA9BF3521EA457100A2551D /* SystemController.swift in Sources */,
 				6E7F608D21C9278400C1D30C /* RadioListController.swift in Sources */,
 				6E1E6DF721D277E500937756 /* Player.swift in Sources */,
 				6E47FF80225FB84C00F604B2 /* ApplicationCollectionView.swift in Sources */,
 				6E7D89102204CAD600C44E91 /* MusicTrackView.swift in Sources */,
+				6E3AB04822B6767B00735D05 /* AlbumPreviewController.swift in Sources */,
 				6EA34DB221F09B7F00E9588C /* ApplicationSlider.swift in Sources */,
 				6E7F608921C8F71B00C1D30C /* Constraints.swift in Sources */,
 				6E38A74D21C293BC00983339 /* MainWindowController.swift in Sources */,

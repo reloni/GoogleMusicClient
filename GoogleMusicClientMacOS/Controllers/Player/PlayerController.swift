@@ -9,7 +9,6 @@
 import Cocoa
 import RxGoogleMusic
 import RxSwift
-import RxCocoa
 import RxDataFlow
 import AVFoundation
 import GoogleMusicClientCore
@@ -82,7 +81,10 @@ final class PlayerController: NSViewController {
             currentProgressSlider.userSetValue.subscribe(onNext: { Current.currentState.state.player?.seek(to: $0) }),
             Current.currentTrack.map { $0 != nil }.subscribe(onNext: { [weak self] in self?.isCurrentProgressChangeEnabled = $0 }),
             player?.errors.subscribe(onNext: { Current.dispatch(UIAction.showErrorController($0)) }),
-            bindProgress()
+            bindProgress(),
+            albumImage.rx.clicked.subscribe(onNext: { [weak albumImage] _ in Current.dispatch(UIAction.showAlbumPreviewPopover(albumImage!)) }),
+            albumImage.rx.mouseEntered.subscribe(onNext: { [weak albumImage] _ in albumImage?.scaleUp(by: 1.25) }),
+            albumImage.rx.mouseExited.subscribe(onNext: { [weak albumImage] _ in albumImage?.resetScale() })
             ].compactMap(id)
     }
     
@@ -120,7 +122,7 @@ final class PlayerController: NSViewController {
         currentTrackTitle = track?.title
         currentArtistAndAlbum = track == nil ? nil : "\(track!.album) (\(track!.artist))"
         
-        image(for: track)
+        Current.currentTrackImage
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] in self?.albumImage.image = $0 })
             .disposed(by: bag)
@@ -130,19 +132,7 @@ final class PlayerController: NSViewController {
             Current.dispatch(CompositeActions.repeatFromQueueSource(shuffle: Current.currentState.state.isShuffleEnabledForCurrentQueueSource))
         }
     }
-    
-    func image(for track: GMusicTrack?) -> Observable<NSImage> {
-        guard let client = Current.currentState.state.client else { return Observable.just(NSImage.album) }
-        guard let track = track else { return Observable.just(NSImage.album) }
-        
-        return client
-            .downloadAlbumArt(track)
-            .catchErrorJustReturn(nil)
-            .map { NSImage($0) ?? NSImage.album }
-            .asObservable()
-            .startWith(NSImage.album)
-    }
-    
+
     @IBAction func queueButtonClicked(_ sender: Any) {
         Current.dispatch(UIAction.showQueuePopover(showQueueButton))
     }
