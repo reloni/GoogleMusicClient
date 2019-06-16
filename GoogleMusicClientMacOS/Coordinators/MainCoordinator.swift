@@ -121,6 +121,6 @@ private extension MainCoordinator {
     }
     
     private func showAlbumPreviewPopover(for view: NSView) {
-//        controller.showPopover(content: QueueController(), relativeView: view, contentSize: .zero)
+        controller.showPopover(content: AlbumPreviewController(), relativeView: view, contentSize: .zero)
     }
 }

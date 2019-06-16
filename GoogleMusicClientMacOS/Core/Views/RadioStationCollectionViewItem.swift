@@ -8,7 +8,7 @@
 
 import Cocoa
 import RxSwift
-import RxCocoa
+import RxRelay
 
 private final class PlayPauseView: NSView {
     enum State {

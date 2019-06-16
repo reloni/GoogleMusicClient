@@ -9,7 +9,6 @@
 import Cocoa
 import RxGoogleMusic
 import RxSwift
-import RxCocoa
 import RxDataFlow
 import AVFoundation
 import GoogleMusicClientCore
@@ -123,7 +122,7 @@ final class PlayerController: NSViewController {
         currentTrackTitle = track?.title
         currentArtistAndAlbum = track == nil ? nil : "\(track!.album) (\(track!.artist))"
         
-        image(for: track)
+        Current.currentTrackImage
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] in self?.albumImage.image = $0 })
             .disposed(by: bag)
@@ -133,19 +132,7 @@ final class PlayerController: NSViewController {
             Current.dispatch(CompositeActions.repeatFromQueueSource(shuffle: Current.currentState.state.isShuffleEnabledForCurrentQueueSource))
         }
     }
-    
-    func image(for track: GMusicTrack?) -> Observable<NSImage> {
-        guard let client = Current.currentState.state.client else { return Observable.just(NSImage.album) }
-        guard let track = track else { return Observable.just(NSImage.album) }
-        
-        return client
-            .downloadAlbumArt(track)
-            .catchErrorJustReturn(nil)
-            .map { NSImage($0) ?? NSImage.album }
-            .asObservable()
-            .startWith(NSImage.album)
-    }
-    
+
     @IBAction func queueButtonClicked(_ sender: Any) {
         Current.dispatch(UIAction.showQueuePopover(showQueueButton))
     }

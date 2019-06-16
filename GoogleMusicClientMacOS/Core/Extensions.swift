@@ -31,6 +31,16 @@ extension RxDataFlowController where State == AppState {
             }
             }.map { $0.state.currentRadio }.startWith(currentState.state.currentRadio)
     }
+    
+    var currentTrackImage: Observable<NSImage> {
+        return currentTrack
+            .compactMap { $0?.track }
+            .flatMap { [client = currentState.state.client] in client?.downloadAlbumArt($0) ?? .just(nil) }
+            .catchErrorJustReturn(nil)
+            .map { NSImage($0) ?? NSImage.album }
+            .asObservable()
+            .startWith(NSImage.album)
+    }
 }
 
 extension NSView {

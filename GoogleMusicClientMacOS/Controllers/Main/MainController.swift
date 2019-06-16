@@ -9,7 +9,6 @@
 import Cocoa
 import RxDataFlow
 import RxSwift
-import RxCocoa
 import RxGoogleMusic
 
 final class MainController: NSViewController {
