@@ -253,14 +253,14 @@
 		6E38A74B21C293AB00983339 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6EAC5E462200BDEF003D1B19 /* Favorites */,
+				6E7F608C21C9278400C1D30C /* RadioListController.swift */,
+				6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */,
+				6E8496D921D6365B00210F36 /* QueueController.swift */,
 				6E7E4E3921F38E3F0097E727 /* Error */,
 				6EA9BF3121EA453200A2551D /* System */,
 				6E38A74F21C2983900983339 /* MainWindow */,
 				6E38A75F21C2A62400983339 /* Main */,
-				6E8496D621D635FA00210F36 /* Queue */,
 				6E38A75021C2986700983339 /* LogIn */,
-				6EFDC59F21CA227500E93699 /* RadioList */,
 				6EFDC59E21CA226300E93699 /* LeftMenu */,
 				6EFDC5A021CA230700E93699 /* Player */,
 			);
@@ -334,14 +334,6 @@
 				6E7E4E3C21F38EDD0097E727 /* ErrorController.swift */,
 			);
 			path = Error;
-			sourceTree = "<group>";
-		};
-		6E8496D621D635FA00210F36 /* Queue */ = {
-			isa = PBXGroup;
-			children = (
-				6E8496D921D6365B00210F36 /* QueueController.swift */,
-			);
-			path = Queue;
 			sourceTree = "<group>";
 		};
 		6E94664A21C282D200126BB7 = {
@@ -421,14 +413,6 @@
 			path = System;
 			sourceTree = "<group>";
 		};
-		6EAC5E462200BDEF003D1B19 /* Favorites */ = {
-			isa = PBXGroup;
-			children = (
-				6EAC5E472200BE0D003D1B19 /* FavoritesController.swift */,
-			);
-			path = Favorites;
-			sourceTree = "<group>";
-		};
 		6EB27ACD21C3D4A60013479C /* DataFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,14 +432,6 @@
 				6E31EC3621C7E208009B9742 /* LeftMenuController.swift */,
 			);
 			path = LeftMenu;
-			sourceTree = "<group>";
-		};
-		6EFDC59F21CA227500E93699 /* RadioList */ = {
-			isa = PBXGroup;
-			children = (
-				6E7F608C21C9278400C1D30C /* RadioListController.swift */,
-			);
-			path = RadioList;
 			sourceTree = "<group>";
 		};
 		6EFDC5A021CA230700E93699 /* Player */ = {
