@@ -49,7 +49,7 @@ extension MainCoordinator: ApplicationCoordinator {
         case UIAction.showQueuePopover(let view): showQueuePopover(for: view)
         case UIAction.showErrorController(let e): showError(e)
         case UIAction.hideErrorController: hideError()
-        case UIAction.showAlbumPreviewPopover(let view): showAlbumPreviewPopover(for: view)
+        case UIAction.showAlbumPreviewPopover(let view): showAlbumPreviewPopover(for: view, currentState: currentState)
         default: break
         }
         
@@ -120,8 +120,8 @@ private extension MainCoordinator {
                                contentSize: NSSize(width: controller.mainContainerView.frame.width * 0.9, height: controller.mainContainerView.frame.height - 15))
     }
     
-    private func showAlbumPreviewPopover(for view: NSView) {
-        
+    private func showAlbumPreviewPopover(for view: NSView, currentState: AppState) {
+        guard currentState.currentTrack?.track != nil else { return }
         controller.showPopover(content: AlbumPreviewController(), relativeView: view, contentSize: .zero)
     }
 }
