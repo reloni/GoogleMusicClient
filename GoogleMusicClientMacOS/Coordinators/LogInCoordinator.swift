@@ -19,7 +19,7 @@ final class LogInCoordinator: ApplicationCoordinator {
         self.windowController = windowController
     }
     
-    func handle(_ action: RxActionType) -> RxReduceResult<AppState> {
+    func handle(_ action: RxActionType, currentState: AppState) -> RxReduceResult<AppState> {
         switch action {
         case UIAction.showMain:
             let controller = MainController.instantiate()

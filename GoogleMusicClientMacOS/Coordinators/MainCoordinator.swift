@@ -41,7 +41,7 @@ final class MainCoordinator {
 }
 
 extension MainCoordinator: ApplicationCoordinator {
-    func handle(_ action: RxActionType) -> RxReduceResult<AppState> {
+    func handle(_ action: RxActionType, currentState: AppState) -> RxReduceResult<AppState> {
         switch action {
         case UIAction.showLogIn: return logOff()
         case UIAction.showRadio: showMainController(RadioListController())
@@ -121,6 +121,7 @@ private extension MainCoordinator {
     }
     
     private func showAlbumPreviewPopover(for view: NSView) {
+        
         controller.showPopover(content: AlbumPreviewController(), relativeView: view, contentSize: .zero)
     }
 }

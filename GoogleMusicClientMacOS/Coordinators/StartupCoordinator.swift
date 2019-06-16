@@ -19,7 +19,7 @@ struct AlertConfiguration {
 }
 
 protocol ApplicationCoordinator {
-    func handle(_ action: RxActionType) -> RxReduceResult<AppState>
+    func handle(_ action: RxActionType, currentState: AppState) -> RxReduceResult<AppState>
 }
 
 extension ApplicationCoordinator {
@@ -37,22 +37,21 @@ extension ApplicationCoordinator {
 }
 
 final class StartupCoordinator: ApplicationCoordinator {
-    func handle(_ action: RxActionType) -> RxReduceResult<AppState> {
+    func handle(_ action: RxActionType, currentState: AppState) -> RxReduceResult<AppState> {
         switch action {
         case UIAction.startup(let windowController):
-            return startup(in: windowController)
+            return startup(in: windowController, currentState: currentState)
         default:
             break
         }
         return RxReduceResult.empty
     }
     
-    func startup(in windowController: ApplicationWindowController) -> RxReduceResult<AppState> {
-        let hasGmusicToken = Current.currentState.state.hasGmusicToken
+    func startup(in windowController: ApplicationWindowController, currentState: AppState) -> RxReduceResult<AppState> {
+
+        let controller = currentState.hasGmusicToken ? MainController.instantiate() : LogInController.instantiate()
         
-        let controller = hasGmusicToken ? MainController.instantiate() : LogInController.instantiate()
-        
-        let newCoordinator: ApplicationCoordinator = hasGmusicToken
+        let newCoordinator: ApplicationCoordinator = currentState.hasGmusicToken
                 ? MainCoordinator(windowController: windowController, controller: controller as! MainController)
                 : LogInCoordinator(windowController: windowController)
         
