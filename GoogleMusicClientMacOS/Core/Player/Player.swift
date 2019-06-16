@@ -213,7 +213,8 @@ private extension Player {
     func startTimer() {
         stopTimer()
         let scheduler = SerialDispatchQueueScheduler(qos: .userInitiated)
-        timerDisposable = Observable<Int>.timer(1.0, period: 0.3, scheduler: scheduler).map { _ in return () }.bind(to: timerSubject)
+        timerDisposable = Observable<Int>.timer(.seconds(1), period: .milliseconds(300), scheduler: scheduler)
+            .map { _ in return () }.bind(to: timerSubject)
     }
     
     func stopTimer() {
