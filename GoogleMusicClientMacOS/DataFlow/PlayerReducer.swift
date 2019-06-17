@@ -54,7 +54,7 @@ private func playAtIndex(currentState: AppState, index: Int) -> RxReduceResult<A
 
 private func playPrevious(currentState: AppState) -> RxReduceResult<AppState> {
     var queue = currentState.queue
-    let track = queue.previous()
+    guard let track = queue.previous() else { return RxReduceResult.single(id) }
     currentState.player?.play(track)
     return RxReduceResult.single { $0.mutate(\.queue, queue) }
 }

@@ -190,7 +190,7 @@ extension Player {
     
     func play(_ track: Item?) {
         guard let track = track else {
-            isPlayingSubject.onNext(false)
+            stop()
             return
         }
         
