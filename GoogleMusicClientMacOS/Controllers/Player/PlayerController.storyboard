@@ -10,21 +10,21 @@
             <objects>
                 <viewController storyboardIdentifier="PlayerController" id="y3d-EB-w5r" customClass="PlayerController" customModule="Google_Music_Player" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="TYL-Nq-HCf">
-                        <rect key="frame" x="0.0" y="0.0" width="1228" height="68"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1229" height="69"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <visualEffectView blendingMode="withinWindow" material="underWindowBackground" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="Emn-i0-3RF">
-                                <rect key="frame" x="0.0" y="0.0" width="1228" height="68"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1229" height="69"/>
                             </visualEffectView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tuq-cu-SQY">
-                                <rect key="frame" x="5" y="10" width="68" height="48"/>
+                                <rect key="frame" x="5" y="10" width="69" height="49"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Album" id="uQf-Vj-zYR"/>
                             </imageView>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jtM-w2-9fp">
-                                <rect key="frame" x="78" y="0.0" width="150" height="68"/>
+                                <rect key="frame" x="79" y="0.0" width="150" height="69"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="qsA-Px-lBD">
-                                        <rect key="frame" x="-2" y="50" width="54" height="13"/>
+                                        <rect key="frame" x="-2" y="50" width="54" height="14"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" id="2Sh-4l-Jby">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -89,7 +89,7 @@
                                 </customSpacing>
                             </stackView>
                             <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zHl-k0-FT7">
-                                <rect key="frame" x="228" y="38" width="800" height="20"/>
+                                <rect key="frame" x="229" y="39" width="800" height="20"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="1" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LwG-xm-9fL">
                                         <rect key="frame" x="3" y="2" width="274" height="17"/>
@@ -195,7 +195,7 @@
                                 </customSpacing>
                             </stackView>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jTd-fk-pjk">
-                                <rect key="frame" x="226" y="12" width="159" height="14"/>
+                                <rect key="frame" x="227" y="13" width="159" height="14"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="0:12" id="Xot-9Q-XYt">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -210,7 +210,7 @@
                                 </connections>
                             </textField>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="caB-07-Ghj" customClass="ApplicationSlider" customModule="Google_Music_Player" customModuleProvider="target">
-                                <rect key="frame" x="386" y="10" width="484" height="18"/>
+                                <rect key="frame" x="387" y="10" width="484" height="19"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="IpG-L1-Cc7" customClass="SliderCell" customModule="Google_Music_Player" customModuleProvider="target"/>
                                 <connections>
                                     <binding destination="y3d-EB-w5r" name="value" keyPath="self.currentProgress" id="0Sr-mg-t9l">
@@ -222,7 +222,7 @@
                                 </connections>
                             </slider>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kiA-Bc-oTy">
-                                <rect key="frame" x="871" y="12" width="159" height="14"/>
+                                <rect key="frame" x="872" y="13" width="159" height="14"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="5:11" id="fXh-XG-Y9q">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -237,7 +237,7 @@
                                 </connections>
                             </textField>
                             <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="5" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IND-kA-2fh">
-                                <rect key="frame" x="1028" y="24" width="200" height="20"/>
+                                <rect key="frame" x="1029" y="25" width="200" height="20"/>
                                 <subviews>
                                     <button horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ctP-DC-t0C">
                                         <rect key="frame" x="5" y="0.0" width="27" height="20"/>
@@ -256,7 +256,7 @@
                                         <color key="contentTintColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                     </imageView>
                                     <slider horizontalHuggingPriority="1" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uh4-xd-1rU" customClass="ApplicationSlider" customModule="Google_Music_Player" customModuleProvider="target">
-                                        <rect key="frame" x="70" y="3" width="120" height="15"/>
+                                        <rect key="frame" x="70" y="2" width="120" height="15"/>
                                         <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="lwh-aS-f7X" customClass="SliderCell" customModule="Google_Music_Player" customModuleProvider="target"/>
                                         <connections>
                                             <binding destination="y3d-EB-w5r" name="value" keyPath="self.currentVolume" id="lpl-bl-qLZ">
@@ -288,21 +288,20 @@
                             </stackView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="jTd-fk-pjk" firstAttribute="centerY" secondItem="caB-07-Ghj" secondAttribute="centerY" id="1N7-zI-ecH"/>
                             <constraint firstItem="jTd-fk-pjk" firstAttribute="leading" secondItem="jtM-w2-9fp" secondAttribute="trailing" id="1ga-Q6-UwH"/>
                             <constraint firstItem="caB-07-Ghj" firstAttribute="width" secondItem="zHl-k0-FT7" secondAttribute="width" multiplier="0.6" id="2gw-wF-JmG"/>
                             <constraint firstItem="jTd-fk-pjk" firstAttribute="width" secondItem="kiA-Bc-oTy" secondAttribute="width" id="3yg-At-TLN"/>
+                            <constraint firstItem="kiA-Bc-oTy" firstAttribute="centerY" secondItem="caB-07-Ghj" secondAttribute="centerY" id="4LG-gS-9UH"/>
                             <constraint firstAttribute="bottom" secondItem="caB-07-Ghj" secondAttribute="bottom" constant="12" id="5Jl-K0-Lc9"/>
                             <constraint firstItem="tuq-cu-SQY" firstAttribute="leading" secondItem="TYL-Nq-HCf" secondAttribute="leading" constant="5" id="5cu-WB-B3v"/>
-                            <constraint firstItem="jTd-fk-pjk" firstAttribute="top" secondItem="zHl-k0-FT7" secondAttribute="bottom" constant="12" id="7Wr-is-lMt"/>
                             <constraint firstItem="Emn-i0-3RF" firstAttribute="top" secondItem="TYL-Nq-HCf" secondAttribute="top" id="9la-PN-tb5"/>
                             <constraint firstItem="Emn-i0-3RF" firstAttribute="leading" secondItem="TYL-Nq-HCf" secondAttribute="leading" id="DbC-Ln-bRM"/>
-                            <constraint firstAttribute="bottom" secondItem="kiA-Bc-oTy" secondAttribute="bottom" constant="12" id="I3c-ic-kiw"/>
                             <constraint firstItem="zHl-k0-FT7" firstAttribute="top" secondItem="TYL-Nq-HCf" secondAttribute="top" constant="10" id="J2o-7D-lV3"/>
                             <constraint firstItem="tuq-cu-SQY" firstAttribute="top" secondItem="TYL-Nq-HCf" secondAttribute="top" constant="10" id="KfB-Yo-wkn"/>
                             <constraint firstItem="kiA-Bc-oTy" firstAttribute="leading" secondItem="caB-07-Ghj" secondAttribute="trailing" constant="5" id="L2A-RG-lmZ"/>
                             <constraint firstItem="jtM-w2-9fp" firstAttribute="leading" secondItem="tuq-cu-SQY" secondAttribute="trailing" constant="5" id="ZA6-mM-T4u"/>
                             <constraint firstItem="IND-kA-2fh" firstAttribute="centerY" secondItem="TYL-Nq-HCf" secondAttribute="centerY" id="ZLp-1G-uWM"/>
-                            <constraint firstItem="kiA-Bc-oTy" firstAttribute="top" secondItem="zHl-k0-FT7" secondAttribute="bottom" constant="12" id="ZnQ-12-CCQ"/>
                             <constraint firstItem="jtM-w2-9fp" firstAttribute="top" secondItem="TYL-Nq-HCf" secondAttribute="top" id="akc-v7-7xD"/>
                             <constraint firstItem="kiA-Bc-oTy" firstAttribute="trailing" secondItem="IND-kA-2fh" secondAttribute="leading" id="bmd-jD-yR1"/>
                             <constraint firstAttribute="bottom" secondItem="jtM-w2-9fp" secondAttribute="bottom" id="crD-Ng-CjN"/>
@@ -310,7 +309,6 @@
                             <constraint firstAttribute="trailing" secondItem="Emn-i0-3RF" secondAttribute="trailing" id="eGG-Cv-i65"/>
                             <constraint firstAttribute="bottom" secondItem="Emn-i0-3RF" secondAttribute="bottom" id="ghg-qh-jrc"/>
                             <constraint firstItem="caB-07-Ghj" firstAttribute="top" secondItem="zHl-k0-FT7" secondAttribute="bottom" constant="12" id="gus-qC-KF7"/>
-                            <constraint firstAttribute="bottom" secondItem="jTd-fk-pjk" secondAttribute="bottom" constant="12" id="i7c-TY-B6j"/>
                             <constraint firstAttribute="trailing" secondItem="IND-kA-2fh" secondAttribute="trailing" id="k6d-3e-8YZ"/>
                             <constraint firstItem="zHl-k0-FT7" firstAttribute="leading" secondItem="jtM-w2-9fp" secondAttribute="trailing" id="nDk-b5-FSe"/>
                             <constraint firstItem="caB-07-Ghj" firstAttribute="leading" secondItem="jTd-fk-pjk" secondAttribute="trailing" constant="5" id="rAv-p7-Gag"/>
