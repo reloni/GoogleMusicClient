@@ -15,8 +15,9 @@ import GoogleMusicClientCore
 
 final class PlayerController: NSViewController {
     @IBOutlet weak var albumImage: NSImageView!
-    @IBOutlet weak var songTitleLabel: NSTextField!
-    @IBOutlet weak var artistAndAlbumLabel: NSTextField!
+    
+    @IBOutlet weak var songTitleScrollableTextView: ScrollableTextView!
+    @IBOutlet weak var artistAndAlbumScrollableTextView: ScrollableTextView!
     
     @IBOutlet weak var shuffleButton: NSButton!
     @IBOutlet weak var previousButton: NSButton!
@@ -34,8 +35,16 @@ final class PlayerController: NSViewController {
     
     @IBOutlet weak var showQueueButton: NSButton!
     
-    @objc dynamic var currentTrackTitle: String? = nil
-    @objc dynamic var currentArtistAndAlbum: String? = nil
+    @objc dynamic var currentTrackTitle: String? = nil {
+        didSet {
+            songTitleScrollableTextView.setup(string: currentTrackTitle ?? "")
+        }
+    }
+    @objc dynamic var currentArtistAndAlbum: String? = nil {
+        didSet {
+            artistAndAlbumScrollableTextView.setup(string: currentArtistAndAlbum ?? "")
+        }
+    }
     @objc dynamic var currentTime: String? = nil
     @objc dynamic var currentProgress: NSDecimalNumber? = nil
     @objc dynamic var isCurrentProgressChangeEnabled = false
@@ -55,6 +64,9 @@ final class PlayerController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        songTitleScrollableTextView.font = NSFont.systemFont(ofSize: 13, weight: .regular)
+        artistAndAlbumScrollableTextView.font = NSFont.systemFont(ofSize: 13, weight: .regular)
         
         player?.volume = currentVolume.floatValue / 100
 
