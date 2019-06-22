@@ -84,7 +84,8 @@ final class PlayerController: NSViewController {
             bindProgress(),
             albumImage.rx.clicked.subscribe(onNext: { [weak albumImage] _ in Current.dispatch(UIAction.showAlbumPreviewPopover(albumImage!)) }),
             albumImage.rx.mouseEntered.subscribe(onNext: { [weak albumImage] _ in albumImage?.scaleUp(by: 1.25) }),
-            albumImage.rx.mouseExited.subscribe(onNext: { [weak albumImage] _ in albumImage?.resetScale() })
+            albumImage.rx.mouseExited.subscribe(onNext: { [weak albumImage] _ in albumImage?.resetScale() }),
+            Current.currentTrackImage.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.albumImage.image = $0 })
             ].compactMap(id)
     }
     
@@ -121,12 +122,6 @@ final class PlayerController: NSViewController {
     func update(with track: GMusicTrack?) {
         currentTrackTitle = track?.title
         currentArtistAndAlbum = track == nil ? nil : "\(track!.album) (\(track!.artist))"
-        
-        Current.currentTrackImage
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] in self?.albumImage.image = $0 })
-            .disposed(by: bag)
-        
         
         if Current.currentState.state.queue.isCompleted, Current.currentState.state.isRepeatQueueEnabled {
             Current.dispatch(CompositeActions.repeatFromQueueSource(shuffle: Current.currentState.state.isShuffleEnabledForCurrentQueueSource))

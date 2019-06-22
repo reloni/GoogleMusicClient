@@ -75,4 +75,8 @@ final class AlbumPreviewController: NSViewController {
         artistName.stringValue = track?.artist ?? ""
         trackTitle.stringValue = track?.title ?? ""
     }
+    
+    deinit {
+        print("AlbumPreviewController deinit")
+    }
 }
