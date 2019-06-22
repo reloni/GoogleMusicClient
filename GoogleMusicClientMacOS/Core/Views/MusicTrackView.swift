@@ -9,18 +9,18 @@
 import Cocoa
 
 final class MusicTrackView: NSView, ViewWithBottomBorder {
-    let title = VerticallyCenteredTextField()
-    let album = VerticallyCenteredTextField()
-    let artist = VerticallyCenteredTextField()
-    let duration = VerticallyCenteredTextField()
+    let title = ScrollableTextView()
+    let album = ScrollableTextView()//VerticallyCenteredTextField()
+    let artist = ScrollableTextView()
+    let duration = ScrollableTextView()
     
-    private lazy var textFields: [VerticallyCenteredTextField] = {
+    private lazy var textFields: [ScrollableTextView] = {
        return [title, album, artist, duration]
     }()
     
     var labelsColor = NSColor.textColor {
         didSet {
-            textFields.forEach { $0.textField.textColor = labelsColor
+            textFields.forEach { $0.textColor = labelsColor
             }
         }
     }

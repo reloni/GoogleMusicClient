@@ -103,10 +103,14 @@ extension QueueController: NSCollectionViewDataSource {
         if kind == NSCollectionView.elementKindSectionHeader {
             let view: MusicTrackView = collectionView.makeHeader(for: indexPath)
             return view.configure {
-                $0.title.textField.stringValue = "Title"
-                $0.album.textField.stringValue = "Album"
-                $0.artist.textField.stringValue = "Artist"
-                $0.duration.textField.stringValue = "Duration"
+                $0.title.setup(string: "Title")
+//                $0.title.textField.stringValue = "Title"
+                $0.album.setup(string: "Album")
+//                $0.album.textField.stringValue = "Album"
+                $0.artist.setup(string: "Artist")
+//                $0.artist.textField.stringValue = "Artist"
+                $0.duration.setup(string: "Duration")
+//                $0.duration.textField.stringValue = "Duration"
             }
         }
         
@@ -117,10 +121,14 @@ extension QueueController: NSCollectionViewDataSource {
         let item: MusicTrackCollectionViewItem = collectionView.makeItem(for: indexPath)
         let track = queue[indexPath.item]
         
-        item.musicTrackView.title.textField.stringValue = track.title
-        item.musicTrackView.album.textField.stringValue = track.album
-        item.musicTrackView.artist.textField.stringValue = track.artist
-        item.musicTrackView.duration.textField.stringValue = track.duration.timeString ?? "--:--"
+        item.musicTrackView.title.setup(string: track.title)
+//        item.musicTrackView.title.textField.stringValue = track.title
+        item.musicTrackView.album.setup(string: track.album)
+//        item.musicTrackView.album.textField.stringValue = track.album
+        item.musicTrackView.artist.setup(string: track.artist)
+//        item.musicTrackView.artist.textField.stringValue = track.artist
+        item.musicTrackView.duration.setup(string: track.duration.timeString ?? "--:--")
+//        item.musicTrackView.duration.textField.stringValue = track.duration.timeString ?? "--:--"
         
         return item
     }
