@@ -9,13 +9,13 @@
 import Foundation
 import AVFoundation
 
-final class DataAssetLoader: NSObject {
-    enum AssetType: String {
-        case aac = "public.aac-audio"
-    }
-    
-    private var data: Data
-    private var assetType: AssetType
+enum AssetType: String {
+    case aac = "public.aac-audio"
+}
+
+final class InMemoryDataAssetLoader: NSObject {
+    private let data: Data
+    private let assetType: AssetType
     
     init(_ data: Data, type: AssetType) {
         self.data = data
@@ -23,11 +23,11 @@ final class DataAssetLoader: NSObject {
     }
     
     deinit {
-        print("DataAssetLoader deinit")
+        print("InMemoryDataAssetLoader deinit")
     }
 }
 
-extension DataAssetLoader: AVAssetResourceLoaderDelegate {
+extension InMemoryDataAssetLoader: AVAssetResourceLoaderDelegate {
     func resourceLoader(_ resourceLoader: AVAssetResourceLoader, shouldWaitForLoadingOfRequestedResource loadingRequest: AVAssetResourceLoadingRequest) -> Bool {
         DispatchQueue.global(qos: .default).async {
             self.handleLoadingRequest(loadingRequest)
@@ -36,7 +36,7 @@ extension DataAssetLoader: AVAssetResourceLoaderDelegate {
     }
 }
 
-private extension DataAssetLoader {
+private extension InMemoryDataAssetLoader {
     func handleLoadingRequest(_ loadingRequest: AVAssetResourceLoadingRequest) {
         if let info = loadingRequest.contentInformationRequest {
             self.handleInformationRequest(info)

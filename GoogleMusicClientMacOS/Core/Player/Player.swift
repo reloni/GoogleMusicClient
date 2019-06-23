@@ -200,7 +200,7 @@ extension Player {
         startTimer()
         
         loadRequest(track)
-            .map { DataAssetLoader($0, type: .aac) }
+            .map { InMemoryDataAssetLoader($0, type: .aac) }
             .map(setAsset(for: avPlayer))
             .do(onSuccess: { $0.set(rate: .play) })
             .do(onError: { [weak self] in self?.errorSubject.onNext($0); self?.stop() })
