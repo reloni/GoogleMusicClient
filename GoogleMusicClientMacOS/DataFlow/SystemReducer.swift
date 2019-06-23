@@ -26,7 +26,7 @@ func systemReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
                                                                         session: URLSession(configuration: .default), locale: Locale.current)) })
     case SystemAction.initializePlayer:
         guard let client = currentState.client else { return RxReduceResult.empty }
-        let player = Player<GMusicTrack>(loadRequest: { client.downloadTrackRaw($0, range: $1).map { ($0.data, $0.response) } })
+        let player = Player<GMusicTrack>(loadRequest: client.downloadTrackRaw)
         return RxReduceResult.single({ $0.mutate(\.player, player) })
     default:
         break
