@@ -24,7 +24,7 @@ private func setAsset(for player: AVPlayer) -> (AVAssetResourceLoaderDelegate) -
         objc_setAssociatedObject(asset, &handle, assetLoader, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         
         let item = AVPlayerItem(asset: asset)
-        player.replaceCurrentItem(with: item)
+        player.replaceCurrentItem(with: item)        
         return player
     }
 }
@@ -82,7 +82,7 @@ final class Player<Item> {
     private let bag = DisposeBag()
     
     private let avPlayer: AVPlayer
-    private let loadRequest: (Item) -> Single<Data>
+    private let loadRequest: (Item, ClosedRange<Int>?) -> Single<(Data, HTTPURLResponse)>
     
     private let errorSubject = PublishSubject<Error>()
     lazy var errors: Observable<Error> = {
@@ -124,7 +124,7 @@ final class Player<Item> {
             }.distinctUntilChanged().share(replay: 1, scope: .whileConnected)
     }()
     
-    init(loadRequest: @escaping (Item) -> Single<Data>) {
+    init(loadRequest: @escaping (Item, ClosedRange<Int>?) -> Single<(Data, HTTPURLResponse)>) {
         self.loadRequest = loadRequest
         avPlayer = AVPlayer(playerItem: nil)
     }
@@ -199,8 +199,7 @@ extension Player {
         isPlayingSubject.onNext(true)
         startTimer()
         
-        loadRequest(track)
-            .map { InMemoryDataAssetLoader($0, type: .aac) }
+        Single.just(ByteRangeDataAssetLoader(type: .aac, loadRequest: track |> (loadRequest |> curry)))
             .map(setAsset(for: avPlayer))
             .do(onSuccess: { $0.set(rate: .play) })
             .do(onError: { [weak self] in self?.errorSubject.onNext($0); self?.stop() })

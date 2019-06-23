@@ -12,12 +12,12 @@ import RxSwift
 import RxGoogleMusic
 
 final class ByteRangeDataAssetLoader: NSObject {
-    private let loadRequest: (Range<Int>) -> Single<GMusicRawResponse>
+    private let loadRequest: (ClosedRange<Int>) -> Single<(Data, HTTPURLResponse)>
     private let assetType: AssetType
     
     private var bag = DisposeBag()
     
-    init(type: AssetType, loadRequest: @escaping (Range<Int>) -> Single<GMusicRawResponse>) {
+    init(type: AssetType, loadRequest: @escaping (ClosedRange<Int>) -> Single<(Data, HTTPURLResponse)>) {
         self.assetType = type
         self.loadRequest = loadRequest
     }
@@ -29,10 +29,7 @@ final class ByteRangeDataAssetLoader: NSObject {
 
 extension ByteRangeDataAssetLoader: AVAssetResourceLoaderDelegate {
     func resourceLoader(_ resourceLoader: AVAssetResourceLoader, shouldWaitForLoadingOfRequestedResource loadingRequest: AVAssetResourceLoadingRequest) -> Bool {
-        DispatchQueue.global(qos: .default).async {
-            self.handleLoadingRequest(loadingRequest)
-        }
-        return true
+        return handleLoadingRequest(loadingRequest)
     }
     
     func resourceLoader(_ resourceLoader: AVAssetResourceLoader, didCancel loadingRequest: AVAssetResourceLoadingRequest) {
@@ -41,7 +38,7 @@ extension ByteRangeDataAssetLoader: AVAssetResourceLoaderDelegate {
 }
 
 private extension ByteRangeDataAssetLoader {
-    func handleLoadingRequest(_ loadingRequest: AVAssetResourceLoadingRequest) {
+    func handleLoadingRequest(_ loadingRequest: AVAssetResourceLoadingRequest) -> Bool {
         let request: Completable? = {
             if let info = loadingRequest.contentInformationRequest {
                 return handleInformationRequest(info)
@@ -57,27 +54,31 @@ private extension ByteRangeDataAssetLoader {
             .do(onCompleted: { loadingRequest.finishLoading() })
             .subscribe()
             .disposed(by: bag)
+        
+        return request != nil
     }
     
     func handleInformationRequest(_ informationRequest: AVAssetResourceLoadingContentInformationRequest) -> Completable {
         informationRequest.contentType = assetType.rawValue
         informationRequest.isByteRangeAccessSupported = true
-        return loadRequest(0..<2)
-            .map { $0.response.expectedContentLength }
-            .debug()
+        return loadRequest(0...1)
+            .map { contentLengthFromRange(for: $1) ?? 2 }
             .do(onSuccess: { informationRequest.contentLength = $0 })
             .asCompletable()
     }
     
     func handleDataRequest(_ dataRequest: AVAssetResourceLoadingDataRequest) -> Completable {
         let lower = Int(dataRequest.requestedOffset)
-        let upper = lower + dataRequest.requestedLength
-        let range = (lower..<upper)
+        let upper = lower + dataRequest.requestedLength - 1
+        let range = (lower...upper)
         
         return loadRequest(range)
-            .map { $0.data }
-            .do(onSuccess: { dataRequest.respond(with: $0) })
+            .do(onSuccess: { dataRequest.respond(with: $0.0) })
             .asCompletable()
-            .debug()
     }
+}
+
+func contentLengthFromRange(for response: HTTPURLResponse) -> Int64? {
+    guard let header = response.allHeaderFields["Content-Range"] as? String else { return nil }
+    return Int64(header.split(separator: "/").last ?? "")
 }
