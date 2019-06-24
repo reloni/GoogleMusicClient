@@ -24,7 +24,7 @@ private func setAsset(for player: AVPlayer) -> (AVAssetResourceLoaderDelegate) -
         objc_setAssociatedObject(asset, &handle, assetLoader, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         
         let item = AVPlayerItem(asset: asset)
-        player.replaceCurrentItem(with: item)        
+        player.replaceCurrentItem(with: item)
         return player
     }
 }
@@ -82,7 +82,7 @@ final class Player<Item> {
     private let bag = DisposeBag()
     
     private let avPlayer: AVPlayer
-    private let loadRequest: (Item, ClosedRange<Int>?) -> Single<(Data, HTTPURLResponse)>
+    private let createDownloadRequest: (Item, ClosedRange<Int>?) -> Single<URLRequest>
     
     private let errorSubject = PublishSubject<Error>()
     lazy var errors: Observable<Error> = {
@@ -124,9 +124,10 @@ final class Player<Item> {
             }.distinctUntilChanged().share(replay: 1, scope: .whileConnected)
     }()
     
-    init(loadRequest: @escaping (Item, ClosedRange<Int>?) -> Single<(Data, HTTPURLResponse)>) {
-        self.loadRequest = loadRequest
+    init(createDownloadRequest: @escaping (Item, ClosedRange<Int>?) -> Single<URLRequest>) {
+        self.createDownloadRequest = createDownloadRequest
         avPlayer = AVPlayer(playerItem: nil)
+        avPlayer.automaticallyWaitsToMinimizeStalling = false
     }
     
     deinit {
@@ -199,10 +200,9 @@ extension Player {
         isPlayingSubject.onNext(true)
         startTimer()
         
-        Single.just(ByteRangeDataAssetLoader(type: .aac, loadRequest: track |> (loadRequest |> curry)))
+        Single.just(ByteRangeDataAssetLoader(type: .aac, errors: errorSubject, createRequest: track |> (createDownloadRequest |> curry)))
             .map(setAsset(for: avPlayer))
             .do(onSuccess: { $0.set(rate: .play) })
-            .do(onError: { [weak self] in self?.errorSubject.onNext($0); self?.stop() })
             .subscribe()
             .disposed(by: bag)
     }
