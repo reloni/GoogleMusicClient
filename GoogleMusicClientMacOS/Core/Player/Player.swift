@@ -82,7 +82,7 @@ final class Player<Item> {
     private let bag = DisposeBag()
     
     private let avPlayer: AVPlayer
-    private let loadRequest: (Item) -> Single<Data>
+    private let createDownloadRequest: (Item, ClosedRange<Int>?) -> Single<URLRequest>
     
     private let errorSubject = PublishSubject<Error>()
     lazy var errors: Observable<Error> = {
@@ -124,9 +124,10 @@ final class Player<Item> {
             }.distinctUntilChanged().share(replay: 1, scope: .whileConnected)
     }()
     
-    init(loadRequest: @escaping (Item) -> Single<Data>) {
-        self.loadRequest = loadRequest
+    init(createDownloadRequest: @escaping (Item, ClosedRange<Int>?) -> Single<URLRequest>) {
+        self.createDownloadRequest = createDownloadRequest
         avPlayer = AVPlayer(playerItem: nil)
+        avPlayer.automaticallyWaitsToMinimizeStalling = false
     }
     
     deinit {
@@ -199,11 +200,9 @@ extension Player {
         isPlayingSubject.onNext(true)
         startTimer()
         
-        loadRequest(track)
-            .map { DataAssetLoader($0, type: .aac) }
+        Single.just(ByteRangeDataAssetLoader(type: .aac, errors: errorSubject, createRequest: track |> (createDownloadRequest |> curry)))
             .map(setAsset(for: avPlayer))
             .do(onSuccess: { $0.set(rate: .play) })
-            .do(onError: { [weak self] in self?.errorSubject.onNext($0); self?.stop() })
             .subscribe()
             .disposed(by: bag)
     }
