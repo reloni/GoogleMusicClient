@@ -12,6 +12,7 @@ import RxSwift
 import RxDataFlow
 import AVFoundation
 import GoogleMusicClientCore
+import os.log
 
 final class PlayerController: NSViewController {
     @IBOutlet weak var albumImage: NSImageView!
@@ -141,20 +142,20 @@ final class PlayerController: NSViewController {
     
     @objc func didPlayToEnd() {
         Current.dispatch(PlayerAction.playNext)
-        print("didPlayToEnd")
+        os_log(.default, log: .general, "Player didPlayToEnd")
     }
     
     @objc func playbackStalled() {
         Current.dispatch(PlayerAction.pause)
-        print("playbackStalled")
+        os_log(.default, log: .general, "Player playbackStalled")
     }
     
     @objc func errorLogEntry() {
-        print("playbackStalled")
+        os_log(.default, log: .general, "Player errorLogEntry")
     }
     
     @objc func failedToPlayToEnd() {
-        print("playbackStalled")
+        os_log(.default, log: .general, "Player failedToPlayToEnd")
     }
 
     deinit {

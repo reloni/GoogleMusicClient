@@ -9,6 +9,7 @@
 import Cocoa
 import RxDataFlow
 import RxGoogleMusic
+import os.log
 
 let Current = RxDataFlowController(reducer: rootReducer, initialState: initialState())
 
@@ -16,10 +17,21 @@ let Current = RxDataFlowController(reducer: rootReducer, initialState: initialSt
 class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+        
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(appSleep), name: NSWorkspace.willSleepNotification, object: nil)
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(appWake), name: NSWorkspace.didWakeNotification, object: nil)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    
+    @objc func appWake() {
+        os_log(.default, log: .general, "App didWake")
+    }
+    
+    @objc func appSleep() {
+        os_log(.default, log: .general, "App willSleep")
     }
 }
 

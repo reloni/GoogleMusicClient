@@ -8,8 +8,12 @@
 
 import RxDataFlow
 import RxSwift
+import GoogleMusicClientCore
+import os.log
+import Foundation
 
-func rootReducer(_ action: RxActionType, currentState: AppState) -> RxReduceResult<AppState> {    
+func rootReducer(_ action: RxActionType, currentState: AppState) -> RxReduceResult<AppState> {
+    os_log(.default, log: .dispatchAction, "Dispatch action %{public}@", "\(Mirror(reflecting: action).children.first?.label ?? String(describing: action))")
     switch action {
     case _ as UIAction: return currentState.coordinator.handle(action, currentState: currentState)
     case _ as SystemAction: return systemReducer(action, currentState: currentState)
