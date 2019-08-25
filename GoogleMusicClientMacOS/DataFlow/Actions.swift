@@ -62,7 +62,7 @@ struct CompositeActions {
     }
 }
 
-enum UIAction : RxActionType {
+enum UIAction: RxActionType {
     var scheduler: ImmediateSchedulerType? { return MainScheduler.instance }
     case startup(ApplicationWindowController)
    
@@ -86,7 +86,7 @@ enum UIAction : RxActionType {
     case showAlbumPreviewPopover(NSView)
 }
 
-enum SystemAction: RxActionType, Equatable {    
+enum SystemAction: RxActionType, Equatable {
     case saveKeychainToken(GMusicToken)
     case initializeMusicClient
     case initializePlayer
@@ -100,6 +100,7 @@ enum PlayerAction: RxActionType, Equatable {
     case initializeQueueFromSource
     case pause
     case resume
+    case stop
     case playPrevious
     case playNext
     case toggle
@@ -107,4 +108,15 @@ enum PlayerAction: RxActionType, Equatable {
     case shuffleQueue(moveToFirst: Int?)
     case toggleShuffle
     case toggleQueueRepeat
+}
+
+func actionDescription(_ action: RxActionType) -> String {
+    let description = { (a: Any) in
+        return "\(Mirror(reflecting: a).children.first?.label ?? String(describing: a))"
+    }
+    
+    switch action {
+    case PlayerAction.setQueueSource(let source): return "\(description(action)) (\(description(source)))"
+    default: return description(action)
+    }
 }

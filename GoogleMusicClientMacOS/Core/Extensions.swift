@@ -170,3 +170,9 @@ extension NSCollectionView {
         allowsEmptySelection = currentAllowsEmptySelection
     }
 }
+
+extension String: Error, LocalizedError {
+    public var errorDescription: String? {
+        return self
+    }
+}

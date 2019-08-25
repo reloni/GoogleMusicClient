@@ -11,6 +11,7 @@ import RxSwift
 import RxDataFlow
 import RxGoogleMusic
 import GoogleMusicClientCore
+import os.log
 
 func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceResult<AppState> {
     guard let client = currentState.client else { return RxReduceResult.empty }
@@ -20,10 +21,11 @@ func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
     case PlayerAction.loadRadioStations: return loadRadioStations(client: client)
     case PlayerAction.loadFavorites: return loadFavorites(client: client)
     case PlayerAction.pause: currentState.player?.pause()
+    case PlayerAction.stop: currentState.player?.stop()
     case PlayerAction.resume: currentState.player?.resume()
     case PlayerAction.playNext: return playNext(currentState: currentState)
     case PlayerAction.playPrevious: return playPrevious(currentState: currentState)
-    case PlayerAction.toggle: currentState.player?.toggle()
+    case PlayerAction.toggle: return toggle(currentState: currentState)
     case PlayerAction.playAtIndex(let index): return playAtIndex(currentState: currentState, index: index)
     case PlayerAction.setQueueSource(let s): return RxReduceResult.single { $0.mutate(\.queueSource, s) }
     case PlayerAction.shuffleQueue(let moveToFirst): return shuffleQueue(currentState: currentState, moveToFirst: moveToFirst)
@@ -36,6 +38,22 @@ func playerReducer(_ action: RxActionType, currentState: AppState) -> RxReduceRe
     default: break
     }
     return RxReduceResult.empty
+}
+
+private func toggle(currentState: AppState) -> RxReduceResult<AppState> {
+    guard let player = currentState.player else {
+        return .empty
+    }
+    
+    os_log(.default, log: .player, "Will toggle player (%{public}s)", "\(player)")
+    
+    if player.isFlushed {
+        player.play(currentState.queue.current)
+    } else {
+        player.toggle()
+    }
+    
+    return .empty
 }
 
 private func shuffleQueue(currentState: AppState, moveToFirst: Int?) -> RxReduceResult<AppState> {

@@ -12,4 +12,5 @@ import os.log
 public extension OSLog {
     static let dispatchAction = OSLog(subsystem: "\(Bundle.main.bundleIdentifier!)", category: "DispatchAction")
     static let general = OSLog(subsystem: "\(Bundle.main.bundleIdentifier!)", category: "General")
+    static let player = OSLog(subsystem: "\(Bundle.main.bundleIdentifier!)", category: "Player")
 }

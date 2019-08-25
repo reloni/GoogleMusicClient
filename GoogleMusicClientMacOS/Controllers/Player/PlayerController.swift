@@ -155,6 +155,8 @@ final class PlayerController: NSViewController {
     }
     
     @objc func failedToPlayToEnd() {
+        Current.dispatch(PlayerAction.stop)
+        Current.dispatch(UIAction.showErrorController("Unable to play current track"))
         os_log(.default, log: .general, "Player failedToPlayToEnd")
     }
 

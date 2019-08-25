@@ -136,6 +136,10 @@ final class Player<Item> {
 }
 
 extension Player {
+    var isFlushed: Bool {
+        return avPlayer.currentItem == nil
+    }
+    
     var isPlayingNow: Bool {
         return (try? isPlayingSubject.value()) ?? false
     }
@@ -222,3 +226,8 @@ private extension Player {
     }
 }
 
+extension Player: CustomStringConvertible {
+    var description: String {
+        return "isFlushed \(isFlushed), isPlayingNow \(isPlayingNow)"
+    }
+}
