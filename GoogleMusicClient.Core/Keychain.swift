@@ -188,7 +188,7 @@ public class Keychain {
                 kSecAttrAccount as String: account as AnyObject,
                 kSecAttrSynchronizable as String: synchronizable ? kCFBooleanTrue : kCFBooleanFalse,
                 kSecValueData as String: data as AnyObject,
-                kSecAttrAccessible as String: background ? kSecAttrAccessibleAlwaysThisDeviceOnly : kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
+                kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
                 ])
         } catch let error {
             NSLog("keychain setData error: \(error)")
