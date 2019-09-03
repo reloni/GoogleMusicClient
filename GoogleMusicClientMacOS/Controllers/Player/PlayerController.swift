@@ -81,7 +81,7 @@ final class PlayerController: NSViewController {
             player?.isPlaying.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] in self?.palyPauseImage = $0 ? NSImage.pause : NSImage.play }),
             currentProgressSlider.userSetValue.subscribe(onNext: { Current.currentState.state.player?.seek(to: $0) }),
             Current.currentTrack.map { $0 != nil }.subscribe(onNext: { [weak self] in self?.isCurrentProgressChangeEnabled = $0 }),
-            player?.errors.subscribe(onNext: { Current.dispatch(UIAction.showErrorController($0)) }),
+            player?.errors.subscribe(onNext: { Current.dispatch(PlayerAction.stop); Current.dispatch(UIAction.showErrorController($0)) }),
             bindProgress(),
             albumImage.rx.clicked.subscribe(onNext: { [weak albumImage] _ in Current.dispatch(UIAction.showAlbumPreviewPopover(albumImage!)) }),
             albumImage.rx.mouseEntered.subscribe(onNext: { [weak albumImage] _ in albumImage?.scaleUp(by: 1.25) }),
