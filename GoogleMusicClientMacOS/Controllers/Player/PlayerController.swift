@@ -151,6 +151,7 @@ final class PlayerController: NSViewController {
     }
     
     @objc func errorLogEntry() {
+        Current.dispatch(PlayerAction.stop)
         os_log(.default, log: .general, "Player errorLogEntry")
     }
     
