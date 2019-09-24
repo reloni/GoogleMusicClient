@@ -34,8 +34,11 @@ extension RxDataFlowController where State == AppState {
     
     var currentTrackImage: Observable<NSImage> {
         return currentTrack
-            .compactMap { $0?.track }
-            .flatMapLatest { [client = currentState.state.client] in client?.downloadAlbumArt($0).catchErrorJustReturn(nil) ?? .just(nil) }
+            .map { $0?.track }
+            .flatMapLatest { [client = currentState.state.client] track -> Single<Data?> in
+                guard let client = client else { return .just(nil) }
+                return track.map { client.downloadAlbumArt($0).catchErrorJustReturn(nil) } ?? .just(nil)
+            }
             .map { NSImage($0) ?? NSImage.album }
             .asObservable()
             .startWith(NSImage.album)
@@ -58,7 +61,7 @@ extension NSView {
             context.allowsImplicitAnimation = true
             context.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
             self.animator().layer?.setAffineTransform(CGAffineTransform(scaleX: scale, y: scale))
-            self.animator().layer!.frame.origin = CGPoint(x: self.frame.origin.x - ((self.layer!.frame.width - prevWidth) / 2),
+            self.animator().layer?.frame.origin = CGPoint(x: self.frame.origin.x - ((self.layer!.frame.width - prevWidth) / 2),
                                                           y: self.frame.origin.y - ((self.layer!.frame.height - prevHeight) / 2))
         }, completionHandler: nil)
     }
@@ -71,7 +74,7 @@ extension NSView {
             context.allowsImplicitAnimation = true
             context.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
             self.layer?.setAffineTransform(.identity)
-            self.animator().layer!.frame.origin = CGPoint(x: self.layer!.frame.origin.x + ((prevWidth - self.layer!.frame.width) / 2),
+            self.animator().layer?.frame.origin = CGPoint(x: self.layer!.frame.origin.x + ((prevWidth - self.layer!.frame.width) / 2),
                                                          y: self.layer!.frame.origin.y + ((prevHeight - self.layer!.frame.height) / 2))
         }, completionHandler: nil)
     }
