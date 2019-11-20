@@ -13,21 +13,8 @@ import RxSwift
 final class SystemController: NSViewController, ViewWithBottomBorder {
     @IBOutlet weak var progressIndicator: NSProgressIndicator!
     
-    let bag = DisposeBag()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        Current.state
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] state in
-                switch state.setBy {
-                case UIAction.showProgressIndicator: self?.toggleProgressIndicator(true)
-                case UIAction.hideProgressIndicator: self?.toggleProgressIndicator(false)
-                default: break
-                }
-            })
-            .disposed(by: bag)
         
         addBottomBorder(to: view)
     }

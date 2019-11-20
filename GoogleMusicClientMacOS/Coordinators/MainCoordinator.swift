@@ -50,6 +50,8 @@ extension MainCoordinator: ApplicationCoordinator {
         case UIAction.showErrorController(let e): showError(e)
         case UIAction.hideErrorController: hideError()
         case UIAction.showAlbumPreviewPopover(let view): showAlbumPreviewPopover(for: view, currentState: currentState)
+        case UIAction.showProgressIndicator: systemController.toggleProgressIndicator(true)
+        case UIAction.hideProgressIndicator: systemController.toggleProgressIndicator(false)
         default: break
         }
         
